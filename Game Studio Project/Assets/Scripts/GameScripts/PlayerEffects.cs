@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerInput : MonoBehaviour
+public class PlayerEffects : MonoBehaviour
 {
 
     private PlayerMaster playerMaster;
@@ -18,28 +18,14 @@ public class PlayerInput : MonoBehaviour
         PlayerMaster = master;
     }
 
-    
-
-    // put your variables for player input here
 
 
-    public void Initialise ()
+    // put your variables for player effects here
+
+    public void Initialise()
     {
 
         // initialise variables
 
     }
-
-    private void FixedUpdate()
-    {
-        
-        //example:
-        if (Input.GetMouseButtonDown(0))
-        {
-            PlayerMaster.Controller.Fire();
-        }
-
-
-    }
-
 }

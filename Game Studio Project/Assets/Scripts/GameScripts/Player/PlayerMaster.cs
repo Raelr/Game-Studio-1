@@ -9,7 +9,7 @@ public class PlayerMaster : MonoBehaviour
     private PlayerController controller;
     private PlayerInput input;
     private PlayerEffects effects;
-
+    private PlayerPhysics physics;
 
     // properties (access these)
     public GameMaster GameMaster
@@ -48,6 +48,14 @@ public class PlayerMaster : MonoBehaviour
         {
             effects = value;
             effects.SetupPlayerMasterReference(this);
+        }
+    }
+
+    public PlayerPhysics Physics {
+
+        get { return physics; }
+        set {
+            physics = value;
         }
     }
 

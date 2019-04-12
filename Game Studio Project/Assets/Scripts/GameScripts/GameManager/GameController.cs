@@ -2,9 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameController : MonoBehaviour
-{
+public class GameController : MonoBehaviour {
     private GameMaster gameMaster;
+
+    PlayerMaster playerMaster;
+
+    PlayerMaster PlayerMaster {
+
+        get { return playerMaster; }
+        set {
+
+            playerMaster = value;
+            SubscribePlayerDelegates();
+
+        }
+    }
+
+    public GameSpawner Spawner { get { return GameMaster.Spawner; } }
 
     public GameMaster GameMaster
     {
@@ -26,10 +40,12 @@ public class GameController : MonoBehaviour
         // GameMaster.Spawner.Initialise()
 
         GameMaster.Spawner.Initialise();
-        
+        PlayerMaster = Spawner.SpawnPlayer();
+
+        // Add new script: GameData script to store all important data points.
     }
 
+    void SubscribePlayerDelegates() {
 
-    
-
+    }
 }

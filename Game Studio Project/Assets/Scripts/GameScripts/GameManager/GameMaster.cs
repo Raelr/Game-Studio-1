@@ -11,8 +11,6 @@ public class GameMaster : MonoBehaviour
     private GameController controller;
     private GameSpawner spawner;
 
-
-
     // properties (access these)
     public GameController Controller
     {
@@ -34,8 +32,6 @@ public class GameMaster : MonoBehaviour
         }
     }
 
-    
-
     void Start()
     {
         SetupReferences();
@@ -47,8 +43,5 @@ public class GameMaster : MonoBehaviour
         Controller = GetComponent<GameController>();
         Spawner = GetComponent<GameSpawner>();
     }
-
-
-
 
 }

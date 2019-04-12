@@ -18,7 +18,11 @@ public abstract class Master : InitialisedEntity
     }
 
     // Abstract class for handling input from another script (such as the Input Manager)
-    public virtual void ProcessInput() {
+    public virtual void ClickEvent() {
+
+    }
+
+    public virtual void MoveToward(Vector3 moveDirection) {
 
     }
 }

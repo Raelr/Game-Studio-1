@@ -11,6 +11,7 @@ namespace AlternativeArchitecture {
         [SerializeField]
         AlternativeArchitecture.GameSpawner spawner;
 
+        // Sets up all references and sets up the components.
         private void Awake() {
 
             SetUpReferences();
@@ -18,11 +19,13 @@ namespace AlternativeArchitecture {
             InitialiseAll();
         }
 
+        // Initialises the actual object (only after all others have been set up)
         private void Start() {
 
             Initialise();
         }
 
+        // Initialises variables and sets delegates.
         public override void Initialise() {
 
             base.Initialise();

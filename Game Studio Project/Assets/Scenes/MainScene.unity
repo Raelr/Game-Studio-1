@@ -4946,7 +4946,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1536365552}
   m_Layer: 0
-  m_Name: Aryeh'sArchitecture
+  m_Name: Managers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4965,7 +4965,7 @@ Transform:
   m_Children:
   - {fileID: 1921487153}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1916932579
 GameObject:
@@ -5049,7 +5049,7 @@ Transform:
   m_Children:
   - {fileID: 725077415}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1916932583
 MonoBehaviour:

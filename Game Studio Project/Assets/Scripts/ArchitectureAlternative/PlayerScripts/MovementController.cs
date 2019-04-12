@@ -19,4 +19,10 @@ public class MovementController : InitialisedEntity {
 
         physics.Initialise();
     }
+
+    // Makes all calculations for the physics and applies force via the physics component.
+    public void MoveEntity(Vector3 velocity) {
+
+        physics.AddForce(velocity);
+    }
 }

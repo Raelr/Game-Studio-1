@@ -26,6 +26,10 @@ namespace AlternativeArchitecture {
 
         public event OnClickHandler onClick;
 
+        public delegate void UpdateEventHandler(Vector3 velocity);
+
+        public event UpdateEventHandler updateEvent;
+
         private void Awake() {
 
             SetUpReferences();
@@ -44,6 +48,8 @@ namespace AlternativeArchitecture {
             base.Initialise();
 
             onClick += projectiles.FireProjectile;
+
+            updateEvent += movementController.MoveEntity;
         }
 
         // Initialises all components underneath master.
@@ -71,9 +77,14 @@ namespace AlternativeArchitecture {
         }
 
         // Processes all user (or script based) input.
-        public override void ProcessInput() {
+        public override void ClickEvent() {
 
             onClick?.Invoke();
+        }
+
+        public override void MoveToward(Vector3 mouseCoordinates) {
+
+            updateEvent?.Invoke(mouseCoordinates);
         }
     }
 }

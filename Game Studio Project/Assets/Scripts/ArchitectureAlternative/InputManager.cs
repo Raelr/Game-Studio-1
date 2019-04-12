@@ -21,12 +21,21 @@ public class InputManager : MonoBehaviour
         GetMouseInput();
     }
 
+    // Listens for input.
     void GetMouseInput() {
 
         if (Input.GetKeyDown(KeyCode.Mouse0)) {
 
             // Call the master's input delegate.
-            master.ProcessInput();
+            master.ClickEvent();
         }
+
+        master.MoveToward(GetMousePosition());
+    }
+
+    // Gets the mouse position and returns its screen point.
+    Vector3 GetMousePosition() {
+
+        return Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, -10.0f));
     }
 }

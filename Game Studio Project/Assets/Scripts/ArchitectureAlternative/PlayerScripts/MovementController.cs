@@ -10,8 +10,12 @@ public class MovementController : InitialisedEntity {
     [SerializeField]
     PhysicsController physics;
 
-    // Initialises all variables and gets the physics component. 
-    public override void Initialise() {
+	[Header("Physics Properties")]
+	private float force = 1f;
+	private float maxDistance = 8;
+
+	// Initialises all variables and gets the physics component. 
+	public override void Initialise() {
 
         base.Initialise();
 
@@ -21,8 +25,24 @@ public class MovementController : InitialisedEntity {
     }
 
     // Makes all calculations for the physics and applies force via the physics component.
-    public void MoveEntity(Vector3 velocity) {
+    public void MoveEntity(Vector2 targetPos) {
+		targetPos *= -1;
+		targetPos.y += 2;
 
-        physics.AddForce(velocity);
+		float dist = Vector3.Distance(targetPos, transform.position);
+		Vector2 dir = GetDirection(transform.position, targetPos);
+		Vector2 velocity = dir * (force * (dist / maxDistance));
+		transform.position += new Vector3(velocity.x, velocity.y, 0);
+
+		physics.AddForce(velocity);
     }
+
+	/// <summary>
+	/// Gets the direction of point A to B.
+	/// </summary>
+	/// <returns>The direction of two points</returns>
+	private Vector2 GetDirection(Vector2 a, Vector2 b) {
+		return (b - a).normalized;
+	}
+
 }

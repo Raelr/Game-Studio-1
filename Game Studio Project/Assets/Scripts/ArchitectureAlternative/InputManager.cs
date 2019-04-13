@@ -36,6 +36,6 @@ public class InputManager : MonoBehaviour
     // Gets the mouse position and returns its screen point.
     Vector3 GetMousePosition() {
 
-        return Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, -10.0f));
+		return Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, -10.0f));
     }
 }

@@ -6,9 +6,13 @@ namespace AlternativeArchitecture {
 
     public class GameSpawner : InitialisedEntity {
 
-        [Header("Player prefab")]
+        [Header("Prefab References")]
         [SerializeField]
         PlayerMaster player = null;
+        
+        [Header("Script References")]
+        [SerializeField]
+        GamePooler pooler = null;
 
         public override void Initialise() {
 
@@ -18,9 +22,12 @@ namespace AlternativeArchitecture {
         }
 
         public void SpawnPlayer() {
+            GameObject newPlayer = pooler.RetrieveOrCreate(ObjectType.PLAYER);
+        }
 
-            Instantiate(player);
-
+        public void SpawnObject(ObjectType objectType)
+        {
+           GameObject spawnedObject = pooler.RetrieveOrCreate(objectType);
         }
     }
 }

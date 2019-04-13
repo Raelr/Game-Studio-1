@@ -30,19 +30,11 @@ public class MovementController : InitialisedEntity {
 		targetPos.y += 2;
 
 		float dist = Vector3.Distance(targetPos, transform.position);
-		Vector2 dir = GetDirection(transform.position, targetPos);
+		Vector2 dir = GlobalMethods.GetDirection(transform.position, targetPos);
 		Vector2 velocity = dir * (force * (dist / maxDistance));
 		transform.position += new Vector3(velocity.x, velocity.y, 0);
 
 		physics.AddForce(velocity);
     }
-
-	/// <summary>
-	/// Gets the direction of point A to B.
-	/// </summary>
-	/// <returns>The direction of two points</returns>
-	private Vector2 GetDirection(Vector2 a, Vector2 b) {
-		return (b - a).normalized;
-	}
 
 }

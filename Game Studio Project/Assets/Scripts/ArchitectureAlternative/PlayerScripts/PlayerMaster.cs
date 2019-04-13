@@ -26,7 +26,7 @@ namespace AlternativeArchitecture {
 
         public event OnClickHandler onClick;
 
-        public delegate void UpdateEventHandler(Vector3 velocity);
+        public delegate void UpdateEventHandler(Vector2 velocity);
 
         public event UpdateEventHandler updateEvent;
 
@@ -82,7 +82,7 @@ namespace AlternativeArchitecture {
             onClick?.Invoke();
         }
 
-        public override void MoveToward(Vector3 mouseCoordinates) {
+        public override void MoveToward(Vector2 mouseCoordinates) {
 
             updateEvent?.Invoke(mouseCoordinates);
         }

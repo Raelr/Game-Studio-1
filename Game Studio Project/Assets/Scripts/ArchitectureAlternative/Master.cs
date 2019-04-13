@@ -22,7 +22,7 @@ public abstract class Master : InitialisedEntity
 
     }
 
-    public virtual void MoveToward(Vector3 moveDirection) {
+    public virtual void MoveToward(Vector2 moveDirection) {
 
     }
 }

@@ -25,6 +25,7 @@ public class PhysicsController : InitialisedEntity
     // Adds force to the object in question.
     public void AddForce(Vector3 velocity) {
 
-        Debug.Log(velocity);
+		entityRigidbody.velocity = velocity;
     }
+
 }

@@ -25,7 +25,8 @@ namespace AlternativeArchitecture
             {
                 spawnCounter = 0;
                 GameObject newObject = spawner.SpawnObject(ObjectType.OBSTACLE_SPHERE);
-                newObject.Show();
+                if (newObject.isNotNull())
+                    newObject.Show();
             }
             spawnCounter += Time.deltaTime;
         }

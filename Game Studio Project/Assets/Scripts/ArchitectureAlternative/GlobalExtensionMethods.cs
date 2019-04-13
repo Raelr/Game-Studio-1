@@ -8,6 +8,10 @@ public static class GlobalExtensionMethods
     {
         return obj == null;
     }
+    public static bool isNotNull(this GameObject obj)
+    {
+        return obj != null;
+    }
 
     public static void Hide(this GameObject obj)
     {

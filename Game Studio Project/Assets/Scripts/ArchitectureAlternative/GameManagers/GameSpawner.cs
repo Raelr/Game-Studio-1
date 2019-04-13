@@ -18,36 +18,20 @@ namespace AlternativeArchitecture {
 
             base.Initialise();
 
-            SpawnPlayer();
+            PlayerMaster newPlayer = SpawnPlayer();
+            newPlayer.gameObject.Show();
+
+            // perhaps do something with the new playermaster reference (e.g. store it into data somewhere)
         }
 
-        public void SpawnPlayer() {
-            GameObject newPlayer = pooler.RetrieveOrCreate(ObjectType.PLAYER);
-            newPlayer.Show();
+        public PlayerMaster SpawnPlayer() {
+            return pooler.RetrieveOrCreate(ObjectType.PLAYER).GetComponent<PlayerMaster>();
         }
 
-        public void SpawnObject(ObjectType objectType)
+        public GameObject SpawnObject(ObjectType objectType)
         {
-           GameObject spawnedObject = pooler.RetrieveOrCreate(objectType);
+           return pooler.RetrieveOrCreate(objectType);
         }
-
-
-
-
-
-
-        // placeholder script for spawning objects over time
-        private float spawnCounter, spawnRate = 1;
-        private void FixedUpdate()
-        {
-            if (spawnCounter > spawnRate)
-            {
-                spawnCounter = 0;
-                SpawnObject(ObjectType.OBSTACLE_SPHERE);
-            }
-            spawnCounter += Time.deltaTime;
-        }
-
 
     }
 }

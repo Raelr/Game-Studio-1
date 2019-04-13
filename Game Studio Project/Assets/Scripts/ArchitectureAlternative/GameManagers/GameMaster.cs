@@ -6,10 +6,9 @@ using AlternativeArchitecture;
 namespace AlternativeArchitecture {
 
     public class GameMaster : Master {
-
-        [Header("Spawner")]
-        [SerializeField]
-        AlternativeArchitecture.GameSpawner spawner;
+       
+        private AlternativeArchitecture.GameSpawner spawner;
+        private AlternativeArchitecture.GameProgression progression;
 
         // Sets up all references and sets up the components.
         private void Awake() {
@@ -36,6 +35,7 @@ namespace AlternativeArchitecture {
             base.InitialiseAll();
 
             spawner.Initialise();
+            progression.Initialise();
         }
 
         public override void SetUpReferences() {
@@ -43,6 +43,7 @@ namespace AlternativeArchitecture {
             base.SetUpReferences();
 
             spawner = GetComponent<GameSpawner>();
+            progression = GetComponent<GameProgression>();
         }
     }
 }

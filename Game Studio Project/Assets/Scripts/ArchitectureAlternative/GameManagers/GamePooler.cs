@@ -14,6 +14,12 @@ namespace AlternativeArchitecture
 
     public class GamePooler : InitialisedEntity
     {
+
+        public enum PoolingFlags
+        {
+            POSITION_TO_ZERO
+        }
+
         public enum RetrieveMethod
         {
             BOTTOM  //retrieves from the bottom to the top of the list
@@ -34,6 +40,7 @@ namespace AlternativeArchitecture
             public ObjectType objectType;
             public GameObject objectPrefab;
             public int maxCount;
+            public List<PoolingFlags> poolingFlags; //flags that action when you retrieve/create the object
         }
 
         [SerializeField]
@@ -88,7 +95,20 @@ namespace AlternativeArchitecture
             //sets the availability to occupied now that the specific object is being used
             SetAvailabilityInPool(objectType, getObject.retrievedObject, PoolingAvailability.OCCUPIED);
 
+            //do any pooling flags that the object settings define
+            List<PoolingFlags> poolingFlags = GetSettingsFlags(objectType);
+            if (getObject.retrievedObject.isNotNull() && poolingFlags.Count > 0)
+            {
+                DoFlags(getObject, poolingFlags);
+            }
+
             return getObject.retrievedObject;
+        }
+
+        private void DoFlags (RetrievedObjectData getObject, List<PoolingFlags> flags)
+        {
+            if (flags.Contains(PoolingFlags.POSITION_TO_ZERO))
+                getObject.retrievedObject.transform.position = Vector3.zero;
         }
 
         // recycle this object into the pool
@@ -237,6 +257,11 @@ namespace AlternativeArchitecture
             if (pool.ContainsKey(key))
                 return pool[key].objects.Count;
             return 0;
+        }
+
+        private List<PoolingFlags> GetSettingsFlags(ObjectType key)
+        {
+            return GetObjectSetting(key).poolingFlags;
         }
 
         private int GetSettingsMaxCount(ObjectType key)

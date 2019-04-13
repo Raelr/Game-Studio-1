@@ -35,6 +35,7 @@ namespace AlternativeArchitecture
             public GameObject objectPrefab;
             public int maxCount;
         }
+
         [SerializeField]
         public List<PooledObjectSetting> poolSettings = new List<PooledObjectSetting>();
 
@@ -60,6 +61,14 @@ namespace AlternativeArchitecture
         public Dictionary<ObjectType, PooledObjectTypeData> pool = new Dictionary<ObjectType, PooledObjectTypeData>();
 
 
+
+        public struct RetrievedObjectData
+        {
+            public GameObject retrievedObject;
+            public bool allowSpawning;
+        }
+
+
         public override void Initialise()
         {
             base.Initialise();
@@ -67,16 +76,19 @@ namespace AlternativeArchitecture
 
         public GameObject RetrieveOrCreate (ObjectType objectType)
         {
-            GameObject getObject = Retrieve(objectType, RetrieveMethod.BOTTOM);
+            RetrievedObjectData getObject = Retrieve(objectType, RetrieveMethod.BOTTOM);
+
+            //if the pooler did not find an object, and does not allow spawning anymore objects in to replace it, return a null object
+            if (!getObject.allowSpawning) return null;
 
             //if it cannot be retrieved because the object pooler requires it to be instantiated
-            if (getObject.isNull())
-                getObject = Create(objectType);
+            if (getObject.retrievedObject.isNull())
+                getObject = new RetrievedObjectData() { retrievedObject = Create(objectType) };
 
             //sets the availability to occupied now that the specific object is being used
-            SetAvailabilityInPool(objectType, getObject, PoolingAvailability.OCCUPIED);
+            SetAvailabilityInPool(objectType, getObject.retrievedObject, PoolingAvailability.OCCUPIED);
 
-            return getObject;
+            return getObject.retrievedObject;
         }
 
         // recycle this object into the pool
@@ -89,15 +101,21 @@ namespace AlternativeArchitecture
 
 
         // checks whether it can receive the object from the pool
-        private GameObject Retrieve (ObjectType objectType, RetrieveMethod method)
+        private RetrievedObjectData Retrieve (ObjectType objectType, RetrieveMethod method)
         {
             // retrieve nothing if the pool doesn't even have an entry for that object type
             if (!pool.ContainsKey(objectType))
-                return null;
+            {
+                Debug.Log("[POOLER] No entry exists for " + objectType);
+                return new RetrievedObjectData() { allowSpawning = true };
+            }
 
             // retrieve nothing if the pool for that object type hasn't been filled to the brim
             if (GetPoolCount(objectType) < GetSettingsMaxCount(objectType))
-                return null;
+            {
+                Debug.Log("[POOLER] " + objectType + " is not at max capacity yet  ("+ GetPoolCount(objectType)  + " < " + GetSettingsMaxCount(objectType) + ")");
+                return new RetrievedObjectData() { allowSpawning = true };
+            }
 
             switch (method)
             {
@@ -107,19 +125,21 @@ namespace AlternativeArchitecture
                     {
                         PooledObjectData pooledObjectData = pool[objectType].objects[i];
                         if (pooledObjectData.availability == PoolingAvailability.POOLED)
-                            return pooledObjectData.pooledObject;
+                            return new RetrievedObjectData() { retrievedObject = pooledObjectData.pooledObject };
                     }
-                    Debug.Log("All " + objectType + " objects are currently being used in game");
-                    return null;
+                    Debug.Log("[POOLER] All " + objectType + " objects are currently being used in game");
+                    return new RetrievedObjectData() { allowSpawning = false };
             }
 
             // if the pooling method used is undefined / null
-            Debug.LogError("Unknown pool retrieving method");
-            return null;
+            Debug.LogError("[POOLER] Unknown pool retrieving method");
+            return new RetrievedObjectData () { allowSpawning = false };
         }
 
         private GameObject Create(ObjectType objectType)
         {
+            Debug.Log("[POOLER] Creating new " + objectType);
+
             //instanties the object based off the prefab in the settings
             GameObject newObject = Instantiate(GetSettingsPrefab(objectType));
 
@@ -128,6 +148,8 @@ namespace AlternativeArchitecture
 
             //adds the object to the pool
             AddToPool(objectType, newObject);
+
+            Debug.Log("[POOLER] " + objectType + " now has " + GetPoolCount(objectType) + " object");
 
             //returns it
             return newObject;
@@ -204,7 +226,7 @@ namespace AlternativeArchitecture
                 if (pooledObjectData.pooledObject == objectKey)
                     return objectDataList.IndexOf(pooledObjectData);
 
-            Debug.LogError("Cannot find the object: " + objectKey + " in the list of objects for the entry: " + entry);
+            Debug.LogError("[POOLER] Cannot find the object: " + objectKey + " in the list of objects for the entry: " + entry);
             return -1;
         }
         
@@ -232,7 +254,7 @@ namespace AlternativeArchitecture
             foreach (PooledObjectSetting objectSetting in poolSettings)
                 if (objectSetting.objectType == key)
                     return objectSetting;
-            Debug.LogError("Cannot find setting with Object Type: " + key);
+            Debug.LogError("[POOLER] Cannot find setting with Object Type: " + key);
             return new PooledObjectSetting();
         }
     }

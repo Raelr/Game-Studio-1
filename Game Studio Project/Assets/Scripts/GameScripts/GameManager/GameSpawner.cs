@@ -8,7 +8,7 @@ public class GameSpawner : MonoBehaviour
 
     [Header("Player Prefab")]
     [SerializeField]
-    private PlayerMaster playerMaster;
+    private PlayerMaster playerMaster = null;
 
     public GameMaster GameMaster
     {

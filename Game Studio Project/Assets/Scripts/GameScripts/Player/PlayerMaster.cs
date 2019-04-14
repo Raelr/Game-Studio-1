@@ -7,7 +7,7 @@ public class PlayerMaster : MonoBehaviour
     // variables
     private GameMaster gameMaster;
     private PlayerController controller;
-    private PlayerData data;
+    private PlayerLives lives;
     private PlayerInput input;
     private PlayerEffects effects;
     private PlayerPhysics physics;
@@ -31,12 +31,12 @@ public class PlayerMaster : MonoBehaviour
             controller.SetupPlayerMasterReference(this);
         }
     }
-    
-    public PlayerData Data {
-        get { return data; }
+
+    public PlayerLives Lives {
+        get { return lives; }
         set {
-            data = value;
-            data.SetupPlayerMasterReference(this);
+            lives = value;
+            lives.SetupPlayerMasterReference(this);
         }
     }
 
@@ -65,6 +65,7 @@ public class PlayerMaster : MonoBehaviour
         get { return physics; }
         set {
             physics = value;
+            physics.SetupPlayerMasterReference(this);
         }
     }
 
@@ -91,6 +92,8 @@ public class PlayerMaster : MonoBehaviour
         Controller = GetComponent<PlayerController>();
         Input = GetComponent<PlayerInput>();
         Effects = GetComponent<PlayerEffects>();
+        Lives = GetComponent<PlayerLives>();
+        Physics = GetComponent<PlayerPhysics>();
     }
 
 

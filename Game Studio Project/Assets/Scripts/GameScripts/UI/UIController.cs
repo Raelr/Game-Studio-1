@@ -18,7 +18,7 @@ public class UIController : MonoBehaviour
 
     public void InitialiseAll ()
     {
-        Master.Time.Initialise();
-        Master.Lives.Initialise();
+        UIMaster.instance.Lives.Initialise();
+        UIMaster.instance.Time.Initialise();      
     }
 }

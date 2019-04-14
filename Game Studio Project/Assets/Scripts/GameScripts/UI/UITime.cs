@@ -17,6 +17,7 @@ public class UITime : MonoBehaviour
     }
 
     //put variables here
+    private Canvas timeCanvas;
 
     public void Initialise()
     {

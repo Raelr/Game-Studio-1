@@ -5,17 +5,12 @@ using UnityEngine;
 public class UIMaster : MonoBehaviour
 {
     //variables
-    private PlayerMaster playerMaster;
+    public static UIMaster instance;
     private UIController controller;
     private UITime time;
     private UILives lives;
 
     //properties (access these)
-    public PlayerMaster PlayerMaster {
-        get { return playerMaster; }
-        set { playerMaster = value; }
-    }
-
     public UIController Controller {
         get { return controller; }
         set {
@@ -40,19 +35,20 @@ public class UIMaster : MonoBehaviour
         }
     }
 
-    public void Setup(PlayerMaster master) {
-        SetupPlayerMasterReference(master);
+    public void Setup() {
         SetupReferences();
         Controller.InitialiseAll();
     }
 
-    private void SetupPlayerMasterReference(PlayerMaster master) {
-        playerMaster = master;
-    }
-
     private void SetupReferences() {
-        controller = GetComponent<UIController>();
         time = GetComponent<UITime>();
         lives = GetComponent<UILives>();
+        controller = GetComponent<UIController>();
+    }
+
+    private void Awake()
+    {
+        instance = this;
+        Setup();
     }
 }

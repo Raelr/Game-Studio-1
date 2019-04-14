@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour
         // initialises all the scripts attached to the spaceship
         PlayerMaster.Input.Initialise();
         PlayerMaster.Effects.Initialise();
-        
+        PlayerMaster.Lives.Initialise();
     }
 
     
@@ -65,5 +65,9 @@ public class PlayerController : MonoBehaviour
 
     }
 
-
+    public void Hit()
+    {
+        playerMaster.Lives.DecreaseLives();
+        UIMaster.instance.Lives.ShowLives(playerMaster.Lives.GetLives());
+    }
 }

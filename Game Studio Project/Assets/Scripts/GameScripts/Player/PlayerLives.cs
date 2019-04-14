@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerData : MonoBehaviour
+public class PlayerLives : MonoBehaviour
 {
     private PlayerMaster playerMaster;
 
@@ -18,11 +18,20 @@ public class PlayerData : MonoBehaviour
     }
 
     // put your variables for player data here
+    private int lives;
 
     public void Initialise()
     {
 
         // initialise variables
+        lives = 3;
     }
 
+    public int GetLives() {
+        return lives;
+    }
+
+    public void DecreaseLives() {
+        lives--;
+    }
 }

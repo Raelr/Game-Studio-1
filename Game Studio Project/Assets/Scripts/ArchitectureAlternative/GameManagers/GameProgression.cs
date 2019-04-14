@@ -44,7 +44,6 @@ namespace AlternativeArchitecture
 
         private void SpawnObstacle ()
         {
-            Debug.Log("spawning...");
             GameObject newObstacle = spawner.SpawnObject(ObjectType.OBSTACLE_SPHERE);
             if (newObstacle.isNull()) return;
 

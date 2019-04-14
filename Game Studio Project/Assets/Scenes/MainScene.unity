@@ -5193,7 +5193,7 @@ MonoBehaviour:
   - objectType: 1
     objectPrefab: {fileID: 1636532063854592851, guid: c51ec35f03f0c9a40b12836e2322ef37,
       type: 3}
-    maxCount: 5
+    maxCount: 100
     preload: 1
     poolingFlags: 00000000
 --- !u!114 &1921487157
@@ -5203,7 +5203,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1921487152}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ce1cf3253f101847951fd02920fe601, type: 3}
   m_Name: 
@@ -5233,4 +5233,4 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  spawnRate: 0.01
+  spawnRate: 0.1

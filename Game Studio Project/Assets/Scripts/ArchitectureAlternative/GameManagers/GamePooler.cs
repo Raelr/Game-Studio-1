@@ -94,7 +94,10 @@ namespace AlternativeArchitecture
         private void PreloadObjectType (PooledObjectSetting objectSetting)
         {
             for (int i = 0; i < objectSetting.maxCount; i++)
-                RetrieveOrCreate(objectSetting.objectType);
+            {
+                GameObject newObject = RetrieveOrCreate(objectSetting.objectType);
+                SetAvailabilityInPool(objectSetting.objectType, newObject, PoolingAvailability.POOLED);
+            }
         }
 
         public GameObject RetrieveOrCreate (ObjectType objectType)

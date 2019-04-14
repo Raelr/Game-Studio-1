@@ -40,6 +40,7 @@ namespace AlternativeArchitecture
             public ObjectType objectType;
             public GameObject objectPrefab;
             public int maxCount;
+            public bool preload;
             public List<PoolingFlags> poolingFlags; //flags that action when you retrieve/create the object
         }
 
@@ -79,12 +80,31 @@ namespace AlternativeArchitecture
         public override void Initialise()
         {
             base.Initialise();
+            
+            PreloadPool();
+        }
+
+        private void PreloadPool ()
+        {
+            foreach (PooledObjectSetting objectSetting in poolSettings)
+                if (objectSetting.preload)
+                    PreloadObjectType(objectSetting);
+        }
+
+        private void PreloadObjectType (PooledObjectSetting objectSetting)
+        {
+            for (int i = 0; i < objectSetting.maxCount; i++)
+                RetrieveOrCreate(objectSetting.objectType);
         }
 
         public GameObject RetrieveOrCreate (ObjectType objectType)
         {
             RetrievedObjectData getObject = Retrieve(objectType, RetrieveMethod.BOTTOM);
 
+            //if it found an object in the pooling list, return it and set it to occupied
+            if (getObject.retrievedObject.isNotNull())
+                return SetupRetrieved(objectType, getObject);
+            
             //if the pooler did not find an object, and does not allow spawning anymore objects in to replace it, return a null object
             if (!getObject.allowSpawning) return null;
 
@@ -92,6 +112,12 @@ namespace AlternativeArchitecture
             if (getObject.retrievedObject.isNull())
                 getObject = new RetrievedObjectData() { retrievedObject = Create(objectType) };
 
+            return SetupRetrieved(objectType, getObject);
+        }
+
+        //sets up the retrieved object in the pool
+        private GameObject SetupRetrieved (ObjectType objectType, RetrievedObjectData getObject)
+        {
             //sets the availability to occupied now that the specific object is being used
             SetAvailabilityInPool(objectType, getObject.retrievedObject, PoolingAvailability.OCCUPIED);
 

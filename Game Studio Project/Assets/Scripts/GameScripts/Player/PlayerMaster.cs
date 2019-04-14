@@ -7,6 +7,7 @@ public class PlayerMaster : MonoBehaviour
     // variables
     private GameMaster gameMaster;
     private PlayerController controller;
+    private PlayerData data;
     private PlayerInput input;
     private PlayerEffects effects;
     private PlayerPhysics physics;
@@ -31,6 +32,14 @@ public class PlayerMaster : MonoBehaviour
         }
     }
     
+    public PlayerData Data {
+        get { return data; }
+        set {
+            data = value;
+            data.SetupPlayerMasterReference(this);
+        }
+    }
+
     public PlayerInput Input
     {
         get { return input; }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UITime : MonoBehaviour
 {
@@ -17,10 +18,22 @@ public class UITime : MonoBehaviour
     }
 
     //put variables here
-    private Canvas timeCanvas;
+    private GameObject timeCanvas;
+    private Text timeText;
+    private float time;
 
     public void Initialise()
     {
         //initialise variables
+        timeCanvas = transform.Find("TimeCanvas").gameObject;
+        timeText = timeCanvas.transform.Find("TimeText").GetComponent<Text>();
+        time = 0;
     }
+
+    private void Update()
+    {
+        time += Time.deltaTime;
+        timeText.text = "Time: " + time.ToString("F2");
+    }
+
 }

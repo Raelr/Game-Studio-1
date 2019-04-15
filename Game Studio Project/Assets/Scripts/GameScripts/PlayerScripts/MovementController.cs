@@ -32,8 +32,8 @@ public class MovementController : InitialisedEntity {
 
     // Makes all calculations for the physics and applies force via the physics component.
     public void MoveEntity(Vector2 targetPos) {
-		targetPos *= -1;
-		targetPos.y += 2;
+	//	targetPos *= -1;
+	//	targetPos.y += 2;
 
 		float dist = Vector3.Distance(targetPos, transform.position);
 		Vector2 dir = GlobalMethods.GetDirection(transform.position, targetPos);

@@ -30,6 +30,7 @@ namespace AlternativeArchitecture
             rigid.velocity = Vector3.zero;
             transform.position = new Vector3(Random.Range(startMin.x, startMax.x), Random.Range(startMin.y, startMax.y), Random.Range(startMin.z, startMax.z));
             transform.Rotate(new Vector3(Random.Range(0, 360), Random.Range(0, 360), Random.Range(0, 360)));
+            transform.localScale = new Vector3(2, 2, 2);
             transform.localScale *= Random.Range(0.1f, 1f);
 
             gamePooler = pooler;

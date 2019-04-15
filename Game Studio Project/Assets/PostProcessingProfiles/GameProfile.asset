@@ -15,9 +15,10 @@ MonoBehaviour:
   settings:
   - {fileID: 114168096817125540}
   - {fileID: 114443344152979158}
-  - {fileID: 114242958367033122}
   - {fileID: 114758023191908978}
   - {fileID: 114218637312295230}
+  - {fileID: 114910435343634394}
+  - {fileID: 114245368758653330}
 --- !u!114 &114168096817125540
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -30,7 +31,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48a79b01ea5641d4aa6daa2e23605641, type: 3}
   m_Name: Bloom
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   enabled:
     overrideState: 1
     value: 1
@@ -99,7 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94488653724e0384d94b7a5e7bc68a14, type: 3}
   m_Name: Isoline
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   enabled:
     overrideState: 1
     value: 1
@@ -107,22 +108,22 @@ MonoBehaviour:
     overrideState: 0
     value: {x: 0, y: 1, z: 0}
   lineInterval:
-    overrideState: 1
+    overrideState: 0
     value: 0.1
   lineOffset:
     overrideState: 0
     value: 1.4
   lineScroll:
-    overrideState: 1
+    overrideState: 0
     value: 1
   lineColor:
-    overrideState: 1
+    overrideState: 0
     value: {r: 0.81238276, g: 0.07524317, b: 0, a: 1}
   lineWidth:
-    overrideState: 1
+    overrideState: 0
     value: 5.15
   sourceContribution:
-    overrideState: 1
+    overrideState: 0
     value: 0
   backgroundColor:
     overrideState: 0
@@ -136,6 +137,61 @@ MonoBehaviour:
   modulationWidth:
     overrideState: 0
     value: 0.723
+  modulationOffset:
+    overrideState: 0
+    value: 0
+  modulationScroll:
+    overrideState: 0
+    value: 1
+--- !u!114 &114245368758653330
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94488653724e0384d94b7a5e7bc68a14, type: 3}
+  m_Name: Isoline
+  m_EditorClassIdentifier: 
+  active: 1
+  enabled:
+    overrideState: 1
+    value: 1
+  baseAxis:
+    overrideState: 1
+    value: {x: 10, y: 10, z: 0}
+  lineInterval:
+    overrideState: 1
+    value: 10
+  lineOffset:
+    overrideState: 1
+    value: 1
+  lineScroll:
+    overrideState: 0
+    value: 0
+  lineColor:
+    overrideState: 0
+    value: {r: 1.5, g: 0.2, b: 0.2, a: 1}
+  lineWidth:
+    overrideState: 1
+    value: 5
+  sourceContribution:
+    overrideState: 0
+    value: 0
+  backgroundColor:
+    overrideState: 0
+    value: {r: 0, g: 0, b: 0, a: 0}
+  modulationStrength:
+    overrideState: 0
+    value: 0
+  modulationFrequency:
+    overrideState: 0
+    value: 0.1
+  modulationWidth:
+    overrideState: 0
+    value: 0.1
   modulationOffset:
     overrideState: 0
     value: 0
@@ -160,10 +216,10 @@ MonoBehaviour:
     value: 1
   focusDistance:
     overrideState: 1
-    value: 6.72
+    value: 5.2
   aperture:
     overrideState: 1
-    value: 2.3
+    value: 4.5
   focalLength:
     overrideState: 1
     value: 52
@@ -194,7 +250,33 @@ MonoBehaviour:
     value: 1
   size:
     overrideState: 1
-    value: 2.31
+    value: 4
   edgeWidth:
     overrideState: 1
     value: 1.9
+--- !u!114 &114910435343634394
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c960d159794a6654cb06f83b44cbd79f, type: 3}
+  m_Name: Refraction
+  m_EditorClassIdentifier: 
+  active: 0
+  enabled:
+    overrideState: 1
+    value: 1
+  amount:
+    overrideState: 1
+    value: 0.042
+  refractionTex:
+    overrideState: 1
+    value: {fileID: 2800000, guid: e6e68960b14431d469210a8ae1975456, type: 3}
+    defaultState: 1
+  convertNormalMap:
+    overrideState: 0
+    value: 0

@@ -80,6 +80,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   physics: {fileID: 0}
+  force: 10
+  maxDistance: 8
+  xBounds: 10
+  yBounds: 5
 --- !u!114 &506424735756477649
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -238,7 +242,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 120
   m_CollisionDetection: 0
 --- !u!114 &5114528360571583190
 MonoBehaviour:

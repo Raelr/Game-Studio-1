@@ -5193,7 +5193,7 @@ MonoBehaviour:
   - objectType: 1
     objectPrefab: {fileID: 1636532063854592851, guid: c51ec35f03f0c9a40b12836e2322ef37,
       type: 3}
-    maxCount: 100
+    maxCount: 0
     preload: 1
     poolingFlags: 00000000
 --- !u!114 &1921487157

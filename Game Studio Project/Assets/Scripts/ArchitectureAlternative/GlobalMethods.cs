@@ -27,4 +27,14 @@ public static class GlobalMethods {
 	public static bool WithinBounds(float value, float min, float max) {
 		return value > min && value < max;
 	}
+
+	/// <summary>
+	/// Returns the vector at a value of 1, retaining sign.
+	/// </summary>
+	/// <returns>The normalised direction.</returns>
+	public static Vector2 Normalise(Vector2 dir) {
+		int xValue = dir.x < 0 ? -1 : 1;
+		int yValue = dir.y < 0 ? -1 : 1;
+		return new Vector2(xValue, yValue);
+	}
 }

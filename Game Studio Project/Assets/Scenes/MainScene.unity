@@ -5193,7 +5193,7 @@ MonoBehaviour:
   - objectType: 1
     objectPrefab: {fileID: 1636532063854592851, guid: c51ec35f03f0c9a40b12836e2322ef37,
       type: 3}
-    maxCount: 0
+    maxCount: 1
     preload: 1
     poolingFlags: 00000000
 --- !u!114 &1921487157
@@ -5233,4 +5233,4 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  spawnRate: 0.1
+  spawnRate: 100

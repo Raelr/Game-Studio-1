@@ -12,15 +12,5 @@ public static class GlobalExtensionMethods
     {
         return obj != null;
     }
-
-    public static void Hide(this GameObject obj)
-    {
-        obj.SetActive(false);
-    }
-
-    public static void Show(this GameObject obj)
-    {
-        obj.SetActive(true);
-    }
    
 }

@@ -4,6 +4,14 @@ using UnityEngine;
 
 public static class GlobalMethods {
 
+	public static void Hide(this GameObject obj) {
+		obj.SetActive(false);
+	}
+
+	public static void Show(this GameObject obj) {
+		obj.SetActive(true);
+	}
+
 	/// <summary>
 	/// Gets the direction of point A to B.
 	/// </summary>

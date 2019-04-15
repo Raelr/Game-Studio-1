@@ -13,6 +13,14 @@ public class PhysicsController : InitialisedEntity
     [SerializeField]
     Rigidbody entityRigidbody;
 
+    [Header("Player Sensor")]
+    [SerializeField]
+    PlayerSensor collisionSensor;
+
+    public delegate void OnCollisionhandler();
+
+    public OnCollisionhandler onCollision;
+
     public override void Initialise() {
 
         base.Initialise();
@@ -20,6 +28,10 @@ public class PhysicsController : InitialisedEntity
         entityCollider = GetComponentInChildren<Collider>();
 
         entityRigidbody = GetComponentInChildren<Rigidbody>();
+
+        collisionSensor = GetComponentInChildren<PlayerSensor>();
+
+        collisionSensor.onCollision += OnPlayerHit;
     }
 
     // Adds force to the object in question.
@@ -28,4 +40,9 @@ public class PhysicsController : InitialisedEntity
 		entityRigidbody.velocity = velocity;
     }
 
+    public void OnPlayerHit() {
+
+        onCollision?.Invoke();
+
+    }
 }

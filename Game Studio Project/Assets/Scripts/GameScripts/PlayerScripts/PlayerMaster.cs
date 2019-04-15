@@ -68,6 +68,8 @@ namespace AlternativeArchitecture {
             projectiles.Initialise();
 
             playerProperties.Initialise();
+
+            movementController.onCollision += OnPlayerHit;
         }
 
         // Gets the approrpiate components for master. 
@@ -93,6 +95,11 @@ namespace AlternativeArchitecture {
         public override void MoveToward(Vector2 mouseCoordinates) {
 
             updateEvent?.Invoke(mouseCoordinates);
+        }
+
+        public void OnPlayerHit() {
+
+            playerProperties.DecrementLives();
         }
     }
 }

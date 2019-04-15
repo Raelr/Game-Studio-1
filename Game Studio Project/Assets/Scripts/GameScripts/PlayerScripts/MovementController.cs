@@ -5,6 +5,10 @@ using UnityEngine;
 // Handles all actions which the entity can take. This is an example of a player's specific controller.
 public class MovementController : InitialisedEntity {
 
+    public delegate void OnCollisionhandler();
+
+    public OnCollisionhandler onCollision;
+
     // The controller should keep track of all physics components (since it is the only component which needs to interface with physics)
     [Header("Physics")]
     [SerializeField]
@@ -22,6 +26,8 @@ public class MovementController : InitialisedEntity {
         physics = GetComponent<PhysicsController>();
 
         physics.Initialise();
+
+        physics.onCollision += onPlayerCollision;
     }
 
     // Makes all calculations for the physics and applies force via the physics component.
@@ -37,4 +43,8 @@ public class MovementController : InitialisedEntity {
 		physics.AddForce(velocity);
     }
 
+    public void onPlayerCollision() {
+
+        onCollision?.Invoke();
+    }
 }

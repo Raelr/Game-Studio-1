@@ -66,6 +66,7 @@ MonoBehaviour:
   movementController: {fileID: 0}
   particles: {fileID: 0}
   projectiles: {fileID: 0}
+  playerProperties: {fileID: 0}
 --- !u!114 &506424735756477652
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -143,6 +144,7 @@ GameObject:
   - component: {fileID: 3163162515591533657}
   - component: {fileID: 4451437010355776619}
   - component: {fileID: 5428055268287094382}
+  - component: {fileID: 5114528360571583190}
   m_Layer: 0
   m_Name: Visuals
   m_TagString: Player
@@ -238,3 +240,15 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &5114528360571583190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7340280926284695923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1218330f07274b47ab78770fa769236, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

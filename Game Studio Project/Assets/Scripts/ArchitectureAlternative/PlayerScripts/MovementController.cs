@@ -11,8 +11,15 @@ public class MovementController : InitialisedEntity {
     PhysicsController physics;
 
 	[Header("Physics Properties")]
-	private float force = 1f;
+	private float force = 12f;
 	private float maxDistance = 8;
+	private Vector3 lastPosition;
+
+	[Header("Player Bounds")]
+	private float xBounds = 10f;
+	private float yBounds = 6f;
+
+	private Transform player;
 
 	// Initialises all variables and gets the physics component. 
 	public override void Initialise() {
@@ -20,19 +27,24 @@ public class MovementController : InitialisedEntity {
         base.Initialise();
 
         physics = GetComponent<PhysicsController>();
-
+		player = transform.Find("Visuals");
         physics.Initialise();
     }
 
     // Makes all calculations for the physics and applies force via the physics component.
     public void MoveEntity(Vector2 targetPos) {
-	//	targetPos *= -1;
-	//	targetPos.y += 2;
+		//targetPos *= -1;
+		//targetPos.y += 2;
 
-		float dist = Vector3.Distance(targetPos, transform.position);
-		Vector2 dir = GlobalMethods.GetDirection(transform.position, targetPos);
+		float dist = Vector3.Distance(targetPos, player.position);
+		Vector2 dir = GlobalMethods.GetDirection(player.position, targetPos);
 		Vector2 velocity = dir * (force * (dist / maxDistance));
-		transform.position += new Vector3(velocity.x, velocity.y, 0);
+
+		Vector3 nextPosition = (Vector2)player.position + GlobalMethods.Normalise(dir);
+
+		//Clamps velocity to make sure player stays within the set bounds
+		velocity.x = GlobalMethods.WithinBounds(nextPosition.x, -xBounds, xBounds) ? velocity.x : 0;
+		velocity.y = GlobalMethods.WithinBounds(nextPosition.y, -yBounds, yBounds) ? velocity.y : 0;
 
 		physics.AddForce(velocity);
     }

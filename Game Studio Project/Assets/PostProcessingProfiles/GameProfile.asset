@@ -17,6 +17,7 @@ MonoBehaviour:
   - {fileID: 114443344152979158}
   - {fileID: 114758023191908978}
   - {fileID: 114218637312295230}
+  - {fileID: 114910435343634394}
 --- !u!114 &114168096817125540
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -197,3 +198,29 @@ MonoBehaviour:
   edgeWidth:
     overrideState: 1
     value: 1.9
+--- !u!114 &114910435343634394
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c960d159794a6654cb06f83b44cbd79f, type: 3}
+  m_Name: Refraction
+  m_EditorClassIdentifier: 
+  active: 0
+  enabled:
+    overrideState: 1
+    value: 1
+  amount:
+    overrideState: 1
+    value: 0.042
+  refractionTex:
+    overrideState: 1
+    value: {fileID: 2800000, guid: e6e68960b14431d469210a8ae1975456, type: 3}
+    defaultState: 1
+  convertNormalMap:
+    overrideState: 0
+    value: 0

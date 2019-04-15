@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: TestAsteroid3
+  m_Shader: {fileID: 4800000, guid: 3e8b17c9618a41944a3deda5b33df764, type: 3}
+  m_ShaderKeywords: V_SSS_ADVANCED_TRANSLUSENCY_ON V_SSS_NORMALIZE_DIFFUSE_COEF_ON
+    V_SSS_RIM_OFF
+  m_LightmapFlags: 5
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BumpMap:
+        m_Texture: {fileID: 2800000, guid: 3dcc141da7f5a7c4a8b1aad90566516d, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 6889003589099294ab972a6061c12d0d, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _TransMap:
+        m_Texture: {fileID: 2800000, guid: f95ea3425e4991e4a8f6ea1d94ff4d21, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _V_SSS_DisplaceTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 0.1, y: 0.1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _BumpSize: 2.1
+    - _LightAttenuationStrength: 2
+    - _NormalizeLightVector: 1
+    - _Shininess: 0.437
+    - _TransBackfaceIntensity: 0.55
+    - _TransDirectianalLightStrength: 0.2
+    - _TransDistortion: 0.41
+    - _TransOtherLightsStrength: 1
+    - _TransPower: 1
+    - _TransScale: 4
+    - _V_MaterialTag: 0
+    - _V_MaterialTitle_: 0
+    - _V_MaterialTitle_DX11: 0
+    - _V_MaterialTitle_Default: 0
+    - _V_MaterialTitle_SSS: 0
+    - _V_SSS_Displacement: 0
+    - _V_SSS_Emission: 0
+    - _V_SSS_Rim_Pow: 6.794643
+    - _V_SSS_Tessellation: 1
+    - _V_SSS_Tessellation_MaxDistance: 10
+    - _V_SSS_Tessellation_MinDistance: 1
+    m_Colors:
+    - _Color: {r: 0.8962264, g: 0.8755627, b: 0.7736294, a: 1}
+    - _SpecColor: {r: 0.14150941, g: 0.14150941, b: 0.14150941, a: 1}
+    - _TransColor: {r: 1, g: 0.14010851, b: 0, a: 1}
+    - _V_SSS_Rim_Color: {r: 0.106617644, g: 0.2661764, b: 0.85294116, a: 1}

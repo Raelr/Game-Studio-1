@@ -14,6 +14,9 @@ namespace AlternativeArchitecture {
         [SerializeField]
         GamePooler pooler = null;
 
+        [SerializeField]
+        CameraLookat camLookat = null;
+
         public override void Initialise() {
 
             base.Initialise();
@@ -22,6 +25,9 @@ namespace AlternativeArchitecture {
             newPlayer.gameObject.Show();
 
             // perhaps do something with the new playermaster reference (e.g. store it into data somewhere)
+
+            //place holder
+            camLookat.SetTarget(newPlayer.transform.GetChild(0));
         }
 
         public PlayerMaster SpawnPlayer() {

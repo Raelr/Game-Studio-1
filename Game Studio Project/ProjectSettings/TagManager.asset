@@ -5,6 +5,13 @@ TagManager:
   serializedVersion: 2
   tags:
   - Obstacle
+  - SpaceScene_PlanetRings
+  - SpaceScene_LocalStar
+  - SpaceScene_Nebula
+  - SpaceScene_Planet
+  - SpaceScene_Galaxy
+  - SpaceScene_Camera
+  - SpaceScene_Moon
   layers:
   - Default
   - TransparentFX
@@ -16,7 +23,7 @@ TagManager:
   - 
   - PostProcessing
   - GUI
-  - 
+  - PostProcessingGUI
   - 
   - 
   - 

@@ -18,7 +18,6 @@ MonoBehaviour:
   - {fileID: 114758023191908978}
   - {fileID: 114218637312295230}
   - {fileID: 114910435343634394}
-  - {fileID: 114245368758653330}
 --- !u!114 &114168096817125540
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -31,7 +30,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48a79b01ea5641d4aa6daa2e23605641, type: 3}
   m_Name: Bloom
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   enabled:
     overrideState: 1
     value: 1
@@ -143,61 +142,6 @@ MonoBehaviour:
   modulationScroll:
     overrideState: 0
     value: 1
---- !u!114 &114245368758653330
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94488653724e0384d94b7a5e7bc68a14, type: 3}
-  m_Name: Isoline
-  m_EditorClassIdentifier: 
-  active: 1
-  enabled:
-    overrideState: 1
-    value: 1
-  baseAxis:
-    overrideState: 1
-    value: {x: 10, y: 10, z: 0}
-  lineInterval:
-    overrideState: 1
-    value: 10
-  lineOffset:
-    overrideState: 1
-    value: 1
-  lineScroll:
-    overrideState: 0
-    value: 0
-  lineColor:
-    overrideState: 0
-    value: {r: 1.5, g: 0.2, b: 0.2, a: 1}
-  lineWidth:
-    overrideState: 1
-    value: 5
-  sourceContribution:
-    overrideState: 0
-    value: 0
-  backgroundColor:
-    overrideState: 0
-    value: {r: 0, g: 0, b: 0, a: 0}
-  modulationStrength:
-    overrideState: 0
-    value: 0
-  modulationFrequency:
-    overrideState: 0
-    value: 0.1
-  modulationWidth:
-    overrideState: 0
-    value: 0.1
-  modulationOffset:
-    overrideState: 0
-    value: 0
-  modulationScroll:
-    overrideState: 0
-    value: 1
 --- !u!114 &114443344152979158
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -219,10 +163,10 @@ MonoBehaviour:
     value: 5.2
   aperture:
     overrideState: 1
-    value: 4.5
+    value: 3.4
   focalLength:
     overrideState: 1
-    value: 52
+    value: 48
   kernelSize:
     overrideState: 1
     value: 1
@@ -266,7 +210,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c960d159794a6654cb06f83b44cbd79f, type: 3}
   m_Name: Refraction
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   enabled:
     overrideState: 1
     value: 1

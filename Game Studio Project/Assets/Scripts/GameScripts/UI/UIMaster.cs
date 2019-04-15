@@ -19,18 +19,23 @@ public class UIMaster : Master
 
     public UpdateEventHandler onUpdateEvent;
 
-    public delegate void PlayerHitHandler();
+    public delegate void UIEventChangeHandler(string description, int value);
 
-    public PlayerHitHandler onPlayerHit;
+    public UIEventChangeHandler onUIChange;
 
     private void Awake() {
 
 
         SetUpReferences();
 
+        instance = this;
+
+        onUpdateEvent += time.IncrementTime;
+
+        onUIChange += lives.UpdateText;
+
         InitialiseAll();
 
-        instance = this;
     }
 
     private void Start() {
@@ -41,7 +46,6 @@ public class UIMaster : Master
     private void Update() {
         
         if (gameStarted) {
-            Debug.Log("Update");
             onUpdateEvent?.Invoke();
         }
     }
@@ -51,10 +55,6 @@ public class UIMaster : Master
         base.Initialise();
 
         gameStarted = true;
-
-        onUpdateEvent += time.IncrementTime;
-
-        onPlayerHit += lives.DecrementLives;
     }
 
     public override void InitialiseAll() {

@@ -20,6 +20,10 @@ namespace AlternativeArchitecture {
         [SerializeField]
         ProjectileController projectiles;
 
+        [Header("Properties")]
+        [SerializeField]
+        PlayerProperties playerProperties;
+
         // Delegate for handling mouse click input. 
         // You'd need other delgates for other forms of input for the master (moving...etc)
         public delegate void OnClickHandler();
@@ -62,6 +66,8 @@ namespace AlternativeArchitecture {
             movementController.Initialise();
 
             projectiles.Initialise();
+
+            playerProperties.Initialise();
         }
 
         // Gets the approrpiate components for master. 
@@ -74,6 +80,8 @@ namespace AlternativeArchitecture {
             movementController = GetComponent<MovementController>();
 
             projectiles = GetComponent<ProjectileController>();
+
+            playerProperties = GetComponent<PlayerProperties>();
         }
 
         // Processes all user (or script based) input.

@@ -22,6 +22,7 @@ public class InputManager : MonoBehaviour
     }
 
     private void FixedUpdate() {
+
         GetMouseInput();
     }
 

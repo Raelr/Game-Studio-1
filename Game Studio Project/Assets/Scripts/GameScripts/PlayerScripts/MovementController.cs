@@ -15,7 +15,7 @@ public class MovementController : InitialisedEntity {
     PhysicsController physics;
 
 	[Header("Physics Properties")]
-	private float force = 12f;
+	private float force = 25f;
 	private float maxDistance = 8;
 	private Vector3 lastPosition;
 

@@ -15,7 +15,6 @@ MonoBehaviour:
   settings:
   - {fileID: 114168096817125540}
   - {fileID: 114443344152979158}
-  - {fileID: 114242958367033122}
   - {fileID: 114758023191908978}
   - {fileID: 114218637312295230}
 --- !u!114 &114168096817125540
@@ -30,7 +29,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48a79b01ea5641d4aa6daa2e23605641, type: 3}
   m_Name: Bloom
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   enabled:
     overrideState: 1
     value: 1
@@ -99,7 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94488653724e0384d94b7a5e7bc68a14, type: 3}
   m_Name: Isoline
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   enabled:
     overrideState: 1
     value: 1
@@ -107,22 +106,22 @@ MonoBehaviour:
     overrideState: 0
     value: {x: 0, y: 1, z: 0}
   lineInterval:
-    overrideState: 1
+    overrideState: 0
     value: 0.1
   lineOffset:
     overrideState: 0
     value: 1.4
   lineScroll:
-    overrideState: 1
+    overrideState: 0
     value: 1
   lineColor:
-    overrideState: 1
+    overrideState: 0
     value: {r: 0.81238276, g: 0.07524317, b: 0, a: 1}
   lineWidth:
-    overrideState: 1
+    overrideState: 0
     value: 5.15
   sourceContribution:
-    overrideState: 1
+    overrideState: 0
     value: 0
   backgroundColor:
     overrideState: 0

@@ -5187,18 +5187,15 @@ MonoBehaviour:
   - objectType: 0
     objectPrefab: {fileID: 506424735756477654, guid: a76fbc33999748843a52e88c67c4ba00,
       type: 3}
-    poolingFlags: 
     maxCount: 1
+    preload: 0
+    poolingFlags: 
   - objectType: 1
     objectPrefab: {fileID: 1636532063854592851, guid: c51ec35f03f0c9a40b12836e2322ef37,
       type: 3}
+    maxCount: 100
+    preload: 1
     poolingFlags: 00000000
-    maxCount: 10
-  - objectType: 2
-    objectPrefab: {fileID: 1636532063854592851, guid: c8f857f0207ac104bbe96bf58500e4a4,
-      type: 3}
-    poolingFlags: 00000000
-    maxCount: 5
 --- !u!114 &1921487157
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5212,3 +5209,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawner: {fileID: 1921487154}
+  spawnRateMultiplier:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spawnRate: 0.1

@@ -5231,10 +5231,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 826490703}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 537a91d1bf4aa3d43b3b4fc26988b080, type: 3}
+  m_Script: {fileID: 11500000, guid: 2c40bfe10ddd3a044919bdd81527683d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  livesText: {fileID: 1548386327}
+  speedText: {fileID: 1548386327}
 --- !u!1 &1188929107
 GameObject:
   m_ObjectHideFlags: 0

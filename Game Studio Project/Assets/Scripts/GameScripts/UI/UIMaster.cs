@@ -16,7 +16,7 @@ public class UIMaster : Master
     UITextController lives;
 
     [SerializeField]
-    UITextController speed;
+    UISpeed speed;
 
     public delegate void UpdateEventHandler();
 
@@ -25,6 +25,10 @@ public class UIMaster : Master
     public delegate void UIEventChangeHandler(string description, int value);
 
     public UIEventChangeHandler onUIChange;
+
+    public delegate void UpdateSpeedHandler(float amount);
+
+    public UpdateSpeedHandler onSpeedUpdate;
 
     private void Awake() {
 
@@ -35,6 +39,8 @@ public class UIMaster : Master
         onUpdateEvent += time.IncrementTime;
 
         onUIChange += lives.UpdateText;
+
+        onSpeedUpdate += speed.IncrementSpeed;
 
         InitialiseAll();
 
@@ -49,6 +55,7 @@ public class UIMaster : Master
         
         if (gameStarted) {
             onUpdateEvent?.Invoke();
+            onSpeedUpdate.Invoke(0.1f);
         }
     }
 
@@ -66,6 +73,8 @@ public class UIMaster : Master
         time.Initialise();
 
         lives.Initialise();
+
+        speed.Initialise();
     }
 
     public override void SetUpReferences() {
@@ -74,10 +83,8 @@ public class UIMaster : Master
 
         time = GetComponent<UITime>();
 
-        UITextController[] UITexts = GetComponents<UITextController>();
+        lives = GetComponent<UITextController>();
 
-        lives = UITexts[0];
-
-        speed = UITexts[1];
+        speed = GetComponent<UISpeed>();
     }
 }

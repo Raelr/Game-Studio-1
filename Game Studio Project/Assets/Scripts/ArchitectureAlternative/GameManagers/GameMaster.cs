@@ -9,7 +9,6 @@ namespace AlternativeArchitecture {
        
         private AlternativeArchitecture.GameSpawner spawner;
         private AlternativeArchitecture.GameProgression progression;
-        private AlternativeArchitecture.GamePooler pooler;
 
         // Sets up all references and sets up the components.
         private void Awake() {
@@ -37,7 +36,6 @@ namespace AlternativeArchitecture {
 
             spawner.Initialise();
             progression.Initialise();
-            pooler.Initialise();
         }
 
         public override void SetUpReferences() {
@@ -46,7 +44,6 @@ namespace AlternativeArchitecture {
 
             spawner = GetComponent<GameSpawner>();
             progression = GetComponent<GameProgression>();
-            pooler = GetComponent<GamePooler>();
         }
     }
 }

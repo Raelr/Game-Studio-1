@@ -11,47 +11,26 @@ namespace AlternativeArchitecture
         [SerializeField]
         GameSpawner spawner = null;
 
-
-        [Header("Controls")]
-        [SerializeField]
-        AnimationCurve spawnRateMultiplier; //time -> value
-
-        [SerializeField]
-        float spawnRate; // seconds
-
-        private float spawnCounter;
-        private float spawnResetCounter;
-
-
-
         public override void Initialise()
         {
 
             base.Initialise();
         }
-        
+
+        // placeholder script for spawning objects over time
+        private float spawnCounter, spawnRate = 1;
         private void FixedUpdate()
         {
-            if (spawnResetCounter > spawnRate * spawnRateMultiplier.Evaluate(spawnCounter))
+            if (spawnCounter > spawnRate)
             {
-                spawnResetCounter = 0;
-                SpawnObstacle();
+                spawnCounter = 0;
+                GameObject newObject = spawner.SpawnObject(ObjectType.OBSTACLE_SPHERE);
+                if (newObject.isNotNull())
+                    newObject.Show();
             }
-            spawnResetCounter += Time.deltaTime;
             spawnCounter += Time.deltaTime;
         }
 
-
-        private void SpawnObstacle ()
-        {
-            GameObject newObstacle = spawner.SpawnObject(ObjectType.OBSTACLE_SPHERE);
-            if (newObstacle.isNull()) return;
-
-            Obstacle obstacleScript = newObstacle.GetComponent<Obstacle>();
-            obstacleScript.Setup(GetComponent<GamePooler>(), //replace the game pooler with actual reference
-                 ObjectType.OBSTACLE_SPHERE);
-            newObstacle.Show();
-        }
 
     }
 }

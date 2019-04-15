@@ -13,7 +13,10 @@ public class UIMaster : Master
     UITime time;
 
     [SerializeField]
-    UILives lives;
+    UITextController lives;
+
+    [SerializeField]
+    UITextController speed;
 
     public delegate void UpdateEventHandler();
 
@@ -24,7 +27,6 @@ public class UIMaster : Master
     public UIEventChangeHandler onUIChange;
 
     private void Awake() {
-
 
         SetUpReferences();
 
@@ -72,6 +74,10 @@ public class UIMaster : Master
 
         time = GetComponent<UITime>();
 
-        lives = GetComponent<UILives>();
+        UITextController[] UITexts = GetComponents<UITextController>();
+
+        lives = UITexts[0];
+
+        speed = UITexts[1];
     }
 }

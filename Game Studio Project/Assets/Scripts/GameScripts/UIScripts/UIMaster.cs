@@ -30,6 +30,14 @@ public class UIMaster : Master
 
     public UpdateSpeedHandler onSpeedUpdate;
 
+    public delegate void UIChangeHandler(bool value);
+
+    public UIChangeHandler onUIStatusChange;
+
+    public delegate void GameStartHandler();
+
+    public GameStartHandler onGameStart;
+
     private void Awake() {
 
         SetUpReferences();
@@ -41,6 +49,12 @@ public class UIMaster : Master
         onUIChange += lives.UpdateText;
 
         onSpeedUpdate += speed.IncrementSpeed;
+
+        onUIStatusChange += time.ChangeTextStatus;
+
+        onUIStatusChange += lives.ChangeTextStatus;
+
+        onUIStatusChange += speed.ChangeTextStatus;
 
         InitialiseAll();
 
@@ -54,6 +68,7 @@ public class UIMaster : Master
     private void Update() {
         
         if (gameStarted) {
+
             onUpdateEvent?.Invoke();
             onSpeedUpdate.Invoke(0.1f);
         }
@@ -63,7 +78,7 @@ public class UIMaster : Master
 
         base.Initialise();
 
-        gameStarted = true;
+        gameStarted = false;
     }
 
     public override void InitialiseAll() {
@@ -75,6 +90,13 @@ public class UIMaster : Master
         lives.Initialise();
 
         speed.Initialise();
+    }
+
+    public void onGameLevelStarted() {
+
+        gameStarted = true;
+
+        onUIStatusChange?.Invoke(gameStarted);
     }
 
     public override void SetUpReferences() {

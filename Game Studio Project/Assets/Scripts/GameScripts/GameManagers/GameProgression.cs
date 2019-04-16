@@ -11,7 +11,6 @@ namespace AlternativeArchitecture
         [SerializeField]
         GameSpawner spawner = null;
 
-
         [Header("Controls")]
         [SerializeField]
         AnimationCurve spawnRateMultiplier; //time -> value
@@ -21,8 +20,6 @@ namespace AlternativeArchitecture
 
         private float spawnCounter;
         private float spawnResetCounter;
-
-
 
         public override void Initialise()
         {

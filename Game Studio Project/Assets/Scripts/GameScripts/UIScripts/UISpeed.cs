@@ -13,10 +13,17 @@ public class UISpeed : InitialisedEntity
     public override void Initialise()
     {
         speed = 100000;
+
+        ChangeTextStatus(false);
     }
 
     public void IncrementSpeed(float amount) {
         speed += amount;
         speedText.text = "Speed Km/h: " + speed.ToString("F0");
+    }
+
+    public void ChangeTextStatus(bool value) {
+
+        speedText.enabled = value;
     }
 }

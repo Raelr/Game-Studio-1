@@ -11,7 +11,6 @@ namespace AlternativeArchitecture
         [SerializeField]
         GameSpawner spawner = null;
 
-
         [Header("Controls")]
         [SerializeField]
         AnimationCurve spawnRateMultiplier; //time -> value
@@ -22,25 +21,21 @@ namespace AlternativeArchitecture
         private float spawnCounter;
         private float spawnResetCounter;
 
-
-
         public override void Initialise()
         {
 
             base.Initialise();
         }
-        
-        private void FixedUpdate()
-        {
-            if (spawnResetCounter > spawnRate * spawnRateMultiplier.Evaluate(spawnCounter))
-            {
+
+        public void SpawnObstaclesOnInterval() {
+
+            if (spawnResetCounter > spawnRate * spawnRateMultiplier.Evaluate(spawnCounter)) {
                 spawnResetCounter = 0;
                 SpawnObstacle();
             }
             spawnResetCounter += Time.deltaTime;
             spawnCounter += Time.deltaTime;
         }
-
 
         private void SpawnObstacle ()
         {

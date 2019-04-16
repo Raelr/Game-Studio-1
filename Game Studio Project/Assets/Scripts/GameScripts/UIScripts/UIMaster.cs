@@ -9,14 +9,23 @@ public class UIMaster : Master
 
     bool gameStarted;
 
+    public bool GameStarted { get { return gameStarted; } set { gameStarted = value; OnGameLevelStarted(value); } }
+
+    [Header("Time text")]
     [SerializeField]
     UITime time;
 
+    [Header("Lives Text")]
     [SerializeField]
     UITextController lives;
 
+    [Header("Speed Text")]
     [SerializeField]
     UISpeed speed;
+
+    [Header("Menu Manager")]
+    [SerializeField]
+    MenuManager menuManager;
 
     public delegate void UpdateEventHandler();
 
@@ -30,6 +39,14 @@ public class UIMaster : Master
 
     public UpdateSpeedHandler onSpeedUpdate;
 
+    public delegate void UIChangeHandler(bool value);
+
+    public UIChangeHandler onUIStatusChange;
+
+    public delegate void PlayerLostHandler();
+
+    public PlayerLostHandler onPlayerLost;
+
     private void Awake() {
 
         SetUpReferences();
@@ -41,6 +58,12 @@ public class UIMaster : Master
         onUIChange += lives.UpdateText;
 
         onSpeedUpdate += speed.IncrementSpeed;
+
+        onUIStatusChange += time.ChangeTextStatus;
+
+        onUIStatusChange += lives.ChangeTextStatus;
+
+        onUIStatusChange += speed.ChangeTextStatus;
 
         InitialiseAll();
 
@@ -54,8 +77,9 @@ public class UIMaster : Master
     private void Update() {
         
         if (gameStarted) {
+
             onUpdateEvent?.Invoke();
-            onSpeedUpdate.Invoke(0.1f);
+            onSpeedUpdate?.Invoke(0.1f);
         }
     }
 
@@ -63,7 +87,9 @@ public class UIMaster : Master
 
         base.Initialise();
 
-        gameStarted = true;
+        GameStarted = false;
+
+        onPlayerLost += menuManager.LoadLoseScreen;
     }
 
     public override void InitialiseAll() {
@@ -75,6 +101,24 @@ public class UIMaster : Master
         lives.Initialise();
 
         speed.Initialise();
+
+        menuManager.Initialise();
+    }
+
+    public void OnGameLevelStarted(bool value) {
+
+        gameStarted = value;
+
+        onUIStatusChange?.Invoke(value);
+    }
+
+    public void OnPlayerLost() {
+
+        Debug.Log("Player Lost");
+
+        GameStarted = false;
+        
+        onPlayerLost?.Invoke();
     }
 
     public override void SetUpReferences() {
@@ -86,5 +130,7 @@ public class UIMaster : Master
         lives = GetComponent<UITextController>();
 
         speed = GetComponent<UISpeed>();
+
+        menuManager = GetComponent<MenuManager>();
     }
 }

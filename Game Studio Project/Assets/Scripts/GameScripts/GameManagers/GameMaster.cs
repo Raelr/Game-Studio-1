@@ -11,12 +11,23 @@ namespace AlternativeArchitecture {
         private AlternativeArchitecture.GameProgression progression;
         private AlternativeArchitecture.GamePooler pooler;
 
+        bool gameStarted;
+
+        public bool GameStarted { get { return gameStarted; } set { gameStarted = value; UIMaster.instance.OnGameLevelStarted(gameStarted); } }
+
+        public delegate void UpdateEventHandler();
+
+        public UpdateEventHandler onUpdateEvent;
+
         // Sets up all references and sets up the components.
         private void Awake() {
 
-            SetUpReferences();
+            ResumeGame();
 
-            InitialiseAll();
+            gameStarted = false;
+
+            SetUpReferences();
+            
         }
 
         // Initialises the actual object (only after all others have been set up)
@@ -25,10 +36,36 @@ namespace AlternativeArchitecture {
             Initialise();
         }
 
+        private void FixedUpdate() {
+            
+            if (gameStarted) {
+                onUpdateEvent?.Invoke();
+            }
+        }
+
+        public void StartGame() {
+
+            GameStarted = true;
+
+            InitialiseAll();
+        }
+
         // Initialises variables and sets delegates.
         public override void Initialise() {
 
             base.Initialise();
+
+            onUpdateEvent += progression.SpawnObstaclesOnInterval;
+        }
+
+        public static void PauseGame() {
+
+            Time.timeScale = 0f;
+        }
+
+        public static void ResumeGame() {
+
+            Time.timeScale = 1f;
         }
 
         public override void InitialiseAll() {

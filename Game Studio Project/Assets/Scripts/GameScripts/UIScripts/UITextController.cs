@@ -12,10 +12,17 @@ public class UITextController : InitialisedEntity
 
         base.Initialise();
 
+        ChangeTextStatus(false);
+
     }
 
     public void UpdateText(string description, int value) {
 
         livesText.text = description + value;
+    }
+
+    public void ChangeTextStatus(bool value) {
+
+        livesText.enabled = value;
     }
 }

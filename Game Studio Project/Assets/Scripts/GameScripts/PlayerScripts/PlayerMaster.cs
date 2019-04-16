@@ -34,6 +34,10 @@ namespace AlternativeArchitecture {
 
         public event UpdateEventHandler updateEvent;
 
+        public delegate void CollisionEventHandler();
+
+        public CollisionEventHandler onPlayerCollision;
+
         private void Awake() {
 
             SetUpReferences();
@@ -70,6 +74,10 @@ namespace AlternativeArchitecture {
             playerProperties.Initialise();
 
             movementController.onCollision += OnPlayerHit;
+
+            onPlayerCollision += playerProperties.DecrementLives;
+
+            playerProperties.onPlayerLose += OnPlayerLose;
         }
 
         // Gets the approrpiate components for master. 
@@ -99,7 +107,16 @@ namespace AlternativeArchitecture {
 
         public void OnPlayerHit() {
 
-            playerProperties.DecrementLives();
+            onPlayerCollision?.Invoke();
+        }
+
+        public void OnPlayerLose() {
+
+            GameMaster.PauseGame();
+
+            Debug.Log("Player Lost");
+
+            UIMaster.instance.OnPlayerLost();
         }
     }
 }

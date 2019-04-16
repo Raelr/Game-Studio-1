@@ -22,6 +22,7 @@ namespace AlternativeArchitecture {
             base.Initialise();
 
             PlayerMaster newPlayer = SpawnPlayer();
+
             newPlayer.gameObject.Show();
 
             // perhaps do something with the new playermaster reference (e.g. store it into data somewhere)
@@ -31,6 +32,7 @@ namespace AlternativeArchitecture {
         }
 
         public PlayerMaster SpawnPlayer() {
+
             return pooler.RetrieveOrCreate(ObjectType.PLAYER).GetComponent<PlayerMaster>();
         }
 
@@ -38,7 +40,6 @@ namespace AlternativeArchitecture {
         {
            return pooler.RetrieveOrCreate(objectType);
         }
-
     }
 }
 

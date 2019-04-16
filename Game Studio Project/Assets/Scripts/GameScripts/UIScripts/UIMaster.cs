@@ -9,14 +9,23 @@ public class UIMaster : Master
 
     bool gameStarted;
 
+    public bool GameStarted { get { return gameStarted; } set { gameStarted = value; OnGameLevelStarted(gameStarted); } }
+
+    [Header("Time text")]
     [SerializeField]
     UITime time;
 
+    [Header("Lives Text")]
     [SerializeField]
     UITextController lives;
 
+    [Header("Speed Text")]
     [SerializeField]
     UISpeed speed;
+
+    [Header("Menu Manager")]
+    [SerializeField]
+    MenuManager menuManager;
 
     public delegate void UpdateEventHandler();
 
@@ -34,9 +43,9 @@ public class UIMaster : Master
 
     public UIChangeHandler onUIStatusChange;
 
-    public delegate void GameStartHandler();
+    public delegate void PlayerLostHandler();
 
-    public GameStartHandler onGameStart;
+    public PlayerLostHandler onPlayerLost;
 
     private void Awake() {
 
@@ -90,13 +99,20 @@ public class UIMaster : Master
         lives.Initialise();
 
         speed.Initialise();
+
+        menuManager.Initialise();
     }
 
-    public void onGameLevelStarted() {
+    public void OnGameLevelStarted(bool value) {
 
-        gameStarted = true;
+        gameStarted = value;
 
-        onUIStatusChange?.Invoke(gameStarted);
+        onUIStatusChange?.Invoke(value);
+    }
+
+    void OnPlayerLost() {
+
+        onPlayerLost?.Invoke();
     }
 
     public override void SetUpReferences() {
@@ -108,5 +124,7 @@ public class UIMaster : Master
         lives = GetComponent<UITextController>();
 
         speed = GetComponent<UISpeed>();
+
+        menuManager = GetComponent<MenuManager>();
     }
 }

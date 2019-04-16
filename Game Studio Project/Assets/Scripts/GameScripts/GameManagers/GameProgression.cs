@@ -26,18 +26,16 @@ namespace AlternativeArchitecture
 
             base.Initialise();
         }
-        
-        private void FixedUpdate()
-        {
-            if (spawnResetCounter > spawnRate * spawnRateMultiplier.Evaluate(spawnCounter))
-            {
+
+        public void SpawnObstaclesOnInterval() {
+
+            if (spawnResetCounter > spawnRate * spawnRateMultiplier.Evaluate(spawnCounter)) {
                 spawnResetCounter = 0;
                 SpawnObstacle();
             }
             spawnResetCounter += Time.deltaTime;
             spawnCounter += Time.deltaTime;
         }
-
 
         private void SpawnObstacle ()
         {

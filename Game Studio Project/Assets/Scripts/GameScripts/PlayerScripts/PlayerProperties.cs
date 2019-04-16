@@ -15,6 +15,10 @@ public class PlayerProperties : InitialisedEntity
     [Header("Player Speed")]
     float speedMultiplier;
 
+    public delegate void OnPlayerLostGame();
+
+    public event OnPlayerLostGame onPlayerLose;
+
     public override void Initialise() {
 
         base.Initialise();
@@ -30,7 +34,8 @@ public class PlayerProperties : InitialisedEntity
 
         if (currentLives <= 0) {
 
-            Debug.Log("Death");
+            onPlayerLose?.Invoke();
+
         } else {
 
             UIMaster.instance.onUIChange.Invoke("Lives: ", currentLives);

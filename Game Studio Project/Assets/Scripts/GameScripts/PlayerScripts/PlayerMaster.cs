@@ -76,6 +76,8 @@ namespace AlternativeArchitecture {
             movementController.onCollision += OnPlayerHit;
 
             onPlayerCollision += playerProperties.DecrementLives;
+
+            playerProperties.onPlayerLose += OnPlayerLose;
         }
 
         // Gets the approrpiate components for master. 
@@ -106,6 +108,15 @@ namespace AlternativeArchitecture {
         public void OnPlayerHit() {
 
             onPlayerCollision?.Invoke();
+        }
+
+        public void OnPlayerLose() {
+
+            GameMaster.PauseGame();
+
+            Debug.Log("Player Lost");
+
+            UIMaster.instance.OnPlayerLost();
         }
     }
 }

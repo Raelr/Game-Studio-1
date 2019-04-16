@@ -13,7 +13,7 @@ namespace AlternativeArchitecture {
 
         bool gameStarted;
 
-        bool GameStarted { get { return gameStarted; } set { gameStarted = value; UIMaster.instance.OnGameLevelStarted(gameStarted); } }
+        public bool GameStarted { get { return gameStarted; } set { gameStarted = value; UIMaster.instance.OnGameLevelStarted(gameStarted); } }
 
         public delegate void UpdateEventHandler();
 
@@ -58,12 +58,12 @@ namespace AlternativeArchitecture {
             onUpdateEvent += progression.SpawnObstaclesOnInterval;
         }
 
-        public void PauseGame() {
+        public static void PauseGame() {
 
             Time.timeScale = 0f;
         }
 
-        public void ResumeGame() {
+        public static void ResumeGame() {
 
             Time.timeScale = 1f;
         }

@@ -26,6 +26,11 @@ public class MenuManager : InitialisedEntity {
         Application.Quit();
     }
 
+    public void LoadLoseScreen() {
+
+        GlobalMethods.Show(LosePanel.gameObject);
+    }
+
     public void RestartLevel() {
 
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);

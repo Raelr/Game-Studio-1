@@ -9,7 +9,7 @@ public class UIMaster : Master
 
     bool gameStarted;
 
-    public bool GameStarted { get { return gameStarted; } set { gameStarted = value; OnGameLevelStarted(gameStarted); } }
+    public bool GameStarted { get { return gameStarted; } set { gameStarted = value; OnGameLevelStarted(value); } }
 
     [Header("Time text")]
     [SerializeField]
@@ -79,7 +79,7 @@ public class UIMaster : Master
         if (gameStarted) {
 
             onUpdateEvent?.Invoke();
-            onSpeedUpdate.Invoke(0.1f);
+            onSpeedUpdate?.Invoke(0.1f);
         }
     }
 
@@ -87,7 +87,9 @@ public class UIMaster : Master
 
         base.Initialise();
 
-        gameStarted = false;
+        GameStarted = false;
+
+        onPlayerLost += menuManager.LoadLoseScreen;
     }
 
     public override void InitialiseAll() {
@@ -110,8 +112,12 @@ public class UIMaster : Master
         onUIStatusChange?.Invoke(value);
     }
 
-    void OnPlayerLost() {
+    public void OnPlayerLost() {
 
+        Debug.Log("Player Lost");
+
+        GameStarted = false;
+        
         onPlayerLost?.Invoke();
     }
 

@@ -15,9 +15,10 @@ public class MovementController : InitialisedEntity {
     PhysicsController physics;
 
 	[Header("Physics Properties")]
-	private float force = 25f;
-	private float maxDistance = 8;
-	private Vector3 lastPosition;
+	[SerializeField] private float force = 25f;
+    [SerializeField] private float maxDistance = 8;
+    [SerializeField] private bool invertMovement;
+    private Vector3 lastPosition;
 
 	[Header("Player Bounds")]
 	private float xBounds = 10f;
@@ -39,10 +40,15 @@ public class MovementController : InitialisedEntity {
 
     // Makes all calculations for the physics and applies force via the physics component.
     public void MoveEntity(Vector2 targetPos) {
-		//targetPos *= -1;
-		//targetPos.y += 2;
+        if (!invertMovement)
+        {
+            targetPos *= -1;
+            targetPos.y += 2;
+        }
+        //targetPos *= -1;
+        //targetPos.y += 2;
 
-		float dist = Vector3.Distance(targetPos, player.position);
+        float dist = Vector3.Distance(targetPos, player.position);
 		Vector2 dir = GlobalMethods.GetDirection(player.position, targetPos);
 		Vector2 velocity = dir * (force * (dist / maxDistance));
 

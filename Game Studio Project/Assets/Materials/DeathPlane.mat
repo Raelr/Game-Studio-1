@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: TestCreepy2
+  m_Name: DeathPlane
   m_Shader: {fileID: 4800000, guid: e06776d4e7138204fa1607b97d55ed9c, type: 3}
   m_ShaderKeywords: _ENABLENOISE_ON _ROTATION_ON
   m_LightmapFlags: 0
@@ -109,14 +109,14 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _ASEOutlineWidth: 0
-    - _Angle: 48.2
+    - _Angle: 1
     - _BumpScale: 1
     - _Cutoff: 0.5
     - _DepthDistance: 0.05
     - _DetailNormalMapScale: 1
-    - _Displace: 1.719
-    - _DisplaceScale: 3.55
-    - _Distortion: 0
+    - _Displace: 2
+    - _DisplaceScale: 10
+    - _Distortion: 0.377
     - _DistortionPatternSize: 4
     - _DistortionScale: 1.07
     - _DistortionSpeed: 1.04
@@ -137,7 +137,7 @@ Material:
     - _NoiseSpeed: 10
     - _NoiseStrength: 7.11
     - _Normal: 0
-    - _NormalScale: 0.14
+    - _NormalScale: 0.57
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _PatternSize: 1
@@ -149,7 +149,7 @@ Material:
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _SwirlRotationSpeed: 0.977
-    - _SwirlSpeed: 0.106
+    - _SwirlSpeed: 0.768
     - _Swirliness: 0.27
     - _ToggleSwitch0: 1
     - _UVSec: 0
@@ -165,9 +165,9 @@ Material:
     - _DepthEmission: {r: 6.6753926, g: 6.1807327, b: 0, a: 1}
     - _DisplaceSpeedXY: {r: 0.02, g: 0.02, b: 0, a: 0}
     - _DistortionSpeed: {r: 0.2, g: 0.2, b: 0, a: 0}
-    - _EmissionColor: {r: 3.2714002, g: 1.8014706, b: 7, a: 1}
+    - _EmissionColor: {r: 9.345549, g: 0.944933, b: 0, a: 1}
     - _EmissionSpeed: {r: 0, g: -0.1, b: 0, a: 0}
-    - _MainColor: {r: 1.0144669, g: 0.97033054, b: 1.6197643, a: 1}
+    - _MainColor: {r: 2.8871243, g: 2.8871243, b: 2.8871243, a: 1}
     - _MainSpee: {r: 0, g: 0.12, b: 0, a: 0}
     - _MainSpeed: {r: 0, g: 0.05, b: 0, a: 0}
     - _MainSpeedXY: {r: 0, g: 0.2, b: 0, a: 0}

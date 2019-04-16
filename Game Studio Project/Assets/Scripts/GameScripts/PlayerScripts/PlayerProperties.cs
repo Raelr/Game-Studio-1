@@ -31,13 +31,13 @@ public class PlayerProperties : InitialisedEntity
     public void DecrementLives() {
 
         currentLives--;
+        StartCoroutine(FlashPlaceholder()); // PLACEHOLDER DELETE ME RIGHT FUCKING NOW
 
         if (currentLives <= 0) {
 
             onPlayerLose?.Invoke();
 
         } else {
-
             UIMaster.instance.onUIChange.Invoke("Lives: ", currentLives);
         }
     }
@@ -46,4 +46,19 @@ public class PlayerProperties : InitialisedEntity
 
 
     }
+
+
+    GameObject flashPlane; // PLACEHOLDER DELETE ME 
+    void Start ()
+    {
+        flashPlane = GameObject.Find("[FLASH]");  // PLACEHOLDER DELETE ME 
+        flashPlane.GetComponent<Renderer>().enabled = false;  // PLACEHOLDER DELETE ME 
+    }  // PLACEHOLDER DELETE ME 
+
+    IEnumerator FlashPlaceholder ()  // PLACEHOLDER DELETE ME 
+    {
+        flashPlane.GetComponent<Renderer>().enabled = true;  // PLACEHOLDER DELETE ME 
+        yield return new WaitForSeconds(0.1f);  // PLACEHOLDER DELETE ME 
+        flashPlane.GetComponent<Renderer>().enabled = false;  // PLACEHOLDER DELETE ME 
+    }  // PLACEHOLDER DELETE ME 
 }

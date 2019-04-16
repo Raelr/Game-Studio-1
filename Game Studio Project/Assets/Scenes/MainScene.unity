@@ -3763,7 +3763,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  damping: 0.1
+  damping: 7
 --- !u!1 &1921487152
 GameObject:
   m_ObjectHideFlags: 0

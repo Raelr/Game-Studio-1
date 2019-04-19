@@ -34,3 +34,9 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+Game Studio Project/Assets/SpaceUnity/Prefabs/SpaceSceneElements.meta
+Game Studio Project/Assets/Scripts/UIScripts.meta
+Game Studio Project/Assets/Scripts/GeneralScripts.meta
+Game Studio Project/Assets/Scripts/GameScripts/CameraScripts/CameraLookat.cs
+Game Studio Project/Assets/SC Post Effects/_Samples.unitypackage.meta
+Game Studio Project/Assets/SC Post Effects/_DemoContent.unitypackage.meta

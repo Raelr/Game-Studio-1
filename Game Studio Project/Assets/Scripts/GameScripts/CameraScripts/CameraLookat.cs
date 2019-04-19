@@ -25,7 +25,7 @@ public class CameraLookat : MonoBehaviour
 
     void OnGUI ()
     {
-            GUI.Label(new Rect(10, 10, Screen.width, 20), test);
+      //      GUI.Label(new Rect(10, 10, Screen.width, 20), test);
     }
 
     public void SetTarget (Transform newTarget)

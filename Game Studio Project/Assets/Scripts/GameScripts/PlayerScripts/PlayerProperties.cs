@@ -60,6 +60,9 @@ public class PlayerProperties : InitialisedEntity
             currentSanity = Mathf.Lerp(currentSanity, projectedSanity, insanityDecaySpeed * Time.deltaTime);
 
             UIMaster.instance.onMeterChange.Invoke(insanityDecaySpeed);
+        } else {
+
+            onPlayerLose?.Invoke();
         }
     }
 

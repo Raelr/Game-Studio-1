@@ -31,6 +31,8 @@ public class UIMeter : InitialisedEntity
         meter.localScale = newScale;
 
         meterRenderer.material.color = startColor;
+
+        ChangeMeterStatus(false);
     }
 
     public void IncrementMeter(float incrementSpeed, bool reverse = false) {
@@ -46,6 +48,15 @@ public class UIMeter : InitialisedEntity
 
             meterRenderer.material.color = Color.Lerp(meterRenderer.material.color, endColor, 0.03f * Time.deltaTime);
             
+        }
+    }
+
+    public void ChangeMeterStatus(bool status) {
+
+        if (status) {
+            GlobalMethods.Show(meter.gameObject);
+        } else {
+            GlobalMethods.Hide(meter.gameObject);
         }
     }
 }

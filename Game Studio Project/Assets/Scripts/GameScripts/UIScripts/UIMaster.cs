@@ -73,6 +73,8 @@ public class UIMaster : Master
 
         onUIStatusChange += speed.ChangeTextStatus;
 
+        onUIStatusChange += insanityMeter.ChangeMeterStatus;
+
         onMeterChange += insanityMeter.IncrementMeter;
 
         InitialiseAll();

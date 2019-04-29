@@ -19,6 +19,8 @@ public class PlayerProperties : InitialisedEntity
 
     const float maxSanity = 9f;
 
+    const float impactSanityDamage = 8f;
+
     float currentSanity;
 
     public delegate void OnPlayerLostGame();
@@ -36,6 +38,13 @@ public class PlayerProperties : InitialisedEntity
         UIMaster.instance.onUIChange.Invoke("Lives: ", currentLives);
     }
 
+    public void OnPlayerHit()
+    {
+        DecrementLives();
+        DecaySanityConstant();
+
+    }
+
     public void DecrementLives() {
 
         currentLives--;
@@ -51,7 +60,7 @@ public class PlayerProperties : InitialisedEntity
         }
     }
 
-    public void DecaySanity() {
+    public void DecaySanityConstant() {
 
         if (currentSanity > 0) {
 
@@ -60,7 +69,31 @@ public class PlayerProperties : InitialisedEntity
             currentSanity = Mathf.Lerp(currentSanity, projectedSanity, insanityDecaySpeed * Time.deltaTime);
 
             UIMaster.instance.onMeterChange.Invoke(insanityDecaySpeed);
+
         } else {
+
+            onPlayerLose?.Invoke();
+        }
+    }
+
+    public void DecaySanityByAmount()
+    {
+        if (currentSanity > 0)
+        {
+
+            Debug.LogWarning(currentSanity);
+
+            float projectedSanity = currentSanity - impactSanityDamage;
+
+            currentSanity = Mathf.Lerp(currentSanity, projectedSanity, impactSanityDamage * Time.deltaTime);
+
+            Debug.LogWarning(currentSanity);
+
+            UIMaster.instance.onMeterChange.Invoke(impactSanityDamage);
+
+        }
+        else
+        {
 
             onPlayerLose?.Invoke();
         }

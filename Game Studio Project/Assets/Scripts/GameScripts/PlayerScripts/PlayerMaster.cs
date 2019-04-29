@@ -62,6 +62,8 @@ namespace AlternativeArchitecture {
             onClick += projectiles.FireProjectile;
 
             updateEvent += movementController.MoveEntity;
+
+            onPlayerCollision += playerProperties.DecaySanityByAmount;
         }
 
         // Initialises all components underneath master.
@@ -83,7 +85,7 @@ namespace AlternativeArchitecture {
 
             playerProperties.onPlayerLose += OnPlayerLose;
 
-            onMeterChanged += playerProperties.DecaySanity;
+            onMeterChanged += playerProperties.DecaySanityConstant;
         }
 
         // Gets the approrpiate components for master. 
@@ -117,7 +119,7 @@ namespace AlternativeArchitecture {
         }
 
         public void OnPlayerHit() {
-
+        
             onPlayerCollision?.Invoke();
         }
 

@@ -9,7 +9,7 @@ public class MovementController : InitialisedEntity {
 
     public OnCollisionhandler onCollision;
 
-    // The controller should keep track of all physics components (since it is the only component which needs to interface with physics)
+    // The controller should keep track of all physics components (since it is the only compone≤nt which needs to interface with physics)
     [Header("Physics")]
     [SerializeField]
     PhysicsController physics;

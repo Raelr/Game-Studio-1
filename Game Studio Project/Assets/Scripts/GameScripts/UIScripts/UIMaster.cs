@@ -15,10 +15,6 @@ public class UIMaster : Master
     [SerializeField]
     UITime time;
 
-    [Header("Lives Text")]
-    [SerializeField]
-    UITextController lives;
-
     [Header("Speed Text")]
     [SerializeField]
     UISpeed speed;
@@ -26,6 +22,10 @@ public class UIMaster : Master
     [Header("Menu Manager")]
     [SerializeField]
     MenuManager menuManager;
+
+    [Header("Insanity Meter")]
+    [SerializeField]
+    UIMeter insanityMeter;
 
     public delegate void UpdateEventHandler();
 
@@ -47,6 +47,10 @@ public class UIMaster : Master
 
     public PlayerLostHandler onPlayerLost;
 
+    public delegate void MeterChangeHandler(float incrementSpeed, bool reverse = false);
+
+    public MeterChangeHandler onMeterChange;
+
     private void Awake() {
 
         SetUpReferences();
@@ -55,15 +59,15 @@ public class UIMaster : Master
 
         onUpdateEvent += time.IncrementTime;
 
-        onUIChange += lives.UpdateText;
-
         onSpeedUpdate += speed.IncrementSpeed;
 
         onUIStatusChange += time.ChangeTextStatus;
 
-        onUIStatusChange += lives.ChangeTextStatus;
-
         onUIStatusChange += speed.ChangeTextStatus;
+
+        onUIStatusChange += insanityMeter.ChangeMeterStatus;
+
+        onMeterChange += insanityMeter.IncrementMeter;
 
         InitialiseAll();
 
@@ -97,12 +101,12 @@ public class UIMaster : Master
         base.InitialiseAll();
 
         time.Initialise();
-
-        lives.Initialise();
-
+        
         speed.Initialise();
 
         menuManager.Initialise();
+
+        insanityMeter.Initialise();
     }
 
     public void OnGameLevelStarted(bool value) {
@@ -113,9 +117,7 @@ public class UIMaster : Master
     }
 
     public void OnPlayerLost() {
-
-        Debug.Log("Player Lost");
-
+        
         GameStarted = false;
         
         onPlayerLost?.Invoke();
@@ -127,10 +129,10 @@ public class UIMaster : Master
 
         time = GetComponent<UITime>();
 
-        lives = GetComponent<UITextController>();
-
         speed = GetComponent<UISpeed>();
 
         menuManager = GetComponent<MenuManager>();
+
+        insanityMeter = GetComponent<UIMeter>();
     }
 }

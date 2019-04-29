@@ -38,6 +38,10 @@ namespace AlternativeArchitecture {
 
         public CollisionEventHandler onPlayerCollision;
 
+        public delegate void UIMeterChangeHandler();
+
+        public UIMeterChangeHandler onMeterChanged;
+
         private void Awake() {
 
             SetUpReferences();
@@ -58,6 +62,8 @@ namespace AlternativeArchitecture {
             onClick += projectiles.FireProjectile;
 
             updateEvent += movementController.MoveEntity;
+
+            onPlayerCollision += playerProperties.DecaySanityByAmount;
         }
 
         // Initialises all components underneath master.
@@ -75,9 +81,9 @@ namespace AlternativeArchitecture {
 
             movementController.onCollision += OnPlayerHit;
 
-            onPlayerCollision += playerProperties.DecrementLives;
-
             playerProperties.onPlayerLose += OnPlayerLose;
+
+            onMeterChanged += playerProperties.DecaySanityConstant;
         }
 
         // Gets the approrpiate components for master. 
@@ -100,21 +106,24 @@ namespace AlternativeArchitecture {
             onClick?.Invoke();
         }
 
+        public override void OnUIChange() {
+
+            onMeterChanged?.Invoke();
+        }
+
         public override void MoveToward(Vector2 mouseCoordinates) {
 
             updateEvent?.Invoke(mouseCoordinates);
         }
 
         public void OnPlayerHit() {
-
+        
             onPlayerCollision?.Invoke();
         }
 
         public void OnPlayerLose() {
 
             GameMaster.PauseGame();
-
-            Debug.Log("Player Lost");
 
             UIMaster.instance.OnPlayerLost();
         }

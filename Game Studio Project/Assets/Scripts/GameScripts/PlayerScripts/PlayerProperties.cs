@@ -6,14 +6,18 @@ public class PlayerProperties : InitialisedEntity
 {
     [Header("Player Speed")]
     [SerializeField]
-    int lives;
-
-    int currentLives;
-
     float speed;
 
     [Header("Player Speed")]
     float speedMultiplier;
+
+    const float insanityDecaySpeed = 0.5f;
+
+    const float maxSanity = 9f;
+
+    const float impactSanityDamage = 4f;
+
+    float currentSanity;
 
     public delegate void OnPlayerLostGame();
 
@@ -23,22 +27,48 @@ public class PlayerProperties : InitialisedEntity
 
         base.Initialise();
 
-        currentLives = lives;
-
-        UIMaster.instance.onUIChange.Invoke("Lives: ", currentLives);
+        currentSanity = 9f;
     }
 
-    public void DecrementLives() {
+    public void OnPlayerHit()
+    {
+        DecaySanityConstant();
 
-        currentLives--;
-        StartCoroutine(FlashPlaceholder()); // PLACEHOLDER DELETE ME RIGHT FUCKING NOW
+    }
 
-        if (currentLives <= 0) {
 
-            onPlayerLose?.Invoke();
+    public void DecaySanityConstant() {
+
+        float projectedSanity = currentSanity - insanityDecaySpeed;
+
+        if (projectedSanity > 0) { 
+
+            currentSanity = Mathf.Lerp(currentSanity, projectedSanity, insanityDecaySpeed * Time.deltaTime);
+
+            UIMaster.instance.onMeterChange.Invoke(insanityDecaySpeed);
 
         } else {
-            UIMaster.instance.onUIChange.Invoke("Lives: ", currentLives);
+
+            onPlayerLose?.Invoke();
+        }
+    }
+
+    public void DecaySanityByAmount()
+    {
+        float projectedSanity = Mathf.Lerp(currentSanity, currentSanity - impactSanityDamage, impactSanityDamage * Time.deltaTime);
+
+        if (projectedSanity > 0)
+        {
+            currentSanity = projectedSanity;
+
+            Debug.LogWarning(currentSanity);
+
+            UIMaster.instance.onMeterChange.Invoke(impactSanityDamage);
+
+        }
+        else
+        {
+            onPlayerLose?.Invoke();
         }
     }
 
@@ -46,19 +76,4 @@ public class PlayerProperties : InitialisedEntity
 
 
     }
-
-
-    GameObject flashPlane; // PLACEHOLDER DELETE ME 
-    void Start ()
-    {
-        flashPlane = GameObject.Find("[FLASH]");  // PLACEHOLDER DELETE ME 
-        flashPlane.GetComponent<Renderer>().enabled = false;  // PLACEHOLDER DELETE ME 
-    }  // PLACEHOLDER DELETE ME 
-
-    IEnumerator FlashPlaceholder ()  // PLACEHOLDER DELETE ME 
-    {
-        flashPlane.GetComponent<Renderer>().enabled = true;  // PLACEHOLDER DELETE ME 
-        yield return new WaitForSeconds(0.1f);  // PLACEHOLDER DELETE ME 
-        flashPlane.GetComponent<Renderer>().enabled = false;  // PLACEHOLDER DELETE ME 
-    }  // PLACEHOLDER DELETE ME 
 }

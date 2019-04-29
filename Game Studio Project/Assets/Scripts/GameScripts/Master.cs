@@ -5,8 +5,6 @@ using UnityEngine;
 // A super class for all master entities. 
 public abstract class Master : InitialisedEntity
 {
-
-
     // Gets all appropriate components from its subordinate scripts. 
     public virtual void SetUpReferences() {
 
@@ -23,6 +21,10 @@ public abstract class Master : InitialisedEntity
     }
 
     public virtual void MoveToward(Vector2 moveDirection) {
+
+    }
+
+    public virtual void OnUIChange() {
 
     }
 }

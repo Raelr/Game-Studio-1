@@ -18,7 +18,7 @@ public class InputManager : MonoBehaviour
 
     private void Update() {
 
-        
+        master?.OnUIChange();
     }
 
     private void FixedUpdate() {
@@ -32,10 +32,10 @@ public class InputManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Mouse0)) {
 
             // Call the master's input delegate.
-            master.ClickEvent();
+            master?.ClickEvent();
         }
 
-        master.MoveToward(GetMousePosition());
+        master?.MoveToward(GetMousePosition());
     }
 
     // Gets the mouse position and returns its screen point.

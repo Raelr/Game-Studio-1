@@ -27,6 +27,10 @@ public class UIMaster : Master
     [SerializeField]
     MenuManager menuManager;
 
+    [Header("Insanity Meter")]
+    [SerializeField]
+    UIMeter insanityMeter;
+
     public delegate void UpdateEventHandler();
 
     public UpdateEventHandler onUpdateEvent;
@@ -47,6 +51,10 @@ public class UIMaster : Master
 
     public PlayerLostHandler onPlayerLost;
 
+    public delegate void MeterChangeHandler(float incrementSpeed, bool reverse = false);
+
+    public MeterChangeHandler onMeterChange;
+
     private void Awake() {
 
         SetUpReferences();
@@ -64,6 +72,8 @@ public class UIMaster : Master
         onUIStatusChange += lives.ChangeTextStatus;
 
         onUIStatusChange += speed.ChangeTextStatus;
+
+        onMeterChange += insanityMeter.IncrementMeter;
 
         InitialiseAll();
 
@@ -103,6 +113,8 @@ public class UIMaster : Master
         speed.Initialise();
 
         menuManager.Initialise();
+
+        insanityMeter.Initialise();
     }
 
     public void OnGameLevelStarted(bool value) {
@@ -132,5 +144,7 @@ public class UIMaster : Master
         speed = GetComponent<UISpeed>();
 
         menuManager = GetComponent<MenuManager>();
+
+        insanityMeter = GetComponent<UIMeter>();
     }
 }

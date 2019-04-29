@@ -15,6 +15,12 @@ public class PlayerProperties : InitialisedEntity
     [Header("Player Speed")]
     float speedMultiplier;
 
+    const float insanityDecaySpeed = 0.5f;
+
+    const float maxSanity = 9f;
+
+    float currentSanity;
+
     public delegate void OnPlayerLostGame();
 
     public event OnPlayerLostGame onPlayerLose;
@@ -22,6 +28,8 @@ public class PlayerProperties : InitialisedEntity
     public override void Initialise() {
 
         base.Initialise();
+
+        currentSanity = 9f;
 
         currentLives = lives;
 
@@ -38,7 +46,20 @@ public class PlayerProperties : InitialisedEntity
             onPlayerLose?.Invoke();
 
         } else {
+
             UIMaster.instance.onUIChange.Invoke("Lives: ", currentLives);
+        }
+    }
+
+    public void DecaySanity() {
+
+        if (currentSanity > 0) {
+
+            float projectedSanity = currentSanity - insanityDecaySpeed;
+
+            currentSanity = Mathf.Lerp(currentSanity, projectedSanity, insanityDecaySpeed * Time.deltaTime);
+
+            UIMaster.instance.onMeterChange.Invoke(insanityDecaySpeed, true);
         }
     }
 

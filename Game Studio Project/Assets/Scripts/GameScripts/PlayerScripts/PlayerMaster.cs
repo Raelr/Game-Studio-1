@@ -38,6 +38,10 @@ namespace AlternativeArchitecture {
 
         public CollisionEventHandler onPlayerCollision;
 
+        public delegate void UIMeterChangeHandler();
+
+        public UIMeterChangeHandler onMeterChanged;
+
         private void Awake() {
 
             SetUpReferences();
@@ -78,6 +82,8 @@ namespace AlternativeArchitecture {
             onPlayerCollision += playerProperties.DecrementLives;
 
             playerProperties.onPlayerLose += OnPlayerLose;
+
+            onMeterChanged += playerProperties.DecaySanity;
         }
 
         // Gets the approrpiate components for master. 
@@ -98,6 +104,11 @@ namespace AlternativeArchitecture {
         public override void ClickEvent() {
 
             onClick?.Invoke();
+        }
+
+        public override void OnUIChange() {
+
+            onMeterChanged?.Invoke();
         }
 
         public override void MoveToward(Vector2 mouseCoordinates) {

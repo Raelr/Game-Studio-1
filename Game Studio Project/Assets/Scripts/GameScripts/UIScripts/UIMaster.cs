@@ -15,10 +15,6 @@ public class UIMaster : Master
     [SerializeField]
     UITime time;
 
-    [Header("Lives Text")]
-    [SerializeField]
-    UITextController lives;
-
     [Header("Speed Text")]
     [SerializeField]
     UISpeed speed;
@@ -63,13 +59,9 @@ public class UIMaster : Master
 
         onUpdateEvent += time.IncrementTime;
 
-        onUIChange += lives.UpdateText;
-
         onSpeedUpdate += speed.IncrementSpeed;
 
         onUIStatusChange += time.ChangeTextStatus;
-
-        onUIStatusChange += lives.ChangeTextStatus;
 
         onUIStatusChange += speed.ChangeTextStatus;
 
@@ -109,9 +101,7 @@ public class UIMaster : Master
         base.InitialiseAll();
 
         time.Initialise();
-
-        lives.Initialise();
-
+        
         speed.Initialise();
 
         menuManager.Initialise();
@@ -127,9 +117,7 @@ public class UIMaster : Master
     }
 
     public void OnPlayerLost() {
-
-        Debug.Log("Player Lost");
-
+        
         GameStarted = false;
         
         onPlayerLost?.Invoke();
@@ -140,8 +128,6 @@ public class UIMaster : Master
         base.SetUpReferences();
 
         time = GetComponent<UITime>();
-
-        lives = GetComponent<UITextController>();
 
         speed = GetComponent<UISpeed>();
 

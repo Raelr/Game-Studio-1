@@ -81,8 +81,6 @@ namespace AlternativeArchitecture {
 
             movementController.onCollision += OnPlayerHit;
 
-            onPlayerCollision += playerProperties.DecrementLives;
-
             playerProperties.onPlayerLose += OnPlayerLose;
 
             onMeterChanged += playerProperties.DecaySanityConstant;
@@ -126,8 +124,6 @@ namespace AlternativeArchitecture {
         public void OnPlayerLose() {
 
             GameMaster.PauseGame();
-
-            Debug.Log("Player Lost");
 
             UIMaster.instance.OnPlayerLost();
         }

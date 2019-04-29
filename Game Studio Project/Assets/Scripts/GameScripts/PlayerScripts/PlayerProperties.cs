@@ -6,10 +6,6 @@ public class PlayerProperties : InitialisedEntity
 {
     [Header("Player Speed")]
     [SerializeField]
-    int lives;
-
-    int currentLives;
-
     float speed;
 
     [Header("Player Speed")]
@@ -19,7 +15,7 @@ public class PlayerProperties : InitialisedEntity
 
     const float maxSanity = 9f;
 
-    const float impactSanityDamage = 8f;
+    const float impactSanityDamage = 4f;
 
     float currentSanity;
 
@@ -32,39 +28,20 @@ public class PlayerProperties : InitialisedEntity
         base.Initialise();
 
         currentSanity = 9f;
-
-        currentLives = lives;
-
-        UIMaster.instance.onUIChange.Invoke("Lives: ", currentLives);
     }
 
     public void OnPlayerHit()
     {
-        DecrementLives();
         DecaySanityConstant();
 
     }
 
-    public void DecrementLives() {
-
-        currentLives--;
-        StartCoroutine(FlashPlaceholder()); // PLACEHOLDER DELETE ME RIGHT FUCKING NOW
-
-        if (currentLives <= 0) {
-
-            onPlayerLose?.Invoke();
-
-        } else {
-
-            UIMaster.instance.onUIChange.Invoke("Lives: ", currentLives);
-        }
-    }
 
     public void DecaySanityConstant() {
 
-        if (currentSanity > 0) {
+        float projectedSanity = currentSanity - insanityDecaySpeed;
 
-            float projectedSanity = currentSanity - insanityDecaySpeed;
+        if (projectedSanity > 0) { 
 
             currentSanity = Mathf.Lerp(currentSanity, projectedSanity, insanityDecaySpeed * Time.deltaTime);
 
@@ -78,14 +55,11 @@ public class PlayerProperties : InitialisedEntity
 
     public void DecaySanityByAmount()
     {
-        if (currentSanity > 0)
+        float projectedSanity = Mathf.Lerp(currentSanity, currentSanity - impactSanityDamage, impactSanityDamage * Time.deltaTime);
+
+        if (projectedSanity > 0)
         {
-
-            Debug.LogWarning(currentSanity);
-
-            float projectedSanity = currentSanity - impactSanityDamage;
-
-            currentSanity = Mathf.Lerp(currentSanity, projectedSanity, impactSanityDamage * Time.deltaTime);
+            currentSanity = projectedSanity;
 
             Debug.LogWarning(currentSanity);
 
@@ -94,7 +68,6 @@ public class PlayerProperties : InitialisedEntity
         }
         else
         {
-
             onPlayerLose?.Invoke();
         }
     }
@@ -103,19 +76,4 @@ public class PlayerProperties : InitialisedEntity
 
 
     }
-
-
-    GameObject flashPlane; // PLACEHOLDER DELETE ME 
-    void Start ()
-    {
-        flashPlane = GameObject.Find("[FLASH]");  // PLACEHOLDER DELETE ME 
-        flashPlane.GetComponent<Renderer>().enabled = false;  // PLACEHOLDER DELETE ME 
-    }  // PLACEHOLDER DELETE ME 
-
-    IEnumerator FlashPlaceholder ()  // PLACEHOLDER DELETE ME 
-    {
-        flashPlane.GetComponent<Renderer>().enabled = true;  // PLACEHOLDER DELETE ME 
-        yield return new WaitForSeconds(0.1f);  // PLACEHOLDER DELETE ME 
-        flashPlane.GetComponent<Renderer>().enabled = false;  // PLACEHOLDER DELETE ME 
-    }  // PLACEHOLDER DELETE ME 
 }

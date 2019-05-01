@@ -36,6 +36,7 @@ public class PlayerSounds : InitialisedEntity
 
     public void PlayConstantSound()
     {
+        playerAudioConstant.Stop();
         playerAudioConstant.clip = playerConstantSound;
         playerAudioConstant.Play();
     }

@@ -15,7 +15,7 @@ public class PlayerProperties : InitialisedEntity
 
     const float maxSanity = 9f;
 
-    const float impactSanityDamage = 4f;
+    const float impactSanityDamage = 5f;
 
     float currentSanity;
 
@@ -35,7 +35,6 @@ public class PlayerProperties : InitialisedEntity
         DecaySanityConstant();
 
     }
-
 
     public void DecaySanityConstant() {
 
@@ -61,8 +60,6 @@ public class PlayerProperties : InitialisedEntity
         {
             currentSanity = projectedSanity;
 
-            Debug.LogWarning(currentSanity);
-
             UIMaster.instance.onMeterChange.Invoke(impactSanityDamage);
 
         }
@@ -70,10 +67,5 @@ public class PlayerProperties : InitialisedEntity
         {
             onPlayerLose?.Invoke();
         }
-    }
-
-    public void IncreaseSpeed() {
-
-
     }
 }

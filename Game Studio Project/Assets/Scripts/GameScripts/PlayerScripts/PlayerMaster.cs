@@ -24,6 +24,10 @@ namespace AlternativeArchitecture {
         [SerializeField]
         PlayerProperties playerProperties;
 
+        [Header("Sounds")]
+        [SerializeField]
+        PlayerSounds sounds;
+
         // Delegate for handling mouse click input. 
         // You'd need other delgates for other forms of input for the master (moving...etc)
         public delegate void OnClickHandler();
@@ -79,6 +83,8 @@ namespace AlternativeArchitecture {
 
             playerProperties.Initialise();
 
+            sounds.Initialise();
+
             movementController.onCollision += OnPlayerHit;
 
             playerProperties.onPlayerLose += OnPlayerLose;
@@ -98,9 +104,11 @@ namespace AlternativeArchitecture {
             projectiles = GetComponent<ProjectileController>();
 
             playerProperties = GetComponent<PlayerProperties>();
+
+            sounds = GetComponentInChildren<PlayerSounds>();
         }
 
-        // Processes all user (or script based) input.
+        // Processes all user (or script based input.
         public override void ClickEvent() {
 
             onClick?.Invoke();

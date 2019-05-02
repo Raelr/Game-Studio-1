@@ -23,6 +23,10 @@ public class PlayerProperties : InitialisedEntity
 
     public event OnPlayerLostGame onPlayerLose;
 
+    public delegate void SoundChangedHandler(float volume);
+
+    public event SoundChangedHandler OnSoundChanged;
+
     public override void Initialise() {
 
         base.Initialise();
@@ -38,13 +42,15 @@ public class PlayerProperties : InitialisedEntity
 
     public void DecaySanityConstant() {
 
-        float projectedSanity = currentSanity - insanityDecaySpeed;
+        if (currentSanity > 0) { 
 
-        if (projectedSanity > 0) { 
-
-            currentSanity = Mathf.Lerp(currentSanity, projectedSanity, insanityDecaySpeed * Time.deltaTime);
+            currentSanity = Mathf.Lerp(currentSanity, currentSanity - insanityDecaySpeed, insanityDecaySpeed * Time.deltaTime);
 
             UIMaster.instance.onMeterChange.Invoke(insanityDecaySpeed);
+
+            float normalisedSanity = 1f - (currentSanity / maxSanity);
+
+            OnSoundChanged?.Invoke(normalisedSanity);
 
         } else {
 
@@ -61,6 +67,10 @@ public class PlayerProperties : InitialisedEntity
             currentSanity = projectedSanity;
 
             UIMaster.instance.onMeterChange.Invoke(impactSanityDamage);
+
+            float normalisedSanity = 1f - (currentSanity / maxSanity);
+
+            OnSoundChanged?.Invoke(normalisedSanity);
 
         }
         else

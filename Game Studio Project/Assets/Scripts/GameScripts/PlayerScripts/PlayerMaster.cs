@@ -46,6 +46,14 @@ namespace AlternativeArchitecture {
 
         public UIMeterChangeHandler onMeterChanged;
 
+        public delegate void SoundChangeHandler(float volume);
+
+        public SoundChangeHandler onSoundChanged;
+
+        public delegate void PlayerLostHandler();
+
+        public PlayerLostHandler onPlayerLost;
+
         private void Awake() {
 
             SetUpReferences();
@@ -90,6 +98,10 @@ namespace AlternativeArchitecture {
             playerProperties.onPlayerLose += OnPlayerLose;
 
             onMeterChanged += playerProperties.DecaySanityConstant;
+
+            playerProperties.OnSoundChanged += sounds.AdjustAudioSourceVolume;
+
+            onPlayerLost += sounds.StopBackgroundSound;
         }
 
         // Gets the approrpiate components for master. 
@@ -127,9 +139,12 @@ namespace AlternativeArchitecture {
         public void OnPlayerHit() {
         
             onPlayerCollision?.Invoke();
+            
         }
 
         public void OnPlayerLose() {
+
+            onPlayerLost?.Invoke();
 
             GameMaster.PauseGame();
 

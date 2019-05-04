@@ -122,6 +122,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf0946d636d4e9f4db02457d2a98ff59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeBetweenShots: 2
+  projectile: {fileID: 1920839879034264674, guid: 9f8e316b7641c69469fcfc81b87e552b,
+    type: 3}
 --- !u!114 &1734906271038868882
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -134,7 +137,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e72311625e9c8d64e9fe7485399b09be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lives: 3
+  speed: 0
 --- !u!1 &1381630110820649083
 GameObject:
   m_ObjectHideFlags: 0

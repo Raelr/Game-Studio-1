@@ -146,7 +146,7 @@ namespace AlternativeArchitecture {
 
             onPlayerLost?.Invoke();
 
-            GameMaster.PauseGame();
+            GameMaster.instance.OnPlayerLose();
 
             UIMaster.instance.OnPlayerLost();
         }

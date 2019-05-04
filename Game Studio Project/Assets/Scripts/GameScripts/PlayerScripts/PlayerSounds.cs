@@ -18,9 +18,7 @@ public class PlayerSounds : InitialisedEntity
     [SerializeField]
     AudioClip playerImpactSound;
 
-    const float maxVolumeAdjustment = 0.5f;
-
-    const float minVolume = 0.01f;
+    const float maxVolumeAdjustment = 1f;
 
     public override void Initialise()
     {
@@ -57,7 +55,7 @@ public class PlayerSounds : InitialisedEntity
     {
         float percentage = volume * 100;
 
-        float volumeValue = percentage / 100 * 0.5f;
+        float volumeValue = percentage / 100 * maxVolumeAdjustment;
 
         playerAudioConstant.volume = volumeValue;
     }

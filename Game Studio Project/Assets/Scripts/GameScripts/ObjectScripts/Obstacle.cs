@@ -46,8 +46,9 @@ namespace AlternativeArchitecture
 
             if (transform.position.z < zDespawn)
             {
-                isActive = false;
-                gamePooler.PoolObject(objectType, gameObject);
+                //isActive = false;
+                //gamePooler.PoolObject(objectType, gameObject);
+                BackToPool();
             }
         }
 
@@ -60,5 +61,9 @@ namespace AlternativeArchitecture
                 //Debug.Log("YOWSERS! ");
         }
 
+        public void BackToPool() {
+            isActive = false;
+            gamePooler.PoolObject(objectType, gameObject);
+        }
     }
 }

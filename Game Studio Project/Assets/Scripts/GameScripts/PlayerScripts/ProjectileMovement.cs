@@ -10,10 +10,12 @@ public class ProjectileMovement : MonoBehaviour
     [SerializeField]
     float speed = 20;
     Rigidbody rb;
+    private AlternativeArchitecture.GamePooler gp;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        gp = GameObject.FindGameObjectWithTag("GameController").GetComponent<AlternativeArchitecture.GamePooler>();
     }
 
     private void FixedUpdate()
@@ -32,6 +34,7 @@ public class ProjectileMovement : MonoBehaviour
     {
         if (collision.transform.tag == "Obstacle") {
             //"delete" asteroid; ask sean how i'm suppose to do this
+            collision.gameObject.GetComponent<AlternativeArchitecture.Obstacle>().BackToPool();
             Destroy(gameObject);
         }
     }

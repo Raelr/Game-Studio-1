@@ -123,4 +123,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeAlive: 3
-  speed: 10
+  speed: 7

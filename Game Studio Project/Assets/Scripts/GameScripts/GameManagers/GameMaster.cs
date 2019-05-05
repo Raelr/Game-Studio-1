@@ -36,9 +36,15 @@ namespace AlternativeArchitecture {
                 instance = this;
             }
 
-            ResumeGame();
+            float reset = Mathf.Abs(Time.timeScale);
 
-            gameStarted = false;
+            PlayerPrefs.SetFloat("Reset", reset);
+
+            int time = Mathf.RoundToInt(Mathf.Abs(PlayerPrefs.GetFloat("Reset")));
+
+            gameStarted = time == 0;
+
+            Debug.Log(gameStarted);
 
             SetUpReferences();
             
@@ -106,6 +112,7 @@ namespace AlternativeArchitecture {
 
         public void OnPlayerLose()
         {
+            GameStarted = false;
             OnPlayerLost?.Invoke();
             PauseGame();
         }

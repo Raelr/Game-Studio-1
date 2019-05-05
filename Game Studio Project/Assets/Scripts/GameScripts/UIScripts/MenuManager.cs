@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using AlternativeArchitecture;
 
 public class MenuManager : InitialisedEntity {
 
@@ -33,6 +34,13 @@ public class MenuManager : InitialisedEntity {
 
     public void RestartLevel() {
 
+        GameMaster.ResumeGame();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void Reset()
+    {
+        GameMaster.PauseGame();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

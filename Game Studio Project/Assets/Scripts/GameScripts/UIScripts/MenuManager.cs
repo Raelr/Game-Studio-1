@@ -27,6 +27,11 @@ public class MenuManager : InitialisedEntity {
         Application.Quit();
     }
 
+    public void ShowMainMenu()
+    {
+        GlobalMethods.Show(MainMenuPanel.gameObject);
+    } 
+
     public void LoadLoseScreen() {
 
         GlobalMethods.Show(LosePanel.gameObject);

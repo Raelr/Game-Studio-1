@@ -35,7 +35,7 @@ public class InputManager : MonoBehaviour
             master?.ClickEvent();
         }
 
-        master?.MoveToward(GetMousePosition());
+        master?.MoveToward(-GetMousePosition());
     }
 
     // Gets the mouse position and returns its screen point.

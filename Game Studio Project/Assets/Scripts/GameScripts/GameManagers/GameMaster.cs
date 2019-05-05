@@ -36,18 +36,30 @@ namespace AlternativeArchitecture {
                 instance = this;
             }
 
-            ResumeGame();
+            float reset = Time.timeScale;
 
-            gameStarted = false;
+            PlayerPrefs.SetFloat("Reset", reset);
+
+            int time = Mathf.RoundToInt(PlayerPrefs.GetFloat("Reset"));
+
+            GameStarted = time == 0;
 
             SetUpReferences();
-            
         }
 
         // Initialises the actual object (only after all others have been set up)
         private void Start() {
 
             Initialise();
+
+            if (gameStarted)
+            {
+                StartGame();
+            }
+            else
+            {
+                UIMaster.instance.ShowMainMenu();
+            }
         }
 
         private void FixedUpdate() {
@@ -58,6 +70,8 @@ namespace AlternativeArchitecture {
         }
 
         public void StartGame() {
+
+            ResumeGame();
 
             GameStarted = true;
 
@@ -106,6 +120,7 @@ namespace AlternativeArchitecture {
 
         public void OnPlayerLose()
         {
+            GameStarted = false;
             OnPlayerLost?.Invoke();
             PauseGame();
         }

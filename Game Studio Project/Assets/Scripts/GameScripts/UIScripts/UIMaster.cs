@@ -116,6 +116,11 @@ public class UIMaster : Master
         onUIStatusChange?.Invoke(value);
     }
 
+    public void ShowMainMenu()
+    {
+        menuManager.ShowMainMenu();
+    }
+
     public void OnPlayerLost() {
         
         GameStarted = false;

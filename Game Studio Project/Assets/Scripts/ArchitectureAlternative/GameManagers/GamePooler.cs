@@ -100,6 +100,31 @@ namespace AlternativeArchitecture
             }
         }
 
+        public void ResetPool()
+        {
+            foreach (ObjectType objType in pool.Keys)
+            {
+                ResetObjects(pool[objType]);
+            }
+
+            pool.Clear();
+        }
+
+        public void ResetPoolAndPreload()
+        {
+            ResetPool();
+            PreloadPool();
+        }
+
+
+        private void ResetObjects(PooledObjectTypeData objectsData)
+        {
+            foreach (PooledObjectData objectData in objectsData.objects)
+            {
+                Destroy(objectData.pooledObject);
+            }
+        }
+
         public GameObject RetrieveOrCreate (ObjectType objectType)
         {
             RetrievedObjectData getObject = Retrieve(objectType, RetrieveMethod.BOTTOM);

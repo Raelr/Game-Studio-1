@@ -17,7 +17,12 @@ public class MovementController : InitialisedEntity {
 	[Header("Physics Properties")]
 	[SerializeField] private float force = 25f;
     [SerializeField] private float maxDistance = 8;
-    [SerializeField] private bool invertMovement;
+    [SerializeField] private bool invertMovement = false;
+    [SerializeField] private float minRotation = -30;
+    [SerializeField] private float maxRotation = 30;
+    [SerializeField] private float stepRotation = 0.1f;
+    private float rotationX;
+    private float rotationY;
     private Vector3 lastPosition;
 
 	[Header("Player Bounds")]
@@ -59,6 +64,28 @@ public class MovementController : InitialisedEntity {
 		velocity.y = GlobalMethods.WithinBounds(nextPosition.y, -yBounds, yBounds) ? velocity.y : 0;
 
 		physics.AddForce(velocity);
+    }
+
+    public void RotateEntity(Vector2 targetPos) {
+        //float inputx = targetpos.x * -1;
+        //float inputy = targetpos.y * -1;
+        //float rotation = inputX < 0 ? -30 : 30;
+
+        Vector2 dir = (targetPos*-1) - (Vector2)player.transform.position;
+        dir.Normalize();
+
+        rotationX += dir.x * stepRotation;
+        rotationY += dir.y * stepRotation;
+
+        Debug.Log(rotationX);
+
+        rotationX = Mathf.Clamp(rotationX, minRotation, maxRotation);
+        rotationY = Mathf.Clamp(rotationY, minRotation, maxRotation);
+
+
+
+        player.transform.rotation = Quaternion.Euler(new Vector3(0,rotationX,0));
+        Debug.Log(rotationX);
     }
 
     public void onPlayerCollision() {

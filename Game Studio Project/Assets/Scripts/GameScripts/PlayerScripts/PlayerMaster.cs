@@ -63,6 +63,8 @@ namespace AlternativeArchitecture {
 
             updateEvent += movementController.MoveEntity;
 
+            updateEvent += movementController.RotateEntity;
+
             onPlayerCollision += playerProperties.DecaySanityByAmount;
         }
 

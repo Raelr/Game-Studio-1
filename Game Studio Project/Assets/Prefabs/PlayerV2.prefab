@@ -82,7 +82,10 @@ MonoBehaviour:
   physics: {fileID: 0}
   force: 25
   maxDistance: 10
-  invertMovement: 1
+  invertMovement: 0
+  minRotation: -30
+  maxRotation: 30
+  stepRotation: 5
 --- !u!114 &506424735756477649
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -134,7 +137,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e72311625e9c8d64e9fe7485399b09be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lives: 3
+  speed: 0
 --- !u!1 &1381630110820649083
 GameObject:
   m_ObjectHideFlags: 0

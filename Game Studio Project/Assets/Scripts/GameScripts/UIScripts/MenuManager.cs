@@ -39,13 +39,13 @@ public class MenuManager : InitialisedEntity {
 
     public void RestartLevel() {
 
-        GameMaster.ResumeGame();
+        PlayerPrefs.SetInt("Reset", 0);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void Reset()
     {
-        GameMaster.PauseGame();
+        PlayerPrefs.SetInt("Reset", 1);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

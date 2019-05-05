@@ -41,8 +41,6 @@ namespace AlternativeArchitecture {
                 PlayerPrefs.SetInt("Reset", 0);
             }
 
-            Debug.Log(PlayerPrefs.GetInt("Reset"));
-
             GameStarted = PlayerPrefs.GetInt("Reset") == 1;
 
             SetUpReferences();
@@ -77,6 +75,8 @@ namespace AlternativeArchitecture {
             GameStarted = true;
 
             InitialiseAll();
+
+            PlayerPrefs.SetInt("Reset", 0);
         }
 
         // Initialises variables and sets delegates.
@@ -90,15 +90,13 @@ namespace AlternativeArchitecture {
         }
 
         public static void PauseGame() {
-
-            Debug.Log("Pausing");
+        
             Time.timeScale = 0f;
 
         }
 
         public static void ResumeGame() {
 
-            Debug.Log("Resuming");
             Time.timeScale = 1f;
         }
 

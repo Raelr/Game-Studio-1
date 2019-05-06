@@ -4,8 +4,13 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using AlternativeArchitecture;
+using UnityEngine.Audio;
 
 public class MenuManager : InitialisedEntity {
+
+    [Header("Main Audio")]
+    [SerializeField]
+    AudioMixer masterMixer;
 
     [Header("Main Menu")]
     [SerializeField]
@@ -47,5 +52,10 @@ public class MenuManager : InitialisedEntity {
     {
         PlayerPrefs.SetInt("Reset", 1);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void SetVolume(float volume)
+    {
+        masterMixer.SetFloat("volume", volume);
     }
 }

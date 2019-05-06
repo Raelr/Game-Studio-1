@@ -7,11 +7,12 @@ public class CameraLookat : MonoBehaviour
     public Transform target;
     public float damping;
 
+
     public void FixedUpdate()
     {
         if (target)
         {
-      
+     
             Transform camera = Camera.main.transform;
             Vector3 toTarget = target.position - camera.position;
             Quaternion targetRotation = Quaternion.LookRotation(toTarget);
@@ -32,4 +33,5 @@ public class CameraLookat : MonoBehaviour
     {
         target = newTarget;
     }
+
 }

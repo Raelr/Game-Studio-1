@@ -26,10 +26,13 @@ public class MovementController : InitialisedEntity {
     private Vector3 lastPosition;
 
 	[Header("Player Bounds")]
-	private float xBounds = 10f;
-	private float yBounds = 6f;
+	private float xBounds = 100f;
+	private float yBounds = 12f;
 
 	private Transform player;
+
+    private float inputX;
+    private Vector2 inputDir;
 
 	// Initialises all variables and gets the physics component. 
 	public override void Initialise() {
@@ -41,6 +44,12 @@ public class MovementController : InitialisedEntity {
         physics.Initialise();
 
         physics.onCollision += onPlayerCollision;
+    }
+
+    public void FixedUpdate() {
+        float inputX = Input.GetAxis("Horizontal");
+        float inputY = Input.GetAxis("Vertical");
+        inputDir = new Vector2(inputX, inputY);
     }
 
     // Makes all calculations for the physics and applies force via the physics component.
@@ -59,8 +68,8 @@ public class MovementController : InitialisedEntity {
 
 		Vector3 nextPosition = (Vector2)player.position + GlobalMethods.Normalise(dir);
 
-		//Clamps velocity to make sure player stays within the set bounds
-		velocity.x = GlobalMethods.WithinBounds(nextPosition.x, -xBounds, xBounds) ? velocity.x : 0;
+        //Clamps velocity to make sure player stays within the set bounds
+        velocity.x = GlobalMethods.WithinBounds(nextPosition.x, -xBounds, xBounds) ? velocity.x : 0;
 		velocity.y = GlobalMethods.WithinBounds(nextPosition.y, -yBounds, yBounds) ? velocity.y : 0;
 
 		physics.AddForce(velocity);
@@ -71,21 +80,33 @@ public class MovementController : InitialisedEntity {
         //float inputy = targetpos.y * -1;
         //float rotation = inputX < 0 ? -30 : 30;
 
-        Vector2 dir = (targetPos*-1) - (Vector2)player.transform.position;
-        dir.Normalize();
+        //Vector2 dir = GlobalMethods.GetDirection(player.position, targetPos*-1);
 
-        rotationX += dir.x * stepRotation;
-        rotationY += dir.y * stepRotation;
+        rotationX += inputDir.x * stepRotation * Time.deltaTime * force;
+        rotationY += inputDir.y * stepRotation * Time.deltaTime * force;
 
-        Debug.Log(rotationX);
+        //Debug.Log(rotationX);
 
-        rotationX = Mathf.Clamp(rotationX, minRotation, maxRotation);
-        rotationY = Mathf.Clamp(rotationY, minRotation, maxRotation);
+        float shipRotationX = Mathf.Clamp(rotationX, minRotation, maxRotation);
+        float shipRotationY = Mathf.Clamp(rotationY, minRotation, maxRotation);
 
+        Debug.Log(-stepRotation * inputDir.y);
+        transform.localRotation = Quaternion.Euler(new Vector3(-rotationY, rotationX, 0));
+        player.transform.localRotation = Quaternion.Euler(new Vector3(-stepRotation*inputDir.y*2, stepRotation*inputDir.x*2, -rotationX));
+        //Debug.Log(rotationX);
+    }
 
+    public void JoystickMovement(Vector2 targetPos) {
+        float dist = Vector3.Distance(targetPos, player.position);
+        Vector2 velocity = inputDir * force * Time.deltaTime *100;
 
-        player.transform.rotation = Quaternion.Euler(new Vector3(0,rotationX,0));
-        Debug.Log(rotationX);
+        Vector3 nextPosition = (Vector2)player.position + GlobalMethods.Normalise(inputDir);
+
+        //Clamps velocity to make sure player stays within the set bounds
+        velocity.x = GlobalMethods.WithinBounds(nextPosition.x, -xBounds, xBounds) ? velocity.x : 0;
+        velocity.y = GlobalMethods.WithinBounds(nextPosition.y, -yBounds, yBounds) ? velocity.y : 0;
+
+        physics.AddForce(velocity);
     }
 
     public void onPlayerCollision() {

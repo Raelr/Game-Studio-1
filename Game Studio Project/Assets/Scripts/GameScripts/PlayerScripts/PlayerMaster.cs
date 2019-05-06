@@ -61,9 +61,11 @@ namespace AlternativeArchitecture {
 
             onClick += projectiles.FireProjectile;
 
-            updateEvent += movementController.MoveEntity;
+            //updateEvent += movementController.MoveEntity;
 
             updateEvent += movementController.RotateEntity;
+
+            //updateEvent += movementController.JoystickMovement;
 
             onPlayerCollision += playerProperties.DecaySanityByAmount;
         }

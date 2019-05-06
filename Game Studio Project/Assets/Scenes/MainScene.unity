@@ -3377,6 +3377,9 @@ MonoBehaviour:
   MainMenuPanel: {fileID: 121019570}
   LosePanel: {fileID: 1154569390}
   resolutionDropdown: {fileID: 360957691}
+  fullscreenToggle: {fileID: 1119020080}
+  qualityDropDown: {fileID: 1208437037}
+  volumeSlider: {fileID: 1504725069}
 --- !u!114 &826490710
 MonoBehaviour:
   m_ObjectHideFlags: 0

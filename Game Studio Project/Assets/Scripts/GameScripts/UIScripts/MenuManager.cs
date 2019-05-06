@@ -63,4 +63,9 @@ public class MenuManager : InitialisedEntity {
     {
         QualitySettings.SetQualityLevel(qualityIndex);
     }
+
+    public void ToggleFullscreen(bool isFullScreen)
+    {
+        Screen.fullScreen = isFullScreen;
+    }
 }

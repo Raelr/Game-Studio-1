@@ -77,7 +77,8 @@ public class MenuManager : InitialisedEntity
 
         for (int i = 0; i < resolutions.Length; i++)
         {
-            string option = resolutions[i].width + " x " + resolutions[i].height;
+            string option = resolutions[i].width + " x " + resolutions[i].height + " " + resolutions[i].refreshRate;
+
             resolutionStrings.Add(option);
 
             if (!PlayerPrefs.HasKey("resolution") && resolutions[i].width == Screen.currentResolution.width 
@@ -129,6 +130,8 @@ public class MenuManager : InitialisedEntity
     public void SetResolution(int resolutionIndex)
     {
         Screen.SetResolution(resolutions[resolutionIndex].width, resolutions[resolutionIndex].height, Screen.fullScreen);
+
+        Debug.Log(Screen.currentResolution);
 
         PlayerPrefs.SetInt("resolution", resolutionIndex);
     }

@@ -11,10 +11,10 @@ public class UIMeter : InitialisedEntity
     Renderer meterRenderer;
 
     [SerializeField]
-    Color startColor;
+    Color startColor = Color.white;
 
     [SerializeField]
-    Color endColor;
+    Color endColor = Color.white;
 
     float maxAmount;
 

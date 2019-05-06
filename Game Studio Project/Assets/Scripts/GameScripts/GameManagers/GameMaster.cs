@@ -36,13 +36,12 @@ namespace AlternativeArchitecture {
                 instance = this;
             }
 
-            float reset = Time.timeScale;
+            if (!PlayerPrefs.HasKey("Reset"))
+            {
+                PlayerPrefs.SetInt("Reset", 0);
+            }
 
-            PlayerPrefs.SetFloat("Reset", reset);
-
-            int time = Mathf.RoundToInt(PlayerPrefs.GetFloat("Reset"));
-
-            GameStarted = time == 0;
+            GameStarted = PlayerPrefs.GetInt("Reset") == 1;
 
             SetUpReferences();
         }
@@ -76,6 +75,8 @@ namespace AlternativeArchitecture {
             GameStarted = true;
 
             InitialiseAll();
+
+            PlayerPrefs.SetInt("Reset", 0);
         }
 
         // Initialises variables and sets delegates.
@@ -89,7 +90,7 @@ namespace AlternativeArchitecture {
         }
 
         public static void PauseGame() {
-
+        
             Time.timeScale = 0f;
 
         }

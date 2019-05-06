@@ -24,6 +24,10 @@ namespace AlternativeArchitecture {
         [SerializeField]
         PlayerProperties playerProperties;
 
+        [Header("Sounds")]
+        [SerializeField]
+        PlayerSounds sounds;
+
         // Delegate for handling mouse click input. 
         // You'd need other delgates for other forms of input for the master (moving...etc)
         public delegate void OnClickHandler();
@@ -41,6 +45,14 @@ namespace AlternativeArchitecture {
         public delegate void UIMeterChangeHandler();
 
         public UIMeterChangeHandler onMeterChanged;
+
+        public delegate void SoundChangeHandler(float volume);
+
+        public SoundChangeHandler onSoundChanged;
+
+        public delegate void PlayerLostHandler();
+
+        public PlayerLostHandler onPlayerLost;
 
         private void Awake() {
 
@@ -83,11 +95,17 @@ namespace AlternativeArchitecture {
 
             playerProperties.Initialise();
 
+            sounds.Initialise();
+
             movementController.onCollision += OnPlayerHit;
 
             playerProperties.onPlayerLose += OnPlayerLose;
 
             onMeterChanged += playerProperties.DecaySanityConstant;
+
+            playerProperties.OnSoundChanged += sounds.AdjustAudioSourceVolume;
+
+            onPlayerLost += sounds.StopBackgroundSound;
         }
 
         // Gets the approrpiate components for master. 
@@ -102,9 +120,11 @@ namespace AlternativeArchitecture {
             projectiles = GetComponent<ProjectileController>();
 
             playerProperties = GetComponent<PlayerProperties>();
+
+            sounds = GetComponentInChildren<PlayerSounds>();
         }
 
-        // Processes all user (or script based) input.
+        // Processes all user (or script based input.
         public override void ClickEvent() {
 
             onClick?.Invoke();
@@ -123,11 +143,14 @@ namespace AlternativeArchitecture {
         public void OnPlayerHit() {
         
             onPlayerCollision?.Invoke();
+            
         }
 
         public void OnPlayerLose() {
 
-            GameMaster.PauseGame();
+            onPlayerLost?.Invoke();
+
+            GameMaster.instance.OnPlayerLose();
 
             UIMaster.instance.OnPlayerLost();
         }

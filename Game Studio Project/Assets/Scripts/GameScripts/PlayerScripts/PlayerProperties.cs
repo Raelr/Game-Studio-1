@@ -15,13 +15,17 @@ public class PlayerProperties : InitialisedEntity
 
     const float maxSanity = 9f;
 
-    const float impactSanityDamage = 4f;
+    const float impactSanityDamage = 5f;
 
     float currentSanity;
 
     public delegate void OnPlayerLostGame();
 
     public event OnPlayerLostGame onPlayerLose;
+
+    public delegate void SoundChangedHandler(float volume);
+
+    public event SoundChangedHandler OnSoundChanged;
 
     public override void Initialise() {
 
@@ -36,16 +40,17 @@ public class PlayerProperties : InitialisedEntity
 
     }
 
-
     public void DecaySanityConstant() {
 
-        float projectedSanity = currentSanity - insanityDecaySpeed;
+        if (currentSanity > 0) { 
 
-        if (projectedSanity > 0) { 
-
-            currentSanity = Mathf.Lerp(currentSanity, projectedSanity, insanityDecaySpeed * Time.deltaTime);
+            currentSanity = Mathf.Lerp(currentSanity, currentSanity - insanityDecaySpeed, insanityDecaySpeed * Time.deltaTime);
 
             UIMaster.instance.onMeterChange.Invoke(insanityDecaySpeed);
+
+            float normalisedSanity = 1f - (currentSanity / maxSanity);
+
+            OnSoundChanged?.Invoke(normalisedSanity);
 
         } else {
 
@@ -61,19 +66,16 @@ public class PlayerProperties : InitialisedEntity
         {
             currentSanity = projectedSanity;
 
-            Debug.LogWarning(currentSanity);
-
             UIMaster.instance.onMeterChange.Invoke(impactSanityDamage);
+
+            float normalisedSanity = 1f - (currentSanity / maxSanity);
+
+            OnSoundChanged?.Invoke(normalisedSanity);
 
         }
         else
         {
             onPlayerLose?.Invoke();
         }
-    }
-
-    public void IncreaseSpeed() {
-
-
     }
 }

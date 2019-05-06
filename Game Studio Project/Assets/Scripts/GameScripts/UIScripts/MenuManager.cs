@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using AlternativeArchitecture;
 using UnityEngine.Audio;
+using TMPro;
 
 public class MenuManager : InitialisedEntity {
 
@@ -20,11 +21,51 @@ public class MenuManager : InitialisedEntity {
     [SerializeField]
     Image LosePanel;
 
+    [Header("Resolution Dropdown")]
+    [SerializeField]
+    TMP_Dropdown resolutionDropdown;
+
+    Resolution[] resolutions;
+
     public override void Initialise() {
 
         base.Initialise();
 
         GlobalMethods.Hide(LosePanel.gameObject);
+
+        ProcessAllResolutions();
+    }
+
+    void ProcessAllResolutions()
+    {
+        resolutions = Screen.resolutions;
+
+        resolutionDropdown.ClearOptions();
+
+        List<string> resolutionStrings = new List<string>();
+
+        int currentResolutionIndex = 0;
+
+        for (int i = 0; i < resolutions.Length; i++)
+        {
+            string option = resolutions[i].width + " x " + resolutions[i].height;
+            resolutionStrings.Add(option);
+
+            if (resolutions[i].width == Screen.currentResolution.width && resolutions[i].height == Screen.currentResolution.height)
+            {
+                currentResolutionIndex = i;
+
+            }
+        }
+
+        resolutionDropdown.AddOptions(resolutionStrings);
+        resolutionDropdown.value = currentResolutionIndex;
+        resolutionDropdown.RefreshShownValue();
+    }
+
+    public void SetResolution(int resolutionIndex)
+    {
+        Screen.SetResolution(resolutions[resolutionIndex].width, resolutions[resolutionIndex].height, Screen.fullScreen);
     }
 
     public void QuitGame() {

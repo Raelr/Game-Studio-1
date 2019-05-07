@@ -76,6 +76,8 @@ namespace AlternativeArchitecture {
             updateEvent += movementController.MoveEntity;
 
             onPlayerCollision += playerProperties.DecaySanityByAmount;
+
+            onPlayerCollision += sounds.PlayerImpactSound;
         }
 
         // Initialises all components underneath master.
@@ -137,9 +139,9 @@ namespace AlternativeArchitecture {
         }
 
         public void OnPlayerHit() {
-        
+
+            CameraShake.instance.ShakeOnce();
             onPlayerCollision?.Invoke();
-            
         }
 
         public void OnPlayerLose() {
@@ -147,6 +149,8 @@ namespace AlternativeArchitecture {
             onPlayerLost?.Invoke();
 
             GameMaster.instance.OnPlayerLose();
+
+            CameraShake.instance.StopCameraShake();
 
             UIMaster.instance.OnPlayerLost();
         }

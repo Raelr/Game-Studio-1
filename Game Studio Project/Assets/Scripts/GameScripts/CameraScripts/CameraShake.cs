@@ -12,6 +12,10 @@ public class CameraShake : MonoBehaviour
 
     public static CameraShake instance;
 
+    Coroutine shake;
+
+    bool isShaking = false;
+
     private void Awake()
     {
         instance = this;
@@ -19,13 +23,17 @@ public class CameraShake : MonoBehaviour
 
     public void StopCameraShake()
     {
-        StopCoroutine(ShakeCamera(shakeDuration, shakeMagnitue));
+        StopCoroutine(shake);
     }
 
     public void ShakeOnce()
     {
-        StopCoroutine(ShakeCamera(shakeDuration, shakeMagnitue));
-        StartCoroutine(ShakeCamera(shakeDuration, shakeMagnitue));
+        if (shake != null)
+        {
+            StopCoroutine(shake);
+        }
+
+        shake = StartCoroutine(ShakeCamera(shakeDuration, shakeMagnitue));
     }
 
     IEnumerator ShakeCamera(float duration, float magnitude)

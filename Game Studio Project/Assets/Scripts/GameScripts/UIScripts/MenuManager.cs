@@ -131,8 +131,6 @@ public class MenuManager : InitialisedEntity
     {
         Screen.SetResolution(resolutions[resolutionIndex].width, resolutions[resolutionIndex].height, Screen.fullScreen);
 
-        Debug.Log(Screen.currentResolution);
-
         PlayerPrefs.SetInt("resolution", resolutionIndex);
     }
 

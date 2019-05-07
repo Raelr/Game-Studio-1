@@ -37,7 +37,6 @@ public class PlayerProperties : InitialisedEntity
     public void OnPlayerHit()
     {
         DecaySanityConstant();
-
     }
 
     public void DecaySanityConstant() {

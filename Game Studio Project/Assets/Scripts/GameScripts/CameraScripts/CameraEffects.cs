@@ -11,7 +11,7 @@ public class CameraEffects : MonoBehaviour
     public float currentInsanity = 0;
 
     //DASH EFFECT
-    public PostProcessVolume dashPost;
+    public PostProcessVolume dashPost, insanityPost;
     private Coroutine dashRoutine;
     public float dashOnLength, dashOffLength;
 
@@ -19,6 +19,8 @@ public class CameraEffects : MonoBehaviour
     //DATA MOSH
     public bool moshEnabled = false;
     public Kino.Datamosh mosh;
+
+    public Monster monster;
 
 
 
@@ -51,6 +53,8 @@ public class CameraEffects : MonoBehaviour
         {
             SetMosh(insanity);
         }
+        SetInsanityPost(insanity);
+        monster.MonsterReveal(insanity);
     }
 
     private void StopDashCoroutine ()
@@ -110,5 +114,11 @@ public class CameraEffects : MonoBehaviour
         mosh.entropy = GlobalMethods.Remap(insanity, 0.6f, 1, 0f, 0.5f);
     }
     
+    public void SetInsanityPost (float insanity) //0 to 1
+    {
+        insanityPost.weight = GlobalMethods.Remap(insanity, 0.5f, 1f, 0, 1);
+        if (insanity < 0.5f)
+            insanityPost.weight = 0;
+    }
     
 }

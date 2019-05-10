@@ -10,12 +10,6 @@ public class InputManager : MonoBehaviour
     [SerializeField]
     Master master;
 
-	private float horizontalInput;
-	private float verticalInput;
-
-	public float HorizontalInput { get { return horizontalInput; } }
-	public float VerticalInput { get { return verticalInput; } }
-
 	// Find master.
 	private void Awake() {
 
@@ -38,7 +32,6 @@ public class InputManager : MonoBehaviour
             // Call the master's input delegate.
             master?.ClickEvent();
         }
-        master?.MoveToward(-GetMousePosition());
     }
 
 	// Sets movement from the horizontal and vertical Axis

@@ -73,13 +73,15 @@ public class MovementController : InitialisedEntity {
 
 	public void RotateEntity(Vector2 input) {
 
+		Debug.Log(input.x);
+
         rotationX += input.x * stepRotation * Time.deltaTime * force;
         rotationY += input.y * stepRotation * Time.deltaTime * force;
 
         float shipRotationX = Mathf.Clamp(rotationX, minRotation, maxRotation);
         float shipRotationY = Mathf.Clamp(rotationY, minRotation, maxRotation);
 
-        Debug.Log(-stepRotation * input.y);
+        //Debug.Log(-stepRotation * input.y);
         transform.localRotation = Quaternion.Euler(new Vector3(-rotationY, rotationX, 0));
         player.transform.localRotation = Quaternion.Euler(new Vector3(-stepRotation* input.y*2, stepRotation*input.x*2, -rotationX));
 

@@ -10,6 +10,7 @@ public class Monster : MonoBehaviour
         public float seed;
         public Transform parentTransform;
         public TentacleComponents components;
+        public Vector3 parentOriginRotation;
     }
 
     private float lastReveal = -1;
@@ -30,7 +31,7 @@ public class Monster : MonoBehaviour
         }
         MonsterReveal(0);
     }
-    /*
+    
     float revealVal = 0;
     private void Update()
     {
@@ -45,7 +46,7 @@ public class Monster : MonoBehaviour
             Debug.Log("reveal : " + revealVal);
         }
         MonsterReveal(revealVal);
-    }*/
+    }
 
     private TentacleData NewTentacle (float rotation)
     {
@@ -61,6 +62,7 @@ public class Monster : MonoBehaviour
         newTentacleData.seed = Random.Range(0, 1000);
         newTentacleData.parentTransform = newTentacle.transform;
         newTentacleData.components = newTentacle.GetComponent<TentacleComponents>();
+        newTentacleData.parentOriginRotation = newTentacle.transform.localEulerAngles;
 
         return newTentacleData;
     }
@@ -92,6 +94,7 @@ public class Monster : MonoBehaviour
 
             float seedOffset = (data.seed % 20) - 10;
 
+
             data.components.tentacleInner.localPosition = new Vector3(
                 GlobalMethods.Remap(reveal, 0.5f, 1, 40 + seedOffset + 15, 23.4f),
                 0,
@@ -107,17 +110,15 @@ public class Monster : MonoBehaviour
                 GlobalMethods.Remap(reveal, 0.7f, 1, 0.2f + (seedOffset / 20), 2.8f),
                 1);
 
+            data.parentTransform.localEulerAngles = new Vector3(
+                data.parentOriginRotation.x,
+                data.parentOriginRotation.y,
+                GlobalMethods.Remap(reveal, 0.7f, 1, data.parentOriginRotation.z + 30, data.parentOriginRotation.z)
+                );
 
             data.components.tentacleInnerRenderer.material.SetTextureOffset("_V_SSS_DisplaceTex", new Vector2(0, (reveal / 2) + (seedOffset / 20)));
 
 
-            /*
-                        data.objectRenderer.material.SetFloat("_V_SSS_Displacement",
-                            GlobalMethods.Remap(reveal, 0.7f, 1, 0, 1.5f + (seedOffset / 10)));
-
-
-                        float colorBrightness = GlobalMethods.Remap(reveal, 0.5f, 1, 1, 0);
-                        data.objectRenderer.material.SetColor("_Color", new Color(colorBrightness, colorBrightness, colorBrightness));*/
         }
     }
 

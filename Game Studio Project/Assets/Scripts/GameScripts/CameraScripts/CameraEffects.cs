@@ -54,7 +54,7 @@ public class CameraEffects : MonoBehaviour
             SetMosh(insanity);
         }
         SetInsanityPost(insanity);
-        //monster.MonsterReveal(insanity);
+        monster.MonsterReveal(insanity);
     }
 
     private void StopDashCoroutine ()

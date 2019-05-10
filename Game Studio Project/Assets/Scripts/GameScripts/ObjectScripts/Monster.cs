@@ -31,7 +31,7 @@ public class Monster : MonoBehaviour
         }
         MonsterReveal(0);
     }
-    
+    /*
     float revealVal = 0;
     private void Update()
     {
@@ -46,7 +46,7 @@ public class Monster : MonoBehaviour
             Debug.Log("reveal : " + revealVal);
         }
         MonsterReveal(revealVal);
-    }
+    }*/
 
     private TentacleData NewTentacle (float rotation)
     {

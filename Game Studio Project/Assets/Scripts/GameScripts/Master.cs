@@ -24,7 +24,11 @@ public abstract class Master : InitialisedEntity
 
     }
 
-    public virtual void OnUIChange() {
+	public virtual void RotateEntity(Vector2 input) {
+
+	}
+
+	public virtual void OnUIChange() {
 
     }
 }

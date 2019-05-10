@@ -73,11 +73,7 @@ namespace AlternativeArchitecture {
 
             onClick += projectiles.FireProjectile;
 
-            //updateEvent += movementController.MoveEntity;
-
             updateEvent += movementController.RotateEntity;
-
-            //updateEvent += movementController.JoystickMovement;
 
             onPlayerCollision += playerProperties.DecaySanityByAmount;
         }
@@ -140,7 +136,11 @@ namespace AlternativeArchitecture {
             updateEvent?.Invoke(mouseCoordinates);
         }
 
-        public void OnPlayerHit() {
+		public override void RotateEntity(Vector2 input) {
+			updateEvent?.Invoke(input);
+		}
+
+		public void OnPlayerHit() {
         
             onPlayerCollision?.Invoke();
             

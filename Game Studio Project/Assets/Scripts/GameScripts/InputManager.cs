@@ -10,8 +10,14 @@ public class InputManager : MonoBehaviour
     [SerializeField]
     Master master;
 
-    // Find master.
-    private void Awake() {
+	private float horizontalInput;
+	private float verticalInput;
+
+	public float HorizontalInput { get { return horizontalInput; } }
+	public float VerticalInput { get { return verticalInput; } }
+
+	// Find master.
+	private void Awake() {
 
         master = GetComponent<Master>();
     }
@@ -22,24 +28,29 @@ public class InputManager : MonoBehaviour
     }
 
     private void FixedUpdate() {
-
         GetMouseInput();
+		SetAxisMovment();
     }
 
     // Listens for input.
     void GetMouseInput() {
-
         if (Input.GetKeyDown(KeyCode.Mouse0)) {
-
             // Call the master's input delegate.
             master?.ClickEvent();
         }
-
         master?.MoveToward(-GetMousePosition());
     }
 
-    // Gets the mouse position and returns its screen point.
-    Vector3 GetMousePosition() {
+	// Sets movement from the horizontal and vertical Axis
+	private void SetAxisMovment() {
+		float horizontalInput = Input.GetAxis("Horizontal");
+		float verticalInput = Input.GetAxis("Vertical");
+
+		master?.RotateEntity(new Vector2(horizontalInput, verticalInput));
+	}
+
+	// Gets the mouse position and returns its screen point.
+	Vector3 GetMousePosition() {
 
 		return Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, -10.0f));
     }

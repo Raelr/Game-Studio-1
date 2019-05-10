@@ -69,6 +69,10 @@ MonoBehaviour:
   projectiles: {fileID: 0}
   playerProperties: {fileID: 0}
   sounds: {fileID: 0}
+  impactParticlePrefab: {fileID: 1020723920364500725, guid: 499b984524ac0444088417f0a8b1f3cf,
+    type: 3}
+  impactTransform: {fileID: 1701759311739339415}
+  shipRender: {fileID: 4344826283086178371}
 --- !u!114 &506424735756477652
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -41737,6 +41741,36 @@ MonoBehaviour:
   playerAudioSingle: {fileID: 8854787781597852620}
   playerConstantSound: {fileID: 8300000, guid: 598845d16bb42473ebbbb38299e6961f, type: 3}
   playerImpactSound: {fileID: 8300000, guid: c6be775950b8d4f1f8e5943133caaa26, type: 3}
+--- !u!1 &8322004662867654096
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1701759311739339415}
+  m_Layer: 0
+  m_Name: ImpactParticlePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1701759311739339415
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8322004662867654096}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.423}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4344826283084278435}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &4344826283084148771
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -41806,6 +41840,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 291965ea9bb88094b9fe75ea6f400d41, type: 3}
+--- !u!23 &4344826283086178371 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 2300000, guid: 291965ea9bb88094b9fe75ea6f400d41,
+    type: 3}
+  m_PrefabInstance: {fileID: 4344826283084148771}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4344826283084278435 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 291965ea9bb88094b9fe75ea6f400d41,

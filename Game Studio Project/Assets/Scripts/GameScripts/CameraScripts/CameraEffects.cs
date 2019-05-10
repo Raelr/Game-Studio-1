@@ -110,8 +110,8 @@ public class CameraEffects : MonoBehaviour
 
     public void SetMosh (float insanity) //0 to 1
     {
-        mosh.blockSize = (int)GlobalMethods.Remap(insanity, 0.5f, 1, 2, 50);
-        mosh.entropy = GlobalMethods.Remap(insanity, 0.6f, 1, 0f, 0.5f);
+        mosh.blockSize = (int)GlobalMethods.Remap(insanity, 0.5f, 1, 2, 30);
+        mosh.entropy = GlobalMethods.Remap(insanity, 0.6f, 1, 0f, 0.1f);
     }
     
     public void SetInsanityPost (float insanity) //0 to 1

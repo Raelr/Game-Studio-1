@@ -28,6 +28,23 @@ namespace AlternativeArchitecture {
         [SerializeField]
         PlayerSounds sounds;
 
+        [Header("Temp")]
+        [SerializeField]
+        GameObject impactParticlePrefab;
+
+        [Header("Temp2")]
+        [SerializeField]
+        public Transform impactTransform;
+
+        [Header("Temp3")]
+        [SerializeField]
+        public Renderer shipRender;
+
+
+
+        private ParticleSystem impactParticle;
+
+
         // Delegate for handling mouse click input. 
         // You'd need other delgates for other forms of input for the master (moving...etc)
         public delegate void OnClickHandler();
@@ -76,6 +93,8 @@ namespace AlternativeArchitecture {
             updateEvent += movementController.RotateEntity;
 
             onPlayerCollision += playerProperties.DecaySanityByAmount;
+
+            onPlayerCollision += sounds.PlayerImpactSound;
         }
 
         // Initialises all components underneath master.
@@ -135,15 +154,32 @@ namespace AlternativeArchitecture {
 
             updateEvent?.Invoke(mouseCoordinates);
         }
-
 		public override void RotateEntity(Vector2 input) {
 			updateEvent?.Invoke(input);
 		}
+        public void OnPlayerHit() {
 
-		public void OnPlayerHit() {
-        
+            CameraShake.instance.ShakeOnce();
+
             onPlayerCollision?.Invoke();
-            
+
+            //temp
+            if (impactParticle == null)
+            {
+                GameObject particlePrefab = Instantiate(impactParticlePrefab, impactTransform);
+                impactParticle = particlePrefab.GetComponent<ParticleSystem>();
+            }
+            impactParticle.Emit(30);
+            StartCoroutine(TempShipFlash());
+        }
+
+        IEnumerator TempShipFlash ()
+        {
+            shipRender.material.SetFloat("_RimPower", 0.5f);
+            shipRender.material.SetColor("_RimColor", Color.red);
+            yield return new WaitForSeconds(0.2f);
+            shipRender.material.SetFloat("_RimPower", 5.9f);
+            shipRender.material.SetColor("_RimColor", Color.white);
         }
 
         public void OnPlayerLose() {
@@ -151,6 +187,8 @@ namespace AlternativeArchitecture {
             onPlayerLost?.Invoke();
 
             GameMaster.instance.OnPlayerLose();
+
+            CameraShake.instance.StopCameraShake();
 
             UIMaster.instance.OnPlayerLost();
         }

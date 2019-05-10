@@ -27,13 +27,17 @@ public class PlayerSounds : InitialisedEntity
         playerAudioConstant = GetComponents<AudioSource>()[0];
 
         playerAudioSingle = GetComponents<AudioSource>()[1];
-        
+
+        playerAudioSingle.clip = playerImpactSound;
+
+        playerAudioSingle.Stop();
+
         PlayConstantSound();
     }
 
-    public void PlaySingleSound()
+    public void PlayerImpactSound()
     {
-
+        playerAudioSingle.Play();
     }
 
     public void PlayConstantSound()

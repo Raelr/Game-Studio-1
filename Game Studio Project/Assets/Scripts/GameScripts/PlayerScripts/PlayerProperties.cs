@@ -37,7 +37,6 @@ public class PlayerProperties : InitialisedEntity
     public void OnPlayerHit()
     {
         DecaySanityConstant();
-
     }
 
     public void DecaySanityConstant() {
@@ -49,6 +48,7 @@ public class PlayerProperties : InitialisedEntity
             UIMaster.instance.onMeterChange.Invoke(insanityDecaySpeed);
 
             float normalisedSanity = 1f - (currentSanity / maxSanity);
+            CameraEffects.instance.ApplyInsanity(normalisedSanity);
 
             OnSoundChanged?.Invoke(normalisedSanity);
 

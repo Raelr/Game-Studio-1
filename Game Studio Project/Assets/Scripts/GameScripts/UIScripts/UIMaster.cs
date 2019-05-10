@@ -27,6 +27,10 @@ public class UIMaster : Master
     [SerializeField]
     UIMeter insanityMeter;
 
+    [Header("Camera Effects")]
+    [SerializeField]
+    CameraEffects camEffects;
+
     public delegate void UpdateEventHandler();
 
     public UpdateEventHandler onUpdateEvent;
@@ -68,6 +72,7 @@ public class UIMaster : Master
         onUIStatusChange += insanityMeter.ChangeMeterStatus;
 
         onMeterChange += insanityMeter.IncrementMeter;
+        
 
         InitialiseAll();
 
@@ -107,6 +112,8 @@ public class UIMaster : Master
         menuManager.Initialise();
 
         insanityMeter.Initialise();
+
+        camEffects.Initialise();
     }
 
     public void OnGameLevelStarted(bool value) {

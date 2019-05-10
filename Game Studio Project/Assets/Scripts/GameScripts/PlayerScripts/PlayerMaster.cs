@@ -114,6 +114,8 @@ namespace AlternativeArchitecture {
 
             movementController.onCollision += OnPlayerHit;
 
+			movementController.onNearMiss += OnPlayerNearMiss;
+
             playerProperties.onPlayerLose += OnPlayerLose;
 
             onMeterChanged += playerProperties.DecaySanityConstant;
@@ -157,6 +159,7 @@ namespace AlternativeArchitecture {
 		public override void RotateEntity(Vector2 input) {
 			updateEvent?.Invoke(input);
 		}
+        
         public void OnPlayerHit() {
 
             CameraShake.instance.ShakeOnce();
@@ -173,7 +176,11 @@ namespace AlternativeArchitecture {
             StartCoroutine(TempShipFlash());
         }
 
-        IEnumerator TempShipFlash ()
+		public void OnPlayerNearMiss() {
+
+		}
+
+		IEnumerator TempShipFlash ()
         {
             shipRender.material.SetFloat("_RimPower", 0.5f);
             shipRender.material.SetColor("_RimColor", Color.red);

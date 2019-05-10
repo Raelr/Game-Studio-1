@@ -19,7 +19,11 @@ public class PhysicsController : InitialisedEntity
 
     public delegate void OnCollisionhandler();
 
+	public delegate void OnNearMissHandler();
+
     public OnCollisionhandler onCollision;
+
+	public OnNearMissHandler onNearMiss;
 
     public override void Initialise() {
 
@@ -32,6 +36,8 @@ public class PhysicsController : InitialisedEntity
         collisionSensor = GetComponentInChildren<PlayerSensor>();
 
         collisionSensor.onCollision += OnPlayerHit;
+
+		collisionSensor.onNearMiss += OnPlayerNearMiss;
     }
 
     // Adds force to the object in question.
@@ -45,4 +51,8 @@ public class PhysicsController : InitialisedEntity
         onCollision?.Invoke();
 
     }
+
+	public void OnPlayerNearMiss() {
+		onNearMiss?.Invoke();
+	}
 }

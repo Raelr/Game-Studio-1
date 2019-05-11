@@ -8,18 +8,18 @@ public class CameraLookat : MonoBehaviour
     public float damping;
     string test = "";
 
+
     public void FixedUpdate()
     {
         if (target)
         {
+            Transform camera = Camera.main.transform;
+            Vector3 toTarget = target.position - camera.position;
 
-            Transform mainCamera = Camera.main.transform;
-
-            Vector3 toTarget = target.position - mainCamera.position;
             Quaternion targetRotation = Quaternion.LookRotation(toTarget);
-            mainCamera.rotation = Quaternion.Lerp(mainCamera.rotation, targetRotation, damping * Time.deltaTime);
+            camera.rotation = Quaternion.Lerp(camera.rotation, targetRotation, damping * Time.deltaTime);
 
-            test = ""+Mathf.Round(mainCamera.rotation.x*360) + ", " + Mathf.Round(mainCamera.rotation.y * 360) + ", " + Mathf.Round(mainCamera.rotation.z * 360);
+            test = ""+Mathf.Round(camera.rotation.x*360) + ", " + Mathf.Round(camera.rotation.y * 360) + ", " + Mathf.Round(camera.rotation.z * 360);
         }
     }
 
@@ -32,4 +32,5 @@ public class CameraLookat : MonoBehaviour
     {
         target = newTarget;
     }
+
 }

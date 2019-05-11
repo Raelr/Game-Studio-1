@@ -134,6 +134,7 @@ MonoBehaviour:
   timeBetweenShots: 2
   projectile: {fileID: 1920839879034264674, guid: 9f8e316b7641c69469fcfc81b87e552b,
     type: 3}
+  spawnPos: {fileID: 2405148560931296141}
 --- !u!114 &1734906271038868882
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4737,6 +4738,36 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!1 &1679721946353207636
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2405148560931296141}
+  m_Layer: 0
+  m_Name: ProjectileSpawnPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2405148560931296141
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1679721946353207636}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.7}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4344826283084278435}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1783472134924049675
 GameObject:
   m_ObjectHideFlags: 0
@@ -41846,6 +41877,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 291965ea9bb88094b9fe75ea6f400d41, type: 3}
+--- !u!1 &4344826283084183171 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100000, guid: 291965ea9bb88094b9fe75ea6f400d41,
+    type: 3}
+  m_PrefabInstance: {fileID: 4344826283084148771}
+  m_PrefabAsset: {fileID: 0}
 --- !u!23 &4344826283086178371 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 2300000, guid: 291965ea9bb88094b9fe75ea6f400d41,
@@ -41855,12 +41892,6 @@ MeshRenderer:
 --- !u!4 &4344826283084278435 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 291965ea9bb88094b9fe75ea6f400d41,
-    type: 3}
-  m_PrefabInstance: {fileID: 4344826283084148771}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &4344826283084183171 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 100000, guid: 291965ea9bb88094b9fe75ea6f400d41,
     type: 3}
   m_PrefabInstance: {fileID: 4344826283084148771}
   m_PrefabAsset: {fileID: 0}

@@ -25,7 +25,8 @@ public class ProjectileMovement : MonoBehaviour
         else {
             t += Time.deltaTime / timeAlive;
         }
-        rb.AddForce(transform.up * speed, ForceMode.Impulse);
+        //rb.AddForce(transform.up * speed, ForceMode.Impulse);
+        rb.velocity = transform.up * speed;
     }
 
     private void OnCollisionEnter(Collision collision)

@@ -13,6 +13,8 @@ public class ProjectileController : InitialisedEntity
 
     [SerializeField]
     GameObject projectile;
+    [SerializeField]
+    Transform spawnPos;
 
     public override void Initialise() {
 
@@ -24,7 +26,8 @@ public class ProjectileController : InitialisedEntity
     //needs mouse position to know where to fire
     public void FireProjectile() {
         if ((Time.timeSinceLevelLoad - timeSinceLastShot) >= timeBetweenShots) {
-            Instantiate(projectile, transform.position, projectile.transform.rotation);
+            
+            Instantiate(projectile, spawnPos.position, (projectile.transform.rotation * transform.rotation));
             timeSinceLastShot = Time.timeSinceLevelLoad;
         }
     }

@@ -24,6 +24,27 @@ namespace AlternativeArchitecture {
         [SerializeField]
         PlayerProperties playerProperties;
 
+        [Header("Sounds")]
+        [SerializeField]
+        PlayerSounds sounds;
+
+        [Header("Temp")]
+        [SerializeField]
+        GameObject impactParticlePrefab;
+
+        [Header("Temp2")]
+        [SerializeField]
+        public Transform impactTransform;
+
+        [Header("Temp3")]
+        [SerializeField]
+        public Renderer shipRender;
+
+
+
+        private ParticleSystem impactParticle;
+
+
         // Delegate for handling mouse click input. 
         // You'd need other delgates for other forms of input for the master (moving...etc)
         public delegate void OnClickHandler();
@@ -41,6 +62,14 @@ namespace AlternativeArchitecture {
         public delegate void UIMeterChangeHandler();
 
         public UIMeterChangeHandler onMeterChanged;
+
+        public delegate void SoundChangeHandler(float volume);
+
+        public SoundChangeHandler onSoundChanged;
+
+        public delegate void PlayerLostHandler();
+
+        public PlayerLostHandler onPlayerLost;
 
         private void Awake() {
 
@@ -64,6 +93,8 @@ namespace AlternativeArchitecture {
             updateEvent += movementController.MoveEntity;
 
             onPlayerCollision += playerProperties.DecaySanityByAmount;
+
+            onPlayerCollision += sounds.PlayerImpactSound;
         }
 
         // Initialises all components underneath master.
@@ -79,11 +110,17 @@ namespace AlternativeArchitecture {
 
             playerProperties.Initialise();
 
+            sounds.Initialise();
+
             movementController.onCollision += OnPlayerHit;
 
             playerProperties.onPlayerLose += OnPlayerLose;
 
             onMeterChanged += playerProperties.DecaySanityConstant;
+
+            playerProperties.OnSoundChanged += sounds.AdjustAudioSourceVolume;
+
+            onPlayerLost += sounds.StopBackgroundSound;
         }
 
         // Gets the approrpiate components for master. 
@@ -98,9 +135,11 @@ namespace AlternativeArchitecture {
             projectiles = GetComponent<ProjectileController>();
 
             playerProperties = GetComponent<PlayerProperties>();
+
+            sounds = GetComponentInChildren<PlayerSounds>();
         }
 
-        // Processes all user (or script based) input.
+        // Processes all user (or script based input.
         public override void ClickEvent() {
 
             onClick?.Invoke();
@@ -117,13 +156,43 @@ namespace AlternativeArchitecture {
         }
 
         public void OnPlayerHit() {
-        
+
+            CameraShake.instance.ShakeOnce();
+            
             onPlayerCollision?.Invoke();
+
+
+
+
+            
+
+
+            //temp
+            if (impactParticle == null)
+            {
+                GameObject particlePrefab = Instantiate(impactParticlePrefab, impactTransform);
+                impactParticle = particlePrefab.GetComponent<ParticleSystem>();
+            }
+            impactParticle.Emit(30);
+            StartCoroutine(TempShipFlash());
+        }
+
+        IEnumerator TempShipFlash ()
+        {
+            shipRender.material.SetFloat("_RimPower", 0.5f);
+            shipRender.material.SetColor("_RimColor", Color.red);
+            yield return new WaitForSeconds(0.2f);
+            shipRender.material.SetFloat("_RimPower", 5.9f);
+            shipRender.material.SetColor("_RimColor", Color.white);
         }
 
         public void OnPlayerLose() {
 
-            GameMaster.PauseGame();
+            onPlayerLost?.Invoke();
+
+            GameMaster.instance.OnPlayerLose();
+
+            CameraShake.instance.StopCameraShake();
 
             UIMaster.instance.OnPlayerLost();
         }

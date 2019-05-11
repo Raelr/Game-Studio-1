@@ -8,7 +8,7 @@ namespace AlternativeArchitecture {
 
         [Header("Prefab References")]
         [SerializeField]
-        PlayerMaster player = null;
+        PlayerMaster player;
         
         [Header("Script References")]
         [SerializeField]
@@ -21,14 +21,15 @@ namespace AlternativeArchitecture {
 
             base.Initialise();
 
-            PlayerMaster newPlayer = SpawnPlayer();
-
-            newPlayer.gameObject.Show();
-
+            if (player == null)
+            {
+                player = SpawnPlayer();
+                player.gameObject.Show();
+            }
             // perhaps do something with the new playermaster reference (e.g. store it into data somewhere)
 
             //place holder
-            camLookat.SetTarget(newPlayer.transform.GetChild(0));
+            camLookat.SetTarget(player.transform.GetChild(0));
         }
 
         public PlayerMaster SpawnPlayer() {

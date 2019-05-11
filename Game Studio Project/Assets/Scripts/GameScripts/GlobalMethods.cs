@@ -36,5 +36,11 @@ public static class GlobalMethods {
 		int xValue = dir.x < 0 ? -1 : 1;
 		int yValue = dir.y < 0 ? -1 : 1;
 		return new Vector2(xValue, yValue);
-	}
+    }
+
+
+    public static float Remap(this float value, float from1, float to1, float from2, float to2)
+    {
+        return (value - from1) / (to1 - from1) * (to2 - from2) + from2;
+    }
 }

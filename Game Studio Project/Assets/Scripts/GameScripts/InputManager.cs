@@ -35,12 +35,25 @@ public class InputManager : MonoBehaviour
             master?.ClickEvent();
         }
 
-        master?.MoveToward(GetMousePosition());
+        Vector3 targetPoint = -GetMousePosition() + GetDistortVector();
+
+        master?.MoveToward(targetPoint);
     }
 
     // Gets the mouse position and returns its screen point.
     Vector3 GetMousePosition() {
 
 		return Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, -10.0f));
+    }
+
+    Vector3 GetDistortVector ()
+    {
+        Vector3 distortVector = new Vector3();
+        distortVector = Random.insideUnitSphere * CameraEffects.instance.currentInsanity * 2;
+        distortVector.z = -10.0f;
+        
+
+
+        return distortVector;
     }
 }

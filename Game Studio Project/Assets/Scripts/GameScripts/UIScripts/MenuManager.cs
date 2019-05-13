@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 using AlternativeArchitecture;
 using UnityEngine.Audio;
 using TMPro;
+using System;
 
 public class MenuManager : InitialisedEntity
 {
@@ -45,6 +46,19 @@ public class MenuManager : InitialisedEntity
     [Header("Volume Slider")]
     [SerializeField]
     Slider volumeSlider;
+
+    [Header("Loading Panel")]
+    [SerializeField]
+    Image fadeIn;
+
+    [Header("Loading panel Colors")]
+    [SerializeField]
+    Color loaded;
+
+    [SerializeField]
+    Color loading;
+
+    Coroutine loadingRoutine;
 
     Resolution[] resolutions;
 
@@ -145,6 +159,11 @@ public class MenuManager : InitialisedEntity
         GlobalMethods.Show(MainMenuPanel.gameObject);
     }
 
+    void HideMainMenu()
+    {
+        GlobalMethods.Hide(MainMenuPanel.gameObject);
+    }
+
     public void LoadLoseScreen()
     {
 
@@ -193,5 +212,42 @@ public class MenuManager : InitialisedEntity
         fullscreenToggle.isOn = isFullScreen;
 
         PlayerPrefs.SetInt("fullscreen", isFullScreen == false ? 0 : 1);
+    }
+
+    public void StartGame()
+    {
+        RunStartSequence();
+    }
+
+    public void RunStartSequence()
+    {
+        if (loadingRoutine != null)
+        {
+            StopCoroutine(loadingRoutine);
+            loadingRoutine = StartCoroutine(FadeInAndOut(GameMaster.instance.StartGame, HideMainMenu));
+        } else
+        {
+            loadingRoutine = StartCoroutine(FadeInAndOut(GameMaster.instance.StartGame, HideMainMenu));
+        }
+    }
+
+    IEnumerator Fade(bool fadingIn = false)
+    {
+        Color desiredColor = fadingIn ? loaded : loading;
+
+        while (fadeIn.color != desiredColor)
+        {
+            Color currentColor = fadeIn.color;
+            fadeIn.color = Color.Lerp(currentColor, desiredColor,4f * Time.deltaTime);
+            yield return null;
+        }
+    }
+
+    IEnumerator FadeInAndOut(Action endAction, Action middleAction = null)
+    {
+        yield return StartCoroutine(Fade());
+        middleAction?.Invoke();
+        StartCoroutine(Fade(true));
+        endAction.Invoke();
     }
 }

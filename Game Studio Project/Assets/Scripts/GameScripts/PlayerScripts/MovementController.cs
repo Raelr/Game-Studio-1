@@ -110,8 +110,9 @@ public class MovementController : InitialisedEntity {
 		Vector3 startPos = player.transform.localPosition;
 		Vector3 endPos = new Vector3(startPos.x, startPos.y, 20);
 		float elapsedTime = 0;
-		float time = 0.5f;
+		float time = 0.2f;
 		isDashing = true;
+        CameraEffects.instance.DashOn();
 
 		while (elapsedTime<time) {
 			player.transform.localPosition = Vector3.Lerp(startPos, endPos, elapsedTime/time);
@@ -120,14 +121,14 @@ public class MovementController : InitialisedEntity {
 		}
 
 		player.transform.localPosition = endPos;
-		StartCoroutine(Cooldown(5, StartRetreat));
+		StartCoroutine(Cooldown(1, StartRetreat));
 	}
 
 	private IEnumerator Retreat() {
 		Vector3 startPos = player.transform.localPosition;
 		Vector3 endPos = new Vector3(startPos.x, startPos.y, 10);
 		float elapsedTime = 0;
-		float time = 3f;
+		float time = 1f;
 
 		while (elapsedTime < time) {
 			player.transform.localPosition = Vector3.Lerp(startPos, endPos, elapsedTime / time);
@@ -135,6 +136,7 @@ public class MovementController : InitialisedEntity {
 			yield return null;
 		}
 
+        CameraEffects.instance.DashOff();
 		player.transform.localPosition = endPos;
 		isDashing = false;
 	}

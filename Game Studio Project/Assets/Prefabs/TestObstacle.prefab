@@ -106,9 +106,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3265ab4a7e978c4f961b53b78f3d210, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startMin: {x: -6, y: 2.7, z: 400}
-  startMax: {x: 6, y: -2.7, z: 400}
-  force: {x: 0, y: 0, z: -200}
+  target: {fileID: 0}
+  startMin: {x: -6, y: 2.7, z: -5}
+  startMax: {x: 6, y: -2.7, z: 5}
+  origin: {x: 0, y: 0, z: 0}
+  force: 200
+  dist: 400
+  dir: {x: 0, y: 0, z: 0}
   rigid: {fileID: 3972734140393683440}
   zDespawn: -15
 --- !u!54 &3972734140393683440

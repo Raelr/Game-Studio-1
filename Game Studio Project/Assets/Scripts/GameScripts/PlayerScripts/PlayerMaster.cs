@@ -40,7 +40,7 @@ namespace AlternativeArchitecture {
         [SerializeField]
         public Renderer shipRender;
 
-
+        bool playerLost = false;
 
         private ParticleSystem impactParticle;
 
@@ -87,6 +87,8 @@ namespace AlternativeArchitecture {
         public override void Initialise() {
 
             base.Initialise();
+
+            playerLost = false;
 
             onClick += projectiles.FireProjectile;
 
@@ -161,12 +163,6 @@ namespace AlternativeArchitecture {
             
             onPlayerCollision?.Invoke();
 
-
-
-
-            
-
-
             //temp
             if (impactParticle == null)
             {
@@ -188,13 +184,18 @@ namespace AlternativeArchitecture {
 
         public void OnPlayerLose() {
 
-            onPlayerLost?.Invoke();
+            if (!playerLost)
+            {
+                playerLost = true;
 
-            GameMaster.instance.OnPlayerLose();
+                onPlayerLost?.Invoke();
 
-            CameraShake.instance.StopCameraShake();
+                GameMaster.instance.OnPlayerLose();
 
-            UIMaster.instance.OnPlayerLost();
+                CameraShake.instance.StopCameraShake();
+
+                UIMaster.instance.OnPlayerLost();
+            }
         }
     }
 }

@@ -159,16 +159,23 @@ public class MenuManager : InitialisedEntity
         GlobalMethods.Show(MainMenuPanel.gameObject);
     }
 
-    void HideMainMenu()
+    public void HideMainMenu()
     {
         GlobalMethods.Hide(MainMenuPanel.gameObject);
     }
 
     public void LoadLoseScreen()
     {
-
+        Debug.Log("Player Lost");
+        GlobalMethods.Hide(fadeIn.gameObject);
         GlobalMethods.Show(LosePanel.gameObject);
     }
+
+    public void HideLoseScreen() {
+
+        GlobalMethods.Hide(LosePanel.gameObject);
+    }
+
 
     public void RestartLevel()
     {
@@ -180,6 +187,8 @@ public class MenuManager : InitialisedEntity
 
     public void Reset()
     {
+        HideLoseScreen();
+
         PlayerPrefs.SetInt("Reset", 1);
 
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
@@ -216,19 +225,26 @@ public class MenuManager : InitialisedEntity
 
     public void StartGame()
     {
-        RunStartSequence();
+        RunLoadSequence(null, GameMaster.instance.StartGame, true);
     }
 
-    public void RunStartSequence()
+    public void RunLoadSequence(Action endAction, Action middleAction = null, bool fadeInto = false)
     {
+        Debug.LogWarning("Starting fade sequence");
         if (loadingRoutine != null)
         {
             StopCoroutine(loadingRoutine);
-            loadingRoutine = StartCoroutine(FadeInAndOut(GameMaster.instance.StartGame, HideMainMenu));
-        } else
-        {
-            loadingRoutine = StartCoroutine(FadeInAndOut(GameMaster.instance.StartGame, HideMainMenu));
+            loadingRoutine = StartCoroutine(FadeInAndOut(endAction, middleAction, fadeInto));
         }
+         
+        loadingRoutine = StartCoroutine(FadeInAndOut(endAction, middleAction, fadeInto));
+    }
+
+    public void ResetAfterFade()
+    {
+        GlobalMethods.Show(fadeIn.gameObject);
+
+        RunLoadSequence(null, Reset);
     }
 
     IEnumerator Fade(bool fadingIn = false)
@@ -238,16 +254,34 @@ public class MenuManager : InitialisedEntity
         while (fadeIn.color != desiredColor)
         {
             Color currentColor = fadeIn.color;
-            fadeIn.color = Color.Lerp(currentColor, desiredColor,4f * Time.deltaTime);
+            fadeIn.color = Color.Lerp(currentColor, desiredColor, 0.1f);
             yield return null;
         }
     }
 
-    IEnumerator FadeInAndOut(Action endAction, Action middleAction = null)
+    IEnumerator FadeInAndOut(Action endAction = null, Action middleAction = null, bool fadeInto = false)
     {
         yield return StartCoroutine(Fade());
         middleAction?.Invoke();
+        if (fadeInto)
+        {
+            yield return StartCoroutine(Fade(true));
+            endAction?.Invoke();
+        }
+    }
+
+    public void ShowLoadingScreen()
+    {
+        GlobalMethods.Show(fadeIn.gameObject);
+    }
+
+    public void StartLoadingAsBlack()
+    {
+        fadeIn.color = loading;
+    }
+
+    public void ResetFadeIn()
+    {
         StartCoroutine(Fade(true));
-        endAction.Invoke();
     }
 }

@@ -41,6 +41,11 @@ namespace AlternativeArchitecture {
                 PlayerPrefs.SetInt("Reset", 0);
             }
 
+            if (PlayerPrefs.GetInt("Reset") == 1)
+            {
+                UIMaster.instance.StartLoadingScreenAsLoading();
+            }
+
             GameStarted = PlayerPrefs.GetInt("Reset") == 1;
 
             SetUpReferences();
@@ -70,6 +75,10 @@ namespace AlternativeArchitecture {
 
         public void StartGame() {
 
+            Debug.Log("Game Started");
+
+            UIMaster.instance.HideMainMenu();
+
             ResumeGame();
 
             GameStarted = true;
@@ -90,13 +99,15 @@ namespace AlternativeArchitecture {
         }
 
         public static void PauseGame() {
-        
+
+            Debug.LogWarning("Paused");
             Time.timeScale = 0f;
 
         }
 
         public static void ResumeGame() {
 
+            Debug.LogWarning("Resumed");
             Time.timeScale = 1f;
         }
 

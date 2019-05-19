@@ -60,6 +60,8 @@ public class MenuManager : InitialisedEntity
 
     Coroutine loadingRoutine;
 
+    Coroutine fadeOnceRoutine;
+
     Resolution[] resolutions;
 
     PlayerSettings currentSettings;
@@ -224,8 +226,6 @@ public class MenuManager : InitialisedEntity
 
     public void RunLoadSequence(Action endAction, Action middleAction = null, bool fadeInto = false)
     {
-        Debug.LogWarning("Starting fade sequence");
-
         if (loadingRoutine != null)
         {
             StopCoroutine(loadingRoutine);
@@ -247,13 +247,15 @@ public class MenuManager : InitialisedEntity
 
     IEnumerator Fade(bool fadingIn = false)
     {
+        Time.timeScale = 1f;
+
         Color desiredColor = fadingIn ? loaded : loading;
 
         float target = desiredColor.a;
 
         if (!fadingIn)
         {
-            for (float f = 0.05f; f <= target; f += 0.05f)
+            for (float f = 0f; f <= target; f += 0.05f)
             {
                 Color currentColor = fadeIn.color;
                 currentColor.a = f;
@@ -295,12 +297,11 @@ public class MenuManager : InitialisedEntity
 
     public void ResetFadeIn()
     {
-        StartCoroutine(FadeAndDisable());
-    }
+        if (fadeOnceRoutine != null) {
+            StopCoroutine(fadeOnceRoutine);
+            fadeOnceRoutine = StartCoroutine(Fade(true));
+        }
 
-    IEnumerator FadeAndDisable()
-    {
-        Debug.Log("Fading In");
-        yield return StartCoroutine(Fade(true));
+        fadeOnceRoutine = StartCoroutine(Fade(true));
     }
 }

@@ -72,8 +72,6 @@ namespace AlternativeArchitecture {
 
         public void StartGame() {
 
-            Debug.Log("Game Started");
-
             UIMaster.instance.HideMainMenu();
 
             ResumeGame();
@@ -97,14 +95,10 @@ namespace AlternativeArchitecture {
 
         public static void PauseGame() {
 
-            Debug.LogWarning("Paused");
             Time.timeScale = 0f;
-
         }
 
         public static void ResumeGame() {
-
-            Debug.LogWarning("Resumed");
             Time.timeScale = 1f;
         }
 

@@ -41,10 +41,7 @@ namespace AlternativeArchitecture {
                 PlayerPrefs.SetInt("Reset", 0);
             }
 
-            if (PlayerPrefs.GetInt("Reset") == 1)
-            {
-                UIMaster.instance.StartLoadingScreenAsLoading();
-            }
+            UIMaster.instance.StartLoadingScreenAsLoading();
 
             GameStarted = PlayerPrefs.GetInt("Reset") == 1;
 

@@ -166,8 +166,6 @@ public class MenuManager : InitialisedEntity
 
     public void LoadLoseScreen()
     {
-        Debug.Log("Player Lost");
-        GlobalMethods.Hide(fadeIn.gameObject);
         GlobalMethods.Show(LosePanel.gameObject);
     }
 
@@ -176,10 +174,8 @@ public class MenuManager : InitialisedEntity
         GlobalMethods.Hide(LosePanel.gameObject);
     }
 
-
     public void RestartLevel()
     {
-
         PlayerPrefs.SetInt("Reset", 0);
 
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
@@ -187,8 +183,6 @@ public class MenuManager : InitialisedEntity
 
     public void Reset()
     {
-        HideLoseScreen();
-
         PlayerPrefs.SetInt("Reset", 1);
 
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
@@ -231,6 +225,7 @@ public class MenuManager : InitialisedEntity
     public void RunLoadSequence(Action endAction, Action middleAction = null, bool fadeInto = false)
     {
         Debug.LogWarning("Starting fade sequence");
+
         if (loadingRoutine != null)
         {
             StopCoroutine(loadingRoutine);
@@ -242,20 +237,38 @@ public class MenuManager : InitialisedEntity
 
     public void ResetAfterFade()
     {
-        GlobalMethods.Show(fadeIn.gameObject);
-
         RunLoadSequence(null, Reset);
+    }
+
+    public void RestartAfterFade()
+    {
+        RunLoadSequence(null, RestartLevel, true);
     }
 
     IEnumerator Fade(bool fadingIn = false)
     {
         Color desiredColor = fadingIn ? loaded : loading;
 
-        while (fadeIn.color != desiredColor)
+        float target = desiredColor.a;
+
+        if (!fadingIn)
         {
-            Color currentColor = fadeIn.color;
-            fadeIn.color = Color.Lerp(currentColor, desiredColor, 0.1f);
-            yield return null;
+            for (float f = 0.05f; f <= target; f += 0.05f)
+            {
+                Color currentColor = fadeIn.color;
+                currentColor.a = f;
+                fadeIn.color = currentColor;
+                yield return new WaitForSeconds(0.05f);
+            }
+        } else {
+
+            for (float f = 1f; f >= target; f -= 0.05f)
+            {
+                Color currentColor = fadeIn.color;
+                currentColor.a = f;
+                fadeIn.color = currentColor;
+                yield return new WaitForSeconds(0.05f);
+            }
         }
     }
 
@@ -282,6 +295,12 @@ public class MenuManager : InitialisedEntity
 
     public void ResetFadeIn()
     {
-        StartCoroutine(Fade(true));
+        StartCoroutine(FadeAndDisable());
+    }
+
+    IEnumerator FadeAndDisable()
+    {
+        Debug.Log("Fading In");
+        yield return StartCoroutine(Fade(true));
     }
 }

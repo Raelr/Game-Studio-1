@@ -87,12 +87,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   physics: {fileID: 0}
-  force: 25
+  force: 5
   maxDistance: 10
   invertMovement: 0
   minRotation: -50
   maxRotation: 50
   stepRotation: 10
+  maxAcceleration: 5
+  accelerationStepping: 1
+  accelerationBase: 1
 --- !u!114 &506424735756477649
 MonoBehaviour:
   m_ObjectHideFlags: 0

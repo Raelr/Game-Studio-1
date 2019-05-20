@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 using AlternativeArchitecture;
 using UnityEngine.Audio;
 using TMPro;
+using System;
 
 public class MenuManager : InitialisedEntity
 {
@@ -46,9 +47,26 @@ public class MenuManager : InitialisedEntity
     [SerializeField]
     Slider volumeSlider;
 
+    [Header("Loading Panel")]
+    [SerializeField]
+    Image fadeIn;
+
+    [Header("Loading panel Colors")]
+    [SerializeField]
+    Color loaded;
+
+    [SerializeField]
+    Color loading;
+
+    Coroutine loadingRoutine;
+
+    Coroutine fadeOnceRoutine;
+
     Resolution[] resolutions;
 
     PlayerSettings currentSettings;
+
+    bool isFading = false;
 
     public override void Initialise()
     {
@@ -145,15 +163,23 @@ public class MenuManager : InitialisedEntity
         GlobalMethods.Show(MainMenuPanel.gameObject);
     }
 
+    public void HideMainMenu()
+    {
+        GlobalMethods.Hide(MainMenuPanel.gameObject);
+    }
+
     public void LoadLoseScreen()
     {
-
         GlobalMethods.Show(LosePanel.gameObject);
+    }
+
+    public void HideLoseScreen() {
+
+        GlobalMethods.Hide(LosePanel.gameObject);
     }
 
     public void RestartLevel()
     {
-
         PlayerPrefs.SetInt("Reset", 0);
 
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
@@ -193,5 +219,108 @@ public class MenuManager : InitialisedEntity
         fullscreenToggle.isOn = isFullScreen;
 
         PlayerPrefs.SetInt("fullscreen", isFullScreen == false ? 0 : 1);
+    }
+
+    public void StartGame()
+    {
+        if (!isFading)
+        {
+            RunLoadSequence(null, GameMaster.instance.StartGame, true);
+        }
+    }
+
+    public void RunLoadSequence(Action endAction, Action middleAction = null, bool fadeInto = false)
+    {
+        if (loadingRoutine != null)
+        {
+            StopCoroutine(loadingRoutine);
+            loadingRoutine = StartCoroutine(FadeInAndOut(endAction, middleAction, fadeInto));
+        }
+         
+        loadingRoutine = StartCoroutine(FadeInAndOut(endAction, middleAction, fadeInto));
+    }
+
+    public void ResetAfterFade()
+    {
+        if (!isFading)
+        {
+            RunLoadSequence(null, Reset);
+        }
+    }
+
+    public void RestartAfterFade()
+    {
+        if (!isFading)
+        {
+            RunLoadSequence(null, RestartLevel, true);
+        }
+    }
+
+    IEnumerator Fade(bool fadingIn = false)
+    {
+        isFading = true;
+
+        Time.timeScale = 1f;
+
+        Color desiredColor = fadingIn ? loaded : loading;
+
+        float target = desiredColor.a;
+
+        if (!fadingIn)
+        {
+            for (float f = 0f; f <= target; f += 0.1f)
+            {
+                Color currentColor = fadeIn.color;
+                currentColor.a = f;
+                fadeIn.color = currentColor;
+                yield return new WaitForSeconds(0.05f);
+            }
+        } else {
+
+            for (float f = 1f; f >= target; f -= 0.1f)
+            {
+                Color currentColor = fadeIn.color;
+                currentColor.a = f;
+                fadeIn.color = currentColor;
+                yield return new WaitForSeconds(0.05f);
+            }
+        }
+
+        isFading = false;
+    }
+
+    IEnumerator FadeInAndOut(Action endAction = null, Action middleAction = null, bool fadeInto = false)
+    {
+        yield return StartCoroutine(Fade());
+        middleAction?.Invoke();
+        if (fadeInto)
+        {
+            yield return StartCoroutine(Fade(true));
+            endAction?.Invoke();
+        }
+    }
+
+    public void ShowLoadingScreen()
+    {
+        GlobalMethods.Show(fadeIn.gameObject);
+    }
+
+    public void StartLoadingAsBlack()
+    {
+        fadeIn.color = loading;
+    }
+
+    public void ResetFadeIn()
+    {
+        if (!isFading)
+        {
+            if (fadeOnceRoutine != null)
+            {
+                StopCoroutine(fadeOnceRoutine);
+                fadeOnceRoutine = StartCoroutine(Fade(true));
+            }
+
+            fadeOnceRoutine = StartCoroutine(Fade(true));
+        }
     }
 }

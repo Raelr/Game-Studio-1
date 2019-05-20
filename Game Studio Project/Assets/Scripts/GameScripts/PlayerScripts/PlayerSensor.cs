@@ -14,5 +14,4 @@ public class PlayerSensor : InitialisedEntity
             onCollision?.Invoke();
         }
     }
-
 }

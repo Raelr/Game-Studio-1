@@ -26,8 +26,12 @@ public class MovementController : InitialisedEntity {
     [SerializeField] private float minRotation = -30;
     [SerializeField] private float maxRotation = 30;
     [SerializeField] private float stepRotation = 0.1f;
-   	
-   	private float rotationX;
+    [SerializeField] private float maxAcceleration = 5;
+    [SerializeField] private float accelerationStepping = 1;
+    [SerializeField] private float accelerationBase = 1;
+    private float acceleration = 1;
+
+    private float rotationX;
     private float rotationY;
     private Vector3 lastPosition;
 	private bool isDashing;
@@ -81,8 +85,8 @@ public class MovementController : InitialisedEntity {
 
     public void RotateEntity(Vector2 input) {
 
-        rotationX += input.x * stepRotation * Time.deltaTime * force;
-        rotationY += input.y * stepRotation * Time.deltaTime * force;
+        rotationX += input.x * stepRotation * Time.deltaTime * force * acceleration;
+        rotationY += input.y * stepRotation * Time.deltaTime * force * acceleration;
 
         float shipRotationX = Mathf.Clamp(rotationX, minRotation, maxRotation);
         float shipRotationY = Mathf.Clamp(rotationY, minRotation, maxRotation);
@@ -90,6 +94,15 @@ public class MovementController : InitialisedEntity {
         //Debug.Log(-stepRotation * input.y);
         transform.localRotation = Quaternion.Euler(new Vector3(-rotationY, rotationX, 0));
         player.transform.localRotation = Quaternion.Euler(new Vector3(-stepRotation* input.y*2, stepRotation*input.x*2, -rotationX));
+
+        if (input.x != 0 || input.y != 0) {
+            acceleration += accelerationStepping;
+            if (acceleration >= maxAcceleration)
+                acceleration = maxAcceleration;
+        }
+        else {
+            acceleration = accelerationBase;
+        }
     }
     
     public void onPlayerCollision() {

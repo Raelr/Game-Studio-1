@@ -13,6 +13,10 @@ namespace AlternativeArchitecture
         [SerializeField]
         private Transform target;
         [SerializeField]
+        private Transform origin1;
+        [SerializeField]
+        private Transform player;
+        [SerializeField]
         private Vector3 startMin, startMax;
         [SerializeField]
         private Vector3 origin;
@@ -32,18 +36,22 @@ namespace AlternativeArchitecture
         [SerializeField]
         private float zDespawn;
 
+        private Vector3 Dir { get { return (origin1.position - player.position).normalized; } }
+
         public void Setup(GamePooler pooler, ObjectType type)
         {
             rigid.velocity = Vector3.zero;
-            target = GameObject.FindGameObjectWithTag("Player").transform.GetChild(0);
-            dir = (target.position - transform.position).normalized;
-            origin = dir * dist + target.position;
+            origin1 = GameObject.FindGameObjectWithTag("Player").transform;
+            player = origin1.GetChild(0).transform;
+            //dir = (origin1 - transform.position).normalized;
+
+            origin = (Dir*-1) * dist + player.position;
             startMin += origin;
             startMax += origin;
             transform.position = new Vector3(Random.Range(startMin.x, startMax.x), Random.Range(startMin.y, startMax.y), Random.Range(startMin.z, startMax.z));
             transform.Rotate(new Vector3(Random.Range(0, 360), Random.Range(0, 360), Random.Range(0, 360)));
-            transform.localScale = new Vector3(2, 2, 2);
-            transform.localScale *= Random.Range(0.1f, 1f);
+            //transform.localScale = new Vector3(2, 2, 2);
+            transform.localScale *= Random.Range(0.5f, 1f);
 
             gamePooler = pooler;
             objectType = type;
@@ -51,10 +59,22 @@ namespace AlternativeArchitecture
             isActive = true;
         }
 
+        private Vector3 GetDir() {
+            Vector3 dir = (origin1.position - player.position).normalized;
+            dir.x *= -1;
+            dir.y *= -1;
+            return dir;
+        }
+
         private void FixedUpdate()
         {
             if (!isActive) return;
-            rigid.AddForce(-dir*force);
+
+            Vector3 velocity = (Dir * force);
+
+            rigid.velocity = velocity;
+
+
 
             /*if (transform.position.z < zDespawn)
             {

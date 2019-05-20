@@ -51,35 +51,36 @@ public class MovementController : InitialisedEntity {
 		physics.onNearMiss += OnPlayerNearMiss;
     }
 
-	// DEPRECIATED -- 
+    // DEPRECIATED -- 
 
-	// Keeping old movement componenet as a reference
+    // Keeping old movement componenet as a reference
 
-	//  public void MoveEntity(Vector2 targetPos) {
-	//      if (!invertMovement)
-	//      {
-	//          targetPos *= -1;
-	//          targetPos.y += 2;
-	//      }
-	//      //targetPos *= -1;
-	//      //targetPos.y += 2;
+    //  public void MoveEntity(Vector2 targetPos) {
+    //      if (!invertMovement)
+    //      {
+    //          targetPos *= -1;
+    //          targetPos.y += 2;
+    //      }
+    //      //targetPos *= -1;
+    //      //targetPos.y += 2;
 
-	//float dist = Vector3.Distance(targetPos, player.position);
-	//Vector2 dir = GlobalMethods.GetDirection(player.position, targetPos);
-	//Vector2 velocity = dir * (force * (dist / maxDistance));
+    //float dist = Vector3.Distance(targetPos, player.position);
+    //Vector2 dir = GlobalMethods.GetDirection(player.position, targetPos);
+    //Vector2 velocity = dir * (force * (dist / maxDistance));
 
-	//Vector3 nextPosition = (Vector2)player.position + GlobalMethods.Normalise(dir);
+    //Vector3 nextPosition = (Vector2)player.position + GlobalMethods.Normalise(dir);
 
-	//      //Clamps velocity to make sure player stays within the set bounds
-	//      velocity.x = GlobalMethods.WithinBounds(nextPosition.x, -xBounds, xBounds) ? velocity.x : 0;
-	//velocity.y = GlobalMethods.WithinBounds(nextPosition.y, -yBounds, yBounds) ? velocity.y : 0;
+    //Clamps velocity to make sure player stays within the set bounds
+    //velocity.x = GlobalMethods.WithinBounds(nextPosition.x, -xBounds, xBounds) ? velocity.x : 0;
+    //velocity.y = GlobalMethods.WithinBounds(nextPosition.y, -yBounds, yBounds) ? velocity.y : 0;
 
-	//physics.AddForce(velocity);
-	//}
+    //physics.AddForce(velocity);
+    //}
 
-	// -- DEPRECIATED
+    // -- DEPRECIATED
 
-	public void RotateEntity(Vector2 input) {
+    public void RotateEntity(Vector2 input) {
+
         rotationX += input.x * stepRotation * Time.deltaTime * force;
         rotationY += input.y * stepRotation * Time.deltaTime * force;
 
@@ -89,7 +90,6 @@ public class MovementController : InitialisedEntity {
         //Debug.Log(-stepRotation * input.y);
         transform.localRotation = Quaternion.Euler(new Vector3(-rotationY, rotationX, 0));
         player.transform.localRotation = Quaternion.Euler(new Vector3(-stepRotation* input.y*2, stepRotation*input.x*2, -rotationX));
-
     }
     
     public void onPlayerCollision() {

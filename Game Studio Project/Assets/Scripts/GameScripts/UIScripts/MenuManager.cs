@@ -66,6 +66,8 @@ public class MenuManager : InitialisedEntity
 
     PlayerSettings currentSettings;
 
+    bool isFading = false;
+
     public override void Initialise()
     {
 
@@ -221,7 +223,10 @@ public class MenuManager : InitialisedEntity
 
     public void StartGame()
     {
-        RunLoadSequence(null, GameMaster.instance.StartGame, true);
+        if (!isFading)
+        {
+            RunLoadSequence(null, GameMaster.instance.StartGame, true);
+        }
     }
 
     public void RunLoadSequence(Action endAction, Action middleAction = null, bool fadeInto = false)
@@ -237,16 +242,24 @@ public class MenuManager : InitialisedEntity
 
     public void ResetAfterFade()
     {
-        RunLoadSequence(null, Reset);
+        if (!isFading)
+        {
+            RunLoadSequence(null, Reset);
+        }
     }
 
     public void RestartAfterFade()
     {
-        RunLoadSequence(null, RestartLevel, true);
+        if (!isFading)
+        {
+            RunLoadSequence(null, RestartLevel, true);
+        }
     }
 
     IEnumerator Fade(bool fadingIn = false)
     {
+        isFading = true;
+
         Time.timeScale = 1f;
 
         Color desiredColor = fadingIn ? loaded : loading;
@@ -255,7 +268,7 @@ public class MenuManager : InitialisedEntity
 
         if (!fadingIn)
         {
-            for (float f = 0f; f <= target; f += 0.05f)
+            for (float f = 0f; f <= target; f += 0.1f)
             {
                 Color currentColor = fadeIn.color;
                 currentColor.a = f;
@@ -264,7 +277,7 @@ public class MenuManager : InitialisedEntity
             }
         } else {
 
-            for (float f = 1f; f >= target; f -= 0.05f)
+            for (float f = 1f; f >= target; f -= 0.1f)
             {
                 Color currentColor = fadeIn.color;
                 currentColor.a = f;
@@ -272,6 +285,8 @@ public class MenuManager : InitialisedEntity
                 yield return new WaitForSeconds(0.05f);
             }
         }
+
+        isFading = false;
     }
 
     IEnumerator FadeInAndOut(Action endAction = null, Action middleAction = null, bool fadeInto = false)
@@ -297,11 +312,15 @@ public class MenuManager : InitialisedEntity
 
     public void ResetFadeIn()
     {
-        if (fadeOnceRoutine != null) {
-            StopCoroutine(fadeOnceRoutine);
+        if (!isFading)
+        {
+            if (fadeOnceRoutine != null)
+            {
+                StopCoroutine(fadeOnceRoutine);
+                fadeOnceRoutine = StartCoroutine(Fade(true));
+            }
+
             fadeOnceRoutine = StartCoroutine(Fade(true));
         }
-
-        fadeOnceRoutine = StartCoroutine(Fade(true));
     }
 }

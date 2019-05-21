@@ -83,26 +83,41 @@ public class MovementController : InitialisedEntity {
 
     // -- DEPRECIATED
 
+    private float accelerationX = 0.01f;
+    private float accelerationY = 0.01f;
+    private Vector2 lastDir = new Vector2();
+
     public void RotateEntity(Vector2 input) {
 
-        rotationX += input.x * stepRotation * Time.deltaTime * force * acceleration;
-        rotationY += input.y * stepRotation * Time.deltaTime * force * acceleration;
+        rotationX += input.x * Time.deltaTime + (accelerationX * input.x * Time.deltaTime);
+        rotationY += input.y *  Time.deltaTime  + (accelerationY * input.y* Time.deltaTime);
 
-        float shipRotationX = Mathf.Clamp(rotationX, minRotation, maxRotation);
-        float shipRotationY = Mathf.Clamp(rotationY, minRotation, maxRotation);
+        Debug.Log(lastDir.y);
+        //Debug.Log(input.y* Time.deltaTime + (accelerationY * lastDir.y));
+        //rotationX = rotationX >= 360 ? 
+        rotationY = Mathf.Clamp(rotationY, -70, 70);
 
         //Debug.Log(-stepRotation * input.y);
         transform.localRotation = Quaternion.Euler(new Vector3(-rotationY, rotationX, 0));
         player.transform.localRotation = Quaternion.Euler(new Vector3(-stepRotation* input.y*2, stepRotation*input.x*2, -rotationX));
 
-        if (input.x != 0 || input.y != 0) {
-            acceleration += accelerationStepping;
-            if (acceleration >= maxAcceleration)
-                acceleration = maxAcceleration;
-        }
-        else {
-            acceleration = accelerationBase;
-        }
+        accelerationX *= input.x != 0 ? 2 : 0.9f;
+        accelerationX = Mathf.Clamp(accelerationX, 0.01f, maxAcceleration);
+
+        accelerationY *= input.y != 0 ? 2 : 0.9f;
+        accelerationY = Mathf.Clamp(accelerationY, 0.01f, maxAcceleration);
+
+        //if (input.x != 0 || input.y != 0) {
+        //    acceleration += accelerationStepping;
+        //    if (acceleration >= maxAcceleration)
+        //        acceleration = maxAcceleration;
+        //}
+        //else if (acceleration > 0) {
+        //    acceleration -= accelerationStepping;
+        //} 
+        //else  {
+        //    acceleration = accelerationBase;
+        //}
     }
     
     public void onPlayerCollision() {

@@ -37,9 +37,11 @@ namespace AlternativeArchitecture
         private float zDespawn;
 
         private Vector3 Dir { get { return (origin1.position - player.position).normalized; } }
+        public float Force { get { return force; } set { force = value; } }
 
         public void Setup(GamePooler pooler, ObjectType type)
         {
+    
             rigid.velocity = Vector3.zero;
             origin1 = GameObject.FindGameObjectWithTag("Player").transform;
             player = origin1.GetChild(0).transform;
@@ -57,6 +59,7 @@ namespace AlternativeArchitecture
             objectType = type;
 
             isActive = true;
+        
         }
 
         private Vector3 GetDir() {
@@ -90,7 +93,7 @@ namespace AlternativeArchitecture
             if (collision.gameObject.tag == "Player") {
 
             }
-                //Debug.Log("YOWSERS! ");
+                
         }
 
         private void OnTriggerExit(Collider other)
@@ -103,6 +106,7 @@ namespace AlternativeArchitecture
         public void BackToPool() {
             isActive = false;
             gamePooler.PoolObject(objectType, gameObject);
+            
         }
     }
 }

@@ -13,6 +13,9 @@ namespace AlternativeArchitecture {
 
     public class GamePooler : InitialisedEntity {
 
+        private static GamePooler _instance;
+        public static GamePooler Instance { get { return _instance; } }
+
         public enum PoolingFlags {
             POSITION_TO_ZERO
         }
@@ -71,8 +74,17 @@ namespace AlternativeArchitecture {
 
         public override void Initialise() {
             base.Initialise();
-
+            SetSingleton();
             PreloadPool();
+        }
+
+        private void SetSingleton() {
+            if (_instance != null && _instance != this) {
+                Destroy(this.gameObject);
+            }
+            else {
+                _instance = this;
+            }
         }
 
         private void PreloadPool() {
@@ -257,13 +269,7 @@ namespace AlternativeArchitecture {
         }
 
 
-
-
-
-
-
         ///////// HELPER FUNCTIONS
-
 
 
         private int GetObjectDataIndex(List<PooledObjectData> objectDataList, GameObject objectKey, ObjectType entry) {
@@ -274,7 +280,6 @@ namespace AlternativeArchitecture {
             if (debug) Debug.LogError("[POOLER] Cannot find the object: " + objectKey + " in the list of objects for the entry: " + entry);
             return -1;
         }
-
 
         // gets current number of objects stored in the pool
         private int GetPoolCount(ObjectType key) {

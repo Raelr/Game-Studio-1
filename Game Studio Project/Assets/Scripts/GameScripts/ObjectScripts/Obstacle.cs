@@ -75,9 +75,9 @@ namespace AlternativeArchitecture
         {
             if (!isActive) return;
 
-            rigid.AddForce(force * forceMultiplier);
+           // rigid.AddForce(Dir * force * forceMultiplier);
 
-            Vector3 velocity = (Dir * force);
+            Vector3 velocity = (Dir * force * forceMultiplier);
 
             rigid.velocity = velocity;
 

@@ -146,6 +146,7 @@ namespace AlternativeArchitecture {
             float time = 0.2f;
             isDashing = true;
             CameraEffects.instance.DashOn();
+            GamePooler.instance.SetObstacleSpeed(10f);
 
             while (elapsedTime < time) {
                 player.transform.localPosition = Vector3.Lerp(startPos, endPos, elapsedTime / time);
@@ -162,14 +163,18 @@ namespace AlternativeArchitecture {
             Vector3 endPos = new Vector3(startPos.x, startPos.y, 10);
             float elapsedTime = 0;
             float time = 1f;
+            float speedScale = 10f;
 
             while (elapsedTime < time) {
                 player.transform.localPosition = Vector3.Lerp(startPos, endPos, elapsedTime / time);
+                speedScale = Mathf.Lerp(10, 1, elapsedTime/time);
+                GamePooler.instance.SetObstacleSpeed(speedScale);
                 elapsedTime += Time.deltaTime;
                 yield return null;
             }
 
             CameraEffects.instance.DashOff();
+            GamePooler.instance.SetObstacleSpeed(1);
             player.transform.localPosition = endPos;
             isDashing = false;
         }
@@ -185,5 +190,6 @@ namespace AlternativeArchitecture {
 
             action.Invoke();
         }
+
     }
 }

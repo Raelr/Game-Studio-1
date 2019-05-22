@@ -82,18 +82,9 @@ namespace AlternativeArchitecture {
 
         public override void Initialise() {
             base.Initialise();
-            SetSingleton();
             PreloadPool();
         }
 
-        private void SetSingleton() {
-            if (_instance != null && _instance != this) {
-                Destroy(this.gameObject);
-            }
-            else {
-                _instance = this;
-            }
-        }
 
         private void PreloadPool() {
             foreach (PooledObjectSetting objectSetting in poolSettings)
@@ -329,6 +320,14 @@ namespace AlternativeArchitecture {
                     return objectSetting;
             if (debug) Debug.LogError("[POOLER] Cannot find setting with Object Type: " + key);
             return new PooledObjectSetting();
+        }
+
+        public void SetObstacleSpeed(float newSpeed) {
+            List<GameObject> obstacles = GetObjects(ObjectType.OBSTACLE_SPHERE);
+            foreach (GameObject obstacle in obstacles) {
+                obstacle.GetComponent<Obstacle>().forceMultiplier = newSpeed;
+                obstacle.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            }
         }
     }
 }

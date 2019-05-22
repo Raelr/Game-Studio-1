@@ -16,6 +16,8 @@ namespace AlternativeArchitecture
         [SerializeField]
         private Vector3 force;
 
+        public float forceMultiplier = 1;
+
         [SerializeField]
         private Rigidbody rigid;
 
@@ -38,7 +40,7 @@ namespace AlternativeArchitecture
         private void FixedUpdate()
         {
             if (!isActive) return;
-            rigid.AddForce(force);
+            rigid.AddForce(force * forceMultiplier);
 
             if (transform.position.z < zDespawn)
             {

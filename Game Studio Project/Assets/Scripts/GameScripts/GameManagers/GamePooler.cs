@@ -13,7 +13,10 @@ namespace AlternativeArchitecture {
 
     public class GamePooler : InitialisedEntity {
 
-        public enum PoolingFlags {
+        public static GamePooler instance;
+
+        public enum PoolingFlags
+        {
             POSITION_TO_ZERO
         }
 
@@ -66,6 +69,14 @@ namespace AlternativeArchitecture {
         public struct RetrievedObjectData {
             public GameObject retrievedObject;
             public bool allowSpawning;
+        }
+
+        private void Awake()
+        {
+            if (instance == null)
+            {
+                instance = this;
+            }
         }
 
 

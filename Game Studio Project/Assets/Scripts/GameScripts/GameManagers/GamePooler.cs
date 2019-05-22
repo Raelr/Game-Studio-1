@@ -207,6 +207,21 @@ namespace AlternativeArchitecture {
             return newObject;
         }
 
+        
+        public List<GameObject> GetObjects(ObjectType objectType)
+        {
+            List<GameObject> objectsList = new List<GameObject>();
+
+            PooledObjectTypeData objectTypeData = pool[objectType];
+
+            foreach (PooledObjectData objectData in objectTypeData.objects)
+            {
+                objectsList.Add(objectData.pooledObject);
+            }
+
+            return objectsList;
+        }
+
 
 
 

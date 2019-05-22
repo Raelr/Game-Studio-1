@@ -43,7 +43,7 @@ namespace AlternativeArchitecture
             if (newObstacle.isNull()) return;
 
             Obstacle obstacleScript = newObstacle.GetComponent<Obstacle>();
-            obstacleScript.Setup(GetComponent<GamePooler>(), //replace the game pooler with actual reference
+            obstacleScript.Setup(GamePooler.instance, //replace the game pooler with actual reference
                  ObjectType.OBSTACLE_SPHERE);
             newObstacle.Show();
         }

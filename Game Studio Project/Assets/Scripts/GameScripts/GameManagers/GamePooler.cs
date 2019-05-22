@@ -13,10 +13,10 @@ namespace AlternativeArchitecture {
 
     public class GamePooler : InitialisedEntity {
 
-        private static GamePooler _instance;
-        public static GamePooler Instance { get { return _instance; } }
+        public static GamePooler instance;
 
-        public enum PoolingFlags {
+        public enum PoolingFlags
+        {
             POSITION_TO_ZERO
         }
 
@@ -69,6 +69,14 @@ namespace AlternativeArchitecture {
         public struct RetrievedObjectData {
             public GameObject retrievedObject;
             public bool allowSpawning;
+        }
+
+        private void Awake()
+        {
+            if (instance == null)
+            {
+                instance = this;
+            }
         }
 
 
@@ -217,6 +225,21 @@ namespace AlternativeArchitecture {
 
             //returns it
             return newObject;
+        }
+
+        
+        public List<GameObject> GetObjects(ObjectType objectType)
+        {
+            List<GameObject> objectsList = new List<GameObject>();
+
+            PooledObjectTypeData objectTypeData = pool[objectType];
+
+            foreach (PooledObjectData objectData in objectTypeData.objects)
+            {
+                objectsList.Add(objectData.pooledObject);
+            }
+
+            return objectsList;
         }
 
 

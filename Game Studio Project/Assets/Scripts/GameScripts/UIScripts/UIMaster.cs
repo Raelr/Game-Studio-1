@@ -72,10 +72,8 @@ public class UIMaster : Master
         onUIStatusChange += insanityMeter.ChangeMeterStatus;
 
         onMeterChange += insanityMeter.IncrementMeter;
-        
 
         InitialiseAll();
-
     }
 
     private void Start() {
@@ -128,6 +126,11 @@ public class UIMaster : Master
         menuManager.ShowMainMenu();
     }
 
+    public void HideMainMenu()
+    {
+        menuManager.HideMainMenu();
+    }
+
     public void OnPlayerLost() {
         
         GameStarted = false;
@@ -146,5 +149,12 @@ public class UIMaster : Master
         menuManager = GetComponent<MenuManager>();
 
         insanityMeter = GetComponent<UIMeter>();
+    }
+
+    public void StartLoadingScreenAsLoading()
+    {
+        menuManager.StartLoadingAsBlack();
+        menuManager.ShowLoadingScreen();
+        menuManager.ResetFadeIn();
     }
 }

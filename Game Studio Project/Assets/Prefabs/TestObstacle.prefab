@@ -109,11 +109,12 @@ MonoBehaviour:
   target: {fileID: 0}
   origin1: {fileID: 0}
   player: {fileID: 0}
-  startMin: {x: -6, y: 2.7, z: -5}
-  startMax: {x: 6, y: -2.7, z: 5}
-  origin: {x: 0, y: 0, z: 0}
-  force: 400
-  dist: 400
+  startMin: {x: -16, y: 12.7, z: -15}
+  startMax: {x: 16, y: -12.7, z: 15}
+  spawns: []
+  spacing: 3
+  force: 600
+  dist: 1000
   dir: {x: 0, y: 0, z: 0}
   rigid: {fileID: 3972734140393683440}
   zDespawn: -15

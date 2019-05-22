@@ -19,7 +19,9 @@ namespace AlternativeArchitecture
         [SerializeField]
         private Vector3 startMin, startMax;
         [SerializeField]
-        private Vector3 origin;
+        private Vector3[] spawns;
+        [SerializeField]
+        private float spacing;
         [SerializeField]
         private float force;
         [SerializeField]
@@ -44,10 +46,16 @@ namespace AlternativeArchitecture
             origin1 = GameObject.FindGameObjectWithTag("Player").transform;
             player = origin1.GetChild(0).transform;
             //dir = (origin1 - transform.position).normalized;
+            spawns = new Vector3[5];
+            spawns[0] = (Dir * -1) * dist + player.position;
+            spawns[1] = (GetDir(origin1.position + origin1.up * spacing) * -1) * dist + player.position;
+            spawns[2] = (GetDir(origin1.position + (-origin1.up) * spacing) * -1) * dist + player.position;
+            spawns[3] = (GetDir(origin1.position + origin1.right * spacing) * -1) * dist + player.position;
+            spawns[4] = (GetDir(origin1.position + (-origin1.right) * spacing) * -1) * dist + player.position;
+            Vector3 mySpawn = spawns[Random.Range(0,5)];
 
-            origin = (Dir*-1) * dist + player.position;
-            startMin += origin;
-            startMax += origin;
+            startMin += mySpawn;
+            startMax += mySpawn;
             transform.position = new Vector3(Random.Range(startMin.x, startMax.x), Random.Range(startMin.y, startMax.y), Random.Range(startMin.z, startMax.z));
             transform.Rotate(new Vector3(Random.Range(0, 360), Random.Range(0, 360), Random.Range(0, 360)));
             //transform.localScale = new Vector3(2, 2, 2);
@@ -64,6 +72,10 @@ namespace AlternativeArchitecture
             dir.x *= -1;
             dir.y *= -1;
             return dir;
+        }
+
+        private Vector3 GetDir(Vector3 pos) {
+            return (pos - player.position).normalized;
         }
 
         private void FixedUpdate()

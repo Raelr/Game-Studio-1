@@ -15,6 +15,8 @@ namespace AlternativeArchitecture
     public class GamePooler : InitialisedEntity
     {
 
+        public static GamePooler instance;
+
         public enum PoolingFlags
         {
             POSITION_TO_ZERO
@@ -74,6 +76,14 @@ namespace AlternativeArchitecture
         {
             public GameObject retrievedObject;
             public bool allowSpawning;
+        }
+
+        private void Awake()
+        {
+            if (instance == null)
+            {
+                instance = this;
+            }
         }
 
 

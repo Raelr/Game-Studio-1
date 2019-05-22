@@ -8,6 +8,11 @@ public class SampleObstacleSlowdown : MonoBehaviour
 
     public GamePooler pooler;
 
+    private void Start()
+    {
+        pooler = GamePooler.instance;
+    }
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Z))

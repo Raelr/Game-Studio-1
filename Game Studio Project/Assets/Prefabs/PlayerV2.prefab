@@ -87,7 +87,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   physics: {fileID: 0}
-  force: 0.5
+  force: 3
   maxDistance: 10
   invertMovement: 0
   minRotation: -50

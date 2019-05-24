@@ -13,6 +13,10 @@ namespace AlternativeArchitecture {
 
     public class GamePooler : InitialisedEntity {
 
+        private float currentForceMultiplier;
+
+        public float CurrentSpeed { get { return currentForceMultiplier; } }
+
         public static GamePooler instance;
 
         public enum PoolingFlags
@@ -325,6 +329,7 @@ namespace AlternativeArchitecture {
         public void SetObstacleSpeed(float newSpeed) {
             List<GameObject> obstacles = GetObjects(ObjectType.OBSTACLE_SPHERE);
             foreach (GameObject obstacle in obstacles) {
+                currentForceMultiplier = newSpeed;
                 obstacle.GetComponent<Obstacle>().forceMultiplier = newSpeed;
                 obstacle.GetComponent<Rigidbody>().velocity = Vector3.zero;
             }

@@ -112,9 +112,10 @@ MonoBehaviour:
   startMin: {x: -6, y: 2.7, z: -5}
   startMax: {x: 6, y: -2.7, z: 5}
   origin: {x: 0, y: 0, z: 0}
-  force: 400
+  force: 200
   dist: 400
   dir: {x: 0, y: 0, z: 0}
+  forceMultiplier: 1
   rigid: {fileID: 3972734140393683440}
   zDespawn: -15
 --- !u!54 &3972734140393683440

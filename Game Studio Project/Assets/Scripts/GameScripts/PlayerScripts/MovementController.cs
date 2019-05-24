@@ -31,6 +31,7 @@ namespace AlternativeArchitecture {
         [SerializeField] private float accelerationStepping = 1;
         [SerializeField] private float accelerationBase = 1;
         private float acceleration = 1;
+        private float currentSpeed = 1;
 
         private float rotationX;
         private float rotationY;
@@ -95,7 +96,7 @@ namespace AlternativeArchitecture {
             rotationX += input.x * Time.deltaTime + (accelerationX * input.x * Time.deltaTime);
             rotationY += input.y * Time.deltaTime + (accelerationY * input.y * Time.deltaTime);
 
-            Debug.Log(lastDir.y);
+   
             //Debug.Log(input.y* Time.deltaTime + (accelerationY * lastDir.y));
             //rotationX = rotationX >= 360 ? 
             rotationY = Mathf.Clamp(rotationY, -70, 70);
@@ -131,22 +132,49 @@ namespace AlternativeArchitecture {
 
         public void OnPlayerNearMiss() {
             if (!isDashing) {
-                StartCoroutine(Dash());
-            }
+                StartCoroutine(InputPrompt());
+            } 
         }
 
         private void StartRetreat() {
             StartCoroutine(Retreat());
         }
 
+        private IEnumerator InputPrompt() {
+
+            GamePooler.instance.SetObstacleSpeed(0.1f);
+            yield return new WaitForSeconds(1);
+            float elapsedTime = 0;
+            float time = 1f;
+            bool successfulDash = false;
+
+            while (elapsedTime < time) {
+
+                elapsedTime += Time.deltaTime;
+                if (Input.GetMouseButtonDown(1)) {
+                    successfulDash = true;
+                    StopCoroutine(Retreat());
+                    StopCoroutine(Dash());
+                    StartCoroutine(Dash());
+                    break;
+                }
+                yield return null;
+            }
+
+            if (!successfulDash) {
+                GamePooler.instance.SetObstacleSpeed(currentSpeed);
+            }
+        }
+
         private IEnumerator Dash() {
             Vector3 startPos = player.transform.localPosition;
             Vector3 endPos = new Vector3(startPos.x, startPos.y, 20);
+            currentSpeed += 0.5f;
             float elapsedTime = 0;
             float time = 0.2f;
             isDashing = true;
             CameraEffects.instance.DashOn();
-            GamePooler.instance.SetObstacleSpeed(10f);
+            GamePooler.instance.SetObstacleSpeed(currentSpeed + 5);
 
             while (elapsedTime < time) {
                 player.transform.localPosition = Vector3.Lerp(startPos, endPos, elapsedTime / time);
@@ -161,22 +189,24 @@ namespace AlternativeArchitecture {
         private IEnumerator Retreat() {
             Vector3 startPos = player.transform.localPosition;
             Vector3 endPos = new Vector3(startPos.x, startPos.y, 10);
+            isDashing = false;
             float elapsedTime = 0;
             float time = 1f;
-            float speedScale = 10f;
+            float speedScale = currentSpeed + 5;
 
             while (elapsedTime < time) {
                 player.transform.localPosition = Vector3.Lerp(startPos, endPos, elapsedTime / time);
-                speedScale = Mathf.Lerp(10, 1, elapsedTime/time);
+                speedScale = Mathf.Lerp(currentSpeed +5, currentSpeed, elapsedTime/time);
                 GamePooler.instance.SetObstacleSpeed(speedScale);
                 elapsedTime += Time.deltaTime;
                 yield return null;
             }
 
             CameraEffects.instance.DashOff();
-            GamePooler.instance.SetObstacleSpeed(1);
+            GamePooler.instance.SetObstacleSpeed(currentSpeed);
+            Debug.Log(currentSpeed);
             player.transform.localPosition = endPos;
-            isDashing = false;
+            
         }
 
         private IEnumerator Cooldown(float time, Action action) {

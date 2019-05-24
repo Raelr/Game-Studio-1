@@ -188,6 +188,7 @@ namespace AlternativeArchitecture {
                 elapsedTime += Time.deltaTime;
                 float progress = elapsedTime / time; 
 
+                //hello
                 float currentAngle = Mathf.Lerp(sourceAngle, targetAngle, rotationAnim.Evaluate(progress));
                 player.transform.localRotation = Quaternion.AngleAxis(currentAngle, Vector3.forward);
             }

@@ -26,6 +26,13 @@ public class MovementController : InitialisedEntity {
 
 	private Transform player;
 
+
+    private bool stunned;
+    //how long stun lasts
+    private float stunDur;
+    //how long since we were stunned
+    private float currStun;
+
 	// Initialises all variables and gets the physics component. 
 	public override void Initialise() {
 
@@ -33,6 +40,9 @@ public class MovementController : InitialisedEntity {
 
         physics = GetComponent<PhysicsController>();
 		player = transform.Find("Visuals");
+        stunned = false;
+        stunDur = 0;
+        currStun = 0;
         physics.Initialise();
 
         physics.onCollision += onPlayerCollision;
@@ -40,25 +50,45 @@ public class MovementController : InitialisedEntity {
 
     // Makes all calculations for the physics and applies force via the physics component.
     public void MoveEntity(Vector2 targetPos) {
-        if (!invertMovement)
+        if (!stunned)
         {
-            targetPos *= -1;
-            targetPos.y += 2;
+            if (!invertMovement)
+            {
+                targetPos *= -1;
+                targetPos.y += 2;
+            }
+            //targetPos *= -1;
+            //targetPos.y += 2;
+
+            float dist = Vector3.Distance(targetPos, player.position);
+            Vector2 dir = GlobalMethods.GetDirection(player.position, targetPos);
+            Vector2 velocity = dir * (force * (dist / maxDistance));
+
+            Vector3 nextPosition = (Vector2)player.position + GlobalMethods.Normalise(dir);
+
+            //Clamps velocity to make sure player stays within the set bounds
+            velocity.x = GlobalMethods.WithinBounds(nextPosition.x, -xBounds, xBounds) ? velocity.x : 0;
+            velocity.y = GlobalMethods.WithinBounds(nextPosition.y, -yBounds, yBounds) ? velocity.y : 0;
+
+            physics.AddForce(velocity);
         }
-        //targetPos *= -1;
-        //targetPos.y += 2;
+        else {
+            if (currStun >= stunDur)
+            {
+                stunned = false;
+                stunDur = 0;
+                currStun = 0;
+            }
+            else {
+                currStun += Time.deltaTime;
+            }
+        }
+    }
 
-        float dist = Vector3.Distance(targetPos, player.position);
-		Vector2 dir = GlobalMethods.GetDirection(player.position, targetPos);
-		Vector2 velocity = dir * (force * (dist / maxDistance));
-
-		Vector3 nextPosition = (Vector2)player.position + GlobalMethods.Normalise(dir);
-
-		//Clamps velocity to make sure player stays within the set bounds
-		velocity.x = GlobalMethods.WithinBounds(nextPosition.x, -xBounds, xBounds) ? velocity.x : 0;
-		velocity.y = GlobalMethods.WithinBounds(nextPosition.y, -yBounds, yBounds) ? velocity.y : 0;
-
-		physics.AddForce(velocity);
+    public void Stun(float time) {
+        stunned = true;
+        stunDur = time;
+        currStun = 0;
     }
 
     public void onPlayerCollision() {

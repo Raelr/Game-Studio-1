@@ -33,6 +33,11 @@ namespace AlternativeArchitecture {
         private float acceleration = 1;
         private float currentSpeed = 1;
 
+        [Header("Animation properties")]
+        [SerializeField] AnimationCurve rotationAnim;
+        [SerializeField] Transform startRot;
+        [SerializeField] Transform endRot;
+
         private float rotationX;
         private float rotationY;
         private Vector3 lastPosition;
@@ -103,7 +108,7 @@ namespace AlternativeArchitecture {
 
             //Debug.Log(-stepRotation * input.y);
             transform.localRotation = Quaternion.Euler(new Vector3(-rotationY, rotationX, 0));
-            player.transform.localRotation = Quaternion.Euler(new Vector3(-stepRotation * input.y * 2, stepRotation * input.x * 2, -rotationX));
+            //player.transform.localRotation = Quaternion.Euler(new Vector3(-stepRotation * input.y * 2, stepRotation * input.x * 2, -rotationX));
 
 
 
@@ -156,6 +161,7 @@ namespace AlternativeArchitecture {
                     StopCoroutine(Retreat());
                     StopCoroutine(Dash());
                     StartCoroutine(Dash());
+                    StartCoroutine(TestRotation());
                     break;
                 }
                 yield return null;
@@ -166,12 +172,36 @@ namespace AlternativeArchitecture {
             }
         }
 
+        private IEnumerator TestRotation() {
+
+            float elapsedTime = 0;
+            float time = 2.2f;
+
+            Quaternion sourceOrientation = player.transform.localRotation;
+            float sourceAngle = 0;
+            float targetAngle = 1080f + sourceAngle; // Source +/- 1800
+            Vector3 targetAxis = new Vector3(1, 0, 0);
+
+            while (elapsedTime < time) {
+                yield return null;
+
+                elapsedTime += Time.deltaTime;
+                float progress = elapsedTime / time; 
+
+                float currentAngle = Mathf.Lerp(sourceAngle, targetAngle, rotationAnim.Evaluate(progress));
+                player.transform.localRotation = Quaternion.AngleAxis(currentAngle, Vector3.forward);
+            }
+
+        }
+
         private IEnumerator Dash() {
             Vector3 startPos = player.transform.localPosition;
             Vector3 endPos = new Vector3(startPos.x, startPos.y, 20);
+
             currentSpeed += 0.5f;
             float elapsedTime = 0;
             float time = 0.2f;
+
             isDashing = true;
             CameraEffects.instance.DashOn();
             GamePooler.instance.SetObstacleSpeed(currentSpeed + 5);
@@ -189,6 +219,7 @@ namespace AlternativeArchitecture {
         private IEnumerator Retreat() {
             Vector3 startPos = player.transform.localPosition;
             Vector3 endPos = new Vector3(startPos.x, startPos.y, 10);
+
             isDashing = false;
             float elapsedTime = 0;
             float time = 1f;

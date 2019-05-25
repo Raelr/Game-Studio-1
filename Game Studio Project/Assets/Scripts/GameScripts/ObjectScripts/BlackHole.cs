@@ -8,18 +8,23 @@ public class BlackHole : MonoBehaviour
     private float pullForce;
     [SerializeField]
     private Transform player;
+    [SerializeField]
+    private Rigidbody rb;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player") {
+        if (other.transform.parent.tag == "Player") {
             player = other.transform;
+            rb = player.GetComponent<Rigidbody>();
         }
     }
 
     private void OnTriggerStay(Collider other)
     {
-        if (player != null) {
+        if (player != null && rb != null) {
             Vector3 dir = (transform.position - player.position).normalized;
+            //not working
+            rb.velocity += dir*pullForce;
         }
     }
 
@@ -27,6 +32,7 @@ public class BlackHole : MonoBehaviour
     {
         if (other.tag == "Player") {
             player = null;
+            rb = null;
         }
     }
 }

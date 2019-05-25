@@ -23,9 +23,18 @@ public class PlayerSensor : InitialisedEntity
     }
 
 	private void OnTriggerExit(Collider col) {
-		if (!hasCollided) {
+
+        
+        if (col.transform.tag == "NeonRing")
+            {
+                Debug.Log("flown through a neon ring");
+            }
+
+        if (!hasCollided) {
 			onNearMiss?.Invoke();
 		}
 		hasCollided = false;
+
+
 	}
 }

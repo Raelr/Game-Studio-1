@@ -8,9 +8,13 @@ public class PlayerSensor : InitialisedEntity
 
 	public delegate void OnNearMissHandler();
 
+    public delegate void OnStunHandler();
+
     public OnCollisionHandler onCollision;
 
 	public OnNearMissHandler onNearMiss;
+
+    public OnStunHandler onStun;
 
 	private bool hasCollided; 
 
@@ -19,6 +23,9 @@ public class PlayerSensor : InitialisedEntity
         if (collision.transform.tag == "Obstacle") {
 			hasCollided = true;
             onCollision?.Invoke();
+        }
+        if (collision.transform.tag == "Stunner") {
+            onStun?.Invoke();
         }
     }
 

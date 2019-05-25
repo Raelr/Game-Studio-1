@@ -8431,7 +8431,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pullForce: 30
   player: {fileID: 0}
-  rb: {fileID: 0}
 --- !u!114 &1999488571
 MonoBehaviour:
   m_ObjectHideFlags: 0

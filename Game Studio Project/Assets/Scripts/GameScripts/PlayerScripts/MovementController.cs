@@ -10,9 +10,13 @@ public class MovementController : InitialisedEntity {
 
 	public delegate void OnNearMissHandler();
 
+    public delegate void OnStunHandler();
+
     public OnCollisionhandler onCollision;
 
 	public OnNearMissHandler onNearMiss;
+
+    public OnStunHandler onStun;
 
     // The controller should keep track of all physics components (since it is the only compone≤nt which needs to interface with physics)
     [Header("Physics")]
@@ -36,6 +40,8 @@ public class MovementController : InitialisedEntity {
     private Vector3 lastPosition;
 	private bool isDashing;
 
+    private bool isStunned;
+
 	[Header("Player Bounds")]
 	private float xBounds = 100f;
 	private float yBounds = 12f;
@@ -53,6 +59,7 @@ public class MovementController : InitialisedEntity {
 
         physics.onCollision += onPlayerCollision;
 		physics.onNearMiss += OnPlayerNearMiss;
+        physics.onStun += OnPlayerStun;
     }
 
     // DEPRECIATED -- 
@@ -85,23 +92,27 @@ public class MovementController : InitialisedEntity {
 
     public void RotateEntity(Vector2 input) {
 
-        rotationX += input.x * stepRotation * Time.deltaTime * force * acceleration;
-        rotationY += input.y * stepRotation * Time.deltaTime * force * acceleration;
+        if (!isStunned) {
+            rotationX += input.x * stepRotation * Time.deltaTime * force * acceleration;
+            rotationY += input.y * stepRotation * Time.deltaTime * force * acceleration;
 
-        float shipRotationX = Mathf.Clamp(rotationX, minRotation, maxRotation);
-        float shipRotationY = Mathf.Clamp(rotationY, minRotation, maxRotation);
+            float shipRotationX = Mathf.Clamp(rotationX, minRotation, maxRotation);
+            float shipRotationY = Mathf.Clamp(rotationY, minRotation, maxRotation);
 
-        //Debug.Log(-stepRotation * input.y);
-        transform.localRotation = Quaternion.Euler(new Vector3(-rotationY, rotationX, 0));
-        player.transform.localRotation = Quaternion.Euler(new Vector3(-stepRotation* input.y*2, stepRotation*input.x*2, -rotationX));
+            //Debug.Log(-stepRotation * input.y);
+            transform.localRotation = Quaternion.Euler(new Vector3(-rotationY, rotationX, 0));
+            player.transform.localRotation = Quaternion.Euler(new Vector3(-stepRotation * input.y * 2, stepRotation * input.x * 2, -rotationX));
 
-        if (input.x != 0 || input.y != 0) {
-            acceleration += accelerationStepping;
-            if (acceleration >= maxAcceleration)
-                acceleration = maxAcceleration;
-        }
-        else {
-            acceleration = accelerationBase;
+            if (input.x != 0 || input.y != 0)
+            {
+                acceleration += accelerationStepping;
+                if (acceleration >= maxAcceleration)
+                    acceleration = maxAcceleration;
+            }
+            else
+            {
+                acceleration = accelerationBase;
+            }
         }
     }
     
@@ -110,10 +121,20 @@ public class MovementController : InitialisedEntity {
     }
     
 	public void OnPlayerNearMiss() {
-		if (!isDashing) {
-			StartCoroutine(Dash());
-		}
+        if (!isStunned) {
+            if (!isDashing)
+            {
+                StartCoroutine(Dash());
+            }
+        }
 	}
+
+    public void OnPlayerStun() {
+        if (!isStunned) {
+            Debug.Log("Stun");
+            StartCoroutine(Stun());
+        }
+    }
 
 	private void StartRetreat() {
 		StartCoroutine(Retreat());
@@ -165,4 +186,16 @@ public class MovementController : InitialisedEntity {
 
 		action.Invoke();
 	}
+
+    private IEnumerator Stun() {
+        float elapsedTime = 0;
+        float time = 3;
+        isStunned = true;
+        while (elapsedTime < time) {
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        isStunned = false;
+        Debug.Log("un-Stun");
+    }
 }

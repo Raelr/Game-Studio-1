@@ -23,6 +23,7 @@ public class CameraShake : MonoBehaviour
 
     public void StopCameraShake()
     {
+        if (shake != null)
         StopCoroutine(shake);
     }
 

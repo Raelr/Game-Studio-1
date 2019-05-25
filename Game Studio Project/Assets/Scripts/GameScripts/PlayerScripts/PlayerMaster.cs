@@ -92,7 +92,7 @@ namespace AlternativeArchitecture {
 
             onClick += projectiles.FireProjectile;
 
-            updateEvent += movementController.MoveEntity;
+            updateEvent += movementController.RotateEntity;
 
             onPlayerCollision += playerProperties.DecaySanityByAmount;
 
@@ -115,6 +115,8 @@ namespace AlternativeArchitecture {
             sounds.Initialise();
 
             movementController.onCollision += OnPlayerHit;
+
+			movementController.onNearMiss += OnPlayerNearMiss;
 
             playerProperties.onPlayerLose += OnPlayerLose;
 
@@ -156,11 +158,13 @@ namespace AlternativeArchitecture {
 
             updateEvent?.Invoke(mouseCoordinates);
         }
-
+		public override void RotateEntity(Vector2 input) {
+			updateEvent?.Invoke(input);
+		}
+        
         public void OnPlayerHit() {
 
             CameraShake.instance.ShakeOnce();
-            
             onPlayerCollision?.Invoke();
 
             //temp
@@ -173,7 +177,11 @@ namespace AlternativeArchitecture {
             StartCoroutine(TempShipFlash());
         }
 
-        IEnumerator TempShipFlash ()
+		public void OnPlayerNearMiss() {
+
+		}
+
+		IEnumerator TempShipFlash ()
         {
             shipRender.material.SetFloat("_RimPower", 0.5f);
             shipRender.material.SetColor("_RimColor", Color.red);

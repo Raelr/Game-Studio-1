@@ -12,6 +12,8 @@ TagManager:
   - SpaceScene_Galaxy
   - SpaceScene_Camera
   - SpaceScene_Moon
+  - Player_Projectile
+  - Despawner
   layers:
   - Default
   - TransparentFX

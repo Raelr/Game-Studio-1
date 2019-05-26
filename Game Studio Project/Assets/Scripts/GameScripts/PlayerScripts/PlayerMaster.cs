@@ -178,8 +178,9 @@ namespace AlternativeArchitecture {
         }
 
 		public void OnPlayerNearMiss() {
-
-		}
+        
+            playerProperties.ImproveSanity();
+        }
 
 		IEnumerator TempShipFlash ()
         {

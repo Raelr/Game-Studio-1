@@ -111,6 +111,7 @@ public class MovementController : InitialisedEntity {
     
 	public void OnPlayerNearMiss() {
 		if (!isDashing) {
+            onNearMiss?.Invoke();
 			StartCoroutine(Dash());
 		}
 	}

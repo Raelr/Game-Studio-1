@@ -27,7 +27,7 @@ public class PlayerSensor : InitialisedEntity
         
         if (col.transform.tag == "NeonRing")
             {
-                Debug.Log("flown through a neon ring");
+            Debug.Log("flown through a neon ring");
             }
 
         if (!hasCollided) {

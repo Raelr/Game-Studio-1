@@ -28,6 +28,8 @@ namespace AlternativeArchitecture
         private float dist = 400;
         [SerializeField]
         private Vector3 dir;
+        [SerializeField]
+        private bool randomRotate = true;
 
         public float forceMultiplier = 1;
 
@@ -43,12 +45,18 @@ namespace AlternativeArchitecture
         private Vector3 Dir { get { return (origin1.position - player.position).normalized; } }
         public float Force { get { return force; } set { force = value; } }
 
+        Renderer ren;
+
         public void Setup(GamePooler pooler, ObjectType type)
         {
-    
+            if (ren == null)
+            {
+                ren = GetComponentInChildren<Renderer>();
+            }
             rigid.velocity = Vector3.zero;
             origin1 = GameObject.FindGameObjectWithTag("Player").transform;
             player = origin1.GetChild(0).transform;
+
             //dir = (origin1 - transform.position).normalized;
             spawns = new Vector3[5];
             spawns[0] = (Dir * -1) * dist + player.position;
@@ -60,8 +68,9 @@ namespace AlternativeArchitecture
 
             startMin += mySpawn;
             startMax += mySpawn;
+
             transform.position = new Vector3(Random.Range(startMin.x, startMax.x), Random.Range(startMin.y, startMax.y), Random.Range(startMin.z, startMax.z));
-            transform.Rotate(new Vector3(Random.Range(0, 360), Random.Range(0, 360), Random.Range(0, 360)));
+            if (randomRotate) transform.Rotate(new Vector3(Random.Range(0, 360), Random.Range(0, 360), Random.Range(0, 360)));
             //transform.localScale = new Vector3(2, 2, 2);
             transform.localScale *= Random.Range(0.5f, 1f);
 
@@ -69,7 +78,7 @@ namespace AlternativeArchitecture
             objectType = type;
 
             isActive = true;
-        
+
         }
 
         private Vector3 GetDir() {
@@ -93,8 +102,6 @@ namespace AlternativeArchitecture
 
             rigid.velocity = velocity;
 
-
-
             /*if (transform.position.z < zDespawn)
             {
                 //isActive = false;
@@ -109,12 +116,13 @@ namespace AlternativeArchitecture
             if (collision.gameObject.tag == "Player") {
 
             }
-                
+
         }
 
         private void OnTriggerExit(Collider other)
         {
             if (other.tag == "Despawner") {
+                Debug.Log("despawning");
                 BackToPool();
             }
         }
@@ -122,7 +130,7 @@ namespace AlternativeArchitecture
         public void BackToPool() {
             isActive = false;
             gamePooler.PoolObject(objectType, gameObject);
-            
+
         }
     }
 }

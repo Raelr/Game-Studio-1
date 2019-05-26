@@ -24,12 +24,19 @@ public class PlayerSensor : InitialisedEntity
         }
     }
 
-    private void OnTriggerExit(Collider col)
-    {
-        if (!hasCollided)
-        {
-            onNearMiss?.Invoke();
-        }
-        hasCollided = false;
-    }
+	private void OnTriggerExit(Collider col) {
+
+
+        if (col.transform.tag == "NeonRing")
+            {
+            Debug.Log("flown through a neon ring");
+            }
+
+        if (!hasCollided) {
+			onNearMiss?.Invoke();
+		}
+		hasCollided = false;
+
+
+	}
 }

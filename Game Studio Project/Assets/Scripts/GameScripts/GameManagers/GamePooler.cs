@@ -8,6 +8,7 @@ namespace AlternativeArchitecture {
         PLAYER,
         OBSTACLE_SPHERE,
         OBSTACLE_SPHERE_BIG,
+        NEON_RING,
         LEVEL_PREFAB
     }
 

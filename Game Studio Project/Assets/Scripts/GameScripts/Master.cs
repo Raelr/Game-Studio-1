@@ -31,4 +31,9 @@ public abstract class Master : InitialisedEntity
 	public virtual void OnUIChange() {
 
     }
+
+    public virtual void SpaceEvent()
+    {
+
+    }
 }

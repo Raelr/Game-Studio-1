@@ -47,7 +47,7 @@ namespace AlternativeArchitecture {
 
         private Transform player;
 
-        // Initialises all variables and gets the physics component. 
+        // Initialises all variables and gets the physics component.
         public override void Initialise() {
 
             base.Initialise();
@@ -60,7 +60,7 @@ namespace AlternativeArchitecture {
             physics.onNearMiss += OnPlayerNearMiss;
         }
 
-        // DEPRECIATED -- 
+        // DEPRECIATED --
 
         // Keeping old movement componenet as a reference
 
@@ -99,9 +99,9 @@ namespace AlternativeArchitecture {
             rotationX += input.x * Time.deltaTime + (accelerationX * input.x * Time.deltaTime);
             rotationY += input.y * Time.deltaTime + (accelerationY * input.y * Time.deltaTime);
 
-   
+
             //Debug.Log(input.y* Time.deltaTime + (accelerationY * lastDir.y));
-            //rotationX = rotationX >= 360 ? 
+            //rotationX = rotationX >= 360 ?
             rotationY = Mathf.Clamp(rotationY, -70, 70);
 
             //Debug.Log(-stepRotation * input.y);
@@ -123,7 +123,7 @@ namespace AlternativeArchitecture {
             //}
             //else if (acceleration > 0) {
             //    acceleration -= accelerationStepping;
-            //} 
+            //}
             //else  {
             //    acceleration = accelerationBase;
             //}
@@ -136,7 +136,7 @@ namespace AlternativeArchitecture {
         public void OnPlayerNearMiss() {
             if (!isDashing) {
                 StartCoroutine(InputPrompt());
-            } 
+            }
         }
 
         private void StartRetreat() {
@@ -184,7 +184,7 @@ namespace AlternativeArchitecture {
                 yield return null;
 
                 elapsedTime += Time.deltaTime;
-                float progress = elapsedTime / time; 
+                float progress = elapsedTime / time;
 
                 //hello
                 float currentAngle = Mathf.Lerp(sourceAngle, targetAngle, rotationAnim.Evaluate(progress));
@@ -236,7 +236,7 @@ namespace AlternativeArchitecture {
             GamePooler.instance.SetObstacleSpeed(currentSpeed);
             Debug.Log(currentSpeed);
             player.transform.localPosition = endPos;
-            
+
         }
 
         private IEnumerator Cooldown(float time, Action action) {
@@ -252,4 +252,66 @@ namespace AlternativeArchitecture {
         }
 
     }
+
+    public void onPlayerCollision() {
+        onCollision?.Invoke();
+    }
+
+	public void OnPlayerNearMiss() {
+		if (!isDashing) {
+            onNearMiss?.Invoke();
+			StartCoroutine(Dash());
+		}
+	}
+
+	private void StartRetreat() {
+		StartCoroutine(Retreat());
+	}
+
+	private IEnumerator Dash() {
+		Vector3 startPos = player.transform.localPosition;
+		Vector3 endPos = new Vector3(startPos.x, startPos.y, 20);
+		float elapsedTime = 0;
+		float time = 0.2f;
+		isDashing = true;
+        CameraEffects.instance.DashOn();
+
+		while (elapsedTime<time) {
+			player.transform.localPosition = Vector3.Lerp(startPos, endPos, elapsedTime/time);
+			elapsedTime += Time.deltaTime;
+			yield return null;
+		}
+
+		player.transform.localPosition = endPos;
+		StartCoroutine(Cooldown(1, StartRetreat));
+	}
+
+	private IEnumerator Retreat() {
+		Vector3 startPos = player.transform.localPosition;
+		Vector3 endPos = new Vector3(startPos.x, startPos.y, 10);
+		float elapsedTime = 0;
+		float time = 1f;
+
+		while (elapsedTime < time) {
+			player.transform.localPosition = Vector3.Lerp(startPos, endPos, elapsedTime / time);
+			elapsedTime += Time.deltaTime;
+			yield return null;
+		}
+
+        CameraEffects.instance.DashOff();
+		player.transform.localPosition = endPos;
+		isDashing = false;
+	}
+
+	private IEnumerator Cooldown(float time, Action action) {
+		float elapsedTime = 0;
+		isDashing = true;
+
+		while (elapsedTime < time) {
+			elapsedTime += Time.deltaTime;
+			yield return null;
+		}
+
+		action.Invoke();
+	}
 }

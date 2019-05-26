@@ -104,18 +104,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f3265ab4a7e978c4f961b53b78f3d210, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   target: {fileID: 0}
   origin1: {fileID: 0}
   player: {fileID: 0}
   startMin: {x: -16, y: 12.7, z: -15}
   startMax: {x: 16, y: -12.7, z: 15}
   spawns: []
-  spacing: 3
-  force: 200
-  dist: 1000
+  spacing: 2.5
+  force: 600
+  dist: 500
   dir: {x: 0, y: 0, z: 0}
+  randomRotate: 1
   forceMultiplier: 1
   rigid: {fileID: 3972734140393683440}
   zDespawn: -15

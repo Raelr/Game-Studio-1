@@ -45,7 +45,7 @@ namespace AlternativeArchitecture {
         private ParticleSystem impactParticle;
 
 
-        // Delegate for handling mouse click input. 
+        // Delegate for handling mouse click input.
         // You'd need other delgates for other forms of input for the master (moving...etc)
         public delegate void OnClickHandler();
 
@@ -83,7 +83,7 @@ namespace AlternativeArchitecture {
             Initialise();
         }
 
-        // Initialises all variables and assigns appropriate delegates. 
+        // Initialises all variables and assigns appropriate delegates.
         public override void Initialise() {
 
             base.Initialise();
@@ -127,7 +127,7 @@ namespace AlternativeArchitecture {
             onPlayerLost += sounds.StopBackgroundSound;
         }
 
-        // Gets the approrpiate components for master. 
+        // Gets the approrpiate components for master.
         public override void SetUpReferences() {
 
             base.SetUpReferences();
@@ -161,11 +161,10 @@ namespace AlternativeArchitecture {
 		public override void RotateEntity(Vector2 input) {
 			updateEvent?.Invoke(input);
 		}
-        
+
         public void OnPlayerHit() {
 
             CameraShake.instance.ShakeOnce();
-
             onPlayerCollision?.Invoke();
 
             //temp
@@ -180,7 +179,8 @@ namespace AlternativeArchitecture {
 
 		public void OnPlayerNearMiss() {
 
-		}
+            playerProperties.ImproveSanity();
+        }
 
 		IEnumerator TempShipFlash ()
         {
@@ -208,4 +208,3 @@ namespace AlternativeArchitecture {
         }
     }
 }
-

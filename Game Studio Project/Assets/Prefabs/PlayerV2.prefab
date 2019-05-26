@@ -92,9 +92,9 @@ MonoBehaviour:
   invertMovement: 0
   minRotation: -50
   maxRotation: 50
-  stepRotation: 1
-  maxAcceleration: 200
-  accelerationStepping: 0.1
+  stepRotation: 10
+  maxAcceleration: 5
+  accelerationStepping: 1
   accelerationBase: 1
   rotationAnim:
     serializedVersion: 2
@@ -41967,12 +41967,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 291965ea9bb88094b9fe75ea6f400d41, type: 3}
---- !u!23 &4344826283086178371 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 2300000, guid: 291965ea9bb88094b9fe75ea6f400d41,
-    type: 3}
-  m_PrefabInstance: {fileID: 4344826283084148771}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4344826283084278435 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 291965ea9bb88094b9fe75ea6f400d41,
@@ -41982,6 +41976,12 @@ Transform:
 --- !u!1 &4344826283084183171 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: 291965ea9bb88094b9fe75ea6f400d41,
+    type: 3}
+  m_PrefabInstance: {fileID: 4344826283084148771}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &4344826283086178371 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 2300000, guid: 291965ea9bb88094b9fe75ea6f400d41,
     type: 3}
   m_PrefabInstance: {fileID: 4344826283084148771}
   m_PrefabAsset: {fileID: 0}

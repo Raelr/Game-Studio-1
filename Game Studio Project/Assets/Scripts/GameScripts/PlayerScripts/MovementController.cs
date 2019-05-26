@@ -92,7 +92,7 @@ namespace AlternativeArchitecture {
         private float accelerationY = 0.01f;
         private Vector2 lastDir = new Vector2();
 
-        public void RotateEntity(Vector2 input) {
+        public void RotateEntity3(Vector2 input) {
 
 
 
@@ -127,6 +127,27 @@ namespace AlternativeArchitecture {
             //else  {
             //    acceleration = accelerationBase;
             //}
+        }
+
+        public void RotateEntity(Vector2 input) {
+            rotationX += input.x * stepRotation * Time.deltaTime * force * acceleration;
+            rotationY += input.y * stepRotation * Time.deltaTime * force * acceleration;
+
+            float shipRotationX = Mathf.Clamp(rotationX, minRotation, maxRotation);
+            float shipRotationY = Mathf.Clamp(rotationY, minRotation, maxRotation);
+
+            //Debug.Log(-stepRotation * input.y);
+            transform.localRotation = Quaternion.Euler(new Vector3(-rotationY, rotationX, 0));
+            player.transform.localRotation = Quaternion.Euler(new Vector3(-stepRotation * input.y * 2, stepRotation * input.x * 2, -rotationX));
+
+            if (input.x != 0 || input.y != 0) {
+                acceleration += accelerationStepping;
+                if (acceleration >= maxAcceleration)
+                    acceleration = maxAcceleration;
+            }
+            else {
+                acceleration = accelerationBase;
+            }
         }
 
         public void onPlayerCollision() {
@@ -252,66 +273,4 @@ namespace AlternativeArchitecture {
         }
 
     }
-
-    public void onPlayerCollision() {
-        onCollision?.Invoke();
-    }
-
-	public void OnPlayerNearMiss() {
-		if (!isDashing) {
-            onNearMiss?.Invoke();
-			StartCoroutine(Dash());
-		}
-	}
-
-	private void StartRetreat() {
-		StartCoroutine(Retreat());
-	}
-
-	private IEnumerator Dash() {
-		Vector3 startPos = player.transform.localPosition;
-		Vector3 endPos = new Vector3(startPos.x, startPos.y, 20);
-		float elapsedTime = 0;
-		float time = 0.2f;
-		isDashing = true;
-        CameraEffects.instance.DashOn();
-
-		while (elapsedTime<time) {
-			player.transform.localPosition = Vector3.Lerp(startPos, endPos, elapsedTime/time);
-			elapsedTime += Time.deltaTime;
-			yield return null;
-		}
-
-		player.transform.localPosition = endPos;
-		StartCoroutine(Cooldown(1, StartRetreat));
-	}
-
-	private IEnumerator Retreat() {
-		Vector3 startPos = player.transform.localPosition;
-		Vector3 endPos = new Vector3(startPos.x, startPos.y, 10);
-		float elapsedTime = 0;
-		float time = 1f;
-
-		while (elapsedTime < time) {
-			player.transform.localPosition = Vector3.Lerp(startPos, endPos, elapsedTime / time);
-			elapsedTime += Time.deltaTime;
-			yield return null;
-		}
-
-        CameraEffects.instance.DashOff();
-		player.transform.localPosition = endPos;
-		isDashing = false;
-	}
-
-	private IEnumerator Cooldown(float time, Action action) {
-		float elapsedTime = 0;
-		isDashing = true;
-
-		while (elapsedTime < time) {
-			elapsedTime += Time.deltaTime;
-			yield return null;
-		}
-
-		action.Invoke();
-	}
 }

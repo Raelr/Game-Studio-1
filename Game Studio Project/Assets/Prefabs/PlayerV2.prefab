@@ -120,8 +120,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  startRot: {fileID: 4344826283084278435}
-  endRot: {fileID: 0}
 --- !u!114 &506424735756477649
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9476,7 +9474,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.2
+  m_Radius: 0.5
   m_Center: {x: 0.000000022351742, y: 0, z: 0}
 --- !u!114 &6894903533248548387
 MonoBehaviour:

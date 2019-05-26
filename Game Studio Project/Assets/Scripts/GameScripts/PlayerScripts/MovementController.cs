@@ -35,8 +35,6 @@ namespace AlternativeArchitecture {
 
         [Header("Animation properties")]
         [SerializeField] AnimationCurve rotationAnim;
-        [SerializeField] Transform startRot;
-        [SerializeField] Transform endRot;
 
         private float rotationX;
         private float rotationY;
@@ -148,9 +146,9 @@ namespace AlternativeArchitecture {
         private IEnumerator InputPrompt() {
 
             GamePooler.instance.SetObstacleSpeed(0.1f);
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(0.5f);
             float elapsedTime = 0;
-            float time = 1f;
+            float time = 0.5f;
             bool successfulDash = false;
 
             while (elapsedTime < time) {
@@ -175,7 +173,7 @@ namespace AlternativeArchitecture {
         private IEnumerator TestRotation() {
 
             float elapsedTime = 0;
-            float time = 2.2f;
+            float time = 1.1f;
 
             Quaternion sourceOrientation = player.transform.localRotation;
             float sourceAngle = 0;
@@ -201,7 +199,7 @@ namespace AlternativeArchitecture {
 
             currentSpeed += 0.5f;
             float elapsedTime = 0;
-            float time = 0.2f;
+            float time = 0.1f;
 
             isDashing = true;
             CameraEffects.instance.DashOn();
@@ -214,7 +212,7 @@ namespace AlternativeArchitecture {
             }
 
             player.transform.localPosition = endPos;
-            StartCoroutine(Cooldown(1, StartRetreat));
+            StartCoroutine(Cooldown(0.3f, StartRetreat));
         }
 
         private IEnumerator Retreat() {
@@ -223,7 +221,7 @@ namespace AlternativeArchitecture {
 
             isDashing = false;
             float elapsedTime = 0;
-            float time = 1f;
+            float time = 0.5f;
             float speedScale = currentSpeed + 5;
 
             while (elapsedTime < time) {

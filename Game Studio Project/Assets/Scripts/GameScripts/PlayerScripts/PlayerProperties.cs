@@ -19,6 +19,11 @@ public class PlayerProperties : InitialisedEntity
 
     float currentSanity;
 
+    [SerializeField]
+    float sanityDodgeIncrease = 0f;
+
+    bool isDecaying = true;
+
     public delegate void OnPlayerLostGame();
 
     public event OnPlayerLostGame onPlayerLose;
@@ -41,7 +46,8 @@ public class PlayerProperties : InitialisedEntity
 
     public void DecaySanityConstant() {
 
-        if (currentSanity > 0) { 
+        if (currentSanity > 0)
+        {
 
             currentSanity = Mathf.Lerp(currentSanity, currentSanity - insanityDecaySpeed, insanityDecaySpeed * Time.deltaTime);
 
@@ -51,31 +57,58 @@ public class PlayerProperties : InitialisedEntity
             CameraEffects.instance.ApplyInsanity(normalisedSanity);
 
             OnSoundChanged?.Invoke(normalisedSanity);
-
-        } else {
-
+        }
+        else
+        {
             onPlayerLose?.Invoke();
         }
     }
 
     public void DecaySanityByAmount()
     {
-        float projectedSanity = Mathf.Lerp(currentSanity, currentSanity - impactSanityDamage, impactSanityDamage * Time.deltaTime);
 
-        if (projectedSanity > 0)
-        {
-            currentSanity = projectedSanity;
+        if (isDecaying) {
+            float projectedSanity = Mathf.Lerp(currentSanity, currentSanity - impactSanityDamage, impactSanityDamage * Time.deltaTime);
 
-            UIMaster.instance.onMeterChange.Invoke(impactSanityDamage);
+            if (projectedSanity > 0)
+            {
+                currentSanity = projectedSanity;
 
-            float normalisedSanity = 1f - (currentSanity / maxSanity);
+                UIMaster.instance.onMeterChange.Invoke(impactSanityDamage);
 
-            OnSoundChanged?.Invoke(normalisedSanity);
+                float normalisedSanity = 1f - (currentSanity / maxSanity);
 
+                OnSoundChanged?.Invoke(normalisedSanity);
+            }
+            else
+            {
+                onPlayerLose?.Invoke();
+            }
         }
-        else
+    }
+
+    public void ImproveSanity()
+    {
+        float sanity = Mathf.Lerp(currentSanity, currentSanity + sanityDodgeIncrease, sanityDodgeIncrease * Time.deltaTime);
+
+        if (sanity >= maxSanity)
         {
-            onPlayerLose?.Invoke();
+            sanity = maxSanity;
+        } 
+
+        if (isDecaying) {
+            isDecaying = false;
+            if (sanity < maxSanity)
+            {
+                currentSanity = sanity;
+
+                UIMaster.instance.onMeterChange.Invoke(sanityDodgeIncrease, true);
+
+                float normalisedSanity = 1f - (currentSanity / maxSanity);
+
+                OnSoundChanged?.Invoke(normalisedSanity);
+            }
         }
+        isDecaying = true;
     }
 }

@@ -37,7 +37,7 @@ public class UIMeter : InitialisedEntity
 
     public void IncrementMeter(float incrementSpeed, bool reverse = false) {
 
-        if (meter.localScale.x < maxAmount) {
+        if (meter.localScale.x <= maxAmount) {
 
             Vector3 newAmount = reverse ? new Vector3(meter.localScale.x - incrementSpeed, meter.localScale.y, meter.localScale.z)
             : new Vector3(meter.localScale.x + incrementSpeed, meter.localScale.y, meter.localScale.z);

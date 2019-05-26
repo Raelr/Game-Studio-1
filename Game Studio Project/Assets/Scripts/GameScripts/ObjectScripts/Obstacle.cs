@@ -94,20 +94,21 @@ namespace AlternativeArchitecture
 
         private void FixedUpdate()
         {
-            if (!isActive) return;
+           
+            if (!isActive) {
+                return;
+            }
+            else {
+                if (Vector3.Distance(Vector3.zero, transform.position) > 800f && GetDir(transform.position).z<0) {
+                    BackToPool();
+                }
+            }
 
-           // rigid.AddForce(Dir * force * forceMultiplier);
+            // rigid.AddForce(Dir * force * forceMultiplier);
 
             Vector3 velocity = (Dir * force * forceMultiplier);
 
             rigid.velocity = velocity;
-
-            /*if (transform.position.z < zDespawn)
-            {
-                //isActive = false;
-                //gamePooler.PoolObject(objectType, gameObject);
-                BackToPool();
-            }*/
         }
 
 
@@ -117,14 +118,6 @@ namespace AlternativeArchitecture
 
             }
 
-        }
-
-        private void OnTriggerExit(Collider other)
-        {
-            if (other.tag == "Despawner") {
-                Debug.Log("despawning");
-                BackToPool();
-            }
         }
 
         public void BackToPool() {

@@ -13,6 +13,8 @@ namespace AlternativeArchitecture {
         private AlternativeArchitecture.GameProgression progression;
         private AlternativeArchitecture.GamePooler pooler;
 
+        public GameSpawner Spawner { get { return spawner; } }
+
         [SerializeField]
         GameSounds sounds;
 

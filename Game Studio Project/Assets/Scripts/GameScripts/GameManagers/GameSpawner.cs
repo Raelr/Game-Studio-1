@@ -17,6 +17,8 @@ namespace AlternativeArchitecture {
         [SerializeField]
         CameraLookat camLookat = null;
 
+        public PlayerMaster Player { get { return player;  } }
+
         public override void Initialise() {
 
             base.Initialise();

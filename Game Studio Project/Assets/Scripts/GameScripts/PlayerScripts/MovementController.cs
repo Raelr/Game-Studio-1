@@ -166,6 +166,7 @@ namespace AlternativeArchitecture {
 
         private IEnumerator InputPrompt() {
 
+            stepRotation = 1;
             GamePooler.instance.SetObstacleSpeed(0.1f);
             yield return new WaitForSeconds(0.5f);
             float elapsedTime = 0;
@@ -248,6 +249,7 @@ namespace AlternativeArchitecture {
             while (elapsedTime < time) {
                 player.transform.localPosition = Vector3.Lerp(startPos, endPos, elapsedTime / time);
                 speedScale = Mathf.Lerp(currentSpeed +5, currentSpeed, elapsedTime/time);
+                stepRotation = Mathf.Lerp(1, 10, elapsedTime/time);
                 GamePooler.instance.SetObstacleSpeed(speedScale);
                 elapsedTime += Time.deltaTime;
                 yield return null;

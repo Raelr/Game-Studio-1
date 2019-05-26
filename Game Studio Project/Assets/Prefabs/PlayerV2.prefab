@@ -121,6 +121,30 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  dashAnim:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 46.85877
+      outSlope: 46.85877
+      tangentMode: 0
+      weightedMode: 3
+      inWeight: 0
+      outWeight: 0.018578514
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0.28132126
+      outSlope: 0.28132126
+      tangentMode: 0
+      weightedMode: 3
+      inWeight: 0.7959519
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!114 &506424735756477649
 MonoBehaviour:
   m_ObjectHideFlags: 0

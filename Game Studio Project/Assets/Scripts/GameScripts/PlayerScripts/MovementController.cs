@@ -38,6 +38,7 @@ namespace AlternativeArchitecture {
 
         [Header("Animation properties")]
         [SerializeField] AnimationCurve rotationAnim;
+        [SerializeField] AnimationCurve dashAnim;
 
         private float rotationX;
         private float rotationY;
@@ -221,7 +222,7 @@ namespace AlternativeArchitecture {
 
         private IEnumerator Dash() {
             Vector3 startPos = player.transform.localPosition;
-            Vector3 endPos = new Vector3(startPos.x, startPos.y, 20);
+            Vector3 endPos = new Vector3(startPos.x, startPos.y, 15);
 
             currentSpeed += forceStep;
             float elapsedTime = 0;
@@ -232,7 +233,8 @@ namespace AlternativeArchitecture {
             GamePooler.instance.SetObstacleSpeed(currentSpeed + 5);
 
             while (elapsedTime < time) {
-                player.transform.localPosition = Vector3.Lerp(startPos, endPos, elapsedTime / time);
+                float progress = elapsedTime / time;
+                player.transform.localPosition = Vector3.Lerp(startPos, endPos, dashAnim.Evaluate(progress));
                 elapsedTime += Time.deltaTime;
                 yield return null;
             }

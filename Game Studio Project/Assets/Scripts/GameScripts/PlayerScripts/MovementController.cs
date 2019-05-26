@@ -107,6 +107,7 @@ namespace AlternativeArchitecture {
             //Debug.Log(input.y* Time.deltaTime + (accelerationY * lastDir.y));
             //rotationX = rotationX >= 360 ?
             rotationY = Mathf.Clamp(rotationY, -70, 70);
+            rotationX = Mathf.Clamp(rotationX, -180, 180);
 
             //Debug.Log(-stepRotation * input.y);
             transform.localRotation = Quaternion.Euler(new Vector3(-rotationY, rotationX, 0));
@@ -137,8 +138,7 @@ namespace AlternativeArchitecture {
             rotationX += input.x * stepRotation * Time.deltaTime * force * acceleration;
             rotationY += input.y * stepRotation * Time.deltaTime * force * acceleration;
 
-            float shipRotationX = Mathf.Clamp(rotationX, minRotation, maxRotation);
-            float shipRotationY = Mathf.Clamp(rotationY, minRotation, maxRotation);
+            rotationY = Mathf.Clamp(rotationY, -70, 70);
 
             //Debug.Log(-stepRotation * input.y);
             transform.localRotation = Quaternion.Euler(new Vector3(-rotationY, rotationX, 0));
@@ -152,6 +152,15 @@ namespace AlternativeArchitecture {
             else {
                 acceleration = accelerationBase;
             }
+
+            if (rotationX < -60) {
+                stepRotation += input.x * 10f * Time.deltaTime;
+            }
+            if (rotationX > 60) {
+                stepRotation += -input.x * 10f * Time.deltaTime;
+            }
+
+            stepRotation = Mathf.Clamp(stepRotation, 0, 10);
         }
 
         public void onPlayerCollision() {

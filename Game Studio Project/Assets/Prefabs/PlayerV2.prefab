@@ -96,6 +96,7 @@ MonoBehaviour:
   maxAcceleration: 5
   accelerationStepping: 1
   accelerationBase: 1
+  forceStep: 0.1
   rotationAnim:
     serializedVersion: 2
     m_Curve:

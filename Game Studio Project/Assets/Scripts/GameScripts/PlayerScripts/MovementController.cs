@@ -30,6 +30,9 @@ namespace AlternativeArchitecture {
         [SerializeField] private float maxAcceleration = 5;
         [SerializeField] private float accelerationStepping = 1;
         [SerializeField] private float accelerationBase = 1;
+
+        [Header("Dash Properties")]
+        [SerializeField] private float forceStep = 0.5f;
         private float acceleration = 1;
         private float currentSpeed = 1;
 
@@ -189,6 +192,7 @@ namespace AlternativeArchitecture {
 
             if (!successfulDash) {
                 GamePooler.instance.SetObstacleSpeed(currentSpeed);
+                stepRotation = 10;
             }
         }
 
@@ -219,7 +223,7 @@ namespace AlternativeArchitecture {
             Vector3 startPos = player.transform.localPosition;
             Vector3 endPos = new Vector3(startPos.x, startPos.y, 20);
 
-            currentSpeed += 0.5f;
+            currentSpeed += forceStep;
             float elapsedTime = 0;
             float time = 0.1f;
 

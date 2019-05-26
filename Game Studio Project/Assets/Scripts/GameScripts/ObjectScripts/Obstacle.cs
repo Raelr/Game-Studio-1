@@ -99,7 +99,7 @@ namespace AlternativeArchitecture
                 return;
             }
             else {
-                if (Vector3.Distance(Vector3.zero, transform.position) > 800f && GetDir(transform.position).z<0) {
+                if (Vector3.Distance(Vector3.zero, transform.position) > 50f && GetDir(transform.position).z<0) {
                     BackToPool();
                 }
             }

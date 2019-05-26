@@ -186,6 +186,7 @@ namespace AlternativeArchitecture {
                     StopCoroutine(Dash());
                     StartCoroutine(Dash());
                     StartCoroutine(TestRotation());
+                    onNearMiss?.Invoke();
                     break;
                 }
                 yield return null;

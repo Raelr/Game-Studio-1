@@ -9,7 +9,8 @@ namespace AlternativeArchitecture {
         OBSTACLE_SPHERE,
         OBSTACLE_SPHERE_BIG,
         NEON_RING,
-        LEVEL_PREFAB
+        LEVEL_PREFAB,
+        OBSTACLE_BOOST
     }
 
     public class GamePooler : InitialisedEntity {

@@ -12,7 +12,7 @@ namespace AlternativeArchitecture {
         private bool canRotate;
 
         private void Start() {
-            transform.localScale *= Random.Range(0.3f, 1);
+            //transform.localScale *= Random.Range(0.3f, 1);
             canRotate = true;
             player = GameMaster.instance.Spawner.Player.transform;
             SetRingSize(0);
@@ -23,7 +23,7 @@ namespace AlternativeArchitecture {
 
         public void Update() {
             if (canRotate) {
-               FacePlayer();
+                FacePlayer();
             }
         }
 

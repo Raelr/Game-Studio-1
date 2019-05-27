@@ -47,9 +47,23 @@ namespace AlternativeArchitecture
 
         Renderer ren;
 
+        float minWidth;
+        float maxWidth;
+        float minHeight;
+        float maxHeight;
+
+        float maxSize;
+
+        private void Start() {
+            minWidth = -Screen.width;
+            maxWidth = Screen.width;
+            minHeight = -Screen.height;
+            maxHeight = Screen.height;
+        }
+
         public void Setup(GamePooler pooler, ObjectType type)
         {
-            transform.localScale = Vector3.zero;
+        
             if (ren == null)
             {
                 ren = GetComponentInChildren<Renderer>();
@@ -58,27 +72,25 @@ namespace AlternativeArchitecture
             origin1 = GameObject.FindGameObjectWithTag("Player").transform;
             player = origin1.GetChild(0).transform;
 
-            //dir = (origin1 - transform.position).normalized;
-            spawns = new Vector3[5];
-            spawns[0] = (Dir * -1) * dist + player.position;
-            spawns[1] = (GetDir(origin1.position + origin1.up * spacing) * -1) * dist + player.position;
-            spawns[2] = (GetDir(origin1.position + (-origin1.up) * spacing) * -1) * dist + player.position;
-            spawns[3] = (GetDir(origin1.position + origin1.right * spacing) * -1) * dist + player.position;
-            spawns[4] = (GetDir(origin1.position + (-origin1.right) * spacing) * -1) * dist + player.position;
-            Vector3 mySpawn = spawns[Random.Range(0,5)];
-
-            startMin += origin1.position;
-            startMax += mySpawn;
-
-            transform.position = new Vector3(Random.Range(startMin.x, startMax.x), Random.Range(startMin.y, startMax.y), Random.Range(startMin.z, startMax.z));
+            maxSize = Random.Range(10,20);
             if (randomRotate) transform.Rotate(new Vector3(Random.Range(0, 360), Random.Range(0, 360), Random.Range(0, 360)));
-            //transform.localScale = new Vector3(2, 2, 2);
-            //transform.localScale *= Random.Range(0.5f, 1f);
 
+            RandomSpawn();
+            
             gamePooler = pooler;
             objectType = type;
 
             isActive = true;
+        }
+
+        private void RandomSpawn() {
+            float randomWidth = Random.Range(-500, 500);
+            float randomHeight = Random.Range(-500, 500);
+            float randomDepth = Random.Range(2000 * 0.75f, 2000);
+
+            Vector3 dir = GetDir(transform.position);
+
+            transform.position = new Vector3(randomWidth, randomHeight , randomDepth);
         }
 
         private Vector3 GetDir() {
@@ -129,15 +141,17 @@ namespace AlternativeArchitecture
         IEnumerator GrowObstacle(float length) {
 
             float timeElapsed = 0;
+            float scale = (maxSize / 10);
+            length *= scale;
 
             while (timeElapsed < length) {
-                SetObstacleSize(timeElapsed / length * 10);
+                SetObstacleSize(timeElapsed / length * maxSize);
 
                 timeElapsed += Time.deltaTime;
                 yield return null;
             }
 
-            SetObstacleSize(10);
+            SetObstacleSize(maxSize);
         }
 
         void SetObstacleSize(float size) {

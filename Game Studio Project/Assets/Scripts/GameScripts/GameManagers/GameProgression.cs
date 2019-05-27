@@ -54,6 +54,7 @@ namespace AlternativeArchitecture
             obstacleScript.Setup(GamePooler.instance, //replace the game pooler with actual reference
                  ObjectType.OBSTACLE_SPHERE);
             newObstacle.Show();
+            obstacleScript.StartGrowRoutine();
         }
 
         private void SpawnRing ()

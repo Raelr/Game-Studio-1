@@ -49,6 +49,7 @@ namespace AlternativeArchitecture
 
         public void Setup(GamePooler pooler, ObjectType type)
         {
+            transform.localScale = Vector3.zero;
             if (ren == null)
             {
                 ren = GetComponentInChildren<Renderer>();
@@ -66,19 +67,18 @@ namespace AlternativeArchitecture
             spawns[4] = (GetDir(origin1.position + (-origin1.right) * spacing) * -1) * dist + player.position;
             Vector3 mySpawn = spawns[Random.Range(0,5)];
 
-            startMin += mySpawn;
+            startMin += origin1.position;
             startMax += mySpawn;
 
             transform.position = new Vector3(Random.Range(startMin.x, startMax.x), Random.Range(startMin.y, startMax.y), Random.Range(startMin.z, startMax.z));
             if (randomRotate) transform.Rotate(new Vector3(Random.Range(0, 360), Random.Range(0, 360), Random.Range(0, 360)));
             //transform.localScale = new Vector3(2, 2, 2);
-            transform.localScale *= Random.Range(0.5f, 1f);
+            //transform.localScale *= Random.Range(0.5f, 1f);
 
             gamePooler = pooler;
             objectType = type;
 
             isActive = true;
-
         }
 
         private Vector3 GetDir() {
@@ -124,6 +124,29 @@ namespace AlternativeArchitecture
             isActive = false;
             gamePooler.PoolObject(objectType, gameObject);
 
+        }
+
+        IEnumerator GrowObstacle(float length) {
+
+            float timeElapsed = 0;
+
+            while (timeElapsed < length) {
+                SetObstacleSize(timeElapsed / length * 10);
+
+                timeElapsed += Time.deltaTime;
+                yield return null;
+            }
+
+            SetObstacleSize(10);
+        }
+
+        void SetObstacleSize(float size) {
+            transform.localScale = new Vector3(size, size, size);
+        }
+
+        public void StartGrowRoutine() {
+
+            StartCoroutine(GrowObstacle(2f));
         }
     }
 }

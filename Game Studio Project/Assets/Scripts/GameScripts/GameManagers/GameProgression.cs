@@ -48,6 +48,9 @@ namespace AlternativeArchitecture
         private void SpawnObstacle ()
         {
             GameObject newObstacle = spawner.SpawnObject(ObjectType.OBSTACLE_SPHERE);
+
+            newObstacle.transform.localScale = Vector3.zero;
+
             if (newObstacle.isNull()) return;
 
             Obstacle obstacleScript = newObstacle.GetComponent<Obstacle>();

@@ -49,7 +49,6 @@ namespace AlternativeArchitecture
 
         public void Setup(GamePooler pooler, ObjectType type)
         {
-            transform.localScale = Vector3.zero;
             if (ren == null)
             {
                 ren = GetComponentInChildren<Renderer>();
@@ -131,13 +130,12 @@ namespace AlternativeArchitecture
             float timeElapsed = 0;
 
             while (timeElapsed < length) {
-                SetObstacleSize(timeElapsed / length * 10);
+                SetObstacleSize(timeElapsed / length * 11);
 
                 timeElapsed += Time.deltaTime;
                 yield return null;
             }
-
-            SetObstacleSize(10);
+            SetObstacleSize(11);
         }
 
         void SetObstacleSize(float size) {
@@ -146,7 +144,7 @@ namespace AlternativeArchitecture
 
         public void StartGrowRoutine() {
 
-            StartCoroutine(GrowObstacle(2f));
+            StartCoroutine(GrowObstacle(4f));
         }
     }
 }

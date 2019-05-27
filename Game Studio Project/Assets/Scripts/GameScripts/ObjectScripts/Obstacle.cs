@@ -63,7 +63,6 @@ namespace AlternativeArchitecture
 
         public void Setup(GamePooler pooler, ObjectType type)
         {
-        
             if (ren == null)
             {
                 ren = GetComponentInChildren<Renderer>();
@@ -76,7 +75,7 @@ namespace AlternativeArchitecture
             if (randomRotate) transform.Rotate(new Vector3(Random.Range(0, 360), Random.Range(0, 360), Random.Range(0, 360)));
 
             RandomSpawn();
-            
+
             gamePooler = pooler;
             objectType = type;
 
@@ -106,7 +105,7 @@ namespace AlternativeArchitecture
 
         private void FixedUpdate()
         {
-           
+
             if (!isActive) {
                 return;
             }
@@ -160,7 +159,7 @@ namespace AlternativeArchitecture
 
         public void StartGrowRoutine() {
 
-            StartCoroutine(GrowObstacle(2f));
+            StartCoroutine(GrowObstacle(4f));
         }
     }
 }

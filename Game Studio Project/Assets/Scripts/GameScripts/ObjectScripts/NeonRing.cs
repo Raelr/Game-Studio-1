@@ -12,7 +12,8 @@ namespace AlternativeArchitecture {
         private bool canRotate;
 
         private void Start() {
-            //transform.localScale *= Random.Range(0.3f, 1);
+
+            transform.localScale *= Random.Range(0.3f, 1);
             canRotate = true;
             player = GameMaster.instance.Spawner.Player.transform;
             SetRingSize(0);
@@ -27,15 +28,15 @@ namespace AlternativeArchitecture {
             }
         }
 
-        private void FacePlayer() {
-            transform.LookAt(player);
-            transform.rotation *= Quaternion.Euler(0, -180, 0);
-            float distance = Vector3.Distance(transform.position, player.position);
-       
-            if (distance<100) {
-                canRotate = false;
-            }
-        }
+        //private void FacePlayer() {
+        //    transform.LookAt(player);
+        //    transform.rotation *= Quaternion.Euler(0, -180, 0);
+        //    float distance = Vector3.Distance(transform.position, player.position);
+
+        //    if (distance<100) {
+        //        canRotate = false;
+        //    }
+        //}
 
         private IEnumerator GrowRing(float length) {
             float timeElapsed = 0;

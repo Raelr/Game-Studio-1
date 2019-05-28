@@ -199,7 +199,7 @@ namespace AlternativeArchitecture {
 
                 speedBoost += 1 * Time.deltaTime;
 
-                if (Input.GetMouseButtonDown(1) && elapsedTime >= 1) {
+                if (Input.GetMouseButtonDown(1) && elapsedTime > 0.5f) {
                     
                     dashAudio.clip = dashClips[1];
                     dashAudio.Play();

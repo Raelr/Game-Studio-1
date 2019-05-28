@@ -10,10 +10,14 @@ namespace AlternativeArchitecture {
         public delegate void OnCollisionhandler();
 
         public delegate void OnNearMissHandler();
+		
+        public delegate void OnRingHitHandler();
 
         public OnCollisionhandler onCollision;
 
         public OnNearMissHandler onNearMiss;
+		
+        public OnRingHitHandler onRingHit;
 
         // The controller should keep track of all physics components (since it is the only compone≤nt which needs to interface with physics)
         [Header("Physics")]
@@ -65,6 +69,7 @@ namespace AlternativeArchitecture {
 
             physics.onCollision += onPlayerCollision;
             physics.onNearMiss += OnPlayerNearMiss;
+            physics.onRingHit += OnPlayerRingHit;
         }
 
         // DEPRECIATED --
@@ -172,16 +177,24 @@ namespace AlternativeArchitecture {
 
         public void OnPlayerNearMiss() {
             if (!isDashing) {
-                StartCoroutine(InputPrompt());
+                StartCoroutine(InputPrompt("ask"));
             }
         }
+
+        public void OnPlayerRingHit() {
+            Debug.Log("ring hit");
+           // if (!isDashing) {
+                StartCoroutine(InputPrompt("auto"));
+            //}
+        }
+
 
         private void StartRetreat() {
             StartCoroutine(Retreat());
         }
 
-        private IEnumerator InputPrompt() {
-
+        private IEnumerator InputPrompt(string prompt) {
+            Debug.Log("ring: " + prompt);
             stepRotation = 1;
             dashAudio.clip = dashClips[0];
             dashAudio.Play();
@@ -198,8 +211,8 @@ namespace AlternativeArchitecture {
                 elapsedTime += Time.deltaTime;
 
                 speedBoost += 1 * Time.deltaTime;
-
-                if (Input.GetMouseButtonDown(1) && elapsedTime > 0.5f) {
+                Debug.Log(elapsedTime + " " + prompt);
+                if (Input.GetMouseButtonDown(1) && elapsedTime > 0.5f || prompt == "auto") {
                     
                     dashAudio.clip = dashClips[1];
                     dashAudio.Play();

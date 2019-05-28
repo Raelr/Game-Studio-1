@@ -7,10 +7,13 @@ public class PlayerSensor : InitialisedEntity
     public delegate void OnCollisionHandler();
 
     public delegate void OnNearMissHandler();
+	
+    public delegate void OnRingHitHandler();
 
     public OnCollisionHandler onCollision;
 
     public OnNearMissHandler onNearMiss;
+    public OnRingHitHandler onRingHit;
 
     private bool hasCollided;
 
@@ -30,7 +33,12 @@ public class PlayerSensor : InitialisedEntity
             if (!hasCollided) {
                 onNearMiss?.Invoke();
             }
-
+        }
+		
+        if (col.gameObject.tag.Equals("BoostAuto")) {
+            if (!hasCollided) {
+                onRingHit?.Invoke();
+            }
         }
         hasCollided = false;
 

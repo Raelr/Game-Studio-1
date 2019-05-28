@@ -16,6 +16,7 @@ TagManager:
   - Despawner
   - NeonRing
   - Boost
+  - BoostAuto
   layers:
   - Default
   - TransparentFX

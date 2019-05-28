@@ -197,9 +197,10 @@ namespace AlternativeArchitecture {
 
                 elapsedTime += Time.deltaTime;
 
-                speedBoost += 0.05f * Time.deltaTime;
+                speedBoost += 1 * Time.deltaTime;
 
                 if (Input.GetMouseButtonDown(1) && elapsedTime >= 1) {
+                    
                     dashAudio.clip = dashClips[1];
                     dashAudio.Play();
                     successfulDash = true;
@@ -251,7 +252,7 @@ namespace AlternativeArchitecture {
             Vector3 startPos = player.transform.localPosition;
             Vector3 endPos = new Vector3(startPos.x, startPos.y, 15);
 
-            currentSpeed += forceStep + speedBoost;
+            currentSpeed += forceStep * speedBoost;
             float elapsedTime = 0;
             float time = 0.1f;
 

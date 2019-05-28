@@ -40,6 +40,7 @@ namespace AlternativeArchitecture
             if (spawnResetCounter > spawnRate * spawnRateMultiplier.Evaluate(spawnCounter)) {
                 spawnResetCounter = 0;
                 SpawnObstacle();
+                SpawnBoost();
             }
             spawnResetCounter += Time.deltaTime;
             spawnCounter += Time.deltaTime;
@@ -69,6 +70,20 @@ namespace AlternativeArchitecture
             obstacleScript.Setup(GamePooler.instance, //replace the game pooler with actual reference
                  ObjectType.NEON_RING);
             newRing.Show();
+        }
+
+        private void SpawnBoost() {
+            GameObject newObstacle = spawner.SpawnObject(ObjectType.OBSTACLE_BOOST);
+
+            newObstacle.transform.localScale = Vector3.zero;
+
+            if (newObstacle.isNull()) return;
+
+            Obstacle obstacleScript = newObstacle.GetComponent<Obstacle>();
+            obstacleScript.Setup(GamePooler.instance, //replace the game pooler with actual reference
+                 ObjectType.OBSTACLE_BOOST);
+            newObstacle.Show();
+            obstacleScript.StartGrowRoutine();
         }
 
     }

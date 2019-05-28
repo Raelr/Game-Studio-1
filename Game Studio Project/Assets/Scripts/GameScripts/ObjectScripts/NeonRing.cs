@@ -28,15 +28,15 @@ namespace AlternativeArchitecture {
             }
         }
 
-        //private void FacePlayer() {
-        //    transform.LookAt(player);
-        //    transform.rotation *= Quaternion.Euler(0, -180, 0);
-        //    float distance = Vector3.Distance(transform.position, player.position);
+        private void FacePlayer() {
+            transform.LookAt(player);
+            transform.rotation *= Quaternion.Euler(0, -180, 0);
+            float distance = Vector3.Distance(transform.position, player.position);
 
-        //    if (distance<100) {
-        //        canRotate = false;
-        //    }
-        //}
+            if (distance < 200) {
+                canRotate = false;
+            }
+        }
 
         private IEnumerator GrowRing(float length) {
             float timeElapsed = 0;

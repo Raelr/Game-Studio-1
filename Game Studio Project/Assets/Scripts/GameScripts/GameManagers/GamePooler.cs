@@ -330,6 +330,9 @@ namespace AlternativeArchitecture {
 
         public void SetObstacleSpeed(float newSpeed) {
             List<GameObject> obstacles = GetObjects(ObjectType.OBSTACLE_SPHERE);
+            obstacles.AddRange(GetObjects(ObjectType.OBSTACLE_BOOST));
+            obstacles.AddRange(GetObjects(ObjectType.NEON_RING));
+
             foreach (GameObject obstacle in obstacles) {
                 currentForceMultiplier = newSpeed;
                 obstacle.GetComponent<Obstacle>().forceMultiplier = newSpeed;

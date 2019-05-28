@@ -7668,7 +7668,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 311
+    m_Bits: 2359
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -8002,6 +8002,12 @@ MonoBehaviour:
     objectPrefab: {fileID: 1275655712482510743, guid: 837f31b46febb0447add9e91bff845ad,
       type: 3}
     maxCount: 50
+    preload: 1
+    poolingFlags: 00000000
+  - objectType: 5
+    objectPrefab: {fileID: 1636532063854592851, guid: 43c8d4b327ee0e846ac74d3f9f83068d,
+      type: 3}
+    maxCount: 20
     preload: 1
     poolingFlags: 00000000
 --- !u!114 &1921487157

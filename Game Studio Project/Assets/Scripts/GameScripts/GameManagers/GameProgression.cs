@@ -75,7 +75,7 @@ namespace AlternativeArchitecture
         private void SpawnBoost() {
             GameObject newObstacle = spawner.SpawnObject(ObjectType.OBSTACLE_BOOST);
 
-            newObstacle.transform.localScale = Vector3.zero;
+           // newObstacle.transform.localScale = Vector3.zero;
 
             if (newObstacle.isNull()) return;
 

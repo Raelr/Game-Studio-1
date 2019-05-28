@@ -32,9 +32,11 @@ namespace AlternativeArchitecture {
         [SerializeField] private float accelerationBase = 1;
 
         [Header("Dash Properties")]
+        [SerializeField] AudioClip[] dashClips;
         [SerializeField] private float forceStep = 0.5f;
         private float acceleration = 1;
         private float currentSpeed = 1;
+        AudioSource dashAudio;
 
         [Header("Animation properties")]
         [SerializeField] AnimationCurve rotationAnim;
@@ -57,6 +59,7 @@ namespace AlternativeArchitecture {
             base.Initialise();
 
             physics = GetComponent<PhysicsController>();
+            dashAudio = GetComponent<AudioSource>();
             player = transform.Find("Visuals");
             physics.Initialise();
 
@@ -180,28 +183,42 @@ namespace AlternativeArchitecture {
         private IEnumerator InputPrompt() {
 
             stepRotation = 1;
+            dashAudio.clip = dashClips[0];
+            dashAudio.Play();
             GamePooler.instance.SetObstacleSpeed(0.1f);
-            yield return new WaitForSeconds(0.5f);
+            //yield return new WaitForSeconds(0.5f);
             float elapsedTime = 0;
-            float time = 0.5f;
+            float time = 2f;
+            float speedBoost = 0;
             bool successfulDash = false;
+            bool hasPromptPlayed = false;
 
             while (elapsedTime < time) {
 
                 elapsedTime += Time.deltaTime;
-                if (Input.GetMouseButtonDown(1)) {
+
+                speedBoost += 0.05f * Time.deltaTime;
+
+                if (Input.GetMouseButtonDown(1) && elapsedTime >= 1) {
+                    dashAudio.clip = dashClips[1];
+                    dashAudio.Play();
                     successfulDash = true;
                     StopCoroutine(Retreat());
-                    StopCoroutine(Dash());
-                    StartCoroutine(Dash());
+                    StopCoroutine(Dash(0));
+                    StartCoroutine(Dash(speedBoost));
                     StartCoroutine(TestRotation());
                     onNearMiss?.Invoke();
+                    break;
+                }
+                else if (Input.GetMouseButtonDown(1)) {
+                    successfulDash = false;
                     break;
                 }
                 yield return null;
             }
 
             if (!successfulDash) {
+                dashAudio.Stop();
                 GamePooler.instance.SetObstacleSpeed(currentSpeed);
                 stepRotation = 10;
             }
@@ -230,11 +247,11 @@ namespace AlternativeArchitecture {
 
         }
 
-        private IEnumerator Dash() {
+        private IEnumerator Dash(float speedBoost) {
             Vector3 startPos = player.transform.localPosition;
             Vector3 endPos = new Vector3(startPos.x, startPos.y, 15);
 
-            currentSpeed += forceStep;
+            currentSpeed += forceStep + speedBoost;
             float elapsedTime = 0;
             float time = 0.1f;
 

@@ -246,7 +246,7 @@ GameObject:
   - component: {fileID: 8774664357893462884}
   m_Layer: 0
   m_Name: GameObject
-  m_TagString: NeonRing
+  m_TagString: Boost
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

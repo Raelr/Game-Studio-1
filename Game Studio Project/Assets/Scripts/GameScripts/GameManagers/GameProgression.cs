@@ -21,6 +21,9 @@ namespace AlternativeArchitecture
         private float spawnCounter;
         private float spawnResetCounter;
 
+
+        public ProgressUI progressUI;
+
         public override void Initialise()
         {
             base.Initialise();

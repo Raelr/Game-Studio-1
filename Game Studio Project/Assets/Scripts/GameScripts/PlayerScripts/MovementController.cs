@@ -13,11 +13,15 @@ namespace AlternativeArchitecture {
 		
         public delegate void OnRingHitHandler();
 
+        public delegate void OnTimeChangeHandler(float speed);
+
         public OnCollisionhandler onCollision;
 
         public OnNearMissHandler onNearMiss;
 		
         public OnRingHitHandler onRingHit;
+
+        public OnTimeChangeHandler onTimeChange;
 
         // The controller should keep track of all physics components (since it is the only compone≤nt which needs to interface with physics)
         [Header("Physics")]
@@ -199,6 +203,7 @@ namespace AlternativeArchitecture {
             dashAudio.clip = dashClips[0];
             dashAudio.Play();
             GamePooler.instance.SetObstacleSpeed(0.1f);
+            onTimeChange(0.1f);
             //yield return new WaitForSeconds(0.5f);
             float elapsedTime = 0;
             float time = 2f;
@@ -234,6 +239,7 @@ namespace AlternativeArchitecture {
             if (!successfulDash) {
                 dashAudio.Stop();
                 GamePooler.instance.SetObstacleSpeed(currentSpeed);
+                onTimeChange(1f);
                 stepRotation = 10;
             }
         }
@@ -304,6 +310,7 @@ namespace AlternativeArchitecture {
 
             CameraEffects.instance.DashOff();
             GamePooler.instance.SetObstacleSpeed(currentSpeed);
+            onTimeChange(1f);
             Debug.Log(currentSpeed);
             player.transform.localPosition = endPos;
 

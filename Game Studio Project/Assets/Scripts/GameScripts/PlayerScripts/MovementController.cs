@@ -287,7 +287,7 @@ namespace AlternativeArchitecture {
             }
 
             player.transform.localPosition = endPos;
-            StartCoroutine(Cooldown(0.3f, StartRetreat));
+            StartCoroutine(Cooldown(0.1f, StartRetreat));
         }
 
         private IEnumerator Retreat() {

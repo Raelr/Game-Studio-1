@@ -72,13 +72,13 @@ void Start () {
         obj.localScale = scale;
     }
 
-    public Color SetLevel (int level) { //start at level 0   call this from game progression. Return the color of the new level
+    public int SetLevel (int level) { //start at level 0   call this from game progression. Return the color of the new level
         levelText.text = "// Level " + (level + 1);
         if (level != 0) winParticle.Emit(10);
 
         level = level % (levelCols.Count);
         currentLevelCol = levelCols[level];
         levelText.color = ballRenderer.material.color = barRenderer.material.color = currentLevelCol;
-        return currentLevelCol;
+        return level;
     }
 }

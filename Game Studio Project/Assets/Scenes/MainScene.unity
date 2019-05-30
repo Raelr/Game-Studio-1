@@ -7834,6 +7834,7 @@ GameObject:
   - component: {fileID: 1921487156}
   - component: {fileID: 1921487159}
   - component: {fileID: 1921487158}
+  - component: {fileID: 1921487160}
   m_Layer: 0
   m_Name: '[MasterV2]'
   m_TagString: GameController
@@ -7945,6 +7946,7 @@ MonoBehaviour:
     choice: 0400000002000000
   - chance: 1e0000003200000064000000
     choice: 040000000200000006000000
+  skyboxChanger: {fileID: 0}
   speedParticles: {fileID: 5485455944941250527}
 --- !u!82 &1921487158
 AudioSource:
@@ -8057,6 +8059,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   backgroundMusicSource: {fileID: 0}
   backgroundMusic: {fileID: 8300000, guid: f5662a19a8f884a9199da4cfa42c7b63, type: 3}
+--- !u!114 &1921487160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1921487152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d347e347beb33a940a14266ed9914b30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelStyles:
+  - skyCol: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 0.5019608}
+    exposure: 1
+  - skyCol: {r: 0.2502427, g: 1, b: 0, a: 0.95686275}
+    exposure: 1
 --- !u!1 &1991702796
 GameObject:
   m_ObjectHideFlags: 0

@@ -33,7 +33,7 @@ namespace AlternativeArchitecture
         [SerializeField]
         public List<ObstacleChance> obstacleChances;
 
-
+        public SkyboxChanger skyboxChanger;
 
         public ParticleSystem speedParticles;
 
@@ -43,7 +43,7 @@ namespace AlternativeArchitecture
             base.Initialise();
             progressionTimer = 0;
             progressUI.SetLevelProgress(0);
-            SetGameColor(progressUI.SetLevel(currentLevel - 1));
+            SetGameLevelStartEffect(progressUI.SetLevel(currentLevel - 1));
         }
 
         public void SpawnObstaclesOnInterval() {
@@ -68,17 +68,22 @@ namespace AlternativeArchitecture
         private void NextLevel () {
 
             currentLevel ++;
-            SetGameColor(progressUI.SetLevel(currentLevel - 1));
-
+            SetGameLevelEffect(progressUI.SetLevel(currentLevel - 1));
                 
             var speedParticlesModule = speedParticles.main;
             speedParticlesModule.startSpeed = 10 * currentLevel;
         }
 
-        private void SetGameColor (Color newCol) {
+
+        private void SetGameLevelEffect (int level) {
+
+            skyboxChanger.SetSkybox(level);
 
 
-            Debug.Log("set world color to " + newCol);
+        }
+        private void SetGameLevelStartEffect (int level) {
+
+            skyboxChanger.SetSkyboxStart(level);
 
         }
 

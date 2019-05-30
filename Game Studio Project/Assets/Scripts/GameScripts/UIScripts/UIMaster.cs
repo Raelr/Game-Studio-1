@@ -15,10 +15,6 @@ public class UIMaster : Master
     [SerializeField]
     UITime time;
 
-    [Header("Speed Text")]
-    [SerializeField]
-    UISpeed speed;
-
     [Header("Menu Manager")]
     [SerializeField]
     MenuManager menuManager;
@@ -63,11 +59,7 @@ public class UIMaster : Master
 
         onUpdateEvent += time.IncrementTime;
 
-        onSpeedUpdate += speed.IncrementSpeed;
-
         onUIStatusChange += time.ChangeTextStatus;
-
-        onUIStatusChange += speed.ChangeTextStatus;
 
         onUIStatusChange += insanityMeter.ChangeMeterStatus;
 
@@ -104,8 +96,6 @@ public class UIMaster : Master
         base.InitialiseAll();
 
         time.Initialise();
-        
-        speed.Initialise();
 
         menuManager.Initialise();
 
@@ -143,8 +133,6 @@ public class UIMaster : Master
         base.SetUpReferences();
 
         time = GetComponent<UITime>();
-
-        speed = GetComponent<UISpeed>();
 
         menuManager = GetComponent<MenuManager>();
 

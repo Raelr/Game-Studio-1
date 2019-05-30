@@ -11,6 +11,8 @@ public class PlayerProperties : InitialisedEntity
     [Header("Player Speed")]
     float speedMultiplier;
 
+    public float InsanityDecaySpeed { get { return insanityDecaySpeed * timeMultiplier; } set { timeMultiplier = value; } }
+
     const float insanityDecaySpeed = 0.5f;
 
     const float maxSanity = 9f;
@@ -18,6 +20,8 @@ public class PlayerProperties : InitialisedEntity
     const float impactSanityDamage = 5f;
 
     float currentSanity;
+
+    public float timeMultiplier = 1f;
 
     [SerializeField]
     float sanityDodgeIncrease = 0f;
@@ -49,12 +53,14 @@ public class PlayerProperties : InitialisedEntity
         if (currentSanity > 0)
         {
 
-            currentSanity = Mathf.Lerp(currentSanity, currentSanity - insanityDecaySpeed, insanityDecaySpeed * Time.deltaTime);
+            currentSanity = Mathf.Lerp(currentSanity, currentSanity - InsanityDecaySpeed, InsanityDecaySpeed * Time.deltaTime);
 
-            UIMaster.instance.onMeterChange.Invoke(insanityDecaySpeed);
+            UIMaster.instance.onMeterChange.Invoke(InsanityDecaySpeed);
 
             float normalisedSanity = 1f - (currentSanity / maxSanity);
             CameraEffects.instance.ApplyInsanity(normalisedSanity);
+            ;
+            Debug.Log(normalisedSanity);
 
             OnSoundChanged?.Invoke(normalisedSanity);
         }

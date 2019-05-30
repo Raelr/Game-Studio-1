@@ -125,6 +125,8 @@ namespace AlternativeArchitecture {
             playerProperties.OnSoundChanged += sounds.AdjustAudioSourceVolume;
 
             onPlayerLost += sounds.StopBackgroundSound;
+
+            movementController.onTimeChange += SetDecaySpeed;
         }
 
         // Gets the approrpiate components for master.
@@ -178,7 +180,7 @@ namespace AlternativeArchitecture {
         }
 
 		public void OnPlayerNearMiss() {
-
+        
             playerProperties.ImproveSanity();
         }
 
@@ -205,6 +207,12 @@ namespace AlternativeArchitecture {
 
                 UIMaster.instance.OnPlayerLost();
             }
+        }
+
+        public void SetDecaySpeed(float speed)
+        {
+            Debug.Log("Changing speed");
+            playerProperties.InsanityDecaySpeed = speed;
         }
     }
 }

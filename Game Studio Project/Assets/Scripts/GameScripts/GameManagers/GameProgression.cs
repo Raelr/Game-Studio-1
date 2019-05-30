@@ -89,8 +89,9 @@ namespace AlternativeArchitecture
 
             GameObject newObstacle = spawner.SpawnObject(objectToSpawn);
 
-
             if (newObstacle.isNull()) return;
+            newObstacle.transform.localScale = Vector3.zero;
+
             newObstacle.transform.localScale = Vector3.zero;
 
             Obstacle obstacleScript = newObstacle.GetComponent<Obstacle>();
@@ -126,16 +127,6 @@ level = level - 1;
             return ObjectType.NULL;
 
         }
-
-
-
-
-
-
-
-
-
-
 
 /* 
         [Header("Script References")]

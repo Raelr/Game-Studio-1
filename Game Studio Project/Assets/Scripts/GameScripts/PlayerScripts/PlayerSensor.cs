@@ -15,6 +15,7 @@ public class PlayerSensor : InitialisedEntity
     public OnNearMissHandler onNearMiss;
     public OnRingHitHandler onRingHit;
 
+
     private bool hasCollided;
 
     private void OnCollisionEnter(Collision collision)
@@ -25,6 +26,8 @@ public class PlayerSensor : InitialisedEntity
             hasCollided = true;
             onCollision?.Invoke();
         }
+
+        
     }
 
 	private void OnTriggerExit(Collider col) {

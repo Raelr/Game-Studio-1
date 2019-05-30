@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7803741998240123602}
   m_Layer: 0
   m_Name: NeonRing
-  m_TagString: Untagged
+  m_TagString: NeonRing
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -102,7 +102,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!1 &1275655712524757648
 GameObject:
@@ -115,7 +115,6 @@ GameObject:
   - component: {fileID: 1275655712524727984}
   - component: {fileID: 1275655712521827984}
   - component: {fileID: 1275655712524856370}
-  - component: {fileID: 5893046438733580189}
   m_Layer: 0
   m_Name: neon_ring_collider
   m_TagString: BoostAuto
@@ -159,21 +158,6 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 14
   m_Mesh: {fileID: 4300002, guid: 2636ea122d909b24ea67e628351683fb, type: 3}
---- !u!114 &5893046438733580189
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1275655712524757648}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0ad1bbf0d9c7a04e84750c7905cd929, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  neonSmashParticle: {fileID: 2317278850102170043, guid: 5a71e2b913dbdeb4f801865a57f2023f,
-    type: 3}
-  particleExplodeCount: 40
 --- !u!1 &1275655712524757654
 GameObject:
   m_ObjectHideFlags: 0

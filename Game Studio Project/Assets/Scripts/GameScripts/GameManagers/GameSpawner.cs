@@ -36,10 +36,10 @@ namespace AlternativeArchitecture {
 
         public PlayerMaster SpawnPlayer() {
 
-            return pooler.RetrieveOrCreate(ObjectType.PLAYER).GetComponent<PlayerMaster>();
+            return pooler.RetrieveOrCreate(1).GetComponent<PlayerMaster>();
         }
 
-        public GameObject SpawnObject(ObjectType objectType)
+        public GameObject SpawnObject(int objectType)
         {
            return pooler.RetrieveOrCreate(objectType);
         }

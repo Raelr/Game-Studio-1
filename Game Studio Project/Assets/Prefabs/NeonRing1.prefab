@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6741494657309007228}
   - component: {fileID: 7803741998240123602}
   m_Layer: 0
-  m_Name: NeonRing
+  m_Name: NeonRing1
   m_TagString: NeonRing
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -49,16 +49,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ringCols:
-  - {r: 1, g: 0, b: 0, a: 1}
-  - {r: 1, g: 0.6834848, b: 0, a: 1}
-  - {r: 1, g: 0.92332065, b: 0, a: 1}
   - {r: 0.2003901, g: 1, b: 0, a: 1}
   - {r: 0, g: 1, b: 0.54588175, a: 1}
   - {r: 0, g: 1, b: 0.99999976, a: 1}
   - {r: 0, g: 0.6366434, b: 1, a: 1}
   - {r: 0.5554659, g: 0.16509432, b: 1, a: 1}
-  - {r: 0.96098137, g: 0, b: 1, a: 1}
-  - {r: 1, g: 0, b: 0.55060387, a: 1}
   neonRingRenderer: {fileID: 1275655712522826838}
   neonRing: {fileID: 1275655712524727990}
 --- !u!114 &6741494657309007228
@@ -80,14 +75,17 @@ MonoBehaviour:
   startMax: {x: 16, y: -12.7, z: 15}
   spawns: []
   spacing: 3
-  force: 600
+  force: 400
   dist: 1000
   dir: {x: 0, y: 0, z: 0}
   randomRotate: 0
   forceMultiplier: 1
   levelForceMultiplier: 1
   rigid: {fileID: 7803741998240123602}
-  zDespawn: -15
+  zDespawn: -200
+  useRandomSize: 1
+  randomMinSize: 10
+  randomMaxSize: 20
 --- !u!54 &7803741998240123602
 Rigidbody:
   m_ObjectHideFlags: 0

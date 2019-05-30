@@ -18,12 +18,12 @@ public class SkyboxChanger : MonoBehaviour
     [SerializeField]
     public List<SkyboxStyle> levelStyles;
 
-    float currentExposure, targetExposure, lastExposure;
-    Color currentCol, targetCol;
+    public float currentExposure, targetExposure;
+    public Color currentCol, targetCol;
 
     public float lerpSmooth;
 
-    public Material skyBoxMat;
+    public Renderer skyBoxRender;
     
 
     public void SetSkyboxStart (int level) {
@@ -42,16 +42,14 @@ public class SkyboxChanger : MonoBehaviour
     void FixedUpdate () {
         currentCol = Color.Lerp(currentCol, targetCol, Time.deltaTime / lerpSmooth);
         currentExposure = Mathf.Lerp(currentExposure, targetExposure, Time.deltaTime / lerpSmooth);
-
-        //checks for differences
-        if (lastExposure != currentExposure)
-            RefreshSky();
-
-        lastExposure = currentExposure;
+        
+        RefreshSky();
+        
     }
 
     private void RefreshSky () {
-       // skyBoxMat.
+        skyBoxRender.sharedMaterial.SetColor("_Tint", currentCol);
+        skyBoxRender.sharedMaterial.SetFloat("_Exposure", currentExposure);
     }
 
 }

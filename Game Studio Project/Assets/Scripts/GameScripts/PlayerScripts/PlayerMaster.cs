@@ -71,7 +71,13 @@ namespace AlternativeArchitecture {
 
         public PlayerLostHandler onPlayerLost;
 
+
+        public static PlayerMaster instance;
+
+
         private void Awake() {
+
+            instance = this;
 
             SetUpReferences();
 

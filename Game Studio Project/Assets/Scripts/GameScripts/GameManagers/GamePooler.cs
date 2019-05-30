@@ -4,16 +4,23 @@ using UnityEngine;
 
 namespace AlternativeArchitecture {
 
-    public enum ObjectType {
-        PLAYER = 1,
-        OBSTACLE_SPHERE = 2,
-        OBSTACLE_SPHERE_BIG = 3,
-        NEON_RING = 4,
-        LEVEL_PREFAB = 5,
-        OBSTACLE_BOOST = 6,
-        NULL = 7
 
-    }
+    // KEY GUIDE:
+
+    /*  0 = null
+     *  1 = player
+     *  2 = neon ring
+     *  3 = regular asteroid
+     *  4 = boost asteroid
+     *  5 = big asteroids
+     *  6 = homing asteroids
+     *  7 = big boost asteroids
+     *  8 = bad neon rings
+     *  9 = slower neon rings
+     */
+
+
+
 
     public class GamePooler : InitialisedEntity {
 
@@ -43,7 +50,7 @@ namespace AlternativeArchitecture {
         // used for defining the pooled object settings in inspector
         [System.Serializable]
         public struct PooledObjectSetting {
-            public ObjectType objectType;
+            public int objectType;
             public GameObject objectPrefab;
             public int maxCount;
             public bool preload;
@@ -70,7 +77,7 @@ namespace AlternativeArchitecture {
             public List<PooledObjectData> objects;
         }
 
-        public Dictionary<ObjectType, PooledObjectTypeData> pool = new Dictionary<ObjectType, PooledObjectTypeData>();
+        public Dictionary<int, PooledObjectTypeData> pool = new Dictionary<int, PooledObjectTypeData>();
 
 
 
@@ -109,7 +116,7 @@ namespace AlternativeArchitecture {
 
         public void ResetPool()
         {
-            foreach (ObjectType objType in pool.Keys)
+            foreach (int objType in pool.Keys)
             {
                 ResetObjects(pool[objType]);
             }
@@ -132,7 +139,7 @@ namespace AlternativeArchitecture {
             }
         }
 
-        public GameObject RetrieveOrCreate (ObjectType objectType)
+        public GameObject RetrieveOrCreate (int objectType)
         {
             RetrievedObjectData getObject = Retrieve(objectType, RetrieveMethod.BOTTOM);
 
@@ -151,7 +158,7 @@ namespace AlternativeArchitecture {
         }
 
         //sets up the retrieved object in the pool
-        private GameObject SetupRetrieved(ObjectType objectType, RetrievedObjectData getObject) {
+        private GameObject SetupRetrieved(int objectType, RetrievedObjectData getObject) {
             //sets the availability to occupied now that the specific object is being used
             SetAvailabilityInPool(objectType, getObject.retrievedObject, PoolingAvailability.OCCUPIED);
 
@@ -171,14 +178,14 @@ namespace AlternativeArchitecture {
 
         // recycle this object into the pool
         // important: ensure objects you pool have been previously created via the RetrieveOrCreate() method
-        public void PoolObject(ObjectType objectType, GameObject obj) {
+        public void PoolObject(int objectType, GameObject obj) {
             SetAvailabilityInPool(objectType, obj, PoolingAvailability.POOLED);
             obj.Hide();
         }
 
 
         // checks whether it can receive the object from the pool
-        private RetrievedObjectData Retrieve(ObjectType objectType, RetrieveMethod method) {
+        private RetrievedObjectData Retrieve(int objectType, RetrieveMethod method) {
             // retrieve nothing if the pool doesn't even have an entry for that object type
             if (!pool.ContainsKey(objectType)) {
                 if (debug) Debug.Log("[POOLER] No entry exists for " + objectType);
@@ -208,7 +215,7 @@ namespace AlternativeArchitecture {
             return new RetrievedObjectData() { allowSpawning = false };
         }
 
-        private GameObject Create(ObjectType objectType) {
+        private GameObject Create(int objectType) {
             if (debug) Debug.Log("[POOLER] Creating new " + objectType);
 
             //instanties the object based off the prefab in the settings
@@ -227,7 +234,7 @@ namespace AlternativeArchitecture {
         }
 
         
-        public List<GameObject> GetObjects(ObjectType objectType)
+        public List<GameObject> GetObjects(int objectType)
         {
             List<GameObject> objectsList = new List<GameObject>();
 
@@ -249,7 +256,7 @@ namespace AlternativeArchitecture {
 
         ///////// HELPER METHODS
 
-        private void SetAvailabilityInPool(ObjectType objectType, GameObject objectKey, PoolingAvailability newAvailability) {
+        private void SetAvailabilityInPool(int objectType, GameObject objectKey, PoolingAvailability newAvailability) {
             //retreives the index of where the object key exists on the object type entry's list
             int objectDataIndex = GetObjectDataIndex(pool[objectType].objects, objectKey, objectType);
 
@@ -263,7 +270,7 @@ namespace AlternativeArchitecture {
             }
         }
 
-        private void AddToPool(ObjectType objectType, GameObject newObject) {
+        private void AddToPool(int objectType, GameObject newObject) {
             if (pool.ContainsKey(objectType))
                 //if the pool has an entry for that object type, add it in to that entry's list
                 AddToEntryInPool(objectType, newObject);
@@ -272,14 +279,14 @@ namespace AlternativeArchitecture {
                 AddNewEntryToPool(objectType, newObject);
         }
 
-        private void AddToEntryInPool(ObjectType objectType, GameObject newObject) {
+        private void AddToEntryInPool(int objectType, GameObject newObject) {
             pool[objectType].objects.Add(new PooledObjectData() {
                 pooledObject = newObject,
                 availability = PoolingAvailability.OCCUPIED
             });
         }
 
-        private void AddNewEntryToPool(ObjectType objectType, GameObject newObject) {
+        private void AddNewEntryToPool(int objectType, GameObject newObject) {
             pool.Add(objectType, new PooledObjectTypeData() {
                 objects = new List<PooledObjectData>()
                     {
@@ -296,7 +303,7 @@ namespace AlternativeArchitecture {
         ///////// HELPER FUNCTIONS
 
 
-        private int GetObjectDataIndex(List<PooledObjectData> objectDataList, GameObject objectKey, ObjectType entry) {
+        private int GetObjectDataIndex(List<PooledObjectData> objectDataList, GameObject objectKey, int entry) {
             
             
             foreach (PooledObjectData pooledObjectData in objectDataList)
@@ -307,25 +314,25 @@ namespace AlternativeArchitecture {
         }
 
         // gets current number of objects stored in the pool
-        private int GetPoolCount(ObjectType key) {
+        private int GetPoolCount(int key) {
             if (pool.ContainsKey(key))
                 return pool[key].objects.Count;
             return 0;
         }
 
-        private List<PoolingFlags> GetSettingsFlags(ObjectType key) {
+        private List<PoolingFlags> GetSettingsFlags(int key) {
             return GetObjectSetting(key).poolingFlags;
         }
 
-        private int GetSettingsMaxCount(ObjectType key) {
+        private int GetSettingsMaxCount(int key) {
             return GetObjectSetting(key).maxCount;
         }
 
-        private GameObject GetSettingsPrefab(ObjectType key) {
+        private GameObject GetSettingsPrefab(int key) {
             return GetObjectSetting(key).objectPrefab;
         }
 
-        private PooledObjectSetting GetObjectSetting(ObjectType key) {
+        private PooledObjectSetting GetObjectSetting(int key) {
             foreach (PooledObjectSetting objectSetting in poolSettings)
                 if (objectSetting.objectType == key)
                     return objectSetting;
@@ -334,9 +341,14 @@ namespace AlternativeArchitecture {
         }
 
         public void SetObstacleSpeed(float newSpeed) {
-            List<GameObject> obstacles = GetObjects(ObjectType.OBSTACLE_SPHERE);
-            obstacles.AddRange(GetObjects(ObjectType.OBSTACLE_BOOST));
-            obstacles.AddRange(GetObjects(ObjectType.NEON_RING));
+            List<GameObject> obstacles = GetObjects(3); //regular asteroids
+            obstacles.AddRange(GetObjects(4)); //boost asteroids
+            obstacles.AddRange(GetObjects(2)); //neon rings
+            obstacles.AddRange(GetObjects(5)); //large asteroids
+            obstacles.AddRange(GetObjects(6)); //homing
+            obstacles.AddRange(GetObjects(7)); //big boost
+            obstacles.AddRange(GetObjects(8)); //bad rings
+            obstacles.AddRange(GetObjects(9)); //slower rings
 
             foreach (GameObject obstacle in obstacles) {
                 currentForceMultiplier = newSpeed;

@@ -23,6 +23,8 @@ public class Monster : MonoBehaviour
 
     private bool isHidden = false;
 
+    public float timeMultiplier = 1.2f;
+
     private void Start()
     {
         for (int rotation = 0; rotation < 360; rotation += tentacleInterval)
@@ -52,7 +54,7 @@ public class Monster : MonoBehaviour
     {
 
         GameObject newTentacle = Instantiate(tentaclePrefab, transform);
-        newTentacle.transform.localPosition = Vector3.zero;
+        newTentacle.transform.localPosition = new Vector3(0, 0, 40);
         newTentacle.transform.localScale = Vector3.one;
         newTentacle.transform.localEulerAngles = new Vector3(0, 0, rotation);
 
@@ -71,6 +73,9 @@ public class Monster : MonoBehaviour
 
     public void MonsterReveal (float reveal)
     {
+        reveal *= timeMultiplier;
+
+
         //nothing should happen if the reveal level is still the same
         if (reveal != lastReveal)
             lastReveal = reveal;

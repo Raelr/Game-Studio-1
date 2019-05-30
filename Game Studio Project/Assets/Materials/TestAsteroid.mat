@@ -40,7 +40,7 @@ Material:
     - _BumpSize: 1.94
     - _LightAttenuationStrength: 2
     - _NormalizeLightVector: 1
-    - _Shininess: 0.17165528
+    - _Shininess: 0.03
     - _TransBackfaceIntensity: 0
     - _TransDirectianalLightStrength: 0.2
     - _TransDistortion: 0.254
@@ -52,14 +52,14 @@ Material:
     - _V_MaterialTitle_DX11: 0
     - _V_MaterialTitle_Default: 0
     - _V_MaterialTitle_SSS: 0
-    - _V_SSS_Displacement: 0.26
+    - _V_SSS_Displacement: 0.32
     - _V_SSS_Emission: 0
     - _V_SSS_Rim_Pow: 6.794643
-    - _V_SSS_Tessellation: 6.2
+    - _V_SSS_Tessellation: 10.3
     - _V_SSS_Tessellation_MaxDistance: 10
     - _V_SSS_Tessellation_MinDistance: 1
     m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _SpecColor: {r: 0.3529412, g: 0.25539994, b: 0.22560553, a: 1}
-    - _TransColor: {r: 1, g: 0, b: 0.009994984, a: 1}
+    - _Color: {r: 1, g: 0.6795065, b: 0, a: 1}
+    - _SpecColor: {r: 1, g: 0, b: 0.252882, a: 1}
+    - _TransColor: {r: 1, g: 0, b: 0.011765003, a: 1}
     - _V_SSS_Rim_Color: {r: 0.106617644, g: 0.2661764, b: 0.85294116, a: 1}

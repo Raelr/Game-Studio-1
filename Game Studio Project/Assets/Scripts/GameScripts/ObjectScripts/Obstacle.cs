@@ -38,7 +38,7 @@ namespace AlternativeArchitecture
         private Rigidbody rigid;
 
         private GamePooler gamePooler;
-        private ObjectType objectType;
+        private int objectType;
 
         [SerializeField]
         private float zDespawn;
@@ -53,7 +53,10 @@ namespace AlternativeArchitecture
         float minHeight;
         float maxHeight;
 
+        public bool useRandomSize = true;
+        public float randomMinSize = 10, randomMaxSize = 20;
         float maxSize;
+        
 
         private void Start() {
             minWidth = -Screen.width;
@@ -62,17 +65,18 @@ namespace AlternativeArchitecture
             maxHeight = Screen.height;
         }
 
-        public void Setup(GamePooler pooler, ObjectType type)
+        public void Setup(GamePooler pooler, int type)
         {
             if (ren == null)
             {
                 ren = GetComponentInChildren<Renderer>();
             }
             rigid.velocity = Vector3.zero;
+            
+
             origin1 = GameObject.FindGameObjectWithTag("Player").transform;
             player = origin1.GetChild(0).transform;
-
-            maxSize = Random.Range(10,20);
+            if (useRandomSize) maxSize = Random.Range(randomMinSize, randomMaxSize);
             if (randomRotate) transform.Rotate(new Vector3(Random.Range(0, 360), Random.Range(0, 360), Random.Range(0, 360)));
 
             RandomSpawn();
@@ -107,11 +111,13 @@ namespace AlternativeArchitecture
         private void FixedUpdate()
         {
 
+
+
             if (!isActive) {
                 return;
             }
             else {
-                if (Vector3.Distance(Vector3.zero, transform.position) > 50f && GetDir(transform.position).z<0) {
+                if (Vector3.Distance(Vector3.zero, transform.position) > 50f && transform.position.z<zDespawn) {
                     BackToPool();
                 }
             }
@@ -140,27 +146,31 @@ namespace AlternativeArchitecture
 
         IEnumerator GrowObstacle(float length) {
 
+            SetObstacleSize(0);
+
+            yield return new WaitForSeconds(0.1f);
+
             float timeElapsed = 0;
-            float scale = (maxSize / 10);
-            length *= scale;
+            
 
-            while (timeElapsed < length) {
-                SetObstacleSize(timeElapsed / length * maxSize);
-
+            while (timeElapsed < length)
+            {
+                SetObstacleSize(maxSize * (timeElapsed / length));
                 timeElapsed += Time.deltaTime;
                 yield return null;
             }
 
             SetObstacleSize(maxSize);
+            
         }
 
         void SetObstacleSize(float size) {
             transform.localScale = new Vector3(size, size, size);
         }
 
-        public void StartGrowRoutine() {
+        public void StartGrowRoutine(float gameSpeed) {
 
-            StartCoroutine(GrowObstacle(4f));
+            StartCoroutine(GrowObstacle(2f / gameSpeed));
         }
     }
 }

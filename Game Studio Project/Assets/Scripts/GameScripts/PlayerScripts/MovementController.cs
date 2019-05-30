@@ -38,6 +38,7 @@ namespace AlternativeArchitecture {
         [SerializeField] private float maxAcceleration = 5;
         [SerializeField] private float accelerationStepping = 1;
         [SerializeField] private float accelerationBase = 1;
+        
 
         [Header("Dash Properties")]
         [SerializeField] AudioClip[] dashClips;
@@ -155,6 +156,8 @@ namespace AlternativeArchitecture {
             //Debug.Log(-stepRotation * input.y);
             transform.localRotation = Quaternion.Euler(new Vector3(-rotationY, rotationX, 0));
             player.transform.localRotation = Quaternion.Euler(new Vector3(-stepRotation * input.y * 2, stepRotation * input.x * 2, -rotationX));
+            
+            
 
             if (input.x != 0 || input.y != 0) {
                 acceleration += accelerationStepping;
@@ -217,7 +220,7 @@ namespace AlternativeArchitecture {
 
                 speedBoost += 1 * Time.deltaTime;
                 Debug.Log(elapsedTime + " " + prompt);
-                if (Input.GetMouseButtonDown(1) && elapsedTime > 0.5f || prompt == "auto") {
+                if (Input.GetButtonDown("Fire1") && elapsedTime > 0.5f || prompt == "auto") {
                     
                     dashAudio.clip = dashClips[1];
                     dashAudio.Play();
@@ -229,7 +232,7 @@ namespace AlternativeArchitecture {
                     onNearMiss?.Invoke();
                     break;
                 }
-                else if (Input.GetMouseButtonDown(1)) {
+                else if (Input.GetButtonDown("Fire1")) {
                     successfulDash = false;
                     break;
                 }

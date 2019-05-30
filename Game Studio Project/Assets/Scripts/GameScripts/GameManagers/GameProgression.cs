@@ -10,7 +10,7 @@ namespace AlternativeArchitecture
         [System.Serializable]
         public struct ObstacleChance {
             public List<int> chance;
-            public List<ObjectType> choice;
+            public List<int> choice;
 
         }
         
@@ -28,14 +28,19 @@ namespace AlternativeArchitecture
         public ProgressUI progressUI;
 
         private float spawnCounter = 0;
-        public float spawnInterval = 0.1f;
+
+        public AnimationCurve spawnInterval;
+
+        public float gameSpeed = 1;
 
         [SerializeField]
         public List<ObstacleChance> obstacleChances;
 
-
+        public SkyboxChanger skyboxChanger;
 
         public ParticleSystem speedParticles;
+
+
 
 
         public override void Initialise()
@@ -43,7 +48,9 @@ namespace AlternativeArchitecture
             base.Initialise();
             progressionTimer = 0;
             progressUI.SetLevelProgress(0);
-            SetGameColor(progressUI.SetLevel(currentLevel - 1));
+            SetGameLevelStartEffect(progressUI.SetLevel(currentLevel - 1));
+            gameSpeed = Mathf.Clamp(currentLevel, 0, 5);
+
         }
 
         public void SpawnObstaclesOnInterval() {
@@ -59,7 +66,7 @@ namespace AlternativeArchitecture
 
             spawnCounter += Time.deltaTime;
 
-            if (spawnCounter > spawnInterval) {
+            if (spawnCounter > spawnInterval.Evaluate(currentLevel)) {
                 spawnCounter = 0;
                 SpawnObstacle(currentLevel);
             }
@@ -68,24 +75,32 @@ namespace AlternativeArchitecture
         private void NextLevel () {
 
             currentLevel ++;
-            SetGameColor(progressUI.SetLevel(currentLevel - 1));
 
+            gameSpeed = Mathf.Clamp(currentLevel, 0, 3); //level 5 is the max speed
+
+            SetGameLevelEffect(progressUI.SetLevel(currentLevel - 1));
                 
             var speedParticlesModule = speedParticles.main;
-            speedParticlesModule.startSpeed = 10 * currentLevel;
+            speedParticlesModule.startSpeed = 7 * gameSpeed;
         }
 
-        private void SetGameColor (Color newCol) {
+
+        private void SetGameLevelEffect (int level) {
+
+            skyboxChanger.SetSkybox(level);
 
 
-            Debug.Log("set world color to " + newCol);
+        }
+        private void SetGameLevelStartEffect (int level) {
+
+            skyboxChanger.SetSkyboxStart(level);
 
         }
 
         private void SpawnObstacle (int level) {
-            ObjectType objectToSpawn = ChooseObstacle(level);
+            int objectToSpawn = ChooseObstacle(level);
 
-            if (objectToSpawn == ObjectType.NULL) return;
+            if (objectToSpawn == 0) return; //null
 
             GameObject newObstacle = spawner.SpawnObject(objectToSpawn);
 
@@ -97,20 +112,20 @@ namespace AlternativeArchitecture
             Obstacle obstacleScript = newObstacle.GetComponent<Obstacle>();
             obstacleScript.Setup(GamePooler.instance,
                  objectToSpawn);
-            obstacleScript.levelForceMultiplier = level * 0.2f;
+            obstacleScript.levelForceMultiplier = gameSpeed * 0.4f;
             newObstacle.Show();
 
 
-            if (objectToSpawn == ObjectType.NEON_RING) {
+            if (objectToSpawn == 2 || objectToSpawn == 9) { //neon ring
                 newObstacle.GetComponent<NeonRing>().StartRing();
             } 
             //else {
-                obstacleScript.StartGrowRoutine();
+                obstacleScript.StartGrowRoutine(gameSpeed);
           //  }
         }
 
-        private ObjectType ChooseObstacle (int level) {
-level = level - 1;
+        private int ChooseObstacle (int level) {
+            level = level - 1;
 
             //use chance based on the level
             float chance = Random.Range(0, 100);
@@ -118,13 +133,13 @@ level = level - 1;
 
 
             foreach (int chanceValue in chanceData.chance) {
-                ObjectType choiceValue = chanceData.choice[chanceData.chance.IndexOf(chanceValue)];
+                int choiceValue = chanceData.choice[chanceData.chance.IndexOf(chanceValue)];
                 if (chance < chanceValue) {
                     return choiceValue;
                 }
             }
             
-            return ObjectType.NULL;
+            return 0;
 
         }
 

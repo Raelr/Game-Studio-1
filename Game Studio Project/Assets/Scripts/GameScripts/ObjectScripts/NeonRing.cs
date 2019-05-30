@@ -6,6 +6,7 @@ namespace AlternativeArchitecture {
     public class NeonRing : MonoBehaviour {
         public List<Color> ringCols;
         public Renderer neonRingRenderer;
+        
 
         public Transform neonRing;
         private Transform player;

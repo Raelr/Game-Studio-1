@@ -26,7 +26,7 @@ public class SampleObstacleSlowdown : MonoBehaviour
 
     void SetObstacleSpeed(float newSpeed)
     {
-        List<GameObject> obstacles = pooler.GetObjects(ObjectType.OBSTACLE_SPHERE);
+        List<GameObject> obstacles = pooler.GetObjects(3);
         foreach(GameObject obstacle in obstacles)
         {
             obstacle.GetComponent<Obstacle>().forceMultiplier = newSpeed;

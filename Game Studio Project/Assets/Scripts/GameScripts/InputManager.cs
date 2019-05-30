@@ -28,18 +28,42 @@ public class InputManager : MonoBehaviour
 
     // Listens for input.
     void GetMouseInput() {
-        if (Input.GetKeyDown(KeyCode.Mouse0)) {
+        if (Input.GetButtonDown("Fire1")) {
             // Call the master's input delegate.
             master?.ClickEvent();
         }
     }
 
-	// Sets movement from the horizontal and vertical Axis
-	private void SetAxisMovment() {
-		float horizontalInput = Input.GetAxis("Horizontal");
-		float verticalInput = Input.GetAxis("Vertical");
+    float horizontalJoy = 0;
+    float verticalJoy = 0;
 
-		master?.RotateEntity(new Vector2(horizontalInput, verticalInput));
+    float horizontalJoyDrift = 15f, verticalJoyDrift = 15f;
+
+    // Sets movement from the horizontal and vertical Axis
+    private void SetAxisMovment() {
+
+        float horizontalJoyInput = Input.GetAxis("HorizontalJoy");
+        float verticalJoyInput = Input.GetAxis("VerticalJoy");
+
+        if (Mathf.Abs(horizontalJoyInput) > 0.2f)
+            horizontalJoy = horizontalJoyInput;
+        else
+            horizontalJoy -= (horizontalJoy / horizontalJoyDrift);
+
+        if (Mathf.Abs(verticalJoyInput) > 0.2f)
+            verticalJoy = verticalJoyInput;
+        else
+            verticalJoy -= (verticalJoy / verticalJoyDrift);
+
+
+
+
+
+        float horizontalInput = Input.GetAxis("Horizontal");
+        float verticalInput = Input.GetAxis("Vertical");
+        
+        
+        master?.RotateEntity(new Vector2(horizontalInput + horizontalJoy, verticalInput + verticalJoy));
 	}
 
 	// Gets the mouse position and returns its screen point.

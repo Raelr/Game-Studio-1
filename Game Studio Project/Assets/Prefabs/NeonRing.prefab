@@ -32,6 +32,7 @@ Transform:
   m_Children:
   - {fileID: 1275655712524727990}
   - {fileID: 1275655712524727984}
+  - {fileID: 885704931899285055}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -84,6 +85,7 @@ MonoBehaviour:
   dir: {x: 0, y: 0, z: 0}
   randomRotate: 0
   forceMultiplier: 1
+  levelForceMultiplier: 1
   rigid: {fileID: 7803741998240123602}
   zDespawn: -15
 --- !u!54 &7803741998240123602
@@ -113,6 +115,7 @@ GameObject:
   - component: {fileID: 1275655712524727984}
   - component: {fileID: 1275655712521827984}
   - component: {fileID: 1275655712524856370}
+  - component: {fileID: 5893046438733580189}
   m_Layer: 0
   m_Name: neon_ring_collider
   m_TagString: BoostAuto
@@ -156,6 +159,21 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 14
   m_Mesh: {fileID: 4300002, guid: 2636ea122d909b24ea67e628351683fb, type: 3}
+--- !u!114 &5893046438733580189
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1275655712524757648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0ad1bbf0d9c7a04e84750c7905cd929, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  neonSmashParticle: {fileID: 2317278850102170043, guid: 5a71e2b913dbdeb4f801865a57f2023f,
+    type: 3}
+  particleExplodeCount: 40
 --- !u!1 &1275655712524757654
 GameObject:
   m_ObjectHideFlags: 0
@@ -214,6 +232,83 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 45575a0dd48a6d3469c4b20e94ae717f, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!1 &9203165807005676932
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 885704931899285055}
+  - component: {fileID: 6888670038053835396}
+  - component: {fileID: 9026501626640573815}
+  m_Layer: 0
+  m_Name: neon_ring_inner
+  m_TagString: BoostAuto
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &885704931899285055
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9203165807005676932}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.93093014, y: 0.93093014, z: 0.006822287}
+  m_Children: []
+  m_Father: {fileID: 1275655712482510740}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &6888670038053835396
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9203165807005676932}
+  m_Mesh: {fileID: 4300002, guid: 2636ea122d909b24ea67e628351683fb, type: 3}
+--- !u!23 &9026501626640573815
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9203165807005676932}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 3ebea10bd3cea574fad5ed290a509b73, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

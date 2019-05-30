@@ -211,6 +211,7 @@ namespace AlternativeArchitecture {
 
         public void SetDecaySpeed(float speed)
         {
+            Debug.Log("Changing speed");
             playerProperties.InsanityDecaySpeed = speed;
         }
     }

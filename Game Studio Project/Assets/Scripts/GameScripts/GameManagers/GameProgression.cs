@@ -34,6 +34,10 @@ namespace AlternativeArchitecture
         public List<ObstacleChance> obstacleChances;
 
 
+
+        public ParticleSystem speedParticles;
+
+
         public override void Initialise()
         {
             base.Initialise();
@@ -49,8 +53,8 @@ namespace AlternativeArchitecture
 
             if (progressionTimer > levelInterval) {
                 progressionTimer = 0;
-                currentLevel ++;
-                SetGameColor(progressUI.SetLevel(currentLevel - 1));
+                NextLevel();
+                
             }
 
             spawnCounter += Time.deltaTime;
@@ -59,6 +63,16 @@ namespace AlternativeArchitecture
                 spawnCounter = 0;
                 SpawnObstacle(currentLevel);
             }
+        }
+
+        private void NextLevel () {
+
+            currentLevel ++;
+            SetGameColor(progressUI.SetLevel(currentLevel - 1));
+
+                
+            var speedParticlesModule = speedParticles.main;
+            speedParticlesModule.startSpeed = 10 * currentLevel;
         }
 
         private void SetGameColor (Color newCol) {
@@ -76,6 +90,7 @@ namespace AlternativeArchitecture
             GameObject newObstacle = spawner.SpawnObject(objectToSpawn);
 
             if (newObstacle.isNull()) return;
+            newObstacle.transform.localScale = Vector3.zero;
 
             newObstacle.transform.localScale = Vector3.zero;
 
@@ -99,11 +114,8 @@ level = level - 1;
 
             //use chance based on the level
             float chance = Random.Range(0, 100);
+            ObstacleChance chanceData = obstacleChances[Mathf.Clamp(level, 0, obstacleChances.Count - 1)];
 
-            Debug.Log("A" + Time.time);
-            ObstacleChance chanceData = obstacleChances[Mathf.Clamp(level, 0, obstacleChances.Count)];
-
-            Debug.Log("B" + Time.time);
 
             foreach (int chanceValue in chanceData.chance) {
                 ObjectType choiceValue = chanceData.choice[chanceData.chance.IndexOf(chanceValue)];

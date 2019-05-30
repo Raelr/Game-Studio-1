@@ -5,12 +5,14 @@ using UnityEngine;
 namespace AlternativeArchitecture {
 
     public enum ObjectType {
-        PLAYER,
-        OBSTACLE_SPHERE,
-        OBSTACLE_SPHERE_BIG,
-        NEON_RING,
-        LEVEL_PREFAB,
-        OBSTACLE_BOOST
+        PLAYER = 1,
+        OBSTACLE_SPHERE = 2,
+        OBSTACLE_SPHERE_BIG = 3,
+        NEON_RING = 4,
+        LEVEL_PREFAB = 5,
+        OBSTACLE_BOOST = 6,
+        NULL = 7
+
     }
 
     public class GamePooler : InitialisedEntity {
@@ -252,11 +254,13 @@ namespace AlternativeArchitecture {
             int objectDataIndex = GetObjectDataIndex(pool[objectType].objects, objectKey, objectType);
 
             //gets the pooled object data struct and sets the new availability
+            if (objectDataIndex != -1) {
             PooledObjectData getObjectData = pool[objectType].objects[objectDataIndex];
             getObjectData.availability = newAvailability;
 
             //places the modified pooled object data struct back into the object type entry's list
             pool[objectType].objects[objectDataIndex] = getObjectData;
+            }
         }
 
         private void AddToPool(ObjectType objectType, GameObject newObject) {
@@ -293,10 +297,11 @@ namespace AlternativeArchitecture {
 
 
         private int GetObjectDataIndex(List<PooledObjectData> objectDataList, GameObject objectKey, ObjectType entry) {
+            
+            
             foreach (PooledObjectData pooledObjectData in objectDataList)
                 if (pooledObjectData.pooledObject == objectKey)
                     return objectDataList.IndexOf(pooledObjectData);
-
             if (debug) Debug.LogError("[POOLER] Cannot find the object: " + objectKey + " in the list of objects for the entry: " + entry);
             return -1;
         }

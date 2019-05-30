@@ -32,6 +32,7 @@ namespace AlternativeArchitecture
         private bool randomRotate = true;
 
         public float forceMultiplier = 1;
+        public float levelForceMultiplier = 1;
 
         [SerializeField]
         private Rigidbody rigid;
@@ -117,7 +118,7 @@ namespace AlternativeArchitecture
 
             // rigid.AddForce(Dir * force * forceMultiplier);
 
-            Vector3 velocity = (Dir * force * forceMultiplier);
+            Vector3 velocity = (Dir * force * forceMultiplier * levelForceMultiplier);
 
             rigid.velocity = velocity;
         }

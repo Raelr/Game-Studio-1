@@ -11,15 +11,21 @@ namespace AlternativeArchitecture {
         private Transform player;
         private bool canRotate;
 
-        private void Start() {
+        private Vector3 initialScale;
 
+        void Start () {
+            initialScale = transform.localScale;
+        }
+
+        public void StartRing() {
+            transform.localScale = initialScale;
             transform.localScale *= Random.Range(0.3f, 1);
-            canRotate = true;
             player = GameMaster.instance.Spawner.Player.transform;
-            SetRingSize(0);
+            canRotate = true;
+           // SetRingSize(0);
             Color randomCol = ringCols[Random.Range(0, ringCols.Count)];
             neonRingRenderer.material.SetColor("_AtmoColor", randomCol);
-            StartCoroutine(GrowRing(1));
+          //  StartCoroutine(GrowRing(1));
         }
 
         public void Update() {

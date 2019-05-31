@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.003245613, g: 0.030255333, b: 0.118722536, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -7827,6 +7827,60 @@ MonoBehaviour:
     maxCount: 30
     preload: 1
     poolingFlags: 00000000
+  - objectType: 10
+    objectPrefab: {fileID: 1636532063854592851, guid: 066ff79d231e9114ca7297ab993960cd,
+      type: 3}
+    maxCount: 30
+    preload: 1
+    poolingFlags: 00000000
+  - objectType: 11
+    objectPrefab: {fileID: 1636532063854592851, guid: 6bed27020a953944bb1f3a1883197bca,
+      type: 3}
+    maxCount: 10
+    preload: 1
+    poolingFlags: 00000000
+  - objectType: 12
+    objectPrefab: {fileID: 1636532063854592851, guid: 901b37efc38dac54ba7626e9054862c4,
+      type: 3}
+    maxCount: 20
+    preload: 1
+    poolingFlags: 00000000
+  - objectType: 13
+    objectPrefab: {fileID: 1636532063854592851, guid: fdedd73575487c940bab20b639dc6bb3,
+      type: 3}
+    maxCount: 20
+    preload: 1
+    poolingFlags: 00000000
+  - objectType: 14
+    objectPrefab: {fileID: 1275655712482510743, guid: 6752e92e75194434b94f06ce3347c72b,
+      type: 3}
+    maxCount: 20
+    preload: 1
+    poolingFlags: 00000000
+  - objectType: 15
+    objectPrefab: {fileID: 1275655712482510743, guid: 7c0349283691636429f4e0b14ca38059,
+      type: 3}
+    maxCount: 30
+    preload: 1
+    poolingFlags: 00000000
+  - objectType: 16
+    objectPrefab: {fileID: 1636532063854592851, guid: 6316fc2cdb306f34b972886f4f976775,
+      type: 3}
+    maxCount: 30
+    preload: 1
+    poolingFlags: 00000000
+  - objectType: 17
+    objectPrefab: {fileID: 1636532063854592851, guid: 544714644e23d5d46949b7b3ad20abd6,
+      type: 3}
+    maxCount: 10
+    preload: 1
+    poolingFlags: 00000000
+  - objectType: 18
+    objectPrefab: {fileID: 1636532063854592851, guid: 9950bc93d1725c0418665097dd1d7cd2,
+      type: 3}
+    maxCount: 5
+    preload: 1
+    poolingFlags: 00000000
 --- !u!114 &1921487157
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7840,7 +7894,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawner: {fileID: 1921487154}
-  levelInterval: 10
+  levelInterval: 30
   currentLevel: 1
   progressUI: {fileID: 1462717180962124301}
   spawnInterval:
@@ -7911,8 +7965,40 @@ MonoBehaviour:
     choice: 0700000006000000
   - chance: 320000004600000064000000
     choice: 080000000900000003000000
-  - chance: 030000000f000000140000005a00000064000000
-    choice: 0500000008000000060000000400000007000000
+  - chance: 030000000f000000140000005a0000006300000064000000
+    choice: 05000000080000000600000004000000070000000a000000
+  - chance: 1e0000003200000064000000
+    choice: 0a0000000600000002000000
+  - chance: 0a0000001e0000005000000053000000
+    choice: 0a00000005000000040000000b000000
+  - chance: 280000005000000054000000
+    choice: 0c0000000200000008000000
+  - chance: 140000001e0000003c00000046000000
+    choice: 0b00000007000000060000000c000000
+  - chance: 010000001e000000320000003c000000
+    choice: 0d00000004000000030000000a000000
+  - chance: 0500000007000000280000002d0000005a000000
+    choice: 0d000000070000000c0000000200000004000000
+  - chance: 010000003c0000005000000053000000
+    choice: 0e0000000b0000000200000004000000
+  - chance: 140000001e0000005a0000005b000000
+    choice: 0f000000050000000a00000008000000
+  - chance: 1e0000003c00000064000000
+    choice: 100000000c00000006000000
+  - chance: 0a0000002d000000460000005a000000
+    choice: 0f0000000d0000000300000004000000
+  - chance: 14000000150000001e0000005a00000064000000
+    choice: 100000000e0000000d0000000a0000000b000000
+  - chance: 1e000000320000004600000064000000
+    choice: 1100000002000000040000000a000000
+  - chance: 1e000000320000005000000064000000
+    choice: 0c000000110000000200000008000000
+  - chance: 280000002d000000500000005a00000064000000
+    choice: 060000000f00000010000000030000000b000000
+  - chance: 030000001e0000003c000000460000005a00000064000000
+    choice: 1200000002000000040000000d0000000a0000000c000000
+  - chance: 03000000060000000f0000004600000064000000
+    choice: 1200000011000000050000000200000008000000
   skyboxChanger: {fileID: 1921487160}
   speedParticles: {fileID: 5485455944941250527}
   instance: {fileID: 0}

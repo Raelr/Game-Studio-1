@@ -5,12 +5,10 @@ using UnityEngine;
 namespace AlternativeArchitecture {
     public class NeonRing : MonoBehaviour {
         public List<Color> ringCols;
-        public Renderer neonRingRenderer;
-        
-
+        public Renderer neonRingRenderer, neonRingRenderer2;
         public Transform neonRing;
         private Transform player;
-        private bool canRotate;
+        public bool canRotate = true;
 
         private Vector3 initialScale;
 
@@ -22,11 +20,13 @@ namespace AlternativeArchitecture {
             transform.localScale = initialScale;
             transform.localScale *= Random.Range(0.3f, 1);
             player = GameMaster.instance.Spawner.Player.transform;
-            canRotate = true;
            // SetRingSize(0);
             Color randomCol = ringCols[Random.Range(0, ringCols.Count)];
             neonRingRenderer.material.SetColor("_AtmoColor", randomCol);
-          //  StartCoroutine(GrowRing(1));
+            if (neonRingRenderer2 != null)
+                neonRingRenderer2.material.SetColor("_AtmoColor", randomCol);
+
+            //  StartCoroutine(GrowRing(1));
         }
 
         public void Update() {
@@ -36,6 +36,7 @@ namespace AlternativeArchitecture {
         }
 
         private void FacePlayer() {
+            if (player == null) return;
             transform.LookAt(player);
             transform.rotation *= Quaternion.Euler(0, -180, 0);
             float distance = Vector3.Distance(transform.position, player.position);

@@ -62,10 +62,7 @@ namespace AlternativeArchitecture
             progressUI.SetLevelProgress(0);
             SetGameLevelStartEffect(progressUI.SetLevel(currentLevel - 1));
             gameSpeed = Mathf.Clamp(currentLevel, 0, 5);
-
-
-
-            SetProgressionMode(ProgressionMode.SLOW);
+            
         }
 
         public void SetProgressionMode (ProgressionMode mode)
@@ -78,8 +75,8 @@ namespace AlternativeArchitecture
                     break;
                 case ProgressionMode.FAST:
                     levelInterval = 10;
-                    gameSpeedMultiplier = 1.3f;
-                    Time.timeScale = 1.3f;
+                    gameSpeedMultiplier = 1.1f;
+                    Time.timeScale = 1.1f;
                     break;
             }
         }
@@ -113,7 +110,7 @@ namespace AlternativeArchitecture
 
             if (currentLevel > 6) //speed up after level 6
             {
-                gameSpeed = currentLevel * 0.7f;
+                gameSpeed = currentLevel * 0.4f;
             }
 
             gameSpeed *= gameSpeedMultiplier;
@@ -164,7 +161,7 @@ namespace AlternativeArchitecture
             newObstacle.Show();
 
 
-            if (objectToSpawn == 2 || objectToSpawn == 9) { //neon ring
+            if (objectToSpawn == 2 || objectToSpawn == 9 || objectToSpawn == 15) { //neon ring
                 newObstacle.GetComponent<NeonRing>().StartRing();
             } 
             //else {
@@ -177,7 +174,16 @@ namespace AlternativeArchitecture
 
             //use chance based on the level
             float chance = Random.Range(0, 100);
-            ObstacleChance chanceData = obstacleChances[Mathf.Clamp(level, 0, obstacleChances.Count - 1)];
+            ObstacleChance chanceData;
+
+            if (level > obstacleChances.Count - 1) //once you have completed all levels, select a random level
+            {
+                chanceData = obstacleChances[Random.Range(0, obstacleChances.Count)];
+            }
+            else
+            {
+                chanceData = obstacleChances[level];
+            }
 
 
             foreach (int chanceValue in chanceData.chance) {

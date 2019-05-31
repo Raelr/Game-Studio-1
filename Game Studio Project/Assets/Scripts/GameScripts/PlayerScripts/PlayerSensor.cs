@@ -37,7 +37,9 @@ public class PlayerSensor : InitialisedEntity
                 onNearMiss?.Invoke();
             }
         }
-		
+
+        Debug.Log(col.gameObject.tag);
+
         if (col.gameObject.tag.Equals("BoostAuto")) {
             if (!hasCollided) {
                 onRingHit?.Invoke();

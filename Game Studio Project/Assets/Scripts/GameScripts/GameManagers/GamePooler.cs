@@ -17,6 +17,15 @@ namespace AlternativeArchitecture {
      *  7 = big boost asteroids
      *  8 = bad neon rings
      *  9 = slower neon rings
+     *  10 = bones
+     *  11 = big bones
+     *  12 = skull
+     *  13 = necro
+     *  14 = giant satan
+     *  15 = neon lines
+     *  16 = boost bubble
+     *  17 = giant skulls
+     *  18 = man
      */
 
 
@@ -238,6 +247,8 @@ namespace AlternativeArchitecture {
         {
             List<GameObject> objectsList = new List<GameObject>();
 
+            if (!pool.ContainsKey(objectType)) return null;
+
             PooledObjectTypeData objectTypeData = pool[objectType];
 
             foreach (PooledObjectData objectData in objectTypeData.objects)
@@ -349,6 +360,15 @@ namespace AlternativeArchitecture {
             obstacles.AddRange(GetObjects(7)); //big boost
             obstacles.AddRange(GetObjects(8)); //bad rings
             obstacles.AddRange(GetObjects(9)); //slower rings
+            obstacles.AddRange(GetObjects(10)); //bones
+            obstacles.AddRange(GetObjects(11)); //big bones
+            obstacles.AddRange(GetObjects(12)); //skull
+            obstacles.AddRange(GetObjects(13)); //necro
+            obstacles.AddRange(GetObjects(14)); //giant satan
+            obstacles.AddRange(GetObjects(15)); //neon lines
+            obstacles.AddRange(GetObjects(16)); //boost bubble
+            obstacles.AddRange(GetObjects(17)); //giant skulls
+            obstacles.AddRange(GetObjects(18)); //man
 
             foreach (GameObject obstacle in obstacles) {
                 currentForceMultiplier = newSpeed;

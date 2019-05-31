@@ -95,13 +95,15 @@ namespace AlternativeArchitecture {
             OnPlayerLost += sounds.StopBackgroundMusic;
         }
 
-        public static void PauseGame() {
+        static float originalTimeScale = 1;
 
+        public static void PauseGame() {
+            originalTimeScale = Time.timeScale;
             Time.timeScale = 0f;
         }
 
         public static void ResumeGame() {
-            Time.timeScale = 1f;
+            Time.timeScale = originalTimeScale;
         }
 
         public override void InitialiseAll() {

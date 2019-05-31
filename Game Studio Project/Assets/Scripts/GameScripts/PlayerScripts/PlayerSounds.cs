@@ -30,6 +30,8 @@ public class PlayerSounds : InitialisedEntity
 
         playerAudioSingle.clip = playerImpactSound;
 
+        playerAudioSingle.pitch = Random.Range(0.8f, 1.2f);
+
         playerAudioSingle.Stop();
 
         PlayConstantSound();

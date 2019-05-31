@@ -100,6 +100,10 @@ MonoBehaviour:
   dashClips:
   - {fileID: 8300000, guid: 2ca19ff0d3c0beb45abbc87f11501c2a, type: 3}
   - {fileID: 8300000, guid: e8bdfe382d7bf8840877d4667c4ee18d, type: 3}
+  dashPitchMin: 0.9
+  dashPitchMax: 1.2
+  dashBuildUpVolume: 0.702
+  dashBurstVolume: 0.4
   forceStep: 0
   rotationAnim:
     serializedVersion: 2
@@ -205,6 +209,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0
+  timeMultiplier: 1
   sanityDodgeIncrease: 7.5
 --- !u!82 &7333845905535886820
 AudioSource:

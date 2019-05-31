@@ -34,26 +34,50 @@ public class InputManager : MonoBehaviour
         }
     }
 
+    /*
     float horizontalJoy = 0;
     float verticalJoy = 0;
 
-    float horizontalJoyDrift = 15f, verticalJoyDrift = 15f;
+    float horizontalJoyDrift = 15f, verticalJoyDrift = 15f;*/
+
+    float verticalJoy = 0;
+    float verticalJoyChangeSpeed = 0;
+
+    float verticalJoyBouncy = 0.8f;
+    float verticalJoyStrength = 0.1f;
+
+    float horizontalJoy = 0;
+    float horizontalJoyChangeSpeed = 0;
+
+    float horizontalJoyBouncy = 0.8f;
+    float horizontalJoyStrength = 0.1f;
 
     // Sets movement from the horizontal and vertical Axis
     private void SetAxisMovment() {
+    
+        float horizontalJoyTarget = Input.GetAxis("HorizontalJoy");
+        float verticalJoyTarget = Input.GetAxis("VerticalJoy");
 
-        float horizontalJoyInput = Input.GetAxis("HorizontalJoy");
-        float verticalJoyInput = Input.GetAxis("VerticalJoy");
+        
+        horizontalJoy += horizontalJoyChangeSpeed;
+        horizontalJoyChangeSpeed += horizontalJoyStrength * (horizontalJoyTarget - horizontalJoy);
+        horizontalJoyChangeSpeed *= horizontalJoyBouncy;
 
-        if (Mathf.Abs(horizontalJoyInput) > 0.2f)
+
+        verticalJoy += verticalJoyChangeSpeed;
+        verticalJoyChangeSpeed += verticalJoyStrength * (verticalJoyTarget - verticalJoy);
+        verticalJoyChangeSpeed *= verticalJoyBouncy;
+
+        /*
+        if (Mathf.Abs(horizontalJoyInput) > 0.1f)
             horizontalJoy = horizontalJoyInput;
         else
             horizontalJoy -= (horizontalJoy / horizontalJoyDrift);
 
-        if (Mathf.Abs(verticalJoyInput) > 0.2f)
+        if (Mathf.Abs(verticalJoyInput) > 0.1f)
             verticalJoy = verticalJoyInput;
         else
-            verticalJoy -= (verticalJoy / verticalJoyDrift);
+            verticalJoy -= (verticalJoy / verticalJoyDrift);*/
 
 
 

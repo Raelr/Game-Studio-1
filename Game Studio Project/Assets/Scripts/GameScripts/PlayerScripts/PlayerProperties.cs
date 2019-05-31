@@ -60,7 +60,6 @@ public class PlayerProperties : InitialisedEntity
             float normalisedSanity = 1f - (currentSanity / maxSanity);
             CameraEffects.instance.ApplyInsanity(normalisedSanity);
             ;
-            Debug.Log(normalisedSanity);
 
             OnSoundChanged?.Invoke(normalisedSanity);
         }

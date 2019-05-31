@@ -260,7 +260,7 @@ public class MenuManager : InitialisedEntity
     {
         isFading = true;
 
-        Time.timeScale = 1f;
+        //Time.timeScale = 1f;
 
         Color desiredColor = fadingIn ? loaded : loading;
 

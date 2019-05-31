@@ -111,8 +111,8 @@ MonoBehaviour:
   rigid: {fileID: 3972734140393683440}
   zDespawn: -1000
   useRandomSize: 1
-  randomMinSize: 70
-  randomMaxSize: 400
+  randomMinSize: 80
+  randomMaxSize: 200
 --- !u!54 &3972734140393683440
 Rigidbody:
   m_ObjectHideFlags: 0

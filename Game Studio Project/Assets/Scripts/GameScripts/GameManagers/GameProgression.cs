@@ -4,6 +4,13 @@ using UnityEngine;
 
 namespace AlternativeArchitecture
 {
+
+    public enum ProgressionMode
+    {
+        SLOW,
+        FAST
+    }
+
     public class GameProgression : InitialisedEntity
     {
 
@@ -31,7 +38,7 @@ namespace AlternativeArchitecture
 
         public AnimationCurve spawnInterval;
 
-        public float gameSpeed = 1;
+        public float gameSpeed = 1, gameSpeedMultiplier = 1;
 
         [SerializeField]
         public List<ObstacleChance> obstacleChances;
@@ -40,18 +47,44 @@ namespace AlternativeArchitecture
 
         public ParticleSystem speedParticles;
 
+        public GameProgression instance;
+
 
 
 
         public override void Initialise()
         {
             base.Initialise();
+
+            instance = this;
+
             progressionTimer = 0;
             progressUI.SetLevelProgress(0);
             SetGameLevelStartEffect(progressUI.SetLevel(currentLevel - 1));
             gameSpeed = Mathf.Clamp(currentLevel, 0, 5);
 
+
+
+            SetProgressionMode(ProgressionMode.SLOW);
         }
+
+        public void SetProgressionMode (ProgressionMode mode)
+        {
+            switch (mode)
+            {
+                case ProgressionMode.SLOW:
+                    levelInterval = 30;
+                    Time.timeScale = 1;
+                    break;
+                case ProgressionMode.FAST:
+                    levelInterval = 10;
+                    gameSpeedMultiplier = 1.3f;
+                    Time.timeScale = 1.3f;
+                    break;
+            }
+        }
+
+         
 
         public void SpawnObstaclesOnInterval() {
             progressionTimer += Time.deltaTime;
@@ -77,6 +110,13 @@ namespace AlternativeArchitecture
             currentLevel ++;
 
             gameSpeed = Mathf.Clamp(currentLevel, 0, 3); //level 5 is the max speed
+
+            if (currentLevel > 6) //speed up after level 6
+            {
+                gameSpeed = currentLevel * 0.7f;
+            }
+
+            gameSpeed *= gameSpeedMultiplier;
 
             SetGameLevelEffect(progressUI.SetLevel(currentLevel - 1));
                 
@@ -113,6 +153,14 @@ namespace AlternativeArchitecture
             obstacleScript.Setup(GamePooler.instance,
                  objectToSpawn);
             obstacleScript.levelForceMultiplier = gameSpeed * 0.4f;
+
+            float depthSpeed = Mathf.Clamp(gameSpeed, 0, 10);
+            obstacleScript.minDepth = 1500;
+            obstacleScript.maxDepth = 2000;
+            obstacleScript.maxDepth *= 1 + (depthSpeed / 100);
+            obstacleScript.minDepth *= 1 + (depthSpeed / 100); //pushes obstacle further away when going faster
+
+
             newObstacle.Show();
 
 

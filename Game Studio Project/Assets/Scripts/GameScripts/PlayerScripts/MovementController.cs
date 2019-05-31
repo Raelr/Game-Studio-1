@@ -42,6 +42,9 @@ namespace AlternativeArchitecture {
 
         [Header("Dash Properties")]
         [SerializeField] AudioClip[] dashClips;
+        public float dashPitchMin, dashPitchMax;
+        public float dashBuildUpVolume, dashBurstVolume;
+
         [SerializeField] private float forceStep = 0.5f;
         private float acceleration = 1;
         private float currentSpeed = 1;
@@ -204,6 +207,8 @@ namespace AlternativeArchitecture {
             Debug.Log("ring: " + prompt);
             stepRotation = 1;
             dashAudio.clip = dashClips[0];
+            dashAudio.pitch = UnityEngine.Random.Range(dashPitchMin, dashPitchMax);
+            dashAudio.volume = dashBuildUpVolume;
             dashAudio.Play();
             GamePooler.instance.SetObstacleSpeed(0.1f);
             onTimeChange(0.1f);
@@ -223,6 +228,8 @@ namespace AlternativeArchitecture {
                 if (Input.GetButtonDown("Fire1") && elapsedTime > 0.5f || prompt == "auto") {
                     
                     dashAudio.clip = dashClips[1];
+                    dashAudio.pitch = UnityEngine.Random.Range(dashPitchMin, dashPitchMax);
+                    dashAudio.volume = dashBurstVolume;
                     dashAudio.Play();
                     successfulDash = true;
                     StopCoroutine(Retreat());

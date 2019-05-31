@@ -7445,7 +7445,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 2
-  far clip plane: 2500
+  far clip plane: 4000
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -7782,13 +7782,13 @@ MonoBehaviour:
   - objectType: 3
     objectPrefab: {fileID: 1636532063854592851, guid: c51ec35f03f0c9a40b12836e2322ef37,
       type: 3}
-    maxCount: 80
+    maxCount: 50
     preload: 1
     poolingFlags: 00000000
   - objectType: 2
     objectPrefab: {fileID: 1275655712482510743, guid: 837f31b46febb0447add9e91bff845ad,
       type: 3}
-    maxCount: 50
+    maxCount: 40
     preload: 1
     poolingFlags: 00000000
   - objectType: 4
@@ -7840,7 +7840,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawner: {fileID: 1921487154}
-  levelInterval: 30
+  levelInterval: 10
   currentLevel: 1
   progressUI: {fileID: 1462717180962124301}
   spawnInterval:
@@ -7895,6 +7895,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   gameSpeed: 1
+  gameSpeedMultiplier: 1
   obstacleChances:
   - chance: 32000000
     choice: 02000000
@@ -7914,6 +7915,7 @@ MonoBehaviour:
     choice: 0500000008000000060000000400000007000000
   skyboxChanger: {fileID: 1921487160}
   speedParticles: {fileID: 5485455944941250527}
+  instance: {fileID: 0}
 --- !u!82 &1921487158
 AudioSource:
   m_ObjectHideFlags: 0

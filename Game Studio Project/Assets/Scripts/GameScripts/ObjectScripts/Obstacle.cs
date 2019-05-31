@@ -56,6 +56,8 @@ namespace AlternativeArchitecture
         public bool useRandomSize = true;
         public float randomMinSize = 10, randomMaxSize = 20;
         float maxSize;
+
+        public float minDepth = 1500f, maxDepth = 2000;
         
 
         private void Start() {
@@ -90,7 +92,7 @@ namespace AlternativeArchitecture
         private void RandomSpawn() {
             float randomWidth = Random.Range(-500, 500);
             float randomHeight = Random.Range(-500, 500);
-            float randomDepth = Random.Range(2000 * 0.75f, 2000);
+            float randomDepth = Random.Range(minDepth, maxDepth);
 
             Vector3 dir = GetDir(transform.position);
 

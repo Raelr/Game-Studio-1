@@ -32,3 +32,17 @@ Something simple like 'You can run but never hide!'
 - 
 -
 -
+
+
+Showcase preparation:
+
+- 3D print and paint player ship
+- Hire projector
+- Test joystick on mac
+- Connect speaker to mac
+
+Showcase what to bring:
+- Speaker
+- Joystick
+- Projector
+- 

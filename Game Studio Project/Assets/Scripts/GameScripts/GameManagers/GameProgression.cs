@@ -48,6 +48,8 @@ namespace AlternativeArchitecture
         public ParticleSystem speedParticles;
 
         public GameProgression instance;
+		
+		private ProgressionMode currentMode;
 
         public override void Initialise()
         {
@@ -64,6 +66,7 @@ namespace AlternativeArchitecture
 
         public void SetProgressionMode (ProgressionMode mode)
         {
+			currentMode = mode;
             switch (mode)
             {
                 case ProgressionMode.SLOW:
@@ -77,6 +80,10 @@ namespace AlternativeArchitecture
                     break;
             }
         }
+		
+		public bool isTutorial () {
+			return currentMode == ProgressionMode.SLOW;
+		}
 
         public void SpawnObstaclesOnInterval() {
             progressionTimer += Time.deltaTime;

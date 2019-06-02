@@ -50,10 +50,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ringCols:
   - {r: 0.2003901, g: 1, b: 0, a: 1}
-  - {r: 0, g: 1, b: 0.54588175, a: 1}
-  - {r: 0, g: 1, b: 0.99999976, a: 1}
-  - {r: 0, g: 0.6366434, b: 1, a: 1}
-  - {r: 0.5554659, g: 0.16509432, b: 1, a: 1}
   neonRingRenderer: {fileID: 1275655712522826838}
   neonRingRenderer2: {fileID: 0}
   neonRing: {fileID: 1275655712524727990}

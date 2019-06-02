@@ -50,12 +50,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ringCols:
   - {r: 0.2003901, g: 1, b: 0, a: 1}
-  - {r: 0, g: 1, b: 0.54588175, a: 1}
-  - {r: 0, g: 1, b: 0.99999976, a: 1}
-  - {r: 0, g: 0.6366434, b: 1, a: 1}
-  - {r: 0.5554659, g: 0.16509432, b: 1, a: 1}
   neonRingRenderer: {fileID: 1275655712522826838}
+  neonRingRenderer2: {fileID: 0}
   neonRing: {fileID: 1275655712524727990}
+  canRotate: 1
 --- !u!114 &6741494657309007228
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -86,6 +84,8 @@ MonoBehaviour:
   useRandomSize: 1
   randomMinSize: 10
   randomMaxSize: 20
+  minDepth: 1500
+  maxDepth: 2000
 --- !u!54 &7803741998240123602
 Rigidbody:
   m_ObjectHideFlags: 0

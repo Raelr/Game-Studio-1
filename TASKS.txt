@@ -5,10 +5,12 @@ All tasks to do in Hyperpocalypse before showcase:
 GameProgression.instance.SetProgressionMode(ProgressionMode.SLOW);   //NORMAL
 or
 GameProgression.instance.SetProgressionMode(ProgressionMode.FAST);   //RUSH
+DONE
+
+
 
 - Add tutorial
 Only appears when you are in NORMAL mode. This can be checked with the following line of code:
-
 GameProgression.instance.isTutorial();  //returns boolean if it is the tutorial
 
 
@@ -21,6 +23,7 @@ Something simple like 'You can run but never hide!'
 
 - Insanity meter/time UI changes color to level color
 - Death shows you the score of the level, with a highscore system in place (PlayerPrefs)
+- Main menu shows you the highscores for the two modes
 - Soft sound for completing a level (add some subtle pitch variance)
 - Escape key quickly exits out of the level and takes you to menu
 - Disable the cursor in gameplay
@@ -29,7 +32,7 @@ Something simple like 'You can run but never hide!'
 - Controller 2 haptic vibrations (long vibrate = lose health, or approach death, short vibrate = boost) - Sean
 - Insanity meter pulses in scale when approaching death
 - Subtle small secondary particle system on ship (to show it's moving) - DONE
-- 
+- If a high score has been set for a mode, add a progress bar till you beat the high score
 -
 -
 

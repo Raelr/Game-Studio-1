@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class UIMaster : Master
 {
-
     public static UIMaster instance;
 
     bool gameStarted;
 
     public bool GameStarted { get { return gameStarted; } set { gameStarted = value; OnGameLevelStarted(value); } }
+
+    Color levelColor;
+
+    public Color LevelColor { set { levelColor = value; colorChanged?.Invoke(levelColor); } }
 
     [Header("Time text")]
     [SerializeField]
@@ -26,6 +29,9 @@ public class UIMaster : Master
     [Header("Camera Effects")]
     [SerializeField]
     CameraEffects camEffects;
+
+    [SerializeField]
+    Color[] UIColors;
 
     public delegate void UpdateEventHandler();
 
@@ -51,6 +57,10 @@ public class UIMaster : Master
 
     public MeterChangeHandler onMeterChange;
 
+    public delegate void UIColorChangeHandler(Color color);
+
+    public event UIColorChangeHandler colorChanged;
+
     private void Awake() {
 
         SetUpReferences();
@@ -64,6 +74,10 @@ public class UIMaster : Master
         onUIStatusChange += insanityMeter.ChangeMeterStatus;
 
         onMeterChange += insanityMeter.IncrementMeter;
+
+        colorChanged += time.ChangeTextColor;
+
+        colorChanged += insanityMeter.ChangeMeterColor;
 
         InitialiseAll();
     }

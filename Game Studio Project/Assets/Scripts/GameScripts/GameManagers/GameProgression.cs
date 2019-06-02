@@ -51,9 +51,6 @@ namespace AlternativeArchitecture
 		
 		private ProgressionMode currentMode;
 
-
-
-
         public override void Initialise()
         {
             base.Initialise();
@@ -87,8 +84,6 @@ namespace AlternativeArchitecture
 		public bool isTutorial () {
 			return currentMode == ProgressionMode.SLOW;
 		}
-
-         
 
         public void SpawnObstaclesOnInterval() {
             progressionTimer += Time.deltaTime;
@@ -132,13 +127,11 @@ namespace AlternativeArchitecture
         private void SetGameLevelEffect (int level) {
 
             skyboxChanger.SetSkybox(level);
-
-
         }
+
         private void SetGameLevelStartEffect (int level) {
 
             skyboxChanger.SetSkyboxStart(level);
-
         }
 
         private void SpawnObstacle (int level) {
@@ -164,9 +157,7 @@ namespace AlternativeArchitecture
             obstacleScript.maxDepth *= 1 + (depthSpeed / 100);
             obstacleScript.minDepth *= 1 + (depthSpeed / 100); //pushes obstacle further away when going faster
 
-
             newObstacle.Show();
-
 
             if (objectToSpawn == 2 || objectToSpawn == 9 || objectToSpawn == 15) { //neon ring
                 newObstacle.GetComponent<NeonRing>().StartRing();

@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
-
-
 public class SkyboxChanger : MonoBehaviour
 {
 
@@ -30,8 +27,6 @@ public class SkyboxChanger : MonoBehaviour
         currentExposure = targetExposure = levelStyles[level].exposure;
         currentCol = targetCol = levelStyles[level].skyCol;
         RefreshSky();
-
-
     }
 
     public void SetSkybox (int level) {
@@ -44,12 +39,10 @@ public class SkyboxChanger : MonoBehaviour
         currentExposure = Mathf.Lerp(currentExposure, targetExposure, Time.deltaTime / lerpSmooth);
         
         RefreshSky();
-        
     }
 
     private void RefreshSky () {
         skyBoxRender.sharedMaterial.SetColor("_Tint", currentCol);
         skyBoxRender.sharedMaterial.SetFloat("_Exposure", currentExposure);
     }
-
 }

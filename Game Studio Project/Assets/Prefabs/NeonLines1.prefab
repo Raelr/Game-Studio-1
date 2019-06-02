@@ -48,10 +48,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ringCols:
   - {r: 0.2003901, g: 1, b: 0, a: 1}
-  - {r: 0, g: 1, b: 0.54588175, a: 1}
-  - {r: 0, g: 1, b: 0.99999976, a: 1}
-  - {r: 0, g: 0.6366434, b: 1, a: 1}
-  - {r: 0.5554659, g: 0.16509432, b: 1, a: 1}
   neonRingRenderer: {fileID: 6555516758071688689}
   neonRingRenderer2: {fileID: 2616969223408506112}
   neonRing: {fileID: 1143761684847624734}
@@ -286,8 +282,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2579d516eeef1e342bf68875d1a1817c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minScale: {x: 1, y: 0.5, z: 1}
-  maxScale: {x: 0.1, y: 4, z: 1}
+  minScale: {x: 1.6, y: 0.7, z: 1}
+  maxScale: {x: 0.5, y: 4, z: 1}
 --- !u!1 &4933657372046534891
 GameObject:
   m_ObjectHideFlags: 0

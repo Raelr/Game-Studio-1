@@ -42,9 +42,9 @@ public class UIMeter : InitialisedEntity
             Vector3 newAmount = reverse ? new Vector3(meter.localScale.x - incrementSpeed, meter.localScale.y, meter.localScale.z)
             : new Vector3(meter.localScale.x + incrementSpeed, meter.localScale.y, meter.localScale.z);
 
-            meter.localScale = Vector3.Lerp(meter.localScale, newAmount, incrementSpeed * Time.deltaTime);
+            meter.localScale = Vector3.Lerp(meter.localScale, newAmount, Time.deltaTime / incrementSpeed);
 
-            meterRenderer.material.color = Color.Lerp(meterRenderer.material.color, endColor, incrementSpeed * Time.deltaTime / 10);
+            meterRenderer.material.color = Color.Lerp(meterRenderer.material.color, endColor, Time.deltaTime / 10);
         }
     }
 
@@ -55,5 +55,9 @@ public class UIMeter : InitialisedEntity
         } else {
             GlobalMethods.Hide(meter.gameObject);
         }
+    }
+
+    public void ChangeMeterColor(Color color) {
+        endColor = color;
     }
 }

@@ -27,4 +27,9 @@ public class UITime : InitialisedEntity
 
         timeText.enabled = value;
     }
+
+    public void ChangeTextColor(Color color) {
+
+        timeText.color = color;
+    }
 }

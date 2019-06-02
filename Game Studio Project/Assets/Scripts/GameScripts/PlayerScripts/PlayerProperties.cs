@@ -52,14 +52,12 @@ public class PlayerProperties : InitialisedEntity
 
         if (currentSanity > 0)
         {
-
             currentSanity = Mathf.Lerp(currentSanity, currentSanity - InsanityDecaySpeed, InsanityDecaySpeed * Time.deltaTime);
 
             UIMaster.instance.onMeterChange.Invoke(InsanityDecaySpeed);
 
             float normalisedSanity = 1f - (currentSanity / maxSanity);
             CameraEffects.instance.ApplyInsanity(normalisedSanity);
-            ;
 
             OnSoundChanged?.Invoke(normalisedSanity);
         }

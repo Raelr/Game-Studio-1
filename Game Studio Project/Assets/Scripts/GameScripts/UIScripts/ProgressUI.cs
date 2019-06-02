@@ -79,6 +79,7 @@ void Start () {
         level = level % (levelCols.Count);
         currentLevelCol = levelCols[level];
         levelText.color = ballRenderer.material.color = barRenderer.material.color = currentLevelCol;
+        UIMaster.instance.LevelColor = currentLevelCol;
         return level;
     }
 }

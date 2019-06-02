@@ -64,19 +64,21 @@ namespace AlternativeArchitecture
             
         }
 
-        public void SetProgressionMode (ProgressionMode mode)
+        public void SetProgressionMode (bool isNormal)
         {
-			currentMode = mode;
-            switch (mode)
+			currentMode = isNormal ? ProgressionMode.SLOW : ProgressionMode.FAST;
+            switch (currentMode)
             {
                 case ProgressionMode.SLOW:
                     levelInterval = 30;
                     Time.timeScale = 1;
+                    PlayerPrefs.SetInt("normal", 1);
                     break;
                 case ProgressionMode.FAST:
                     levelInterval = 10;
                     gameSpeedMultiplier = 1.1f;
                     Time.timeScale = 1.1f;
+                    PlayerPrefs.SetInt("normal", 0);
                     break;
             }
         }

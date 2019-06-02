@@ -128,7 +128,7 @@ public class UIMaster : Master
 
     public void ShowMainMenu()
     {
-        menuManager.ShowMainMenu();
+        menuManager.ShowMenu();
     }
 
     public void HideMainMenu()

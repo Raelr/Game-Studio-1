@@ -48,6 +48,8 @@ namespace AlternativeArchitecture
         public ParticleSystem speedParticles;
 
         public GameProgression instance;
+		
+		private ProgressionMode currentMode;
 
 
 
@@ -67,6 +69,7 @@ namespace AlternativeArchitecture
 
         public void SetProgressionMode (ProgressionMode mode)
         {
+			currentMode = mode;
             switch (mode)
             {
                 case ProgressionMode.SLOW:
@@ -80,6 +83,10 @@ namespace AlternativeArchitecture
                     break;
             }
         }
+		
+		public bool isTutorial () {
+			return currentMode == ProgressionMode.SLOW;
+		}
 
          
 

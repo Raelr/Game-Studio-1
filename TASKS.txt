@@ -1,9 +1,15 @@
 All tasks to do in Hyperpocalypse before showcase:
 
+
 - Prompt to choose NORMAL or RUSH mode that'll just run one of these lines of code:     
-GameProgression.instance.SetProgressionMode(ProgressionMode.SLOW);   //Regular
+GameProgression.instance.SetProgressionMode(ProgressionMode.SLOW);   //NORMAL
 or
 GameProgression.instance.SetProgressionMode(ProgressionMode.FAST);   //RUSH
+
+- Add tutorial
+Only appears when you are in NORMAL mode. This can be checked with the following line of code:
+
+GameProgression.instance.isTutorial();  //returns boolean if it is the tutorial
 
 
 - Loading screen with some flavour text

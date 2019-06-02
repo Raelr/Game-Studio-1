@@ -1,6 +1,11 @@
 All tasks to do in Hyperpocalypse before showcase:
 
-- Prompt to choose NORMAL or RUSH mode
+- Prompt to choose NORMAL or RUSH mode that'll just run one of these lines of code:     
+GameProgression.instance.SetProgressionMode(ProgressionMode.SLOW);   //Regular
+or
+GameProgression.instance.SetProgressionMode(ProgressionMode.FAST);   //RUSH
+
+
 - Loading screen with some flavour text
 - Insanity meter/time UI changes color to level color
 - Death shows you the score of the level, with a highscore system in place (PlayerPrefs)
@@ -9,9 +14,9 @@ All tasks to do in Hyperpocalypse before showcase:
 - Disable the cursor in gameplay
 - Subtle particle effect when you enter a blue boost field
 - Remove 'Cursed Cosmos' on menu
-- Controller 2 haptic vibrations (long vibrate = lose health, or approach death, short vibrate = boost)
+- Controller 2 haptic vibrations (long vibrate = lose health, or approach death, short vibrate = boost) - Sean
 - Insanity meter pulses in scale when approaching death
--  
+- Subtle small secondary particle system on ship (to show it's moving) - Sean
 - 
 -
 -

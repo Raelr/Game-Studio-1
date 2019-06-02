@@ -7,6 +7,10 @@ GameProgression.instance.SetProgressionMode(ProgressionMode.FAST);   //RUSH
 
 
 - Loading screen with some flavour text
+Something simple like 'You can run but never hide!'
+
+- 3...2...1.. GO!
+
 - Insanity meter/time UI changes color to level color
 - Death shows you the score of the level, with a highscore system in place (PlayerPrefs)
 - Soft sound for completing a level (add some subtle pitch variance)

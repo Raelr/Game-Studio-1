@@ -64,10 +64,10 @@ namespace AlternativeArchitecture
             
         }
 
-        public void SetProgressionMode (ProgressionMode mode)
+        public void SetProgressionMode (bool isNormal)
         {
-			currentMode = mode;
-            switch (mode)
+			currentMode = isNormal ? ProgressionMode.SLOW : ProgressionMode.FAST;
+            switch (currentMode)
             {
                 case ProgressionMode.SLOW:
                     levelInterval = 30;

@@ -55,6 +55,10 @@ public class MenuManager : InitialisedEntity
     [SerializeField]
     Image optionsPanel;
 
+    [Header("Options Menu")]
+    [SerializeField]
+    Image optionMenu;
+
     [Header("Loading panel Colors")]
     [SerializeField]
     Color loaded;
@@ -177,6 +181,21 @@ public class MenuManager : InitialisedEntity
     public void HideLoseScreen() {
 
         GlobalMethods.Hide(LosePanel.gameObject);
+    }
+
+    public void HideOptionsMenu() {
+        GlobalMethods.Hide(optionMenu.gameObject);
+    }
+
+    public void ShowMenu() {
+
+        ShowMainMenu();
+
+        HideOptionsMenu();
+
+        if (optionsPanel.IsActive()) {
+            FadeOutOptions();
+        }
     }
 
     public void RestartLevel()

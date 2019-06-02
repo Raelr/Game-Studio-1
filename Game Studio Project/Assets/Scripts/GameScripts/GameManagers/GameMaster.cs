@@ -28,7 +28,11 @@ namespace AlternativeArchitecture {
 
         public delegate void PlayerLostHandler();
 
-        public event PlayerLostHandler OnPlayerLost;
+        public event PlayerLostHandler onPlayerLost;
+
+        public delegate void EscapeKeyPressedHandler();
+
+        public event EscapeKeyPressedHandler onEscapeKeyPressed;
 
         // Sets up all references and sets up the components.
         private void Awake() {
@@ -44,6 +48,8 @@ namespace AlternativeArchitecture {
             }
 
             UIMaster.instance.StartLoadingScreenAsLoading();
+
+            onEscapeKeyPressed += UIMaster.instance.ShowMainMenu;
 
             GameStarted = PlayerPrefs.GetInt("Reset") == 1;
 
@@ -73,6 +79,12 @@ namespace AlternativeArchitecture {
             if (gameStarted) {
                 onUpdateEvent?.Invoke();
             }
+
+            if (Input.GetKeyDown(KeyCode.Escape)) {
+                if (!GameStarted) {
+                    onEscapeKeyPressed?.Invoke();
+                }
+            }
         }
 
         public void StartGame() {
@@ -95,7 +107,7 @@ namespace AlternativeArchitecture {
 
             onUpdateEvent += progression.SpawnObstaclesOnInterval;
 
-            OnPlayerLost += sounds.StopBackgroundMusic;
+            onPlayerLost += sounds.StopBackgroundMusic;
         }
 
         static float originalTimeScale = 1;
@@ -131,7 +143,7 @@ namespace AlternativeArchitecture {
         public void OnPlayerLose()
         {
             GameStarted = false;
-            OnPlayerLost?.Invoke();
+            onPlayerLost?.Invoke();
             PauseGame();
         }
     }

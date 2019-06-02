@@ -333,10 +333,13 @@ public class MenuManager : InitialisedEntity
         }
 
         isFading = false;
+
+        yield return null;
     }
 
     IEnumerator FadeInAndOut(Action endAction = null, Action middleAction = null, bool fadeInto = false)
     {
+        Time.timeScale = 1f;
         yield return StartCoroutine(Fade());
         middleAction?.Invoke();
         if (fadeInto)

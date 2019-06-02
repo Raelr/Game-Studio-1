@@ -57,6 +57,9 @@ namespace AlternativeArchitecture {
 
             if (gameStarted)
             {
+                if (PlayerPrefs.HasKey("normal")) {
+                    progression.SetProgressionMode(PlayerPrefs.GetInt("normal") == 1);
+                }
                 StartGame();
             }
             else

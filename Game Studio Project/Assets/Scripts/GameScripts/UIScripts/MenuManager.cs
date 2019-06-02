@@ -51,6 +51,10 @@ public class MenuManager : InitialisedEntity
     [SerializeField]
     Image fadeIn;
 
+    [Header("Start Options")]
+    [SerializeField]
+    Image optionsPanel;
+
     [Header("Loading panel Colors")]
     [SerializeField]
     Color loaded;
@@ -70,7 +74,6 @@ public class MenuManager : InitialisedEntity
 
     public override void Initialise()
     {
-
         base.Initialise();
 
         GlobalMethods.Hide(LosePanel.gameObject);
@@ -253,6 +256,26 @@ public class MenuManager : InitialisedEntity
         if (!isFading)
         {
             RunLoadSequence(null, RestartLevel, true);
+        }
+    }
+
+    public void FadeInOptionsMenu() {
+
+        CanvasGroup group = optionsPanel.GetComponent<CanvasGroup>();
+        optionsPanel.gameObject.SetActive(true);
+        float desiredAlpha = group.alpha;
+        group.alpha = 0f;
+
+        StartCoroutine(FadeInPanel(optionsPanel, desiredAlpha, group));
+    }
+
+    IEnumerator FadeInPanel(Image panel, float desiredAlpha, CanvasGroup group) {
+
+        for (float f = 0f; f <= desiredAlpha; f += 0.1f) {
+            float newAlpha = group.alpha;
+            newAlpha = f;
+            group.alpha = newAlpha;
+            yield return new WaitForSeconds(0.05f);
         }
     }
 

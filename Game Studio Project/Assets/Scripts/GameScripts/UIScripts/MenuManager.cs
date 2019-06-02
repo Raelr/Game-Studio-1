@@ -83,7 +83,6 @@ public class MenuManager : InitialisedEntity
         LoadPlayerPrefs();
 
         LoadSettings();
-
     }
 
     void ProcessAllResolutions()
@@ -118,7 +117,7 @@ public class MenuManager : InitialisedEntity
     {
         if (PlayerPrefs.HasKey("volume"))
         {
-            SetVolume(currentSettings.volume);
+            StartCoroutine(WaitForFrame());
         }
 
         if (PlayerPrefs.HasKey("fullscreen"))
@@ -139,8 +138,7 @@ public class MenuManager : InitialisedEntity
 
     void LoadPlayerPrefs()
     {
-        currentSettings = new PlayerSettings
-        {
+        currentSettings = new PlayerSettings {
             volume = PlayerPrefs.HasKey("volume") ? PlayerPrefs.GetFloat("volume") : 0.0f,
             quality_index = PlayerPrefs.HasKey("quality") ? PlayerPrefs.GetInt("quality") : 100,
             resolutionIndex = PlayerPrefs.HasKey("resolution") ? PlayerPrefs.GetInt("resolution") : 100,
@@ -263,10 +261,35 @@ public class MenuManager : InitialisedEntity
 
         CanvasGroup group = optionsPanel.GetComponent<CanvasGroup>();
         optionsPanel.gameObject.SetActive(true);
-        float desiredAlpha = group.alpha;
+        float desiredAlpha = 1f;
         group.alpha = 0f;
 
         StartCoroutine(FadeInPanel(optionsPanel, desiredAlpha, group));
+    }
+
+    public void FadeOutOptions() {
+
+        CanvasGroup group = optionsPanel.GetComponent<CanvasGroup>();
+        float desiredAlpha = 0f;
+
+        StartCoroutine(FadeOutPanel(optionsPanel, desiredAlpha, group));
+    }
+
+    IEnumerator WaitForFrame() {
+        yield return new WaitForSeconds(0.1f);
+        SetVolume(currentSettings.volume);
+    }
+
+    IEnumerator FadeOutPanel(Image panel, float desiredAlpha, CanvasGroup group) {
+
+        for (float f = 1f; f >= desiredAlpha; f -= 0.1f) {
+            float newAlpha = group.alpha;
+            newAlpha = f;
+            group.alpha = newAlpha;
+            yield return new WaitForSeconds(0.05f);
+        }
+
+        optionsPanel.gameObject.SetActive(false);
     }
 
     IEnumerator FadeInPanel(Image panel, float desiredAlpha, CanvasGroup group) {

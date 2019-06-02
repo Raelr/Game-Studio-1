@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.0019034535, g: 0.022878122, b: 0.10382453, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -443,7 +443,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 1921487155}
+      - m_Target: {fileID: 826490709}
         m_MethodName: StartGame
         m_Mode: 1
         m_Arguments:
@@ -1265,9 +1265,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1492214906}
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 826490709}
+        m_MethodName: FadeOutOptions
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2565,8 +2565,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -263.1, y: -77.97603}
-  m_SizeDelta: {x: 475.9, y: 144.7}
+  m_AnchoredPosition: {x: -255.12, y: -77.97603}
+  m_SizeDelta: {x: 507.83, y: 144.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &512400590
 MonoBehaviour:
@@ -2716,8 +2716,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -262.6, y: 3.1749687}
-  m_SizeDelta: {x: 478.7, y: 144.7}
+  m_AnchoredPosition: {x: -255.51, y: 3.1749687}
+  m_SizeDelta: {x: 507.06, y: 144.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &545588805
 MonoBehaviour:
@@ -3419,8 +3419,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -262.77, y: -158.9}
-  m_SizeDelta: {x: 477.06, y: 144.7}
+  m_AnchoredPosition: {x: -254.79, y: -158.9}
+  m_SizeDelta: {x: 508.99, y: 144.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &675120288
 MonoBehaviour:
@@ -5735,7 +5735,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: O P T I O N S
+  m_text: ' O P T I O N S'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e98c1c95b3b4adf4bacf3f7265e84de4, type: 2}
   m_sharedMaterial: {fileID: 21063201537217102, guid: e98c1c95b3b4adf4bacf3f7265e84de4,
@@ -5805,10 +5805,10 @@ MonoBehaviour:
   m_margin: {x: 0.65434784, y: 0, z: 0.006595996, w: 0}
   m_textInfo:
     textComponent: {fileID: 1262267816}
-    characterCount: 13
+    characterCount: 14
     spriteCount: 0
-    spaceCount: 6
-    wordCount: 7
+    spaceCount: 7
+    wordCount: 8
     linkCount: 0
     lineCount: 1
     pageCount: 1
@@ -7890,7 +7890,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.02507019, y: 0.0000076293945}
+  m_AnchoredPosition: {x: 0.02508545, y: 0.0000076293945}
   m_SizeDelta: {x: -0.049957, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1739431251
@@ -7913,7 +7913,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: E X I T
+  m_text: ' E X I T'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e98c1c95b3b4adf4bacf3f7265e84de4, type: 2}
   m_sharedMaterial: {fileID: 21063201537217102, guid: e98c1c95b3b4adf4bacf3f7265e84de4,
@@ -7983,10 +7983,10 @@ MonoBehaviour:
   m_margin: {x: 0.65434784, y: 0, z: 0.006595996, w: 0}
   m_textInfo:
     textComponent: {fileID: 1739431251}
-    characterCount: 7
+    characterCount: 8
     spriteCount: 0
-    spaceCount: 3
-    wordCount: 4
+    spaceCount: 4
+    wordCount: 5
     linkCount: 0
     lineCount: 1
     pageCount: 1
@@ -8149,7 +8149,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: S T A R T
+  m_text: ' S T A R T'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e98c1c95b3b4adf4bacf3f7265e84de4, type: 2}
   m_sharedMaterial: {fileID: 21063201537217102, guid: e98c1c95b3b4adf4bacf3f7265e84de4,
@@ -8219,10 +8219,10 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 1780945749}
-    characterCount: 9
+    characterCount: 10
     spriteCount: 0
-    spaceCount: 4
-    wordCount: 5
+    spaceCount: 5
+    wordCount: 6
     linkCount: 0
     lineCount: 1
     pageCount: 1

@@ -38,7 +38,7 @@ public class PlayerSensor : InitialisedEntity
             }
         }
 
-        Debug.Log(col.gameObject.tag);
+        //Debug.Log(col.gameObject.tag);
 
         if (col.gameObject.tag.Equals("BoostAuto")) {
             if (!hasCollided) {

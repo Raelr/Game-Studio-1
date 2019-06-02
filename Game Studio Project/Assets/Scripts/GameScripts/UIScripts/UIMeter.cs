@@ -44,7 +44,7 @@ public class UIMeter : InitialisedEntity
 
             meter.localScale = Vector3.Lerp(meter.localScale, newAmount, incrementSpeed * Time.deltaTime);
 
-            meterRenderer.material.color = Color.Lerp(meterRenderer.material.color, endColor, incrementSpeed * Time.deltaTime / 10);
+            meterRenderer.material.color = Color.Lerp(meterRenderer.material.color, endColor, Time.deltaTime / 5);
         }
     }
 

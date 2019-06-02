@@ -192,7 +192,7 @@ namespace AlternativeArchitecture {
         }
 
         public void OnPlayerRingHit() {
-            Debug.Log("ring hit");
+            //Debug.Log("ring hit");
            // if (!isDashing) {
                 StartCoroutine(InputPrompt("auto"));
             //}
@@ -204,7 +204,7 @@ namespace AlternativeArchitecture {
         }
 
         private IEnumerator InputPrompt(string prompt) {
-            Debug.Log("ring: " + prompt);
+            //Debug.Log("ring: " + prompt);
             stepRotation = 1;
             dashAudio.clip = dashClips[0];
             dashAudio.pitch = UnityEngine.Random.Range(dashPitchMin, dashPitchMax);
@@ -224,7 +224,6 @@ namespace AlternativeArchitecture {
                 elapsedTime += Time.deltaTime;
 
                 speedBoost += 1 * Time.deltaTime;
-                Debug.Log(elapsedTime + " " + prompt);
                 if (Input.GetButtonDown("Fire1") && elapsedTime > 0.5f || prompt == "auto") {
                     
                     dashAudio.clip = dashClips[1];
@@ -321,7 +320,6 @@ namespace AlternativeArchitecture {
             CameraEffects.instance.DashOff();
             GamePooler.instance.SetObstacleSpeed(currentSpeed);
             onTimeChange(1f);
-            Debug.Log(currentSpeed);
             player.transform.localPosition = endPos;
 
         }

@@ -42,9 +42,9 @@ public class UIMeter : InitialisedEntity
             Vector3 newAmount = reverse ? new Vector3(meter.localScale.x - incrementSpeed, meter.localScale.y, meter.localScale.z)
             : new Vector3(meter.localScale.x + incrementSpeed, meter.localScale.y, meter.localScale.z);
 
-            meter.localScale = Vector3.Lerp(meter.localScale, newAmount, Time.deltaTime / incrementSpeed);
+            meter.localScale = Vector3.Lerp(meter.localScale, newAmount, incrementSpeed * Time.deltaTime);
 
-            meterRenderer.material.color = Color.Lerp(meterRenderer.material.color, endColor, Time.deltaTime / 10);
+            meterRenderer.material.color = Color.Lerp(meterRenderer.material.color, endColor, incrementSpeed * Time.deltaTime / 10);
         }
     }
 

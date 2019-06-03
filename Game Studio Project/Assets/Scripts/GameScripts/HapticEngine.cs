@@ -26,14 +26,32 @@ public class HapticEngine : MonoBehaviour
     [SerializeField]
     public List<HapticEffectSettings> effectSettings;
 
-    
+
+    public bool finalMode = false;
+
     private void Start()
     {
         instance = this;
+        V(0);
     }
 
     public void Vibrate (HapticEffect effect)
     {
+        if (finalMode == true)
+        {
+            if (effect == HapticEffect.ESCAPE_DEATH)
+            {
+                finalMode = false;
+            }
+            else if (effect != HapticEffect.APPROACH_DEATH && effect != HapticEffect.APPROACH_DEATH_CLOSE)
+            {
+                return;
+            }
+        }
+
+        if (effect == HapticEffect.APPROACH_DEATH || effect == HapticEffect.APPROACH_DEATH_CLOSE)
+            finalMode = true;
+
         HapticEffectSettings retreivedSettings = GetEffectSettings(effect);
 
         if (!retreivedSettings.isEnabled) return;

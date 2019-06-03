@@ -73,6 +73,8 @@ public class UIMaster : Master
 
         colorChanged += textController.ChangeTextColor;
 
+        onUIStatusChange += textController.ChangeTextStatus;
+
         InitialiseAll();
     }
 

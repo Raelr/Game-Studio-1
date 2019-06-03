@@ -25,7 +25,7 @@ public class UITextController : InitialisedEntity
 
     public void ChangeTextStatus(bool value) {
 
-        livesText.enabled = value;
+        pointSystem.enabled = value;
     }
 
     public void GainPoints(float value) {

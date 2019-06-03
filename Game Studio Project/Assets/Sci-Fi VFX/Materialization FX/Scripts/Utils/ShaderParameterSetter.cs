@@ -6,10 +6,10 @@ namespace Assets.MaterializationFX.Scripts.Utils
 	{
 		public string ShaderName = "QFX/MFX/Materialization_World";
 		public string ParameterName = "_WorldPos";
-		public Vector3 ParameterOffset;
+		public Vector3 ParameterOffset = Vector3.zero;
 
-		public GameObject TargetObjects;
-		public bool ChangeChilds; 
+		public GameObject TargetObjects = null;
+		public bool ChangeChilds = false; 
 		private Renderer[] _rends;
 
 		private void Start()

@@ -12,9 +12,9 @@ public class ProjectileController : InitialisedEntity
     float timeSinceLastShot;
 
     [SerializeField]
-    GameObject projectile;
+    GameObject projectile = null;
     [SerializeField]
-    Transform spawnPos;
+    Transform spawnPos = null;
 
     public override void Initialise() {
 

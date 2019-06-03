@@ -25,8 +25,6 @@ namespace AlternativeArchitecture
         [SerializeField]
         private float force;
         [SerializeField]
-        private float dist = 400;
-        [SerializeField]
         private Vector3 dir;
         [SerializeField]
         private bool randomRotate = true;
@@ -35,13 +33,13 @@ namespace AlternativeArchitecture
         public float levelForceMultiplier = 1;
 
         [SerializeField]
-        private Rigidbody rigid;
+        private Rigidbody rigid = null;
 
         private GamePooler gamePooler;
         private int objectType;
 
         [SerializeField]
-        private float zDespawn;
+        private float zDespawn = 0;
 
         private Vector3 Dir { get { return (origin1.position - player.position).normalized; } }
         public float Force { get { return force; } set { force = value; } }

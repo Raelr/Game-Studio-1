@@ -6,9 +6,9 @@ using TMPro;
 public class UITextController : InitialisedEntity
 {
     [SerializeField]
-    TextMeshPro livesText;
+    TextMeshPro livesText = null;
     [SerializeField]
-    TextMeshPro pointSystem;
+    TextMeshPro pointSystem = null;
 
     public override void Initialise() {
 

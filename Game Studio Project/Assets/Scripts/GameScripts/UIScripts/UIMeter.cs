@@ -5,10 +5,10 @@ using UnityEngine;
 public class UIMeter : InitialisedEntity
 {
     [SerializeField]
-    Transform meter;
+    Transform meter = null;
 
     [SerializeField]
-    Renderer meterRenderer;
+    Renderer meterRenderer = null;
 
     [SerializeField]
     Color startColor = Color.white;

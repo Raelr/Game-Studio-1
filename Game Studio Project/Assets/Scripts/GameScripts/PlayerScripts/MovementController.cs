@@ -30,10 +30,6 @@ namespace AlternativeArchitecture {
 
         [Header("Physics Properties")]
         [SerializeField] private float force = 25f;
-        [SerializeField] private float maxDistance = 8;
-        [SerializeField] private bool invertMovement = false;
-        [SerializeField] private float minRotation = -30;
-        [SerializeField] private float maxRotation = 30;
         [SerializeField] private float stepRotation = 0.1f;
         [SerializeField] private float maxAcceleration = 5;
         [SerializeField] private float accelerationStepping = 1;
@@ -41,7 +37,7 @@ namespace AlternativeArchitecture {
         
 
         [Header("Dash Properties")]
-        [SerializeField] AudioClip[] dashClips;
+        [SerializeField] AudioClip[] dashClips = null;
         public float dashPitchMin, dashPitchMax;
         public float dashBuildUpVolume, dashBurstVolume;
 
@@ -54,19 +50,14 @@ namespace AlternativeArchitecture {
         AudioSource dashAudio;
 
         [Header("Animation properties")]
-        [SerializeField] AnimationCurve rotationAnim;
-        [SerializeField] AnimationCurve dashAnim;
+        [SerializeField] AnimationCurve rotationAnim = null;
+        [SerializeField] AnimationCurve dashAnim = null;
 
         private float rotationX;
         private float rotationY;
         private Vector3 lastPosition;
         private bool isDashing;
         private bool isRetreating;
-
-
-        [Header("Player Bounds")]
-        private float xBounds = 100f;
-        private float yBounds = 12f;
 
         private Transform player;
 
@@ -115,7 +106,6 @@ namespace AlternativeArchitecture {
 
         private float accelerationX = 0.01f;
         private float accelerationY = 0.01f;
-        private Vector2 lastDir = new Vector2();
 
         public void RotateEntity3(Vector2 input) {
 

@@ -16,7 +16,7 @@ public class PlayerSounds : InitialisedEntity
     AudioClip playerConstantSound = null;
 
     [SerializeField]
-    AudioClip playerImpactSound;
+    AudioClip playerImpactSound = null;
 
     const float maxVolumeAdjustment = 1f;
 

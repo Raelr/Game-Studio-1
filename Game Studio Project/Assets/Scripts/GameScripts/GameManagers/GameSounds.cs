@@ -6,11 +6,11 @@ public class GameSounds : InitialisedEntity
 {
     [Header("Audio Sources")]
     [SerializeField]
-    AudioSource backgroundMusicSource;
+    AudioSource backgroundMusicSource = null;
 
     [Header("Clips")]
     [SerializeField]
-    AudioClip backgroundMusic;
+    AudioClip backgroundMusic = null;
 
     public override void Initialise()
     {

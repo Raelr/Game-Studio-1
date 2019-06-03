@@ -17,19 +17,19 @@ public class UIMaster : Master
 
     [Header("Menu Manager")]
     [SerializeField]
-    MenuManager menuManager;
+    MenuManager menuManager = null;
 
     [Header("Insanity Meter")]
     [SerializeField]
-    UIMeter insanityMeter;
+    UIMeter insanityMeter = null;
 
     [Header("Camera Effects")]
     [SerializeField]
-    CameraEffects camEffects;
+    CameraEffects camEffects = null;
 
     [Header("Text Controller")]
     [SerializeField]
-    UITextController textController;
+    UITextController textController = null;
 
     public delegate void UpdateEventHandler();
 

@@ -8,7 +8,7 @@ namespace Assets.Scripts.Utils
         private const string LightButton = "f";
         private DemoPrefabController _demoPrefabController;
 
-        public Light Light;
+        public Light Light = null;
 
         public void EnableLigh()
         {

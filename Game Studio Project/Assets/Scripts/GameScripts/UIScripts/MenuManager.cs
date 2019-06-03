@@ -21,50 +21,50 @@ public class MenuManager : InitialisedEntity
 
     [Header("Main Audio")]
     [SerializeField]
-    AudioMixer masterMixer;
+    AudioMixer masterMixer = null;
 
     [Header("Main Menu")]
     [SerializeField]
-    Image MainMenuPanel;
+    Image MainMenuPanel = null;
 
     [Header("Lose Screen")]
     [SerializeField]
-    Image LosePanel;
+    Image LosePanel = null;
 
     [Header("Resolution Dropdown")]
     [SerializeField]
-    TMP_Dropdown resolutionDropdown;
+    TMP_Dropdown resolutionDropdown = null;
 
     [Header("Fullscreen Toggle")]
     [SerializeField]
-    Toggle fullscreenToggle;
+    Toggle fullscreenToggle = null;
 
     [Header("QualityDropdown")]
     [SerializeField]
-    TMP_Dropdown qualityDropDown;
+    TMP_Dropdown qualityDropDown = null;
 
     [Header("Volume Slider")]
     [SerializeField]
-    Slider volumeSlider;
+    Slider volumeSlider = null;
 
     [Header("Loading Panel")]
     [SerializeField]
-    Image fadeIn;
+    Image fadeIn = null;
 
     [Header("Start Options")]
     [SerializeField]
-    Image optionsPanel;
+    Image optionsPanel = null;
 
     [Header("Options Menu")]
     [SerializeField]
-    Image optionMenu;
+    Image optionMenu = null;
 
     [Header("Loading panel Colors")]
     [SerializeField]
     Color loaded = Color.white;
 
     [SerializeField]
-    Color loading;
+    Color loading = Color.white;
 
     Coroutine loadingRoutine;
 

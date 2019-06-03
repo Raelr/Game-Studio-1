@@ -29,6 +29,7 @@ public class UITextController : InitialisedEntity
     }
 
     public void GainPoints(float value) {
-        pointSystem.text = "Score: " + value.ToString();
+        int rounded = (int)value;
+        pointSystem.text = "Score: " + rounded.ToString();
     }
 }

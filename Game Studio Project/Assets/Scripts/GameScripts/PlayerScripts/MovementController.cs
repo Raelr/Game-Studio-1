@@ -48,6 +48,9 @@ namespace AlternativeArchitecture {
         [SerializeField] private float forceStep = 0.5f;
         private float acceleration = 1;
         private float currentSpeed = 1;
+        private float pointMultiplier = 1;
+        private float points = 0;
+
         AudioSource dashAudio;
 
         [Header("Animation properties")]
@@ -58,6 +61,8 @@ namespace AlternativeArchitecture {
         private float rotationY;
         private Vector3 lastPosition;
         private bool isDashing;
+        private bool isRetreating;
+
 
         [Header("Player Bounds")]
         private float xBounds = 100f;
@@ -150,6 +155,13 @@ namespace AlternativeArchitecture {
             //}
         }
 
+        public void MultiplyPoints(Vector2 input) {
+            pointMultiplier += 0.1f * Time.deltaTime;
+
+            points += 5 * Time.deltaTime * pointMultiplier;
+            UIMaster.instance.UpdatePoints(points);
+        }
+
         public void RotateEntity(Vector2 input) {
             rotationX += input.x * stepRotation * Time.deltaTime * force * acceleration;
             rotationY += input.y * stepRotation * Time.deltaTime * force * acceleration;
@@ -183,19 +195,30 @@ namespace AlternativeArchitecture {
 
         public void onPlayerCollision() {
             onCollision?.Invoke();
+            pointMultiplier = 1;
+            Debug.Log("Reset point multiplier");
         }
 
         public void OnPlayerNearMiss() {
             if (!isDashing) {
                 StartCoroutine(InputPrompt("ask"));
+                points += (250 * pointMultiplier);
+                UIMaster.instance.UpdatePoints(points);
+                //Debug.Log("Near Miss: " + points);
+            }
+            if (isRetreating) {
+                pointMultiplier += 2;
+                points += (500 * pointMultiplier);
+                UIMaster.instance.UpdatePoints(points);
+                //Debug.Log("Dash Combo: " + points);
             }
         }
 
         public void OnPlayerRingHit() {
-            //Debug.Log("ring hit");
-           // if (!isDashing) {
-                StartCoroutine(InputPrompt("auto"));
-            //}
+            StartCoroutine(InputPrompt("auto"));
+            points += (50 * pointMultiplier);
+            UIMaster.instance.UpdatePoints(points);
+            //Debug.Log("Ring: " + points);
         }
 
 
@@ -296,6 +319,8 @@ namespace AlternativeArchitecture {
             CameraEffects.instance.DashOn();
             GamePooler.instance.SetObstacleSpeed(currentSpeed + 5);
 
+           
+
             while (elapsedTime < time) {
                 float progress = elapsedTime / time;
                 player.transform.localPosition = Vector3.Lerp(startPos, endPos, dashAnim.Evaluate(progress));
@@ -311,6 +336,7 @@ namespace AlternativeArchitecture {
             Vector3 startPos = player.transform.localPosition;
             Vector3 endPos = new Vector3(startPos.x, startPos.y, 10);
 
+            isRetreating = true;
             isDashing = false;
             float elapsedTime = 0;
             float time = 0.5f;
@@ -329,6 +355,7 @@ namespace AlternativeArchitecture {
             GamePooler.instance.SetObstacleSpeed(currentSpeed);
             onTimeChange(1f);
             player.transform.localPosition = endPos;
+            isRetreating = false;
 
         }
 

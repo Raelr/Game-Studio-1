@@ -7,6 +7,8 @@ public class UITextController : InitialisedEntity
 {
     [SerializeField]
     TextMeshPro livesText;
+    [SerializeField]
+    TextMeshPro pointSystem;
 
     public override void Initialise() {
 
@@ -24,5 +26,10 @@ public class UITextController : InitialisedEntity
     public void ChangeTextStatus(bool value) {
 
         livesText.enabled = value;
+    }
+
+    public void GainPoints(float value) {
+        int rounded = (int)value;
+        pointSystem.text = "Score: " + rounded.ToString();
     }
 }

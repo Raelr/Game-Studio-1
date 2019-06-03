@@ -31,6 +31,10 @@ public class UIMaster : Master
     [SerializeField]
     CameraEffects camEffects;
 
+    [Header("Text Controller")]
+    [SerializeField]
+    UITextController textController;
+
     [SerializeField]
     Color[] UIColors;
 
@@ -152,6 +156,8 @@ public class UIMaster : Master
         menuManager = GetComponent<MenuManager>();
 
         insanityMeter = GetComponent<UIMeter>();
+
+        textController = GetComponent<UITextController>();
     }
 
     public void StartLoadingScreenAsLoading()
@@ -160,4 +166,9 @@ public class UIMaster : Master
         menuManager.ShowLoadingScreen();
         menuManager.ResetFadeIn();
     }
+
+    public void UpdatePoints(float value) {
+        textController.GainPoints(value);
+    }
+
 }

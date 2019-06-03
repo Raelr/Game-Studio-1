@@ -100,6 +100,8 @@ namespace AlternativeArchitecture {
 
             updateEvent += movementController.RotateEntity;
 
+            updateEvent += movementController.MultiplyPoints;
+
             onPlayerCollision += playerProperties.DecaySanityByAmount;
 
             onPlayerCollision += sounds.PlayerImpactSound;

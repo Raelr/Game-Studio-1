@@ -6,9 +6,9 @@ using TMPro;
 public class UITextController : InitialisedEntity
 {
     [SerializeField]
-    TextMeshPro livesText;
+    TextMeshPro livesText = null;
     [SerializeField]
-    TextMeshPro pointSystem;
+    TextMeshPro pointSystem = null;
 
     public override void Initialise() {
 
@@ -25,11 +25,16 @@ public class UITextController : InitialisedEntity
 
     public void ChangeTextStatus(bool value) {
 
-        livesText.enabled = value;
+        pointSystem.enabled = value;
     }
 
     public void GainPoints(float value) {
         int rounded = (int)value;
         pointSystem.text = "Score: " + rounded.ToString();
+    }
+
+    public void ChangeTextColor(Color color) {
+
+        pointSystem.color = color;
     }
 }

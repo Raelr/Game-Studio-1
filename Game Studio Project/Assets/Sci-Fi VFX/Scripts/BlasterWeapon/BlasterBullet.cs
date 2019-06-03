@@ -14,7 +14,7 @@ namespace Assets.Scripts.BlasterWeapon
 		[HideInInspector]
 		public bool DestroyOnCollision = true;
 
-		public GameObject ImpactEffect;
+		public GameObject ImpactEffect = null;
 
 		private Transform _transform;
 		private bool _isCollisionDetected;

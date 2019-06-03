@@ -6,7 +6,7 @@ using TMPro;
 public class UISpeed : InitialisedEntity
 {
     [SerializeField]
-    private TextMeshPro speedText;
+    private TextMeshPro speedText = null;
 
     private float speed;
 
@@ -22,7 +22,7 @@ public class UISpeed : InitialisedEntity
         speedText.text = "Speed Km/h: " + speed.ToString("F0");
     }
 
-    public void ChangeTextStatus(bool value) {
+    public void ChangeTextStatus(bool value) { 
 
         speedText.enabled = value;
     }

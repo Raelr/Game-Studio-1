@@ -5,13 +5,13 @@ namespace Assets.Scripts.BlasterWeapon
 {
 	internal sealed class BlasterWeapon : MonoBehaviour
 	{
-		public GameObject Bullet;
-		public ParticleSystem MuzzleFlashPs;
-		public ManualLightBehavior ManualLightBehavior;
+		public GameObject Bullet = null;
+		public ParticleSystem MuzzleFlashPs = null;
+		public ManualLightBehavior ManualLightBehavior = null;
 		public float BulletSpeed = 1;
 		public float LifeTime = 2f;
 		public float LifeTimeAfterCollision = 1f;
-		public float Duration;
+		public float Duration = 0;
 		public bool DestroyOnCollision = true;
 
 

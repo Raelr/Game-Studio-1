@@ -4,18 +4,18 @@ namespace Assets.Scripts.BeamWeapon
 {
     internal sealed class BeamWeapon : MonoBehaviour
     {
-        public GameObject Beam;
-        public GameObject ImpactSparks;
-        public GameObject ImpactFlash;
+        public GameObject Beam = null;
+        public GameObject ImpactSparks = null;
+        public GameObject ImpactFlash = null;
         public AnimationCurve WidthOverTime = AnimationCurve.Linear(0, 1, 1, 1);
 
         public float MaxDistance = 1000;
         public LayerMask LayerMask = ~0;
 
-        private LineRenderer _lineRenderer;
-        private GameObject _laserBeam;
-        private GameObject _impactFlash;
-        private GameObject _impactSparks;
+        private LineRenderer _lineRenderer = null;
+        private GameObject _laserBeam = null;
+        private GameObject _impactFlash = null;
+        private GameObject _impactSparks = null;
         private float _colorAnimationStartTime;
 
         private void Start()

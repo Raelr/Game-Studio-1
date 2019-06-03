@@ -6,9 +6,9 @@ using TMPro;
 public class UITime : InitialisedEntity
 {
     [SerializeField]
-    private TextMeshPro timeText;
+    private TextMeshPro timeText = null;
     
-    private float time;
+    private float time = 0;
 
     public override void Initialise() {
         

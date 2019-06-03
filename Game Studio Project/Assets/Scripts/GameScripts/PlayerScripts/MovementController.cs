@@ -157,6 +157,9 @@ namespace AlternativeArchitecture {
 
         public void MultiplyPoints(Vector2 input) {
             pointMultiplier += 0.1f * Time.deltaTime;
+
+            points += 5 * Time.deltaTime * pointMultiplier;
+            UIMaster.instance.UpdatePoints(points);
         }
 
         public void RotateEntity(Vector2 input) {
@@ -204,6 +207,7 @@ namespace AlternativeArchitecture {
                 //Debug.Log("Near Miss: " + points);
             }
             if (isRetreating) {
+                pointMultiplier += 2;
                 points += (500 * pointMultiplier);
                 UIMaster.instance.UpdatePoints(points);
                 //Debug.Log("Dash Combo: " + points);

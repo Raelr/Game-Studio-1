@@ -25,6 +25,8 @@ public class Monster : MonoBehaviour
 
     public float timeMultiplier = 1.2f;
 
+    private bool closeToDeath = false, veryCloseToDeath = false;
+
     private void Start()
     {
         for (int rotation = 0; rotation < 360; rotation += tentacleInterval)
@@ -93,6 +95,32 @@ public class Monster : MonoBehaviour
             MonsterShow();
         }
 
+        if (reveal > 0.8f && !veryCloseToDeath)
+        {
+            HapticEngine.instance.Vibrate(HapticEffect.APPROACH_DEATH_CLOSE);
+            veryCloseToDeath = true;
+        }
+        else if (reveal < 0.8f && veryCloseToDeath)
+        {
+            HapticEngine.instance.Vibrate(HapticEffect.APPROACH_DEATH);
+            veryCloseToDeath = false;
+        }
+
+        if (reveal > 0.7f && !closeToDeath)
+        {
+            HapticEngine.instance.Vibrate(HapticEffect.APPROACH_DEATH);
+            closeToDeath = true;
+        }
+        else if (reveal < 0.7f && closeToDeath)
+        {
+            HapticEngine.instance.Vibrate(HapticEffect.ESCAPE_DEATH);
+            closeToDeath = false;
+        }
+
+        if (reveal > 0.99f * timeMultiplier)
+        {
+            HapticEngine.instance.Vibrate(HapticEffect.ESCAPE_DEATH);
+        }
 
         foreach (TentacleData data in tentacles)
         {

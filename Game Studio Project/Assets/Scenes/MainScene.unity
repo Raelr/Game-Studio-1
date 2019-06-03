@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.012925933, g: 0.0492173, b: 0.00038743968, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -9090,6 +9090,7 @@ GameObject:
   - component: {fileID: 1921487159}
   - component: {fileID: 1921487158}
   - component: {fileID: 1921487160}
+  - component: {fileID: 1921487161}
   m_Layer: 0
   m_Name: '[MasterV2]'
   m_TagString: GameController
@@ -9526,6 +9527,49 @@ MonoBehaviour:
   targetCol: {r: 0, g: 0, b: 0, a: 0}
   lerpSmooth: 5
   skyBoxRender: {fileID: 147978932}
+--- !u!114 &1921487161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1921487152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 606e99dd18ba5b448b778e85f6ba0245, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  effectSettings:
+  - effect: 0
+    isEnabled: 1
+    delay: 0
+    length: 0.4
+    strength: 0.3
+  - effect: 1
+    isEnabled: 1
+    delay: 0
+    length: 0.5
+    strength: 0.7
+  - effect: 2
+    isEnabled: 1
+    delay: 0.1
+    length: 0.4
+    strength: 1
+  - effect: 3
+    isEnabled: 1
+    delay: 0
+    length: 999
+    strength: 0.2
+  - effect: 4
+    isEnabled: 1
+    delay: 0
+    length: 0.1
+    strength: 0
+  - effect: 5
+    isEnabled: 1
+    delay: 0.1
+    length: 999
+    strength: 1
 --- !u!1 &1991702796
 GameObject:
   m_ObjectHideFlags: 0

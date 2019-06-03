@@ -14,11 +14,13 @@ public class NeonSmash : MonoBehaviour
 
         if (col.gameObject.tag.Equals("BoostAuto")) {
 
+            HapticEngine.instance.Vibrate(HapticEffect.NEON_BOOST);
 
-        GameObject particles = Instantiate(neonSmashParticle, transform);
-        particles.transform.position = transform.position;
-        particles.GetComponent<ParticleSystem>().Emit(particleExplodeCount);
-        GameObject.Destroy(particles, 0.4f);
+
+            GameObject particles = Instantiate(neonSmashParticle, transform);
+            particles.transform.position = transform.position;
+            particles.GetComponent<ParticleSystem>().Emit(particleExplodeCount);
+            GameObject.Destroy(particles, 0.4f);
 
         }
 

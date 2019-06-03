@@ -23,6 +23,7 @@ public class PlayerSensor : InitialisedEntity
 
         if (collision.transform.tag == "Obstacle")
         {
+            HapticEngine.instance.Vibrate(HapticEffect.HIT);
             hasCollided = true;
             onCollision?.Invoke();
         }

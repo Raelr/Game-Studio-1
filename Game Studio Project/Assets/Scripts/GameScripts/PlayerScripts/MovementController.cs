@@ -204,6 +204,8 @@ namespace AlternativeArchitecture {
         }
 
         private IEnumerator InputPrompt(string prompt) {
+
+
             //Debug.Log("ring: " + prompt);
             stepRotation = 1;
             dashAudio.clip = dashClips[0];
@@ -225,7 +227,13 @@ namespace AlternativeArchitecture {
 
                 speedBoost += 1 * Time.deltaTime;
                 if (Input.GetButtonDown("Fire1") && elapsedTime > 0.5f || prompt == "auto") {
-                    
+
+                    if (prompt == "ask")
+                    {
+                        HapticEngine.instance.Vibrate(HapticEffect.DASH_FIRE);
+                    }
+
+
                     dashAudio.clip = dashClips[1];
                     dashAudio.pitch = UnityEngine.Random.Range(dashPitchMin, dashPitchMax);
                     dashAudio.volume = dashBurstVolume;

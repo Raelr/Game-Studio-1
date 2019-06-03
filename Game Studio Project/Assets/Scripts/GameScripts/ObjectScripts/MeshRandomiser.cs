@@ -7,7 +7,7 @@ public class MeshRandomiser : MonoBehaviour
     public List<Mesh> meshes;
 
     public MeshFilter filter;
-    public MeshCollider collider;
+    public MeshCollider meshCollider;
 
     private void Start()
     {
@@ -16,8 +16,8 @@ public class MeshRandomiser : MonoBehaviour
         if (filter)
             filter.mesh = chosenMesh;
 
-        if (collider)
-            collider.sharedMesh = chosenMesh;
+        if (meshCollider)
+            meshCollider.sharedMesh = chosenMesh;
 
 
 

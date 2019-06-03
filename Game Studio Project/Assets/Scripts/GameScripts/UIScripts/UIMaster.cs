@@ -15,10 +15,6 @@ public class UIMaster : Master
 
     public Color LevelColor { set { levelColor = value; colorChanged?.Invoke(levelColor); } }
 
-    [Header("Time text")]
-    [SerializeField]
-    UITime time;
-
     [Header("Menu Manager")]
     [SerializeField]
     MenuManager menuManager;
@@ -34,9 +30,6 @@ public class UIMaster : Master
     [Header("Text Controller")]
     [SerializeField]
     UITextController textController;
-
-    [SerializeField]
-    Color[] UIColors;
 
     public delegate void UpdateEventHandler();
 
@@ -72,17 +65,13 @@ public class UIMaster : Master
 
         instance = this;
 
-        onUpdateEvent += time.IncrementTime;
-
-        onUIStatusChange += time.ChangeTextStatus;
-
         onUIStatusChange += insanityMeter.ChangeMeterStatus;
 
         onMeterChange += insanityMeter.IncrementMeter;
 
-        colorChanged += time.ChangeTextColor;
-
         colorChanged += insanityMeter.ChangeMeterColor;
+
+        colorChanged += textController.ChangeTextColor;
 
         InitialiseAll();
     }
@@ -113,8 +102,6 @@ public class UIMaster : Master
     public override void InitialiseAll() {
 
         base.InitialiseAll();
-
-        time.Initialise();
 
         menuManager.Initialise();
 
@@ -150,8 +137,6 @@ public class UIMaster : Master
     public override void SetUpReferences() {
 
         base.SetUpReferences();
-
-        time = GetComponent<UITime>();
 
         menuManager = GetComponent<MenuManager>();
 

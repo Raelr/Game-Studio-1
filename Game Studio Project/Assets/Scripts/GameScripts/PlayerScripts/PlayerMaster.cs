@@ -30,7 +30,7 @@ namespace AlternativeArchitecture {
 
         [Header("Temp")]
         [SerializeField]
-        GameObject impactParticlePrefab;
+        GameObject impactParticlePrefab = null;
 
         [Header("Temp2")]
         [SerializeField]

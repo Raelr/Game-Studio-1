@@ -242,7 +242,6 @@ namespace AlternativeArchitecture {
             float time = 2f;
             float speedBoost = 0;
             bool successfulDash = false;
-            bool hasPromptPlayed = false;
 
             while (elapsedTime < time) {
 

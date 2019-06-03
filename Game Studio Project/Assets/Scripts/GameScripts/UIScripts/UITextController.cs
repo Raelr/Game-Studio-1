@@ -32,4 +32,9 @@ public class UITextController : InitialisedEntity
         int rounded = (int)value;
         pointSystem.text = "Score: " + rounded.ToString();
     }
+
+    public void ChangeTextColor(Color color) {
+
+        pointSystem.color = color;
+    }
 }

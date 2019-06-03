@@ -6,7 +6,7 @@ namespace Assets.Scripts.Utils
 	internal sealed class ManualLightBehavior : MonoBehaviour
 	{
 		public AnimationCurve LightCurve;
-		public float GraphScaleX, GraphScaleY;
+		public float GraphScaleX, GraphScaleY = 0;
 
 		private bool _isLightAnimationStarted;
 		private float _startTime;

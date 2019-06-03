@@ -61,7 +61,7 @@ public class MenuManager : InitialisedEntity
 
     [Header("Loading panel Colors")]
     [SerializeField]
-    Color loaded;
+    Color loaded = Color.white;
 
     [SerializeField]
     Color loading;

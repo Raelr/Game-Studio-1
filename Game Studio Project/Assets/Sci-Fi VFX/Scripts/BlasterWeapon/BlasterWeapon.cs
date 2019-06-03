@@ -7,7 +7,7 @@ namespace Assets.Scripts.BlasterWeapon
 	{
 		public GameObject Bullet;
 		public ParticleSystem MuzzleFlashPs;
-		public ManualLightBehavior ManualLightBehavior;
+		public ManualLightBehavior ManualLightBehavior = null;
 		public float BulletSpeed = 1;
 		public float LifeTime = 2f;
 		public float LifeTimeAfterCollision = 1f;

@@ -146,7 +146,7 @@ namespace AlternativeArchitecture
 
         IEnumerator GrowObstacle(float length) {
 
-            SetObstacleSize(0);
+            SetObstacleSize(0.01f);
 
             yield return new WaitForSeconds(0.1f);
 
@@ -155,7 +155,7 @@ namespace AlternativeArchitecture
 
             while (timeElapsed < length)
             {
-                SetObstacleSize(maxSize * (timeElapsed / length));
+                SetObstacleSize((maxSize * (timeElapsed / length))+0.01f);
                 timeElapsed += Time.deltaTime;
                 yield return null;
             }

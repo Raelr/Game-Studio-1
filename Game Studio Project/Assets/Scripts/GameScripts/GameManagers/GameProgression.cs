@@ -144,9 +144,7 @@ namespace AlternativeArchitecture
             GameObject newObstacle = spawner.SpawnObject(objectToSpawn);
 
             if (newObstacle.isNull()) return;
-            newObstacle.transform.localScale = Vector3.zero;
-
-            newObstacle.transform.localScale = Vector3.zero;
+            newObstacle.transform.localScale = new Vector3(0.01f, 0.01f, 0.01f);
 
             Obstacle obstacleScript = newObstacle.GetComponent<Obstacle>();
             obstacleScript.Setup(GamePooler.instance,

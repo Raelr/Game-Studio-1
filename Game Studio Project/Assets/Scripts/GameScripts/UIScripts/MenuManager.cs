@@ -70,11 +70,15 @@ public class MenuManager : InitialisedEntity
 
     Coroutine fadeOnceRoutine;
 
+    Coroutine optionsFadeRoutine;
+
     Resolution[] resolutions;
 
     PlayerSettings currentSettings;
 
     bool isFading = false;
+
+    bool optionsDisplayed = false;
 
     public override void Initialise()
     {
@@ -278,12 +282,23 @@ public class MenuManager : InitialisedEntity
 
     public void FadeInOptionsMenu() {
 
-        CanvasGroup group = optionsPanel.GetComponent<CanvasGroup>();
-        optionsPanel.gameObject.SetActive(true);
-        float desiredAlpha = 1f;
-        group.alpha = 0f;
+        if (!optionsDisplayed)
+        {
+            if (!isFading)
+            {
+                CanvasGroup group = optionsPanel.GetComponent<CanvasGroup>();
+                optionsPanel.gameObject.SetActive(true);
+                float desiredAlpha = 1f;
+                group.alpha = 0f;
 
-        StartCoroutine(FadeInPanel(optionsPanel, desiredAlpha, group));
+                if (optionsFadeRoutine != null)
+                {
+                    StopCoroutine(optionsFadeRoutine);
+                }
+
+                optionsFadeRoutine = StartCoroutine(FadeInPanel(optionsPanel, desiredAlpha, group));
+            }
+        }
     }
 
     public void FadeOutOptions() {
@@ -308,10 +323,14 @@ public class MenuManager : InitialisedEntity
             yield return new WaitForSeconds(0.05f);
         }
 
+        optionsDisplayed = false;
+
         optionsPanel.gameObject.SetActive(false);
     }
 
     IEnumerator FadeInPanel(Image panel, float desiredAlpha, CanvasGroup group) {
+
+        isFading = true;
 
         for (float f = 0f; f <= desiredAlpha; f += 0.1f) {
             float newAlpha = group.alpha;
@@ -319,6 +338,10 @@ public class MenuManager : InitialisedEntity
             group.alpha = newAlpha;
             yield return new WaitForSeconds(0.05f);
         }
+
+        isFading = false;
+
+        optionsDisplayed = true;
     }
 
     IEnumerator Fade(bool fadingIn = false)

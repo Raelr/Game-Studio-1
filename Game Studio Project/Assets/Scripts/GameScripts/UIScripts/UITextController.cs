@@ -45,6 +45,7 @@ public class UITextController : InitialisedEntity
     public void GainPoints(float value) {
         int rounded = (int)value;
         pointSystem.text = "Score: " + rounded.ToString();
+        HighScoreUI.instance.SetScore((int)value);
     }
 
     public void ChangeTextColor(Color color) {

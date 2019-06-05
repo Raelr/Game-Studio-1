@@ -305,14 +305,17 @@ public class MenuManager : InitialisedEntity
 
         if (optionsDisplayed)
         {
-            CanvasGroup group = optionsPanel.GetComponent<CanvasGroup>();
-            float desiredAlpha = 0f;
-
-            if (optionsFadeRoutine != null)
+            if (!isFading)
             {
-                StopCoroutine(optionsFadeRoutine);
+                CanvasGroup group = optionsPanel.GetComponent<CanvasGroup>();
+                float desiredAlpha = 0f;
+
+                if (optionsFadeRoutine != null)
+                {
+                    StopCoroutine(optionsFadeRoutine);
+                }
+                optionsFadeRoutine = StartCoroutine(FadeOutPanel(optionsPanel, desiredAlpha, group));
             }
-           optionsFadeRoutine = StartCoroutine(FadeOutPanel(optionsPanel, desiredAlpha, group));
         }
     }
 
@@ -323,6 +326,8 @@ public class MenuManager : InitialisedEntity
 
     IEnumerator FadeOutPanel(Image panel, float desiredAlpha, CanvasGroup group) {
 
+        isFading = true;
+
         for (float f = 1f; f >= desiredAlpha; f -= 0.1f) {
             float newAlpha = group.alpha;
             newAlpha = f;
@@ -330,9 +335,13 @@ public class MenuManager : InitialisedEntity
             yield return new WaitForSeconds(0.05f);
         }
 
+        isFading = false;
+
         optionsDisplayed = false;
 
         optionsPanel.gameObject.SetActive(false);
+
+        optionsFadeRoutine = null;
     }
 
     IEnumerator FadeInPanel(Image panel, float desiredAlpha, CanvasGroup group) {

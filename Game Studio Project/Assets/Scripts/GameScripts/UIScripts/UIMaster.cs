@@ -59,6 +59,10 @@ public class UIMaster : Master
 
     public event UIColorChangeHandler colorChanged;
 
+    public delegate void UIResetHandler();
+
+    public event UIResetHandler onReset;
+
     private void Awake() {
 
         SetUpReferences();
@@ -74,6 +78,8 @@ public class UIMaster : Master
         colorChanged += textController.ChangeTextColor;
 
         onUIStatusChange += textController.ChangeTextStatus;
+
+        onReset += menuManager.RestartAfterFade;
 
         InitialiseAll();
     }
@@ -158,4 +164,8 @@ public class UIMaster : Master
         textController.GainPoints(value);
     }
 
+    public void ResetGame()
+    {
+        onReset?.Invoke();
+    }
 }

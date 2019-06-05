@@ -34,6 +34,8 @@ namespace AlternativeArchitecture {
 
         public event EscapeKeyPressedHandler onEscapeKeyPressed;
 
+        public float spaceHeldCount;
+
         // Sets up all references and sets up the components.
         private void Awake() {
 
@@ -52,6 +54,8 @@ namespace AlternativeArchitecture {
             onEscapeKeyPressed += UIMaster.instance.ShowMainMenu;
 
             GameStarted = PlayerPrefs.GetInt("Reset") == 1;
+
+            spaceHeldCount = 0;
 
             SetUpReferences();
         }
@@ -78,6 +82,15 @@ namespace AlternativeArchitecture {
             
             if (gameStarted) {
                 onUpdateEvent?.Invoke();
+
+                if (Input.GetKey(KeyCode.Escape))
+                {
+                    IncrementSpaceCounter();
+
+                } else if (Input.GetKeyUp(KeyCode.Escape))
+                {
+                    spaceHeldCount = 0;
+                }
             }
 
             if (Input.GetKeyDown(KeyCode.Escape)) {
@@ -85,6 +98,12 @@ namespace AlternativeArchitecture {
                     onEscapeKeyPressed?.Invoke();
                 }
             }
+        }
+
+        public override void EscapeEvent()
+        {
+            base.EscapeEvent();
+            onEscapeKeyPressed?.Invoke();
         }
 
         public void StartGame() {
@@ -145,6 +164,16 @@ namespace AlternativeArchitecture {
             GameStarted = false;
             onPlayerLost?.Invoke();
             PauseGame();
+        }
+
+        public void IncrementSpaceCounter()
+        {
+            spaceHeldCount += Time.deltaTime;
+
+            if (spaceHeldCount >= 1)
+            {
+                UIMaster.instance.ResetGame();
+            }
         }
     }
 }

@@ -366,8 +366,6 @@ public class MenuManager : InitialisedEntity
     {
         isFading = true;
 
-        //Time.timeScale = 1f;
-
         Color desiredColor = fadingIn ? loaded : loading;
 
         float target = desiredColor.a;
@@ -428,7 +426,6 @@ public class MenuManager : InitialisedEntity
                 StopCoroutine(fadeOnceRoutine);
                 fadeOnceRoutine = StartCoroutine(Fade(true));
             }
-
             fadeOnceRoutine = StartCoroutine(Fade(true));
         }
     }

@@ -20,6 +20,7 @@ public class UITextController : InitialisedEntity
 
     public void UpdateText(string description, int value) {
 
+        if (livesText == null) return;
         livesText.text = description + value;
     }
 

@@ -190,11 +190,14 @@ public class UIMaster : Master
     {
         if (currentProgression == ProgressionMode.SLOW)
         {
-            PlayerPrefs.SetString("normal", textController.GetTextValue());
+            if (int.Parse(PlayerPrefs.GetString("normal")) < int.Parse(textController.GetTextValue()))
+                PlayerPrefs.SetString("normal", textController.GetTextValue());
         }
-        else
+
+        if (currentProgression == ProgressionMode.FAST)
         {
-            PlayerPrefs.SetString("rush", textController.GetTextValue());
+            if (int.Parse(PlayerPrefs.GetString("normal")) < int.Parse(textController.GetTextValue()))
+                PlayerPrefs.SetString("rush", textController.GetTextValue());
         }
     }
 
@@ -203,7 +206,6 @@ public class UIMaster : Master
         if (PlayerPrefs.HasKey("normal"))
         {
             normalScore.UpdateText(PlayerPrefs.GetString("normal"));
-            Debug.Log(PlayerPrefs.GetString("normal"));
         }
         else
         {
@@ -213,7 +215,6 @@ public class UIMaster : Master
         if (PlayerPrefs.HasKey("rush"))
         {
             rushScore.UpdateText(PlayerPrefs.GetString("rush"));
-            Debug.Log(PlayerPrefs.GetString("rush"));
         }
         else
         {

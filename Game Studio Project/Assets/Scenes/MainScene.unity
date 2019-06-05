@@ -4283,7 +4283,7 @@ MonoBehaviour:
   menuManager: {fileID: 0}
   insanityMeter: {fileID: 0}
   camEffects: {fileID: 1916932587}
-  textController: {fileID: 0}
+  textController: {fileID: 826490706}
   normalScore: {fileID: 826490711}
   rushScore: {fileID: 826490708}
 --- !u!114 &826490708

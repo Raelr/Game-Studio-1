@@ -20,6 +20,10 @@ public class HighScoreUI : MonoBehaviour
 
     public Color winCol;
 
+    public Animator highScoreAnim;
+
+    public AudioSource newHighScoreSound;
+
     void Start()
     {
         instance = this;
@@ -93,6 +97,17 @@ public class HighScoreUI : MonoBehaviour
         highScoreText.color = winCol;
         barRenderer.material.color = winCol;
         highScoreText.text = "New High\nScore!";
+
+        newHighScoreSound.Play();
+
+        highScoreAnim.SetBool("PlayAnim", true);
+        StartCoroutine(TurnOffAnim());
+    }
+
+    IEnumerator TurnOffAnim ()
+    {
+        yield return new WaitForSeconds(0.5f);
+        highScoreAnim.SetBool("PlayAnim", false);
     }
 
 

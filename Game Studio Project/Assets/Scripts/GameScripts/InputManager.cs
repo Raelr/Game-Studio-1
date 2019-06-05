@@ -10,10 +10,20 @@ public class InputManager : MonoBehaviour
     [SerializeField]
     Master master;
 
+
+        private bool invertY = false;
+
 	// Find master.
 	private void Awake() {
 
         master = GetComponent<Master>();
+
+            if (PlayerPrefs.HasKey("INVERT_Y")) {
+                invertY = true;
+            }
+            else {
+                invertY = false;
+            }
     }
 
     private void Update() {
@@ -24,6 +34,21 @@ public class InputManager : MonoBehaviour
     private void FixedUpdate() {
         GetMouseInput();
 		SetAxisMovment();
+
+        if (Input.GetKeyDown(KeyCode.Y)) {
+            ToggleInvertY();
+        }
+    }
+
+    private void ToggleInvertY () {
+        invertY = !invertY;
+        
+        if (invertY) {
+            PlayerPrefs.SetInt("INVERT_Y", 1);
+        }
+        else {
+            PlayerPrefs.DeleteKey("INVERT_Y");
+        }
     }
 
     // Listens for input.
@@ -85,9 +110,10 @@ public class InputManager : MonoBehaviour
 
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
+
+        Vector2 flightVector = new Vector2(horizontalInput + horizontalJoy, verticalInput + verticalJoy);
         
-        
-        master?.RotateEntity(new Vector2(horizontalInput + horizontalJoy, verticalInput + verticalJoy));
+        master?.RotateEntity(new Vector2(flightVector.x, flightVector.y * (invertY ? -1 : 1)));
 	}
 
 	// Gets the mouse position and returns its screen point.

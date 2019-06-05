@@ -31,6 +31,13 @@ public class UIMaster : Master
     [SerializeField]
     UITextController textController = null;
 
+    [Header("Score")]
+    [SerializeField]
+    UITextController normalScore = null;
+
+    [SerializeField]
+    UITextController rushScore = null;
+
     public delegate void UpdateEventHandler();
 
     public UpdateEventHandler onUpdateEvent;
@@ -167,5 +174,11 @@ public class UIMaster : Master
     public void ResetGame()
     {
         onReset?.Invoke();
+    }
+
+    public void LoadScoreInformation(float normal, float rush)
+    {
+        normalScore.UpdateText(normal.ToString());
+        rushScore.UpdateText(rush.ToString());
     }
 }

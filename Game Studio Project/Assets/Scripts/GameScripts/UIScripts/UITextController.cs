@@ -18,10 +18,17 @@ public class UITextController : InitialisedEntity
 
     }
 
-    public void UpdateText(string description, int value) {
+    public void UpdateText(string description, int value = -1) {
 
         if (livesText == null) return;
-        livesText.text = description + value;
+
+        if (value != -1)
+        {
+            livesText.text = description + value;
+        } else
+        {
+            livesText.text = description;
+        }
     }
 
     public void ChangeTextStatus(bool value) {

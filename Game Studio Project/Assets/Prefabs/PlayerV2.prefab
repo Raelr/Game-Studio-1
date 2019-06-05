@@ -68,7 +68,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementController: {fileID: 0}
   particles: {fileID: 0}
-  projectiles: {fileID: 0}
   playerProperties: {fileID: 0}
   sounds: {fileID: 0}
   impactParticlePrefab: {fileID: 1020723920364500725, guid: 499b984524ac0444088417f0a8b1f3cf,
@@ -190,7 +189,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 0
   timeMultiplier: 1
-  sanityDodgeIncrease: 7.5
+  sanityDodgeIncrease: 6.5
 --- !u!82 &7333845905535886820
 AudioSource:
   m_ObjectHideFlags: 0

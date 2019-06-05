@@ -303,10 +303,17 @@ public class MenuManager : InitialisedEntity
 
     public void FadeOutOptions() {
 
-        CanvasGroup group = optionsPanel.GetComponent<CanvasGroup>();
-        float desiredAlpha = 0f;
+        if (optionsDisplayed)
+        {
+            CanvasGroup group = optionsPanel.GetComponent<CanvasGroup>();
+            float desiredAlpha = 0f;
 
-        StartCoroutine(FadeOutPanel(optionsPanel, desiredAlpha, group));
+            if (optionsFadeRoutine != null)
+            {
+                StopCoroutine(optionsFadeRoutine);
+            }
+           optionsFadeRoutine = StartCoroutine(FadeOutPanel(optionsPanel, desiredAlpha, group));
+        }
     }
 
     IEnumerator WaitForFrame() {
@@ -342,6 +349,8 @@ public class MenuManager : InitialisedEntity
         isFading = false;
 
         optionsDisplayed = true;
+
+        optionsFadeRoutine = null;
     }
 
     IEnumerator Fade(bool fadingIn = false)

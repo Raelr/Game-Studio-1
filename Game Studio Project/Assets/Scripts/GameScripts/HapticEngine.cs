@@ -29,10 +29,20 @@ public class HapticEngine : MonoBehaviour
 
     public bool finalMode = false;
 
+    private bool useHaptics = true;
+
     private void Start()
     {
+        if (Application.platform == RuntimePlatform.OSXEditor || Application.platform == RuntimePlatform.OSXPlayer)
+            SetHaptic(false);
+
         instance = this;
         V(0);
+    }
+
+    public void SetHaptic (bool mode)
+    {
+        useHaptics = mode;
     }
 
     public void Vibrate (HapticEffect effect)
@@ -89,6 +99,7 @@ public class HapticEngine : MonoBehaviour
     
     private void V (float strength)
     {
+        if (!useHaptics) return;
         for (int playerID = 0; playerID < 4; playerID++)
         {
             GamePad.SetVibration((PlayerIndex)((int)playerID), strength, strength);

@@ -9,6 +9,8 @@ public class UITextController : InitialisedEntity
     TextMeshPro livesText = null;
     [SerializeField]
     TextMeshPro pointSystem = null;
+    [SerializeField]
+    TextMeshProUGUI score = null;
 
     public override void Initialise() {
 
@@ -20,15 +22,19 @@ public class UITextController : InitialisedEntity
 
     public void UpdateText(string description, int value = -1) {
 
-        if (livesText == null) return;
-
-        if (value != -1)
+        if (value != -1 && livesText != null)
         {
             livesText.text = description + value;
         } else
         {
-            livesText.text = description;
+            score.text = description;
         }
+    }
+
+    public string GetTextValue()
+    {
+        string[] score = pointSystem?.text.Split(' ');
+        return score[1];
     }
 
     public void ChangeTextStatus(bool value) {

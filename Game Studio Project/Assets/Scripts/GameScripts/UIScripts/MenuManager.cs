@@ -10,7 +10,6 @@ using System;
 
 public class MenuManager : InitialisedEntity
 {
-
     struct PlayerSettings
     {
         public float volume;
@@ -75,6 +74,10 @@ public class MenuManager : InitialisedEntity
     Resolution[] resolutions;
 
     PlayerSettings currentSettings;
+
+    public delegate void OnGameReset();
+
+    public event OnGameReset onReset;
 
     bool isFading = false;
 
@@ -268,6 +271,7 @@ public class MenuManager : InitialisedEntity
     {
         if (!isFading)
         {
+            onReset?.Invoke();
             RunLoadSequence(null, Reset);
         }
     }
@@ -276,6 +280,7 @@ public class MenuManager : InitialisedEntity
     {
         if (!isFading)
         {
+            onReset?.Invoke();
             RunLoadSequence(null, RestartLevel, true);
         }
     }

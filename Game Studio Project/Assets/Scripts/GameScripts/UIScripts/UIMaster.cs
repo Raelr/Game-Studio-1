@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using AlternativeArchitecture;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -37,6 +38,8 @@ public class UIMaster : Master
 
     [SerializeField]
     UITextController rushScore = null;
+
+    ProgressionMode currentProgression;
 
     public delegate void UpdateEventHandler();
 
@@ -87,6 +90,8 @@ public class UIMaster : Master
         onUIStatusChange += textController.ChangeTextStatus;
 
         onReset += menuManager.RestartAfterFade;
+
+        menuManager.onReset += SaveScore;
 
         InitialiseAll();
     }
@@ -176,9 +181,43 @@ public class UIMaster : Master
         onReset?.Invoke();
     }
 
-    public void LoadScoreInformation(float normal, float rush)
+    public void SetCurrentProgression(ProgressionMode mode)
     {
-        normalScore.UpdateText(normal.ToString());
-        rushScore.UpdateText(rush.ToString());
+        currentProgression = mode;
+    }
+
+    public void SaveScore()
+    {
+        if (currentProgression == ProgressionMode.SLOW)
+        {
+            PlayerPrefs.SetString("normal", textController.GetTextValue());
+        }
+        else
+        {
+            PlayerPrefs.SetString("rush", textController.GetTextValue());
+        }
+    }
+
+    public void LoadInScores()
+    {
+        if (PlayerPrefs.HasKey("normal"))
+        {
+            normalScore.UpdateText(PlayerPrefs.GetString("normal"));
+            Debug.Log(PlayerPrefs.GetString("normal"));
+        }
+        else
+        {
+            normalScore.UpdateText("00000000");
+        }
+
+        if (PlayerPrefs.HasKey("rush"))
+        {
+            rushScore.UpdateText(PlayerPrefs.GetString("rush"));
+            Debug.Log(PlayerPrefs.GetString("rush"));
+        }
+        else
+        {
+            rushScore.UpdateText("00000000");
+        }
     }
 }

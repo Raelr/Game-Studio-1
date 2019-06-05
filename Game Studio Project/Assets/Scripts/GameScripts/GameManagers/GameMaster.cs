@@ -58,6 +58,8 @@ namespace AlternativeArchitecture {
             spaceHeldCount = 0;
 
             SetUpReferences();
+
+            LoadScores();
         }
 
         // Initialises the actual object (only after all others have been set up)
@@ -174,6 +176,11 @@ namespace AlternativeArchitecture {
             {
                 UIMaster.instance.ResetGame();
             }
+        }
+
+        void LoadScores()
+        {
+            UIMaster.instance.LoadInScores();
         }
     }
 }

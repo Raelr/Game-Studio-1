@@ -81,6 +81,8 @@ namespace AlternativeArchitecture
                     PlayerPrefs.SetInt("normal", 0);
                     break;
             }
+
+            UIMaster.instance.SetCurrentProgression(currentMode);
         }
 		
 		public bool isTutorial () {

@@ -61,6 +61,9 @@ namespace AlternativeArchitecture {
 
         private Transform player;
 
+        
+        private bool invertY = false;
+
         // Initialises all variables and gets the physics component.
         public override void Initialise() {
 
@@ -74,6 +77,15 @@ namespace AlternativeArchitecture {
             physics.onCollision += onPlayerCollision;
             physics.onNearMiss += OnPlayerNearMiss;
             physics.onRingHit += OnPlayerRingHit;
+
+            
+
+            if (PlayerPrefs.HasKey("INVERT_Y")) {
+                invertY = true;
+            }
+            else {
+                invertY = false;
+            }
         }
 
         // DEPRECIATED --
@@ -108,7 +120,8 @@ namespace AlternativeArchitecture {
         private float accelerationY = 0.01f;
 
         public void RotateEntity3(Vector2 input) {
-
+            if (invertY)
+                input.y *= -1;
 
 
             rotationX += input.x * Time.deltaTime + (accelerationX * input.x * Time.deltaTime);
@@ -153,6 +166,10 @@ namespace AlternativeArchitecture {
         }
 
         public void RotateEntity(Vector2 input) {
+
+            if (invertY)
+                input.y *= -1;
+
             rotationX += input.x * stepRotation * Time.deltaTime * force * acceleration;
             rotationY += input.y * stepRotation * Time.deltaTime * force * acceleration;
 
@@ -182,6 +199,39 @@ namespace AlternativeArchitecture {
 
             stepRotation = Mathf.Clamp(stepRotation, 0, 10);
         }
+
+        void FixedUpdate () {
+            
+
+        if (Input.GetKeyDown(KeyCode.Y) && allowToggle) {
+            allowToggle = false;
+            ToggleInvertY();
+
+            StartCoroutine(ResetToggle());
+            Debug.Log("!!!");
+        }
+        }
+
+        IEnumerator ResetToggle () {
+            yield return new WaitForSeconds(0.5f);
+            allowToggle = true;
+        }
+
+        private bool allowToggle = true;
+
+
+    private void ToggleInvertY () {
+        Debug.Log("toggled " + gameObject.name);
+
+        invertY = !invertY;
+        
+        if (invertY) {
+            PlayerPrefs.SetInt("INVERT_Y", 1);
+        }
+        else {
+            PlayerPrefs.DeleteKey("INVERT_Y");
+        }
+    }
 
         public void onPlayerCollision() {
             onCollision?.Invoke();

@@ -38,6 +38,7 @@ namespace AlternativeArchitecture {
 
         [Header("Dash Properties")]
         [SerializeField] AudioClip[] dashClips = null;
+        [SerializeField] Renderer dashIcon;
         public float dashPitchMin, dashPitchMax;
         public float dashBuildUpVolume, dashBurstVolume;
 
@@ -72,6 +73,8 @@ namespace AlternativeArchitecture {
             physics = GetComponent<PhysicsController>();
             dashAudio = GetComponent<AudioSource>();
             player = transform.Find("Visuals");
+            dashIcon = player.Find("DashIcon").GetComponent<Renderer>();
+            dashIcon.enabled = false;
             physics.Initialise();
 
             physics.onCollision += onPlayerCollision;
@@ -287,6 +290,10 @@ namespace AlternativeArchitecture {
 
                 elapsedTime += Time.deltaTime;
 
+                if (elapsedTime > 0.5f && !dashIcon.enabled) {
+                    dashIcon.enabled = true;
+                }
+
                 speedBoost += 1 * Time.deltaTime;
                 if (Input.GetButtonDown("Fire1") && elapsedTime > 0.5f || prompt == "auto") {
 
@@ -301,6 +308,7 @@ namespace AlternativeArchitecture {
                     dashAudio.volume = dashBurstVolume;
                     dashAudio.Play();
                     successfulDash = true;
+                    dashIcon.enabled = false;
                     StopCoroutine(Retreat());
                     StopCoroutine(Dash(0));
                     StartCoroutine(Dash(speedBoost));
@@ -317,6 +325,7 @@ namespace AlternativeArchitecture {
 
             if (!successfulDash) {
                 dashAudio.Stop();
+                dashIcon.enabled = false;
                 GamePooler.instance.SetObstacleSpeed(currentSpeed);
                 onTimeChange(1f);
                 stepRotation = 10;

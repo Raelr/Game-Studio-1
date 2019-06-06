@@ -70,7 +70,7 @@ namespace AlternativeArchitecture
             switch (currentMode)
             {
                 case ProgressionMode.SLOW:
-                    levelInterval = 30;
+                    levelInterval = 25;
                     Time.timeScale = 1;
                     PlayerPrefs.SetInt("normalMode", 1);
                     break;

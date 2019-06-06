@@ -12,7 +12,6 @@ public class DirectionIndicator : MonoBehaviour
     void Update()
     {
         Vector3 angle = camTransform.eulerAngles;
-        Debug.Log(angle);
 
         leftDir.SetActive(angle.y > minThreshold && angle.y < maxThreshold);
         rightDir.SetActive(angle.y < 360- minThreshold && angle.y > 360- maxThreshold);

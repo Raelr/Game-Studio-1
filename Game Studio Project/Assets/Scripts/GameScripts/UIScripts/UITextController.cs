@@ -37,6 +37,11 @@ public class UITextController : InitialisedEntity
         return score[1];
     }
 
+    public string GetScoreValue()
+    {
+        return score.text;
+    }
+
     public void ChangeTextStatus(bool value) {
 
         pointSystem.enabled = value;

@@ -103,8 +103,6 @@ public class PlayerProperties : InitialisedEntity
             {
                 currentSanity = Mathf.Clamp(sanity, 0, maxSanity);
 
-                Debug.Log(currentSanity);
-
                 UIMaster.instance.onMeterChange.Invoke(9 - currentSanity, true);
 
                 float normalisedSanity = 1f - (currentSanity / maxSanity);

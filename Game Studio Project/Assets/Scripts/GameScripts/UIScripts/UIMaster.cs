@@ -184,6 +184,8 @@ public class UIMaster : Master
     public void SetCurrentProgression(ProgressionMode mode)
     {
         currentProgression = mode;
+        int score = mode == ProgressionMode.SLOW ? int.Parse(normalScore.GetScoreValue()) : int.Parse(rushScore.GetScoreValue());
+        HighScoreUI.instance.SetHighScore(score);
     }
 
     public void SaveScore()
@@ -196,7 +198,7 @@ public class UIMaster : Master
 
         if (currentProgression == ProgressionMode.FAST)
         {
-            if (int.Parse(PlayerPrefs.GetString("normal")) < int.Parse(textController.GetTextValue()))
+            if (int.Parse(PlayerPrefs.GetString("rush")) < int.Parse(textController.GetTextValue()))
                 PlayerPrefs.SetString("rush", textController.GetTextValue());
         }
     }

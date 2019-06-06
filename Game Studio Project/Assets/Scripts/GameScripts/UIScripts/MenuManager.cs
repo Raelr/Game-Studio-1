@@ -212,7 +212,7 @@ public class MenuManager : InitialisedEntity
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    public void Reset()
+    public void ResetGame()
     {
         PlayerPrefs.SetInt("Reset", 1);
 
@@ -278,7 +278,7 @@ public class MenuManager : InitialisedEntity
         if (!isFading)
         {
             onReset?.Invoke();
-            RunLoadSequence(null, Reset);
+            RunLoadSequence(null, ResetGame);
         }
     }
 

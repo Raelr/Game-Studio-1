@@ -24,9 +24,12 @@ public class HighScoreUI : MonoBehaviour
 
     public AudioSource newHighScoreSound;
 
+    private void Awake() {
+        instance = this;
+    }
+
     void Start()
     {
-        instance = this;
         RefreshDisplay();
     }
 

@@ -36,8 +36,13 @@ namespace AlternativeArchitecture {
 
         public float spaceHeldCount;
 
+        [SerializeField]
+        ParticleSystem particles;
+
         // Sets up all references and sets up the components.
         private void Awake() {
+
+            gameStarted = false;
 
             if (instance == null)
             {
@@ -60,6 +65,8 @@ namespace AlternativeArchitecture {
             SetUpReferences();
 
             LoadScores();
+
+            particles?.Stop();
         }
 
         // Initialises the actual object (only after all others have been set up)
@@ -119,6 +126,8 @@ namespace AlternativeArchitecture {
             InitialiseAll();
 
             PlayerPrefs.SetInt("Reset", 0);
+
+            particles?.Play();
         }
 
         // Initialises variables and sets delegates.

@@ -107,7 +107,7 @@ GameObject:
   - component: {fileID: 3972734140393683440}
   m_Layer: 0
   m_Name: BoostAsteroid1
-  m_TagString: Obstacle
+  m_TagString: ObstacleBoost
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -206,7 +206,6 @@ MonoBehaviour:
   spawns: []
   spacing: 2.5
   force: 200
-  dist: 1000
   dir: {x: 0, y: 0, z: 0}
   randomRotate: 1
   forceMultiplier: 1
@@ -216,6 +215,8 @@ MonoBehaviour:
   useRandomSize: 1
   randomMinSize: 10
   randomMaxSize: 20
+  minDepth: 1500
+  maxDepth: 2000
 --- !u!54 &3972734140393683440
 Rigidbody:
   m_ObjectHideFlags: 0

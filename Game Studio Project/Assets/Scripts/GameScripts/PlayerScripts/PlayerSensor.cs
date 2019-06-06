@@ -18,11 +18,18 @@ public class PlayerSensor : InitialisedEntity
 
     private bool hasCollided;
 
+    public ParticleSystem boostCrashParticle;
+    public int boostCrashParticleCount = 20;
+
     private void OnCollisionEnter(Collision collision)
     {
-
-        if (collision.transform.tag == "Obstacle")
+        string tag = collision.transform.tag;
+        if (tag == "Obstacle" || tag == "ObstacleBoost")
         {
+            if (tag == "ObstacleBoost")
+            {
+                boostCrashParticle.Emit(boostCrashParticleCount);
+            }
             HapticEngine.instance.Vibrate(HapticEffect.HIT);
             hasCollided = true;
             onCollision?.Invoke();
@@ -31,7 +38,8 @@ public class PlayerSensor : InitialisedEntity
         
     }
 
-	private void OnTriggerExit(Collider col) {
+
+    private void OnTriggerExit(Collider col) {
 
         if (col.gameObject.tag.Equals("Boost")) {
             if (!hasCollided) {

@@ -248,6 +248,12 @@ public class MenuManager : InitialisedEntity
         PlayerPrefs.SetInt("fullscreen", isFullScreen == false ? 0 : 1);
     }
 
+    public void ResetScores()
+    {
+        PlayerPrefs.DeleteAll();
+        SceneManager.LoadScene("MainScene");
+    }
+
     public void StartGame()
     {
         if (!isFading)

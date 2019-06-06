@@ -65,6 +65,9 @@ public class MenuManager : InitialisedEntity
     [SerializeField]
     Color loading = Color.white;
 
+    [SerializeField]
+    TextMeshProUGUI newRecord;
+
     Coroutine loadingRoutine;
 
     Coroutine fadeOnceRoutine;
@@ -180,8 +183,9 @@ public class MenuManager : InitialisedEntity
         GlobalMethods.Hide(MainMenuPanel.gameObject);
     }
 
-    public void LoadLoseScreen()
+    public void LoadLoseScreen(bool enabled = false)
     {
+        newRecord.gameObject.SetActive(enabled);
         GlobalMethods.Show(LosePanel.gameObject);
     }
 

@@ -39,6 +39,9 @@ public class UIMaster : Master
     [SerializeField]
     UITextController rushScore = null;
 
+    [SerializeField]
+    UITextController finalScore = null;
+
     ProgressionMode currentProgression;
 
     public delegate void UpdateEventHandler();
@@ -57,7 +60,7 @@ public class UIMaster : Master
 
     public UIChangeHandler onUIStatusChange;
 
-    public delegate void PlayerLostHandler();
+    public delegate void PlayerLostHandler(bool enabled = false);
 
     public PlayerLostHandler onPlayerLost;
 
@@ -150,8 +153,19 @@ public class UIMaster : Master
     public void OnPlayerLost() {
         
         GameStarted = false;
-        
-        onPlayerLost?.Invoke();
+
+        LoadFinalScore();
+    }
+
+    public void LoadFinalScore() {
+
+        finalScore.UpdateText(textController.GetTextValue());
+
+        int finalScoreValue = currentProgression == ProgressionMode.SLOW ? int.Parse(PlayerPrefs.GetString("normal")) : int.Parse(PlayerPrefs.GetString("rush"));
+
+        bool enabled = finalScoreValue < int.Parse(textController.GetTextValue()) ? true : false;
+
+        onPlayerLost?.Invoke(enabled);
     }
 
     public override void SetUpReferences() {

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using AlternativeArchitecture;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -31,6 +32,15 @@ public class UIMaster : Master
     [SerializeField]
     UITextController textController = null;
 
+    [Header("Score")]
+    [SerializeField]
+    UITextController normalScore = null;
+
+    [SerializeField]
+    UITextController rushScore = null;
+
+    ProgressionMode currentProgression;
+
     public delegate void UpdateEventHandler();
 
     public UpdateEventHandler onUpdateEvent;
@@ -59,6 +69,10 @@ public class UIMaster : Master
 
     public event UIColorChangeHandler colorChanged;
 
+    public delegate void UIResetHandler();
+
+    public event UIResetHandler onReset;
+
     private void Awake() {
 
         SetUpReferences();
@@ -74,6 +88,10 @@ public class UIMaster : Master
         colorChanged += textController.ChangeTextColor;
 
         onUIStatusChange += textController.ChangeTextStatus;
+
+        onReset += menuManager.RestartAfterFade;
+
+        menuManager.onReset += SaveScore;
 
         InitialiseAll();
     }
@@ -158,4 +176,51 @@ public class UIMaster : Master
         textController.GainPoints(value);
     }
 
+    public void ResetGame()
+    {
+        onReset?.Invoke();
+    }
+
+    public void SetCurrentProgression(ProgressionMode mode)
+    {
+        currentProgression = mode;
+        int score = mode == ProgressionMode.SLOW ? int.Parse(normalScore.GetScoreValue()) : int.Parse(rushScore.GetScoreValue());
+        HighScoreUI.instance.SetHighScore(score);
+    }
+
+    public void SaveScore()
+    {
+        if (currentProgression == ProgressionMode.SLOW)
+        {
+            if (int.Parse(PlayerPrefs.GetString("normal")) < int.Parse(textController.GetTextValue()))
+                PlayerPrefs.SetString("normal", textController.GetTextValue());
+        }
+
+        if (currentProgression == ProgressionMode.FAST)
+        {
+            if (int.Parse(PlayerPrefs.GetString("rush")) < int.Parse(textController.GetTextValue()))
+                PlayerPrefs.SetString("rush", textController.GetTextValue());
+        }
+    }
+
+    public void LoadInScores()
+    {
+        if (PlayerPrefs.HasKey("normal"))
+        {
+            normalScore.UpdateText(PlayerPrefs.GetString("normal"));
+        }
+        else
+        {
+            normalScore.UpdateText("00000000");
+        }
+
+        if (PlayerPrefs.HasKey("rush"))
+        {
+            rushScore.UpdateText(PlayerPrefs.GetString("rush"));
+        }
+        else
+        {
+            rushScore.UpdateText("00000000");
+        }
+    }
 }

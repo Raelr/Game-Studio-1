@@ -34,6 +34,8 @@ namespace AlternativeArchitecture {
 
         public event EscapeKeyPressedHandler onEscapeKeyPressed;
 
+        public float spaceHeldCount;
+
         // Sets up all references and sets up the components.
         private void Awake() {
 
@@ -53,7 +55,11 @@ namespace AlternativeArchitecture {
 
             GameStarted = PlayerPrefs.GetInt("Reset") == 1;
 
+            spaceHeldCount = 0;
+
             SetUpReferences();
+
+            LoadScores();
         }
 
         // Initialises the actual object (only after all others have been set up)
@@ -63,8 +69,8 @@ namespace AlternativeArchitecture {
 
             if (gameStarted)
             {
-                if (PlayerPrefs.HasKey("normal")) {
-                    progression.SetProgressionMode(PlayerPrefs.GetInt("normal") == 1);
+                if (PlayerPrefs.HasKey("normalMode")) {
+                    progression.SetProgressionMode(PlayerPrefs.GetInt("normalMode") == 1);
                 }
                 StartGame();
             }
@@ -78,6 +84,15 @@ namespace AlternativeArchitecture {
             
             if (gameStarted) {
                 onUpdateEvent?.Invoke();
+
+                if (Input.GetKey(KeyCode.Escape))
+                {
+                    IncrementSpaceCounter();
+
+                } else if (Input.GetKeyUp(KeyCode.Escape))
+                {
+                    spaceHeldCount = 0;
+                }
             }
 
             if (Input.GetKeyDown(KeyCode.Escape)) {
@@ -85,6 +100,12 @@ namespace AlternativeArchitecture {
                     onEscapeKeyPressed?.Invoke();
                 }
             }
+        }
+
+        public override void EscapeEvent()
+        {
+            base.EscapeEvent();
+            onEscapeKeyPressed?.Invoke();
         }
 
         public void StartGame() {
@@ -145,6 +166,21 @@ namespace AlternativeArchitecture {
             GameStarted = false;
             onPlayerLost?.Invoke();
             PauseGame();
+        }
+
+        public void IncrementSpaceCounter()
+        {
+            spaceHeldCount += Time.deltaTime;
+
+            if (spaceHeldCount >= 1)
+            {
+                UIMaster.instance.ResetGame();
+            }
+        }
+
+        void LoadScores()
+        {
+            UIMaster.instance.LoadInScores();
         }
     }
 }

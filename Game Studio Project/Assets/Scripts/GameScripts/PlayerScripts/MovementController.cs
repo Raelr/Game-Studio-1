@@ -322,7 +322,7 @@ namespace AlternativeArchitecture {
                 }
                 yield return null;
             }
-
+            dashIcon.enabled = false;
             if (!successfulDash) {
                 dashAudio.Stop();
                 dashIcon.enabled = false;

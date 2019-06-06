@@ -181,10 +181,11 @@ public class UIMaster : Master
         onReset?.Invoke();
     }
 
+    
     public void SetCurrentProgression(ProgressionMode mode)
     {
         currentProgression = mode;
-        int score = mode == ProgressionMode.SLOW ? int.Parse(normalScore.GetScoreValue()) : int.Parse(rushScore.GetScoreValue());
+        int score = mode == ProgressionMode.SLOW ? int.Parse(PlayerPrefs.GetString("normal")) : int.Parse(PlayerPrefs.GetString("rush"));
         HighScoreUI.instance.SetHighScore(score);
     }
 
@@ -205,29 +206,16 @@ public class UIMaster : Master
 
     public void LoadInScores()
     {
-        if (PlayerPrefs.HasKey("normal"))
+        if (!PlayerPrefs.HasKey("normal"))
         {
-            if (PlayerPrefs.GetString("normal") == "") {
-                PlayerPrefs.SetString("normal", "5000");
-            } 
-
-            normalScore.UpdateText(PlayerPrefs.GetString("normal"));
+            PlayerPrefs.SetString("normal", "5000");
         }
-        else
+        if (!PlayerPrefs.HasKey("rush"))
         {
-            normalScore.UpdateText("00000000");
+            PlayerPrefs.SetString("rush", "5000");
         }
 
-        if (PlayerPrefs.HasKey("rush"))
-        {
-            if (PlayerPrefs.GetString("rush") == "") {
-                PlayerPrefs.SetString("rush", "5000");
-            }
-            rushScore.UpdateText(PlayerPrefs.GetString("rush"));
-        }
-        else
-        {
-            rushScore.UpdateText("00000000");
-        }
+        normalScore.UpdateText(PlayerPrefs.GetString("normal"));
+        rushScore.UpdateText(PlayerPrefs.GetString("rush"));
     }
 }

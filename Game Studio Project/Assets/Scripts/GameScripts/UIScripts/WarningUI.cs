@@ -36,4 +36,7 @@ public class WarningUI : MonoBehaviour
         ind2.enabled = endState;
     }
 
+    public bool IsFlashing() {
+        return flashing;
+    }
 }

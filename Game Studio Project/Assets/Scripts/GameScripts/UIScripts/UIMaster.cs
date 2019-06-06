@@ -207,6 +207,10 @@ public class UIMaster : Master
     {
         if (PlayerPrefs.HasKey("normal"))
         {
+            if (PlayerPrefs.GetString("normal") == "") {
+                PlayerPrefs.SetString("normal", "5000");
+            } 
+
             normalScore.UpdateText(PlayerPrefs.GetString("normal"));
         }
         else
@@ -216,6 +220,9 @@ public class UIMaster : Master
 
         if (PlayerPrefs.HasKey("rush"))
         {
+            if (PlayerPrefs.GetString("rush") == "") {
+                PlayerPrefs.SetString("rush", "5000");
+            }
             rushScore.UpdateText(PlayerPrefs.GetString("rush"));
         }
         else

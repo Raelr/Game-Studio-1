@@ -603,7 +603,7 @@ RectTransform:
   - {fileID: 1912376348}
   - {fileID: 798131647}
   m_Father: {fileID: 1492214907}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -754,8 +754,8 @@ RectTransform:
   m_Father: {fileID: 733834102}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -2023,7 +2023,7 @@ RectTransform:
   m_Children:
   - {fileID: 1043570213}
   m_Father: {fileID: 1492214907}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -11431,7 +11431,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &947103421
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13446,7 +13446,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -14084,10 +14084,10 @@ RectTransform:
   - {fileID: 1908052140}
   - {fileID: 901388976}
   - {fileID: 1077823704}
-  - {fileID: 1634538482}
   - {fileID: 265196850}
-  - {fileID: 75335630}
   - {fileID: 2101680732}
+  - {fileID: 1634538482}
+  - {fileID: 75335630}
   m_Father: {fileID: 121019569}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -14805,7 +14805,7 @@ RectTransform:
   m_Children:
   - {fileID: 1416980288}
   m_Father: {fileID: 1492214907}
-  m_RootOrder: 4
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -17890,7 +17890,7 @@ RectTransform:
   m_Children:
   - {fileID: 2047021243}
   m_Father: {fileID: 1492214907}
-  m_RootOrder: 7
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}

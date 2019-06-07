@@ -176,21 +176,24 @@ public class MenuManager : InitialisedEntity
     public void ShowMainMenu()
     {
         GlobalMethods.Show(MainMenuPanel.gameObject);
+        Cursor.visible = true;
     }
 
     public void HideMainMenu()
     {
         GlobalMethods.Hide(MainMenuPanel.gameObject);
+        Cursor.visible = false;
     }
 
     public void LoadLoseScreen(bool enabled = false)
     {
         newRecord.gameObject.SetActive(enabled);
+        Cursor.visible = true;
         GlobalMethods.Show(LosePanel.gameObject);
     }
 
     public void HideLoseScreen() {
-
+        Cursor.visible = false;
         GlobalMethods.Hide(LosePanel.gameObject);
     }
 

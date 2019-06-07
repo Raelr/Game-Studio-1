@@ -36,10 +36,12 @@ public class PlayerProperties : InitialisedEntity
 
     public event SoundChangedHandler OnSoundChanged;
 
+    private WarningUI warn;
+
     public override void Initialise() {
 
         base.Initialise();
-
+        warn = GameObject.Find("WarningUI").GetComponent<WarningUI>();
         currentSanity = 9f;
     }
 
@@ -60,6 +62,13 @@ public class PlayerProperties : InitialisedEntity
                 CameraEffects.instance.ApplyInsanity(normalisedSanity);
 
                 OnSoundChanged?.Invoke(normalisedSanity);
+
+                if (normalisedSanity >= 0.7f) {
+                    if (!warn.IsFlashing()) {
+                        warn.StartFlashing();
+                    }
+                }
+                
             } else {
                 onPlayerLose?.Invoke();
             }
@@ -80,6 +89,14 @@ public class PlayerProperties : InitialisedEntity
                 float normalisedSanity = 1f - (currentSanity / maxSanity);
 
                 OnSoundChanged?.Invoke(normalisedSanity);
+
+                if (normalisedSanity >= 0.7f)
+                {
+                    if (!warn.IsFlashing())
+                    {
+                        warn.StartFlashing();
+                    }
+                }
             }
             else
             {
@@ -108,6 +125,14 @@ public class PlayerProperties : InitialisedEntity
                 float normalisedSanity = 1f - (currentSanity / maxSanity);
 
                 OnSoundChanged?.Invoke(normalisedSanity);
+
+                if (normalisedSanity < 0.7f)
+                {
+                    if (warn.IsFlashing())
+                    {
+                        warn.StopFlashing();
+                    }
+                }
             }
         }
         isDecaying = true;

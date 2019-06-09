@@ -9,6 +9,7 @@ public class NeonSmash : MonoBehaviour
     public int particleExplodeCount, boostParticleCount = 30;
 
     public ParticleSystem boostEntryParticles;
+    public AudioSource enterSound;
 
 
 
@@ -17,6 +18,8 @@ public class NeonSmash : MonoBehaviour
 
         if (col.gameObject.tag.Equals("Boost"))
         {
+            enterSound.pitch = Random.Range(0.9f, 1.2f);
+            enterSound.Play();
             boostEntryParticles.Emit(boostParticleCount);
         }
 

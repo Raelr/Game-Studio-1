@@ -21,6 +21,7 @@ public class PlayerSensor : InitialisedEntity
     public ParticleSystem boostCrashParticle;
     public int boostCrashParticleCount = 20;
 
+
     private void OnCollisionEnter(Collision collision)
     {
         string tag = collision.transform.tag;

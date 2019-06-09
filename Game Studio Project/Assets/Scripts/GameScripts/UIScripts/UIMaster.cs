@@ -186,8 +186,11 @@ public class UIMaster : Master
         menuManager.ResetFadeIn();
     }
 
-    public void UpdatePoints(float value, Transform source) {
+    public void UpdatePoints(float value) {
         textController.GainPoints(value);
+    }
+
+    public void ShowPoints(float value, Transform source) {
         textController.ShowPoints(value, source);
     }
 

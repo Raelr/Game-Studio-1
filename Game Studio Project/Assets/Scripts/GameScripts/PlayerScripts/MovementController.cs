@@ -247,12 +247,14 @@ namespace AlternativeArchitecture {
                 StartCoroutine(InputPrompt("ask"));
                 points += (250 * pointMultiplier);
                 UIMaster.instance.UpdatePoints(points);
+                UIMaster.instance.ShowPoints(points, player);
                 //Debug.Log("Near Miss: " + points);
             }
             if (isRetreating) {
                 pointMultiplier += 2;
                 points += (500 * pointMultiplier);
                 UIMaster.instance.UpdatePoints(points);
+                UIMaster.instance.ShowPoints(points, player);
                 //Debug.Log("Dash Combo: " + points);
             }
         }
@@ -261,6 +263,7 @@ namespace AlternativeArchitecture {
             StartCoroutine(InputPrompt("auto"));
             points += (50 * pointMultiplier);
             UIMaster.instance.UpdatePoints(points);
+            UIMaster.instance.ShowPoints(points, player);
             //Debug.Log("Ring: " + points);
         }
 

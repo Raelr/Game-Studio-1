@@ -14,7 +14,7 @@ public class UITextController : InitialisedEntity
 
     [Header("Points Components")]
     [SerializeField]
-    TextMeshProUGUI points = null;
+    UIPoints points = null;
     
 
     public override void Initialise() {
@@ -59,7 +59,9 @@ public class UITextController : InitialisedEntity
     }
 
     public void ShowPoints(float value, Transform source) {
-
+        UIPoints pointsObj = Instantiate(points, source);
+        pointsObj.Initialise(value.ToString(), source);
+        Debug.Log("I should be alive bitches");
     }
 
     public void ChangeTextColor(Color color) {

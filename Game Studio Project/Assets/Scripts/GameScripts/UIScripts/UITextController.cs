@@ -22,7 +22,7 @@ public class UITextController : InitialisedEntity
         base.Initialise();
 
         ChangeTextStatus(false);
-
+        points.gameObject.SetActive(false);
     }
 
     public void UpdateText(string description, int value = -1) {
@@ -59,9 +59,8 @@ public class UITextController : InitialisedEntity
     }
 
     public void ShowPoints(float value, Transform source) {
-        UIPoints pointsObj = Instantiate(points, source);
-        pointsObj.Initialise(value.ToString(), source);
-        Debug.Log("I should be alive bitches");
+        points.gameObject.SetActive(true);
+        points.Initialise(value.ToString(), source);
     }
 
     public void ChangeTextColor(Color color) {

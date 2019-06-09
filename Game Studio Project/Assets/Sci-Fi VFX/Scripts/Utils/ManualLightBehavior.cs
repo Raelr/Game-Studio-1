@@ -5,8 +5,8 @@ namespace Assets.Scripts.Utils
 	[RequireComponent(typeof(Light))]
 	internal sealed class ManualLightBehavior : MonoBehaviour
 	{
-		public AnimationCurve LightCurve;
-		public float GraphScaleX, GraphScaleY;
+		public AnimationCurve LightCurve = null;
+		public float GraphScaleX = 0, GraphScaleY = 0;
 
 		private bool _isLightAnimationStarted;
 		private float _startTime;
@@ -37,7 +37,7 @@ namespace Assets.Scripts.Utils
 				_isLightAnimationStarted = false;
 			}
 
-			var eval = LightCurve.Evaluate(time / GraphScaleX) / GraphScaleY;
+			var eval = LightCurve.Evaluate(time / GraphScaleX) / GraphScaleY; 
 
 			_lightSource.intensity = eval;
 		}

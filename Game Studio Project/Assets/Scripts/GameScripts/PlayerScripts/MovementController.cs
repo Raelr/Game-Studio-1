@@ -30,10 +30,6 @@ namespace AlternativeArchitecture {
 
         [Header("Physics Properties")]
         [SerializeField] private float force = 25f;
-        [SerializeField] private float maxDistance = 8;
-        [SerializeField] private bool invertMovement = false;
-        [SerializeField] private float minRotation = -30;
-        [SerializeField] private float maxRotation = 30;
         [SerializeField] private float stepRotation = 0.1f;
         [SerializeField] private float maxAcceleration = 5;
         [SerializeField] private float accelerationStepping = 1;
@@ -41,7 +37,8 @@ namespace AlternativeArchitecture {
         
 
         [Header("Dash Properties")]
-        [SerializeField] AudioClip[] dashClips;
+        [SerializeField] AudioClip[] dashClips = null;
+        [SerializeField] Renderer dashIcon;
         public float dashPitchMin, dashPitchMax;
         public float dashBuildUpVolume, dashBurstVolume;
 
@@ -54,8 +51,8 @@ namespace AlternativeArchitecture {
         AudioSource dashAudio;
 
         [Header("Animation properties")]
-        [SerializeField] AnimationCurve rotationAnim;
-        [SerializeField] AnimationCurve dashAnim;
+        [SerializeField] AnimationCurve rotationAnim = null;
+        [SerializeField] AnimationCurve dashAnim = null;
 
         private float rotationX;
         private float rotationY;
@@ -63,12 +60,10 @@ namespace AlternativeArchitecture {
         private bool isDashing;
         private bool isRetreating;
 
-
-        [Header("Player Bounds")]
-        private float xBounds = 100f;
-        private float yBounds = 12f;
-
         private Transform player;
+
+        
+        private bool invertY = false;
 
         // Initialises all variables and gets the physics component.
         public override void Initialise() {
@@ -78,11 +73,22 @@ namespace AlternativeArchitecture {
             physics = GetComponent<PhysicsController>();
             dashAudio = GetComponent<AudioSource>();
             player = transform.Find("Visuals");
+            dashIcon = player.Find("DashIcon").GetComponent<Renderer>();
+            dashIcon.enabled = false;
             physics.Initialise();
 
             physics.onCollision += onPlayerCollision;
             physics.onNearMiss += OnPlayerNearMiss;
             physics.onRingHit += OnPlayerRingHit;
+
+            
+
+            if (PlayerPrefs.HasKey("INVERT_Y")) {
+                invertY = true;
+            }
+            else {
+                invertY = false;
+            }
         }
 
         // DEPRECIATED --
@@ -115,10 +121,10 @@ namespace AlternativeArchitecture {
 
         private float accelerationX = 0.01f;
         private float accelerationY = 0.01f;
-        private Vector2 lastDir = new Vector2();
 
         public void RotateEntity3(Vector2 input) {
-
+            if (invertY)
+                input.y *= -1;
 
 
             rotationX += input.x * Time.deltaTime + (accelerationX * input.x * Time.deltaTime);
@@ -163,6 +169,10 @@ namespace AlternativeArchitecture {
         }
 
         public void RotateEntity(Vector2 input) {
+
+            if (invertY)
+                input.y *= -1;
+
             rotationX += input.x * stepRotation * Time.deltaTime * force * acceleration;
             rotationY += input.y * stepRotation * Time.deltaTime * force * acceleration;
 
@@ -191,6 +201,39 @@ namespace AlternativeArchitecture {
             }
 
             stepRotation = Mathf.Clamp(stepRotation, 0, 10);
+        }
+
+        void FixedUpdate () {
+            
+
+        if (Input.GetKeyDown(KeyCode.Y) && allowToggle) {
+            allowToggle = false;
+            ToggleInvertY();
+
+            StartCoroutine(ResetToggle());
+            Debug.Log("!!!");
+        }
+        }
+
+        IEnumerator ResetToggle () {
+            yield return new WaitForSeconds(0.5f);
+            allowToggle = true;
+        }
+
+        private bool allowToggle = true;
+
+
+        private void ToggleInvertY () {
+            Debug.Log("toggled " + gameObject.name);
+
+            invertY = !invertY;
+        
+            if (invertY) {
+                PlayerPrefs.SetInt("INVERT_Y", 1);
+            }
+            else {
+                PlayerPrefs.DeleteKey("INVERT_Y");
+            }
         }
 
         public void onPlayerCollision() {
@@ -227,6 +270,8 @@ namespace AlternativeArchitecture {
         }
 
         private IEnumerator InputPrompt(string prompt) {
+
+
             //Debug.Log("ring: " + prompt);
             stepRotation = 1;
             dashAudio.clip = dashClips[0];
@@ -240,20 +285,30 @@ namespace AlternativeArchitecture {
             float time = 2f;
             float speedBoost = 0;
             bool successfulDash = false;
-            bool hasPromptPlayed = false;
 
             while (elapsedTime < time) {
 
                 elapsedTime += Time.deltaTime;
 
+                if (elapsedTime > 0.5f && !dashIcon.enabled) {
+                    dashIcon.enabled = true;
+                }
+
                 speedBoost += 1 * Time.deltaTime;
                 if (Input.GetButtonDown("Fire1") && elapsedTime > 0.5f || prompt == "auto") {
-                    
+
+                    if (prompt == "ask")
+                    {
+                        HapticEngine.instance.Vibrate(HapticEffect.DASH_FIRE);
+                    }
+
+
                     dashAudio.clip = dashClips[1];
                     dashAudio.pitch = UnityEngine.Random.Range(dashPitchMin, dashPitchMax);
                     dashAudio.volume = dashBurstVolume;
                     dashAudio.Play();
                     successfulDash = true;
+                    dashIcon.enabled = false;
                     StopCoroutine(Retreat());
                     StopCoroutine(Dash(0));
                     StartCoroutine(Dash(speedBoost));
@@ -267,9 +322,10 @@ namespace AlternativeArchitecture {
                 }
                 yield return null;
             }
-
+            dashIcon.enabled = false;
             if (!successfulDash) {
                 dashAudio.Stop();
+                dashIcon.enabled = false;
                 GamePooler.instance.SetObstacleSpeed(currentSpeed);
                 onTimeChange(1f);
                 stepRotation = 10;

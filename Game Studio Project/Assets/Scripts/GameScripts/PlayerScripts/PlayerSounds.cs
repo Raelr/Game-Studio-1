@@ -13,10 +13,10 @@ public class PlayerSounds : InitialisedEntity
 
     [Header("Constant Player Sounds")]
     [SerializeField]
-    AudioClip playerConstantSound;
+    AudioClip playerConstantSound = null;
 
     [SerializeField]
-    AudioClip playerImpactSound;
+    AudioClip playerImpactSound = null;
 
     const float maxVolumeAdjustment = 1f;
 
@@ -28,7 +28,7 @@ public class PlayerSounds : InitialisedEntity
 
         playerAudioSingle = GetComponents<AudioSource>()[1];
 
-        playerAudioSingle.clip = playerImpactSound;
+        playerAudioSingle.clip = playerImpactSound; 
 
         playerAudioSingle.pitch = Random.Range(0.8f, 1.2f);
 

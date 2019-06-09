@@ -34,7 +34,7 @@ public class MeshMorphing : MonoBehaviour
 	//Keep in mind that changing values like normals or uvs can affect the vertex count of a mesh and your morph target might not match anymore! This is why this example only reads vertex position.
 	public Mesh m_MeshBase;
 	[SerializeField]
-	MorphTarget[] m_MorphTargets;
+	MorphTarget[] m_MorphTargets = null;
 	Mesh m_MorphedMesh;
 	float[] m_LastWeights;
 	public bool m_GenerateNormals;

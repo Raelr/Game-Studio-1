@@ -4,8 +4,8 @@ namespace Assets.Scripts.Utils
 {
     internal sealed class DemoPrefabController : MonoBehaviour
     {
-        public int StartNum;
-        public GameObject[] Prefabs;
+        public int StartNum = 0;
+        public GameObject[] Prefabs = null;
 
         private GameObject _currentInstance;
         private int _currentPrefabNum;

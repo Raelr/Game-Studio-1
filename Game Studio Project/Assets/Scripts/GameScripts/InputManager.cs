@@ -10,6 +10,8 @@ public class InputManager : MonoBehaviour
     [SerializeField]
     Master master;
 
+
+
 	// Find master.
 	private void Awake() {
 
@@ -25,6 +27,7 @@ public class InputManager : MonoBehaviour
         GetMouseInput();
 		SetAxisMovment();
     }
+
 
     // Listens for input.
     void GetMouseInput() {
@@ -85,9 +88,10 @@ public class InputManager : MonoBehaviour
 
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
+
+        Vector2 flightVector = new Vector2(horizontalInput + horizontalJoy, verticalInput + verticalJoy);
         
-        
-        master?.RotateEntity(new Vector2(horizontalInput + horizontalJoy, verticalInput + verticalJoy));
+        master?.RotateEntity(new Vector2(flightVector.x, flightVector.y));
 	}
 
 	// Gets the mouse position and returns its screen point.

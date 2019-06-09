@@ -6,19 +6,33 @@ public class NeonSmash : MonoBehaviour
 {    
     public GameObject neonSmashParticle;
 
-    public int particleExplodeCount;
+    public int particleExplodeCount, boostParticleCount = 30;
+
+    public ParticleSystem boostEntryParticles;
 
 
 
-    	private void OnTriggerExit(Collider col) {
+    private void OnTriggerEnter(Collider col)
+    {
+
+        if (col.gameObject.tag.Equals("Boost"))
+        {
+            boostEntryParticles.Emit(boostParticleCount);
+        }
+
+    }
+
+    private void OnTriggerExit(Collider col) {
 
         if (col.gameObject.tag.Equals("BoostAuto")) {
 
+            HapticEngine.instance.Vibrate(HapticEffect.NEON_BOOST);
 
-        GameObject particles = Instantiate(neonSmashParticle, transform);
-        particles.transform.position = transform.position;
-        particles.GetComponent<ParticleSystem>().Emit(particleExplodeCount);
-        GameObject.Destroy(particles, 0.4f);
+
+            GameObject particles = Instantiate(neonSmashParticle, transform);
+            particles.transform.position = transform.position;
+            particles.GetComponent<ParticleSystem>().Emit(particleExplodeCount);
+            GameObject.Destroy(particles, 0.5f);
 
         }
 

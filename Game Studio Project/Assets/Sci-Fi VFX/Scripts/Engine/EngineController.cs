@@ -7,8 +7,8 @@ namespace Assets.Scripts.Engine
 	{
 		private const float SpeedIntencity = 1;
 
-		public ParticleSystem[] EngineParticleSystems;
-		public float[] MaxParticleSystemsAlpha;
+		public ParticleSystem[] EngineParticleSystems = null;
+		public float[] MaxParticleSystemsAlpha = null;
 
 		private readonly List<Material> _enginePsMaterials = new List<Material>();
 		private float _speed;
@@ -36,7 +36,7 @@ namespace Assets.Scripts.Engine
 			else
 				_speed -= speed;
 
-			_speed = Mathf.Clamp01(_speed);
+			_speed = Mathf.Clamp01(_speed); 
 
 			UpdateColorBySpeed();
 		}

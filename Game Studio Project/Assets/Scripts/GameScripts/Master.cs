@@ -36,4 +36,9 @@ public abstract class Master : InitialisedEntity
     {
 
     }
+
+    public virtual void EscapeEvent()
+    {
+
+    }
 }

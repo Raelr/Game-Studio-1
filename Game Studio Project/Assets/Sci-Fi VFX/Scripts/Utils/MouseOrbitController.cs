@@ -4,7 +4,7 @@ namespace Assets.Scripts.Utils
 {
 	internal sealed class MouseOrbitController : MonoBehaviour
 	{
-		public Transform Target;
+		public Transform Target = null;
 		public float Distance = 5.0f;
 		public float XSpeed = 120.0f;
 		public float YSpeed = 120.0f;

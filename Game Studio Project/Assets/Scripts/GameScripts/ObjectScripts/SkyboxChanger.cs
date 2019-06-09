@@ -21,7 +21,13 @@ public class SkyboxChanger : MonoBehaviour
     public float lerpSmooth;
 
     public Renderer skyBoxRender;
-    
+
+    private void Start()
+    {
+        currentExposure = targetExposure = levelStyles[0].exposure;
+        currentCol = targetCol = levelStyles[0].skyCol;
+    }
+
 
     public void SetSkyboxStart (int level) {
         currentExposure = targetExposure = levelStyles[level].exposure;

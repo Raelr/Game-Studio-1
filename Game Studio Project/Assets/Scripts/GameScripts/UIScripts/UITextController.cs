@@ -6,9 +6,16 @@ using TMPro;
 public class UITextController : InitialisedEntity
 {
     [SerializeField]
-    TextMeshPro livesText;
+    TextMeshPro livesText = null;
     [SerializeField]
-    TextMeshPro pointSystem;
+    TextMeshPro pointSystem = null;
+    [SerializeField]
+    TextMeshProUGUI score = null;
+
+    [Header("Points Components")]
+    [SerializeField]
+    TextMeshProUGUI points = null;
+    
 
     public override void Initialise() {
 
@@ -18,18 +25,45 @@ public class UITextController : InitialisedEntity
 
     }
 
-    public void UpdateText(string description, int value) {
+    public void UpdateText(string description, int value = -1) {
 
-        livesText.text = description + value;
+        if (value != -1 && livesText != null)
+        {
+            livesText.text = description + value;
+        } else
+        {
+            score.text = description;
+        }
+    }
+
+    public string GetTextValue()
+    {
+        string[] score = pointSystem?.text.Split(' ');
+        return score[1];
+    }
+
+    public string GetScoreValue()
+    {
+        return score.text;
     }
 
     public void ChangeTextStatus(bool value) {
 
-        livesText.enabled = value;
+        pointSystem.enabled = value;
     }
 
     public void GainPoints(float value) {
         int rounded = (int)value;
         pointSystem.text = "Score: " + rounded.ToString();
+        HighScoreUI.instance.SetScore((int)value);
+    }
+
+    public void ShowPoints(float value, Transform source) {
+
+    }
+
+    public void ChangeTextColor(Color color) {
+
+        pointSystem.color = color;
     }
 }

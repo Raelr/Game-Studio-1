@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using AlternativeArchitecture;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,28 +16,33 @@ public class UIMaster : Master
 
     public Color LevelColor { set { levelColor = value; colorChanged?.Invoke(levelColor); } }
 
-    [Header("Time text")]
-    [SerializeField]
-    UITime time;
-
     [Header("Menu Manager")]
     [SerializeField]
-    MenuManager menuManager;
+    MenuManager menuManager = null;
 
     [Header("Insanity Meter")]
     [SerializeField]
-    UIMeter insanityMeter;
+    UIMeter insanityMeter = null;
 
     [Header("Camera Effects")]
     [SerializeField]
-    CameraEffects camEffects;
+    CameraEffects camEffects = null;
 
     [Header("Text Controller")]
     [SerializeField]
-    UITextController textController;
+    UITextController textController = null;
+
+    [Header("Score")]
+    [SerializeField]
+    UITextController normalScore = null;
 
     [SerializeField]
-    Color[] UIColors;
+    UITextController rushScore = null;
+
+    [SerializeField]
+    UITextController finalScore = null;
+
+    ProgressionMode currentProgression;
 
     public delegate void UpdateEventHandler();
 
@@ -54,7 +60,7 @@ public class UIMaster : Master
 
     public UIChangeHandler onUIStatusChange;
 
-    public delegate void PlayerLostHandler();
+    public delegate void PlayerLostHandler(bool enabled = false);
 
     public PlayerLostHandler onPlayerLost;
 
@@ -66,23 +72,29 @@ public class UIMaster : Master
 
     public event UIColorChangeHandler colorChanged;
 
+    public delegate void UIResetHandler();
+
+    public event UIResetHandler onReset;
+
     private void Awake() {
 
         SetUpReferences();
 
         instance = this;
 
-        onUpdateEvent += time.IncrementTime;
-
-        onUIStatusChange += time.ChangeTextStatus;
-
         onUIStatusChange += insanityMeter.ChangeMeterStatus;
 
         onMeterChange += insanityMeter.IncrementMeter;
 
-        colorChanged += time.ChangeTextColor;
-
         colorChanged += insanityMeter.ChangeMeterColor;
+
+        colorChanged += textController.ChangeTextColor;
+
+        onUIStatusChange += textController.ChangeTextStatus;
+
+        onReset += menuManager.RestartAfterFade;
+
+        menuManager.onReset += SaveScore;
 
         InitialiseAll();
     }
@@ -114,8 +126,6 @@ public class UIMaster : Master
 
         base.InitialiseAll();
 
-        time.Initialise();
-
         menuManager.Initialise();
 
         insanityMeter.Initialise();
@@ -143,15 +153,24 @@ public class UIMaster : Master
     public void OnPlayerLost() {
         
         GameStarted = false;
-        
-        onPlayerLost?.Invoke();
+
+        LoadFinalScore();
+    }
+
+    public void LoadFinalScore() {
+
+        finalScore.UpdateText(textController.GetTextValue());
+
+        int finalScoreValue = currentProgression == ProgressionMode.SLOW ? int.Parse(PlayerPrefs.GetString("normal")) : int.Parse(PlayerPrefs.GetString("rush"));
+
+        bool enabled = finalScoreValue < int.Parse(textController.GetTextValue()) ? true : false;
+
+        onPlayerLost?.Invoke(enabled);
     }
 
     public override void SetUpReferences() {
 
         base.SetUpReferences();
-
-        time = GetComponent<UITime>();
 
         menuManager = GetComponent<MenuManager>();
 
@@ -167,8 +186,51 @@ public class UIMaster : Master
         menuManager.ResetFadeIn();
     }
 
-    public void UpdatePoints(float value) {
+    public void UpdatePoints(float value, Transform source) {
         textController.GainPoints(value);
+        textController.ShowPoints(value, source);
     }
 
+    public void ResetGame()
+    {
+        onReset?.Invoke();
+    }
+
+    
+    public void SetCurrentProgression(ProgressionMode mode)
+    {
+        currentProgression = mode;
+        int score = mode == ProgressionMode.SLOW ? int.Parse(PlayerPrefs.GetString("normal")) : int.Parse(PlayerPrefs.GetString("rush"));
+        HighScoreUI.instance.SetHighScore(score);
+    }
+
+    public void SaveScore()
+    {
+        if (currentProgression == ProgressionMode.SLOW)
+        {
+            if (int.Parse(PlayerPrefs.GetString("normal")) < int.Parse(textController.GetTextValue()))
+                PlayerPrefs.SetString("normal", textController.GetTextValue());
+        }
+
+        if (currentProgression == ProgressionMode.FAST)
+        {
+            if (int.Parse(PlayerPrefs.GetString("rush")) < int.Parse(textController.GetTextValue()))
+                PlayerPrefs.SetString("rush", textController.GetTextValue());
+        }
+    }
+
+    public void LoadInScores()
+    {
+        if (!PlayerPrefs.HasKey("normal"))
+        {
+            PlayerPrefs.SetString("normal", "5000");
+        }
+        if (!PlayerPrefs.HasKey("rush"))
+        {
+            PlayerPrefs.SetString("rush", "5000");
+        }
+
+        normalScore.UpdateText(PlayerPrefs.GetString("normal"));
+        rushScore.UpdateText(PlayerPrefs.GetString("rush"));
+    }
 }

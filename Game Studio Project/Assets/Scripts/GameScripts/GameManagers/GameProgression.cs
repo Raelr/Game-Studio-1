@@ -70,17 +70,19 @@ namespace AlternativeArchitecture
             switch (currentMode)
             {
                 case ProgressionMode.SLOW:
-                    levelInterval = 30;
+                    levelInterval = 25;
                     Time.timeScale = 1;
-                    PlayerPrefs.SetInt("normal", 1);
+                    PlayerPrefs.SetInt("normalMode", 1);
                     break;
                 case ProgressionMode.FAST:
                     levelInterval = 10;
                     gameSpeedMultiplier = 1.1f;
                     Time.timeScale = 1.1f;
-                    PlayerPrefs.SetInt("normal", 0);
+                    PlayerPrefs.SetInt("normalMode", 0);
                     break;
             }
+
+            UIMaster.instance.SetCurrentProgression(currentMode);
         }
 		
 		public bool isTutorial () {
@@ -144,9 +146,7 @@ namespace AlternativeArchitecture
             GameObject newObstacle = spawner.SpawnObject(objectToSpawn);
 
             if (newObstacle.isNull()) return;
-            newObstacle.transform.localScale = Vector3.zero;
-
-            newObstacle.transform.localScale = Vector3.zero;
+            newObstacle.transform.localScale = new Vector3(0.01f, 0.01f, 0.01f);
 
             Obstacle obstacleScript = newObstacle.GetComponent<Obstacle>();
             obstacleScript.Setup(GamePooler.instance,

@@ -16,10 +16,6 @@ namespace AlternativeArchitecture {
         [SerializeField]
         ParticleController particles;
 
-        [Header("Projectiles")]
-        [SerializeField]
-        ProjectileController projectiles;
-
         [Header("Properties")]
         [SerializeField]
         PlayerProperties playerProperties;
@@ -30,7 +26,7 @@ namespace AlternativeArchitecture {
 
         [Header("Temp")]
         [SerializeField]
-        GameObject impactParticlePrefab;
+        GameObject impactParticlePrefab = null;
 
         [Header("Temp2")]
         [SerializeField]
@@ -96,8 +92,6 @@ namespace AlternativeArchitecture {
 
             playerLost = false;
 
-            onClick += projectiles.FireProjectile;
-
             updateEvent += movementController.RotateEntity;
 
             updateEvent += movementController.MultiplyPoints;
@@ -115,8 +109,6 @@ namespace AlternativeArchitecture {
             particles.Initialise();
 
             movementController.Initialise();
-
-            projectiles.Initialise();
 
             playerProperties.Initialise();
 
@@ -145,8 +137,6 @@ namespace AlternativeArchitecture {
             particles = GetComponent<ParticleController>();
 
             movementController = GetComponent<MovementController>();
-
-            projectiles = GetComponent<ProjectileController>();
 
             playerProperties = GetComponent<PlayerProperties>();
 

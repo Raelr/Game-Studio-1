@@ -5,10 +5,10 @@ using UnityEngine;
 public class UIMeter : InitialisedEntity
 {
     [SerializeField]
-    Transform meter;
+    Transform meter = null;
 
     [SerializeField]
-    Renderer meterRenderer;
+    Renderer meterRenderer = null;
 
     [SerializeField]
     Color startColor = Color.white;
@@ -39,10 +39,15 @@ public class UIMeter : InitialisedEntity
 
         if (meter.localScale.x <= maxAmount) {
 
-            Vector3 newAmount = reverse ? new Vector3(meter.localScale.x - incrementSpeed, meter.localScale.y, meter.localScale.z)
-            : new Vector3(meter.localScale.x + incrementSpeed, meter.localScale.y, meter.localScale.z);
+            Vector3 newAmount;
 
-            meter.localScale = Vector3.Lerp(meter.localScale, newAmount, incrementSpeed * Time.deltaTime);
+            if (reverse) {
+                newAmount = new Vector3(incrementSpeed, meter.localScale.y, meter.localScale.z);
+                ChangeMeterScale(newAmount);
+            } else {
+                newAmount = new Vector3(incrementSpeed, meter.localScale.y, meter.localScale.z);
+                ChangeMeterScale(Vector3.Lerp(meter.localScale, newAmount, incrementSpeed * Time.deltaTime));
+            }
 
             meterRenderer.material.color = Color.Lerp(meterRenderer.material.color, endColor, Time.deltaTime / 5);
         }
@@ -59,5 +64,10 @@ public class UIMeter : InitialisedEntity
 
     public void ChangeMeterColor(Color color) {
         endColor = color;
+    }
+
+    public void ChangeMeterScale(Vector3 newScale) {
+
+        meter.localScale = newScale;
     }
 }

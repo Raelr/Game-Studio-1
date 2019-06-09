@@ -5,16 +5,14 @@ using UnityEngine;
 public class CameraShake : MonoBehaviour
 {
     [SerializeField]
-    float shakeDuration;
+    float shakeDuration = 0;
 
     [SerializeField]
-    float shakeMagnitue;
+    float shakeMagnitue = 0;
 
     public static CameraShake instance;
 
     Coroutine shake;
-
-    bool isShaking = false;
 
     private void Awake()
     {

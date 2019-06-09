@@ -17,6 +17,7 @@ TagManager:
   - NeonRing
   - Boost
   - BoostAuto
+  - ObstacleBoost
   layers:
   - Default
   - TransparentFX
@@ -30,7 +31,7 @@ TagManager:
   - GUI
   - PostProcessingGUI
   - Obstacle
-  - 
+  - HighScore
   - 
   - 
   - 

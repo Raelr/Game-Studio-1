@@ -36,10 +36,12 @@ public class PlayerProperties : InitialisedEntity
 
     public event SoundChangedHandler OnSoundChanged;
 
+    private WarningUI warn;
+
     public override void Initialise() {
 
         base.Initialise();
-
+        warn = GameObject.Find("WarningUI").GetComponent<WarningUI>();
         currentSanity = 9f;
     }
 
@@ -50,26 +52,31 @@ public class PlayerProperties : InitialisedEntity
 
     public void DecaySanityConstant() {
 
-        if (currentSanity > 0)
-        {
-            currentSanity = Mathf.Lerp(currentSanity, currentSanity - InsanityDecaySpeed, InsanityDecaySpeed * Time.deltaTime);
+        if (isDecaying) {
+            if (currentSanity > 0) {
+                currentSanity = Mathf.Lerp(currentSanity, currentSanity - InsanityDecaySpeed, InsanityDecaySpeed * Time.deltaTime);
 
-            UIMaster.instance.onMeterChange.Invoke(InsanityDecaySpeed);
+                UIMaster.instance.onMeterChange.Invoke(9 - currentSanity);
 
-            float normalisedSanity = 1f - (currentSanity / maxSanity);
-            CameraEffects.instance.ApplyInsanity(normalisedSanity);
+                float normalisedSanity = 1f - (currentSanity / maxSanity);
+                CameraEffects.instance.ApplyInsanity(normalisedSanity);
 
-            OnSoundChanged?.Invoke(normalisedSanity);
-        }
-        else
-        {
-            onPlayerLose?.Invoke();
+                OnSoundChanged?.Invoke(normalisedSanity);
+
+                if (normalisedSanity >= 0.7f) {
+                    if (!warn.IsFlashing()) {
+                        warn.StartFlashing();
+                    }
+                }
+                
+            } else {
+                onPlayerLose?.Invoke();
+            }
         }
     }
 
     public void DecaySanityByAmount()
     {
-
         if (isDecaying) {
             float projectedSanity = Mathf.Lerp(currentSanity, currentSanity - impactSanityDamage, impactSanityDamage * Time.deltaTime);
 
@@ -77,11 +84,19 @@ public class PlayerProperties : InitialisedEntity
             {
                 currentSanity = projectedSanity;
 
-                UIMaster.instance.onMeterChange.Invoke(impactSanityDamage);
+                UIMaster.instance.onMeterChange.Invoke(9 - currentSanity);
 
                 float normalisedSanity = 1f - (currentSanity / maxSanity);
 
                 OnSoundChanged?.Invoke(normalisedSanity);
+
+                if (normalisedSanity >= 0.7f)
+                {
+                    if (!warn.IsFlashing())
+                    {
+                        warn.StartFlashing();
+                    }
+                }
             }
             else
             {
@@ -101,15 +116,23 @@ public class PlayerProperties : InitialisedEntity
 
         if (isDecaying) {
             isDecaying = false;
-            if (sanity < maxSanity)
+            if (sanity <= maxSanity)
             {
-                currentSanity = sanity;
+                currentSanity = Mathf.Clamp(sanity, 0, maxSanity);
 
-                UIMaster.instance.onMeterChange.Invoke(sanityDodgeIncrease, true);
+                UIMaster.instance.onMeterChange.Invoke(9 - currentSanity, true);
 
                 float normalisedSanity = 1f - (currentSanity / maxSanity);
 
                 OnSoundChanged?.Invoke(normalisedSanity);
+
+                if (normalisedSanity < 0.7f)
+                {
+                    if (warn.IsFlashing())
+                    {
+                        warn.StopFlashing();
+                    }
+                }
             }
         }
         isDecaying = true;

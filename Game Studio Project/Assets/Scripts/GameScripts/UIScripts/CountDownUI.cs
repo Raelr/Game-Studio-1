@@ -9,7 +9,7 @@ public class CountDownUI : MonoBehaviour
     [SerializeField]
     private Renderer tmrend;
     private bool counting = false;
-    private float duration = 3.0f;
+    private float duration = 1.5f;
     private float t = 0;
 
     IEnumerator StartCountDown() {
@@ -19,7 +19,7 @@ public class CountDownUI : MonoBehaviour
                 StopCounting();
             }
             else {
-                int num = (int)(duration - t) + 1;
+                int num = (int)((duration - t) * 2) + 1;
                 tm.text = "" + num;
                 t += Time.fixedDeltaTime;
             }

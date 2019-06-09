@@ -46,7 +46,7 @@ namespace AlternativeArchitecture {
         private float acceleration = 1;
         private float currentSpeed = 1;
         private float pointMultiplier = 1;
-        private float points = 0;
+        private float score = 0;
 
         AudioSource dashAudio;
 
@@ -164,8 +164,8 @@ namespace AlternativeArchitecture {
         public void MultiplyPoints(Vector2 input) {
             pointMultiplier += 0.1f * Time.deltaTime;
 
-            points += 5 * Time.deltaTime * pointMultiplier;
-            UIMaster.instance.UpdatePoints(points);
+            score += 5 * Time.deltaTime * pointMultiplier;
+            UIMaster.instance.UpdatePoints(score);
         }
 
         public void RotateEntity(Vector2 input) {
@@ -239,21 +239,22 @@ namespace AlternativeArchitecture {
         public void onPlayerCollision() {
             onCollision?.Invoke();
             pointMultiplier = 1;
-            Debug.Log("Reset point multiplier");
         }
 
         public void OnPlayerNearMiss() {
             if (!isDashing) {
                 StartCoroutine(InputPrompt("ask"));
-                points += (250 * pointMultiplier);
-                UIMaster.instance.UpdatePoints(points);
+                int points = (int)(250 * pointMultiplier);
+                score += points;
+                UIMaster.instance.UpdatePoints(score);
                 UIMaster.instance.ShowPoints(points, player);
                 //Debug.Log("Near Miss: " + points);
             }
             if (isRetreating) {
                 pointMultiplier += 2;
-                points += (500 * pointMultiplier);
-                UIMaster.instance.UpdatePoints(points);
+                int points = (int)(500 * pointMultiplier);
+                score += points;
+                UIMaster.instance.UpdatePoints(score);
                 UIMaster.instance.ShowPoints(points, player);
                 //Debug.Log("Dash Combo: " + points);
             }
@@ -261,8 +262,9 @@ namespace AlternativeArchitecture {
 
         public void OnPlayerRingHit() {
             StartCoroutine(InputPrompt("auto"));
-            points += (50 * pointMultiplier);
-            UIMaster.instance.UpdatePoints(points);
+            int points = (int)(50 * pointMultiplier);
+            score += points;
+            UIMaster.instance.UpdatePoints(score);
             UIMaster.instance.ShowPoints(points, player);
             //Debug.Log("Ring: " + points);
         }

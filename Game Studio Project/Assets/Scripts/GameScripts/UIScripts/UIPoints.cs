@@ -5,19 +5,23 @@ using TMPro;
 
 public class UIPoints : MonoBehaviour {
     private TextMeshPro pointsText;
-    private Vector3 source;
+    private Transform source;
     private Vector3 offsetPos;
-    private float time = 3;
+    private float time = 1;
+
+    [SerializeField] AnimationCurve scaleAnim;
+    [SerializeField] AnimationCurve vectorAnim;
 
     private void Awake() {
         pointsText = GetComponent<TextMeshPro>();
     }
 
     public void Initialise(string text, Transform source) {
-        this.source = source.position;
-        offsetPos = new Vector3(0, 0, 0);
+        this.source = source;
+        offsetPos = new Vector3(0, 0, -3);
         pointsText.text = text;
 
+        StopCoroutine(ScaleDown());
         StopCoroutine(TransformText());
         StartCoroutine(TransformText());
     }
@@ -26,8 +30,21 @@ public class UIPoints : MonoBehaviour {
         float elapsedTime = 0;
 
         while (elapsedTime < time) {
-            offsetPos += 5 * Time.deltaTime * new Vector3(0,0,-1);
-            transform.position = offsetPos + source;
+            offsetPos = Vector3.Lerp(new Vector3(0,0,-3), new Vector3(0,1,-3), vectorAnim.Evaluate(elapsedTime/time));
+            transform.position = offsetPos + source.position;
+            transform.localScale = Vector3.Lerp(Vector3.zero, new Vector3(0.4f,0.4f,0.4f), scaleAnim.Evaluate(elapsedTime / time));
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        StartCoroutine(ScaleDown());
+    }
+
+    private IEnumerator ScaleDown() {
+        float elapsedTime = 0;
+
+        while (elapsedTime < 0.5) {
+            transform.localScale = Vector3.Lerp(new Vector3(0.4f, 0.4f, 0.4f), new Vector3(0.2f, 0.2f, 0.2f), scaleAnim.Evaluate(elapsedTime / time));
             elapsedTime += Time.deltaTime;
             yield return null;
         }

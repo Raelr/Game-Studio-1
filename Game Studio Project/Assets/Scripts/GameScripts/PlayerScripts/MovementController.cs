@@ -223,18 +223,18 @@ namespace AlternativeArchitecture {
         private bool allowToggle = true;
 
 
-    private void ToggleInvertY () {
-        Debug.Log("toggled " + gameObject.name);
+        private void ToggleInvertY () {
+            Debug.Log("toggled " + gameObject.name);
 
-        invertY = !invertY;
+            invertY = !invertY;
         
-        if (invertY) {
-            PlayerPrefs.SetInt("INVERT_Y", 1);
+            if (invertY) {
+                PlayerPrefs.SetInt("INVERT_Y", 1);
+            }
+            else {
+                PlayerPrefs.DeleteKey("INVERT_Y");
+            }
         }
-        else {
-            PlayerPrefs.DeleteKey("INVERT_Y");
-        }
-    }
 
         public void onPlayerCollision() {
             onCollision?.Invoke();

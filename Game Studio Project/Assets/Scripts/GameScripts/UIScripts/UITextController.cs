@@ -12,6 +12,11 @@ public class UITextController : InitialisedEntity
     [SerializeField]
     TextMeshProUGUI score = null;
 
+    [Header("Points Components")]
+    [SerializeField]
+    TextMeshProUGUI points = null;
+    
+
     public override void Initialise() {
 
         base.Initialise();
@@ -51,6 +56,10 @@ public class UITextController : InitialisedEntity
         int rounded = (int)value;
         pointSystem.text = "Score: " + rounded.ToString();
         HighScoreUI.instance.SetScore((int)value);
+    }
+
+    public void ShowPoints(float value, Transform source) {
+
     }
 
     public void ChangeTextColor(Color color) {

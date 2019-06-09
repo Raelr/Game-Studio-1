@@ -68,6 +68,9 @@ public class MenuManager : InitialisedEntity
     [SerializeField]
     TextMeshProUGUI newRecord;
 
+    [SerializeField]
+    CountDownUI countDown;
+
     Coroutine loadingRoutine;
 
     Coroutine fadeOnceRoutine;
@@ -417,6 +420,7 @@ public class MenuManager : InitialisedEntity
     {
         Time.timeScale = 1f;
         yield return StartCoroutine(Fade());
+        countDown.StartCounting();
         middleAction?.Invoke();
         if (fadeInto)
         {

@@ -167,7 +167,6 @@ public class Monster : MonoBehaviour
 
     private void MonsterState (bool state)
     {
-        Debug.Log("set monster " + state);
         foreach (TentacleData data in tentacles)
             data.components.tentacleHoloRenderer.enabled = data.components.tentacleInnerRenderer.enabled = state;
     }

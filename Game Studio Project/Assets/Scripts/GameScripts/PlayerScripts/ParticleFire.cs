@@ -28,8 +28,11 @@ public class ParticleFire : MonoBehaviour
                 {
                     particle.Emit(Random.Range(particleFireCountMin, particleFireCountMax));
                 }
-                fireSound.pitch = Random.Range(firePitchMin, firePitchMax);
-                fireSound.Play();
+                if (fireSound)
+                {
+                    fireSound.pitch = Random.Range(firePitchMin, firePitchMax);
+                    fireSound.Play();
+                }
             }
         }
 

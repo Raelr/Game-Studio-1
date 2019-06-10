@@ -46,7 +46,10 @@ namespace AlternativeArchitecture {
         private float acceleration = 1;
         private float currentSpeed = 1;
         private float pointMultiplier = 1;
-        private float points = 0;
+        private float score = 0;
+        private int currentLevel = 1;
+        private int comboMultiplier;
+        private IEnumerator comboCoroutine;
 
         AudioSource dashAudio;
 
@@ -59,9 +62,12 @@ namespace AlternativeArchitecture {
         private Vector3 lastPosition;
         private bool isDashing;
         private bool isRetreating;
+        private bool comboing;
+        private bool comboTriggered;
 
         private Transform player;
 
+        public float PointMultiplier { get { return pointMultiplier + ((float)currentLevel / 10f); } }
         
         private bool invertY = false;
 
@@ -81,7 +87,8 @@ namespace AlternativeArchitecture {
             physics.onNearMiss += OnPlayerNearMiss;
             physics.onRingHit += OnPlayerRingHit;
 
-            
+            comboCoroutine = ComboTimer();
+
 
             if (PlayerPrefs.HasKey("INVERT_Y")) {
                 invertY = true;
@@ -90,34 +97,6 @@ namespace AlternativeArchitecture {
                 invertY = false;
             }
         }
-
-        // DEPRECIATED --
-
-        // Keeping old movement componenet as a reference
-
-        //  public void MoveEntity(Vector2 targetPos) {
-        //      if (!invertMovement)
-        //      {
-        //          targetPos *= -1;
-        //          targetPos.y += 2;
-        //      }
-        //      //targetPos *= -1;
-        //      //targetPos.y += 2;
-
-        //float dist = Vector3.Distance(targetPos, player.position);
-        //Vector2 dir = GlobalMethods.GetDirection(player.position, targetPos);
-        //Vector2 velocity = dir * (force * (dist / maxDistance));
-
-        //Vector3 nextPosition = (Vector2)player.position + GlobalMethods.Normalise(dir);
-
-        //Clamps velocity to make sure player stays within the set bounds
-        //velocity.x = GlobalMethods.WithinBounds(nextPosition.x, -xBounds, xBounds) ? velocity.x : 0;
-        //velocity.y = GlobalMethods.WithinBounds(nextPosition.y, -yBounds, yBounds) ? velocity.y : 0;
-
-        //physics.AddForce(velocity);
-        //}
-
-        // -- DEPRECIATED
 
         private float accelerationX = 0.01f;
         private float accelerationY = 0.01f;
@@ -130,17 +109,10 @@ namespace AlternativeArchitecture {
             rotationX += input.x * Time.deltaTime + (accelerationX * input.x * Time.deltaTime);
             rotationY += input.y * Time.deltaTime + (accelerationY * input.y * Time.deltaTime);
 
-
-            //Debug.Log(input.y* Time.deltaTime + (accelerationY * lastDir.y));
-            //rotationX = rotationX >= 360 ?
             rotationY = Mathf.Clamp(rotationY, -70, 70);
             rotationX = Mathf.Clamp(rotationX, -180, 180);
 
-            //Debug.Log(-stepRotation * input.y);
             transform.localRotation = Quaternion.Euler(new Vector3(-rotationY, rotationX, 0));
-            //player.transform.localRotation = Quaternion.Euler(new Vector3(-stepRotation * input.y * 2, stepRotation * input.x * 2, -rotationX));
-
-
 
             accelerationX *= input.x != 0 ? 2 : 0.9f;
             accelerationX = Mathf.Clamp(accelerationX, 0.01f, maxAcceleration);
@@ -148,24 +120,13 @@ namespace AlternativeArchitecture {
             accelerationY *= input.y != 0 ? 2 : 0.9f;
             accelerationY = Mathf.Clamp(accelerationY, 0.01f, maxAcceleration);
 
-            //if (input.x != 0 || input.y != 0) {
-            //    acceleration += accelerationStepping;
-            //    if (acceleration >= maxAcceleration)
-            //        acceleration = maxAcceleration;
-            //}
-            //else if (acceleration > 0) {
-            //    acceleration -= accelerationStepping;
-            //}
-            //else  {
-            //    acceleration = accelerationBase;
-            //}
         }
 
         public void MultiplyPoints(Vector2 input) {
             pointMultiplier += 0.1f * Time.deltaTime;
 
-            points += 5 * Time.deltaTime * pointMultiplier;
-            UIMaster.instance.UpdatePoints(points);
+            score += 5 * Time.deltaTime * PointMultiplier;
+            UIMaster.instance.UpdatePoints(score);
         }
 
         public void RotateEntity(Vector2 input) {
@@ -205,14 +166,18 @@ namespace AlternativeArchitecture {
 
         void FixedUpdate () {
             
+            if (Input.GetKeyDown(KeyCode.Y) && allowToggle) {
+                allowToggle = false;
+                ToggleInvertY();
 
-        if (Input.GetKeyDown(KeyCode.Y) && allowToggle) {
-            allowToggle = false;
-            ToggleInvertY();
+                StartCoroutine(ResetToggle());
+                Debug.Log("!!!");
+            }
 
-            StartCoroutine(ResetToggle());
-            Debug.Log("!!!");
-        }
+            if (Input.GetKeyDown(KeyCode.P)) {
+                Debug.Log("Multiplier: " + PointMultiplier);
+                Debug.Log("Level: " + currentLevel);
+            }
         }
 
         IEnumerator ResetToggle () {
@@ -237,31 +202,61 @@ namespace AlternativeArchitecture {
         }
 
         public void onPlayerCollision() {
-            onCollision?.Invoke();
-            pointMultiplier = 1;
-            Debug.Log("Reset point multiplier");
+            if (!isDashing) {
+                onCollision?.Invoke();
+                pointMultiplier = 1;
+            }
         }
 
         public void OnPlayerNearMiss() {
+            Combo();
             if (!isDashing) {
                 StartCoroutine(InputPrompt("ask"));
-                points += (250 * pointMultiplier);
-                UIMaster.instance.UpdatePoints(points);
-                //Debug.Log("Near Miss: " + points);
+                GainPoints(250);
             }
             if (isRetreating) {
                 pointMultiplier += 2;
-                points += (500 * pointMultiplier);
-                UIMaster.instance.UpdatePoints(points);
-                //Debug.Log("Dash Combo: " + points);
+                GainPoints(500);
             }
         }
 
         public void OnPlayerRingHit() {
+            Combo();
             StartCoroutine(InputPrompt("auto"));
-            points += (50 * pointMultiplier);
-            UIMaster.instance.UpdatePoints(points);
-            //Debug.Log("Ring: " + points);
+            GainPoints(50);
+        }
+
+        public void GainPoints(float value) {
+            int points = (int)(value * PointMultiplier * comboMultiplier);
+            score += points;
+            UIMaster.instance.UpdatePoints(score);
+            UIMaster.instance.ShowPoints(points, player);
+        }
+
+        public void Combo() {
+            if (comboing) {
+                comboMultiplier++;
+                if (comboMultiplier > 1) {
+                    UIMaster.instance.ShowCombo(comboMultiplier, player);
+                }
+            }
+            comboing = true;
+            StopCoroutine(comboCoroutine);
+            comboCoroutine = ComboTimer();
+            StartCoroutine(comboCoroutine);
+        }
+
+        private IEnumerator ComboTimer() {
+            float elpasedTime = 0;
+
+            while (elpasedTime<2) {
+                elpasedTime += Time.deltaTime;
+                yield return null;
+            }
+
+            Debug.Log("Reseting combo");
+            comboMultiplier = 1;
+            comboing = false;
         }
 
 
@@ -417,6 +412,10 @@ namespace AlternativeArchitecture {
             }
 
             action.Invoke();
+        }
+
+        public void UpdateLevelData(int level) {
+            currentLevel = level;
         }
 
     }

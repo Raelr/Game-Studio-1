@@ -14,15 +14,17 @@ public class UITextController : InitialisedEntity
 
     [Header("Points Components")]
     [SerializeField]
-    TextMeshProUGUI points = null;
-    
+    UIPoints points = null;
+    [SerializeField]
+    UIPoints combo = null;
+
 
     public override void Initialise() {
 
         base.Initialise();
 
         ChangeTextStatus(false);
-
+        points.gameObject.SetActive(false);
     }
 
     public void UpdateText(string description, int value = -1) {
@@ -58,8 +60,15 @@ public class UITextController : InitialisedEntity
         HighScoreUI.instance.SetScore((int)value);
     }
 
-    public void ShowPoints(float value, Transform source) {
+    public void ShowPoints(float pointValue, Transform source) {
+        points.gameObject.SetActive(true);
+        points.Initialise(pointValue, source, 1);
+    }
 
+    public void ShowCombo(int comboValue, Transform source) {
+        Debug.Log("Combo Showing");
+        combo.gameObject.SetActive(true);
+        combo.Initialise(comboValue, source, -1);
     }
 
     public void ChangeTextColor(Color color) {

@@ -186,9 +186,15 @@ public class UIMaster : Master
         menuManager.ResetFadeIn();
     }
 
-    public void UpdatePoints(float value, Transform source) {
+    public void UpdatePoints(float value) {
         textController.GainPoints(value);
-        textController.ShowPoints(value, source);
+    }
+
+    public void ShowPoints(float pointValue, Transform source) {
+        textController.ShowPoints(pointValue, source);
+    }
+    public void ShowCombo(int comboValue, Transform source) {
+        textController.ShowCombo(comboValue, source);
     }
 
     public void UpdatePoints(float value)

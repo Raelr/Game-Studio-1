@@ -211,5 +211,9 @@ namespace AlternativeArchitecture {
         {
             playerProperties.InsanityDecaySpeed = speed;
         }
+
+        public void UpdateLevelData(int level) {
+            movementController.UpdateLevelData(level);
+        }
     }
 }

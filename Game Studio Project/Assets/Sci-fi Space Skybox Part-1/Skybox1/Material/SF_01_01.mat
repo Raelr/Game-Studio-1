@@ -52,11 +52,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _Exposure: 0.9375691
+    - _Exposure: 1.6936384
     - _Rotation: 95
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Tint: {r: 0.3751522, g: 0.8192574, b: 0.22847694, a: 0.79840684}
+    - _Tint: {r: 0.6218593, g: 0.016909348, b: 0.7984724, a: 0.95682204}
 --- !u!1002 &2100001
 EditorExtensionImpl:
   serializedVersion: 6

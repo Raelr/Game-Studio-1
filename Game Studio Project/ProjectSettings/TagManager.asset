@@ -18,6 +18,8 @@ TagManager:
   - Boost
   - BoostAuto
   - ObstacleBoost
+  - Collectable
+  - Relic
   layers:
   - Default
   - TransparentFX

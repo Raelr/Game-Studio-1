@@ -112,6 +112,8 @@ namespace AlternativeArchitecture
 
             currentLevel ++;
 
+            PlayerMaster.instance.UpdateLevelData(currentLevel);
+
             gameSpeed = Mathf.Clamp(currentLevel, 0, 3); //level 5 is the max speed
 
             if (currentLevel > 6) //speed up after level 6

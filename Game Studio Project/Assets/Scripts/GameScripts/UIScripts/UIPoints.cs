@@ -4,19 +4,27 @@ using UnityEngine;
 using TMPro;
 
 public class UIPoints : MonoBehaviour {
+
+    private ParticleSystem particleSystem;
     private TextMeshPro pointsText;
     private Transform source;
     private Vector3 offsetPos;
     private float time = 1;
 
+    [Header("Animation Curves")]
     [SerializeField] AnimationCurve scaleAnim;
     [SerializeField] AnimationCurve vectorAnim;
 
+    [Header("Text properties")]
+    [SerializeField] Color[] 
+
     private void Awake() {
         pointsText = GetComponent<TextMeshPro>();
+        particleSystem = GetComponent<ParticleSystem>();
     }
 
     public void Initialise(string text, Transform source) {
+        particleSystem.Emit(50);
         this.source = source;
         offsetPos = new Vector3(0, 0, -3);
         pointsText.text = text;
@@ -55,4 +63,9 @@ public class UIPoints : MonoBehaviour {
     private void Die() {
         gameObject.SetActive(false);
     }
+}
+
+public struct pointColours {
+    public Color startColour;
+    public Color endColour;
 }

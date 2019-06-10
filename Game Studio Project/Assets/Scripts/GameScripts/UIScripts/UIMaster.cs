@@ -191,6 +191,7 @@ public class UIMaster : Master
     }
 
     public void ShowPoints(float pointValue, Transform source) {
+        if (pointValue <= 0) return;
         textController.ShowPoints(pointValue, source);
     }
     public void ShowCombo(int comboValue, Transform source) {

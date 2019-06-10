@@ -186,7 +186,7 @@ namespace AlternativeArchitecture
             {
                 chanceData = obstacleChances[level];
             }
-
+            
 
             foreach (int chanceValue in chanceData.chance) {
                 int choiceValue = chanceData.choice[chanceData.chance.IndexOf(chanceValue)];
@@ -194,6 +194,12 @@ namespace AlternativeArchitecture
                     return choiceValue;
                 }
             }
+            
+            if (chance < 99)
+            {
+                return 19;
+            }
+
             
             return 0;
 

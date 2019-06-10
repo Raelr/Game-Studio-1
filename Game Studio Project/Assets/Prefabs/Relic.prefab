@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 1636532063854592849}
   - component: {fileID: 749122047021108181}
   - component: {fileID: 3972734140393683440}
-  - component: {fileID: 8304886772843161032}
   - component: {fileID: 1262529509523120714}
   - component: {fileID: 4458132279263171630}
   m_Layer: 0
@@ -109,8 +108,8 @@ MonoBehaviour:
   rigid: {fileID: 3972734140393683440}
   zDespawn: -200
   useRandomSize: 1
-  randomMinSize: 10
-  randomMaxSize: 20
+  randomMinSize: 4
+  randomMaxSize: 10
   minDepth: 1500
   maxDepth: 2000
 --- !u!54 &3972734140393683440
@@ -129,20 +128,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!64 &8304886772843161032
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1636532063854592851}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 1
-  m_CookingOptions: 14
-  m_Mesh: {fileID: 4300000, guid: 63f520d88fc2f6c47bf07efc9b6f5761, type: 3}
 --- !u!114 &1262529509523120714
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -156,18 +141,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pointData:
-  - value: 500
-    chance: 0.5
-    colour: {r: 1, g: 1, b: 1, a: 0}
-  - value: 1000
-    chance: 0.25
-    colour: {r: 0, g: 0.45917034, b: 1, a: 0}
   - value: 3000
-    chance: 0.15
-    colour: {r: 0, g: 1, b: 0.051671505, a: 0}
-  - value: 5000
-    chance: 0.1
-    colour: {r: 1, g: 0.6334349, b: 0, a: 0}
+    chance: 1
+    colour: {r: 0, g: 1, b: 0.051671505, a: 1}
 --- !u!135 &4458132279263171630
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -179,5 +155,5 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1.96
+  m_Radius: 2.09
   m_Center: {x: 0.02969259, y: -0.005363941, z: 0.07459569}

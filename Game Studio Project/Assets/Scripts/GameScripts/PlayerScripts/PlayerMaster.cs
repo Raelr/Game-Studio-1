@@ -70,6 +70,11 @@ namespace AlternativeArchitecture {
 
         public static PlayerMaster instance;
 
+        public ParticleSystem relicCollectParticle;
+        public int relicCollectParticleCount;
+
+        public AudioSource relicHitSound;
+
 
         private void Awake() {
 
@@ -218,6 +223,13 @@ namespace AlternativeArchitecture {
 
         public void UpdateScore(int score) {
             movementController.UpdateScore(score);
+        }
+
+        public void HitRelic ()
+        {
+            relicCollectParticle.Emit(relicCollectParticleCount);
+            relicHitSound.pitch = Random.Range(1.3f, 2f);
+            relicHitSound.Play();
         }
     }
 }

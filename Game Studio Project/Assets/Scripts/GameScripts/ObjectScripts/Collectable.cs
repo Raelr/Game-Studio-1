@@ -31,26 +31,26 @@ namespace AlternativeArchitecture {
                 }
             }
         }
-        private void SetColour() {
-            switch (value) {
-                case 500:
-                    meshRenderer.material.color = Color.white;
-                    break;
-                case 1000:
-                    meshRenderer.material.color = Color.blue;
-                    break;
-                case 3000:
-                    meshRenderer.material.color = Color.green;
-                    break;
-                case 5000:
-                    meshRenderer.material.color = Color.yellow;
-                    break;
-            }
-
-           
+        private void SetColour()
+        {
+            meshRenderer.material.color = colour;           
         }
 
-        private void OnCollisionEnter(Collision col) {
+        private bool hit = false;
+
+        private void OnCollisionEnter(Collision col)
+        {
+            Debug.Log(col.transform.name + " hit");
+            if (col.transform.name != "Visuals") return;
+            if (hit) return;
+            hit = true;
+            PlayerMaster.instance.HitRelic();
+            StartCoroutine(Hit());
+        }
+
+        private IEnumerator Hit ()
+        {
+            yield return new WaitForSeconds(0.1f);
             PlayerMaster.instance.UpdateScore(value);
             obstacle.BackToPool();
         }

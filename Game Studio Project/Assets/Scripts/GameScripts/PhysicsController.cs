@@ -21,11 +21,12 @@ public class PhysicsController : InitialisedEntity
 
 	public delegate void OnNearMissHandler();
 
+    public delegate void OnPlayerCollectHanlder();
     
 	public delegate void OnRingHitHandler();
 
     public OnCollisionhandler onCollision;
-
+    public OnPlayerCollectHanlder onPlayerCollect;
 	public OnNearMissHandler onNearMiss;
 	public OnRingHitHandler onRingHit;
 
@@ -44,6 +45,8 @@ public class PhysicsController : InitialisedEntity
 		collisionSensor.onNearMiss += OnPlayerNearMiss;
         
 		collisionSensor.onRingHit += OnPlayerRingHit;
+
+        collisionSensor.onPlayerCollect += OnPlayerCollect;
     }
 
     // Adds force to the object in question.
@@ -56,6 +59,10 @@ public class PhysicsController : InitialisedEntity
 
         onCollision?.Invoke();
 
+    }
+
+    public void OnPlayerCollect() {
+        onPlayerCollect?.Invoke();
     }
 
 	public void OnPlayerNearMiss() {

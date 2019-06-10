@@ -10,8 +10,10 @@ public class PlayerSensor : InitialisedEntity
 	
     public delegate void OnRingHitHandler();
 
-    public OnCollisionHandler onCollision;
+    public delegate void OnPlayerCollectHandler();
 
+    public OnCollisionHandler onCollision;
+    public OnPlayerCollectHandler onPlayerCollect;
     public OnNearMissHandler onNearMiss;
     public OnRingHitHandler onRingHit;
 
@@ -36,8 +38,12 @@ public class PlayerSensor : InitialisedEntity
             onCollision?.Invoke();
         }
 
+        if (tag == "Collectable") {
+            onPlayerCollect?.Invoke();
+        }
         
     }
+
 
 
     private void OnTriggerExit(Collider col) {
@@ -48,7 +54,6 @@ public class PlayerSensor : InitialisedEntity
             }
         }
 
-        //Debug.Log(col.gameObject.tag);
 
         if (col.gameObject.tag.Equals("BoostAuto")) {
             if (!hasCollided) {

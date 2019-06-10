@@ -215,5 +215,9 @@ namespace AlternativeArchitecture {
         public void UpdateLevelData(int level) {
             movementController.UpdateLevelData(level);
         }
+
+        public void UpdateScore(int score) {
+            movementController.UpdateScore(score);
+        }
     }
 }

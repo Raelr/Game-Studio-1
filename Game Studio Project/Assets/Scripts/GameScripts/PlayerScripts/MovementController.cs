@@ -86,6 +86,7 @@ namespace AlternativeArchitecture {
             physics.onCollision += onPlayerCollision;
             physics.onNearMiss += OnPlayerNearMiss;
             physics.onRingHit += OnPlayerRingHit;
+            physics.onPlayerCollect += OnPlayerCollect;
 
             comboCoroutine = ComboTimer();
 
@@ -220,6 +221,10 @@ namespace AlternativeArchitecture {
             }
         }
 
+        public void OnPlayerCollect() {
+
+        }
+
         public void OnPlayerRingHit() {
             Combo();
             StartCoroutine(InputPrompt("auto"));
@@ -249,7 +254,7 @@ namespace AlternativeArchitecture {
         private IEnumerator ComboTimer() {
             float elpasedTime = 0;
 
-            while (elpasedTime<1.5f) {
+            while (elpasedTime<3f) {
                 elpasedTime += Time.deltaTime;
                 yield return null;
             }
@@ -418,5 +423,10 @@ namespace AlternativeArchitecture {
             currentLevel = level;
         }
 
+        public void UpdateScore(int points) {
+            this.score += points;
+            UIMaster.instance.UpdatePoints(score);
+            UIMaster.instance.ShowPoints(points, player);
+        }
     }
 }

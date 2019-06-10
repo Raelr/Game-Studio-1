@@ -4,9 +4,10 @@
 Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: TorusKnot
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Gold
   m_Shader: {fileID: 4800000, guid: 42c2990a8aab0794895d64cce7f6371b, type: 3}
   m_ShaderKeywords: V_SSS_LIGHTCOUNT_ONE V_SSS_LINEAR_OFF V_SSS_NORMALIZE_DIFFUSE_COEF_ON
     V_SSS_POW_EIGHT V_SSS_RIM_ON
@@ -58,7 +59,7 @@ Material:
     - _V_SSS_Emission: 0.1
     - _V_SSS_Rim_Pow: 2.69
     m_Colors:
-    - _Color: {r: 0.9725491, g: 0.68235296, b: 0.058823533, a: 0.803}
+    - _Color: {r: 0.972549, g: 0.87752575, b: 0.05882353, a: 0.803}
     - _ReflectColor: {r: 1, g: 1, b: 1, a: 0.5}
     - _SpecColor: {r: 0, g: 1, b: 0.42068958, a: 1}
     - _TransColor: {r: 1, g: 1, b: 1, a: 1}

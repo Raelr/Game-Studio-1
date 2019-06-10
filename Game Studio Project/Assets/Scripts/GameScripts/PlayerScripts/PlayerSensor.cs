@@ -10,10 +10,12 @@ public class PlayerSensor : InitialisedEntity
 	
     public delegate void OnRingHitHandler();
 
-    public OnCollisionHandler onCollision;
+    public delegate void OnPlayerCollectHandler();
 
+    public OnCollisionHandler onCollision;
     public OnNearMissHandler onNearMiss;
     public OnRingHitHandler onRingHit;
+    public OnPlayerCollectHandler onPlayerCollect;
 
 
     private bool hasCollided;
@@ -36,9 +38,11 @@ public class PlayerSensor : InitialisedEntity
             onCollision?.Invoke();
         }
 
-        
-    }
+        if (tag == "Collectable") {
 
+            onPlayerCollect?.Invoke();
+        }
+    }
 
     private void OnTriggerExit(Collider col) {
 

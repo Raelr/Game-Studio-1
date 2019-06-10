@@ -20,14 +20,15 @@ public class PhysicsController : InitialisedEntity
     public delegate void OnCollisionhandler();
 
 	public delegate void OnNearMissHandler();
-
     
 	public delegate void OnRingHitHandler();
 
-    public OnCollisionhandler onCollision;
+    public delegate void OnPlayerCollectHandler();
 
+    public OnCollisionhandler onCollision;
 	public OnNearMissHandler onNearMiss;
 	public OnRingHitHandler onRingHit;
+    public OnPlayerCollectHandler onPlayerCollect;
 
     public override void Initialise() {
 
@@ -44,12 +45,18 @@ public class PhysicsController : InitialisedEntity
 		collisionSensor.onNearMiss += OnPlayerNearMiss;
         
 		collisionSensor.onRingHit += OnPlayerRingHit;
+
+        collisionSensor.onPlayerCollect += OnPlayerCollect;
     }
 
     // Adds force to the object in question.
     public void AddForce(Vector3 velocity) {
 
 		entityRigidbody.velocity = velocity;
+    }
+
+    public void OnPlayerCollect() {
+        onPlayerCollect?.Invoke();
     }
 
     public void OnPlayerHit() {

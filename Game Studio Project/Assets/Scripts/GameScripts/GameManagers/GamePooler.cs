@@ -26,6 +26,7 @@ namespace AlternativeArchitecture {
      *  16 = boost bubble
      *  17 = giant skulls
      *  18 = man
+     *  19 = Relic
      */
 
 
@@ -369,6 +370,7 @@ namespace AlternativeArchitecture {
             obstacles.AddRange(GetObjects(16)); //boost bubble
             obstacles.AddRange(GetObjects(17)); //giant skulls
             obstacles.AddRange(GetObjects(18)); //man
+            obstacles.AddRange(GetObjects(19)); //relic
 
             foreach (GameObject obstacle in obstacles) {
                 currentForceMultiplier = newSpeed;

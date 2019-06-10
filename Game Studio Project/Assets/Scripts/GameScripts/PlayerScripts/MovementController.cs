@@ -13,6 +13,8 @@ namespace AlternativeArchitecture {
 		
         public delegate void OnRingHitHandler();
 
+        public delegate void OnPlayerCollectHanlder();
+
         public delegate void OnTimeChangeHandler(float speed);
 
         public OnCollisionhandler onCollision;
@@ -22,6 +24,8 @@ namespace AlternativeArchitecture {
         public OnRingHitHandler onRingHit;
 
         public OnTimeChangeHandler onTimeChange;
+
+        public OnPlayerCollectHanlder onPlayerCollect;
 
         // The controller should keep track of all physics components (since it is the only compone≤nt which needs to interface with physics)
         [Header("Physics")]
@@ -86,6 +90,7 @@ namespace AlternativeArchitecture {
             physics.onCollision += onPlayerCollision;
             physics.onNearMiss += OnPlayerNearMiss;
             physics.onRingHit += OnPlayerRingHit;
+            physics.onPlayerCollect += OnPlayerCollect;
 
             comboCoroutine = ComboTimer();
 
@@ -199,6 +204,10 @@ namespace AlternativeArchitecture {
             else {
                 PlayerPrefs.DeleteKey("INVERT_Y");
             }
+        }
+
+        public void OnPlayerCollect() {
+            Debug.Log("PLease fucking work");
         }
 
         public void onPlayerCollision() {

@@ -60,7 +60,7 @@ public class UITextController : InitialisedEntity
 
     public void ShowPoints(float value, Transform source) {
         points.gameObject.SetActive(true);
-        points.Initialise(value.ToString(), source);
+        points.Initialise(value, source);
     }
 
     public void ChangeTextColor(Color color) {

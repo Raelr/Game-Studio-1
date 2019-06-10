@@ -16,22 +16,70 @@ public class UIPoints : MonoBehaviour {
     [SerializeField] AnimationCurve vectorAnim;
 
     [Header("Text properties")]
-    [SerializeField] Color[] 
+    [SerializeField] pointColours[] pointColours;
+    private pointColours currentColours;
+    Gradient gradient;
+    GradientColorKey[] colorKey;
+    GradientAlphaKey[] alphaKey;
 
     private void Awake() {
         pointsText = GetComponent<TextMeshPro>();
         particleSystem = GetComponent<ParticleSystem>();
+        gradient = new Gradient();
     }
 
-    public void Initialise(string text, Transform source) {
-        particleSystem.Emit(50);
+    public void Initialise(float value, Transform source) {
+        SetColours(value);
+        SetParticleSystem();
+        SetTextColour();
         this.source = source;
         offsetPos = new Vector3(0, 0, -3);
-        pointsText.text = text;
+        pointsText.text = value.ToString();
 
         StopCoroutine(ScaleDown());
         StopCoroutine(TransformText());
         StartCoroutine(TransformText());
+    }
+
+    private void SetColours(float value) {
+        if (value < 500) {
+            Debug.Log("Should be right");
+            currentColours = pointColours[0];
+        }
+        else if (value >= 500 && value < 1000) {
+            currentColours = pointColours[1];
+        }
+        else if (value >= 1000 && value < 5000) {
+            currentColours = pointColours[2];
+        }
+        else if (value >= 5000) {
+            currentColours = pointColours[3];
+        }
+    }
+
+    private void SetParticleSystem() {
+        var main = particleSystem.main;
+
+        colorKey = new GradientColorKey[2];
+        colorKey[0].color = currentColours.startColour;
+        colorKey[0].time = 0.0f;
+        colorKey[1].color = currentColours.endColour;
+        colorKey[1].time = 1.0f;
+
+        alphaKey = new GradientAlphaKey[2];
+        alphaKey[0].alpha = 1.0f;
+        alphaKey[0].time = 0.0f;
+        alphaKey[1].alpha = 0.0f;
+        alphaKey[1].time = 1.0f;
+
+        gradient.SetKeys(colorKey, alphaKey);
+        main.startColor = gradient;
+
+        particleSystem.Emit(50);
+    }
+
+    private void SetTextColour() {
+        pointsText.color = currentColours.startColour;
     }
 
     private IEnumerator TransformText() {
@@ -65,6 +113,7 @@ public class UIPoints : MonoBehaviour {
     }
 }
 
+[System.Serializable]
 public struct pointColours {
     public Color startColour;
     public Color endColour;

@@ -67,7 +67,7 @@ namespace AlternativeArchitecture {
 
         private Transform player;
 
-        public float PointMultiplier { get { return pointMultiplier + ((float)currentLevel*0.5f); } }
+        public float PointMultiplier { get { return pointMultiplier + ((float)currentLevel*0.8f); } }
         
         private bool invertY = false;
 

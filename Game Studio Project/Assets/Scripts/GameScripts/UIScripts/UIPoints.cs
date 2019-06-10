@@ -50,7 +50,7 @@ public class UIPoints : MonoBehaviour {
         this.source = source;
         offsetPos = new Vector3(0, 0, -3);
         this.spawnDir = spawnDir;
-        pointsText.text = combo.ToString() + "x";
+        pointsText.text = combo.ToString() + "x Combo!";
 
         StopCoroutine(ScaleDown());
         StopCoroutine(TransformText());

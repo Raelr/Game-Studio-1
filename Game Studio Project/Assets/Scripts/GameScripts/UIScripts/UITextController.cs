@@ -62,12 +62,13 @@ public class UITextController : InitialisedEntity
 
     public void ShowPoints(float pointValue, Transform source) {
         points.gameObject.SetActive(true);
-        points.Initialise(pointValue, "+", source, 1);
+        points.Initialise(pointValue, source, 1);
     }
 
-    public void ShowCombo(float pointValue, float comboValue, Transform source) {
+    public void ShowCombo(int comboValue, Transform source) {
+        Debug.Log("Combo Showing");
         combo.gameObject.SetActive(true);
-        combo.Initialise(pointValue, comboValue, "x Combo!", source, -1);
+        combo.Initialise(comboValue, source, -1);
     }
 
     public void ChangeTextColor(Color color) {

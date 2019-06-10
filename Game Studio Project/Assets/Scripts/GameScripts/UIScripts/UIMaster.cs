@@ -193,8 +193,8 @@ public class UIMaster : Master
     public void ShowPoints(float pointValue, Transform source) {
         textController.ShowPoints(pointValue, source);
     }
-    public void ShowCombo(float pointValue, float comboValue, Transform source) {
-        textController.ShowCombo(pointValue, comboValue, source);
+    public void ShowCombo(int comboValue, Transform source) {
+        textController.ShowCombo(comboValue, source);
     }
 
     public void ResetGame()

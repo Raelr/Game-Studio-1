@@ -29,28 +29,28 @@ public class UIPoints : MonoBehaviour {
         gradient = new Gradient();
     }
 
-    public void Initialise(float points, string text, Transform source, float spawnDir) {
+    public void Initialise(float points, Transform source, float spawnDir) {
         SetColours(points);
         SetParticleSystem();
         SetTextColour();
         this.source = source;
         offsetPos = new Vector3(0, 0, -3);
         this.spawnDir = spawnDir;
-        pointsText.text = text + points.ToString();
+        pointsText.text = "+" + points.ToString();
 
         StopCoroutine(ScaleDown());
         StopCoroutine(TransformText());
         StartCoroutine(TransformText());
     }
 
-    public void Initialise(float points, float combo, string text, Transform source, float spawnDir) {
-        SetColours(points);
+    public void Initialise(int combo, Transform source, float spawnDir) {
+        SetColours(combo);
         SetParticleSystem();
         SetTextColour();
         this.source = source;
         offsetPos = new Vector3(0, 0, -3);
         this.spawnDir = spawnDir;
-        pointsText.text = combo.ToString() + text;
+        pointsText.text = combo.ToString() + "x Combo!";
 
         StopCoroutine(ScaleDown());
         StopCoroutine(TransformText());
@@ -68,6 +68,18 @@ public class UIPoints : MonoBehaviour {
             currentColours = pointColours[2];
         }
         else if (value >= 5000) {
+            currentColours = pointColours[3];
+        }
+    }
+
+    private void SetColours(int value) {
+        if (value == 2) {
+            currentColours = pointColours[1];
+        }
+        else if (value == 3) {
+            currentColours = pointColours[2];
+        }
+        else if (value >= 4) {
             currentColours = pointColours[3];
         }
     }

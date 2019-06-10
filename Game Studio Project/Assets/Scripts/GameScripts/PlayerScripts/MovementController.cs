@@ -237,7 +237,7 @@ namespace AlternativeArchitecture {
             if (comboing) {
                 comboMultiplier++;
                 if (comboMultiplier > 1) {
-                  // UIMaster.Instantiate
+                    UIMaster.instance.ShowCombo(comboMultiplier, player);
                 }
             }
             comboing = true;

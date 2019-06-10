@@ -15,7 +15,9 @@ public class UITextController : InitialisedEntity
     [Header("Points Components")]
     [SerializeField]
     UIPoints points = null;
-    
+    [SerializeField]
+    UIPoints combo = null;
+
 
     public override void Initialise() {
 
@@ -58,9 +60,14 @@ public class UITextController : InitialisedEntity
         HighScoreUI.instance.SetScore((int)value);
     }
 
-    public void ShowPoints(float value, Transform source) {
+    public void ShowPoints(float pointValue, Transform source) {
         points.gameObject.SetActive(true);
-        points.Initialise(value, source);
+        points.Initialise(pointValue, "+", source, 1);
+    }
+
+    public void ShowCombo(float pointValue, float comboValue, Transform source) {
+        combo.gameObject.SetActive(true);
+        combo.Initialise(pointValue, comboValue, "x Combo!", source, -1);
     }
 
     public void ChangeTextColor(Color color) {

@@ -48,6 +48,8 @@ namespace AlternativeArchitecture {
         private float pointMultiplier = 1;
         private float score = 0;
         private int currentLevel = 1;
+        private int comboMultiplier;
+        private IEnumerator comboCoroutine;
 
         AudioSource dashAudio;
 
@@ -60,10 +62,12 @@ namespace AlternativeArchitecture {
         private Vector3 lastPosition;
         private bool isDashing;
         private bool isRetreating;
+        private bool comboing;
+        private bool comboTriggered;
 
         private Transform player;
 
-        public float PointMultiplier { get { return pointMultiplier + (currentLevel / 10); } }
+        public float PointMultiplier { get { return pointMultiplier + ((float)currentLevel / 10f); } }
         
         private bool invertY = false;
 
@@ -83,7 +87,8 @@ namespace AlternativeArchitecture {
             physics.onNearMiss += OnPlayerNearMiss;
             physics.onRingHit += OnPlayerRingHit;
 
-            
+            comboCoroutine = ComboTimer();
+
 
             if (PlayerPrefs.HasKey("INVERT_Y")) {
                 invertY = true;
@@ -161,14 +166,18 @@ namespace AlternativeArchitecture {
 
         void FixedUpdate () {
             
+            if (Input.GetKeyDown(KeyCode.Y) && allowToggle) {
+                allowToggle = false;
+                ToggleInvertY();
 
-        if (Input.GetKeyDown(KeyCode.Y) && allowToggle) {
-            allowToggle = false;
-            ToggleInvertY();
+                StartCoroutine(ResetToggle());
+                Debug.Log("!!!");
+            }
 
-            StartCoroutine(ResetToggle());
-            Debug.Log("!!!");
-        }
+            if (Input.GetKeyDown(KeyCode.P)) {
+                Debug.Log("Multiplier: " + PointMultiplier);
+                Debug.Log("Level: " + currentLevel);
+            }
         }
 
         IEnumerator ResetToggle () {
@@ -193,35 +202,61 @@ namespace AlternativeArchitecture {
         }
 
         public void onPlayerCollision() {
-            onCollision?.Invoke();
-            pointMultiplier = 1;
+            if (!isDashing) {
+                onCollision?.Invoke();
+                pointMultiplier = 1;
+            }
         }
 
         public void OnPlayerNearMiss() {
+            Combo();
             if (!isDashing) {
                 StartCoroutine(InputPrompt("ask"));
-                int points = (int)(250 * PointMultiplier);
-                score += points;
-                UIMaster.instance.UpdatePoints(score);
-                UIMaster.instance.ShowPoints(points, player);
-                //Debug.Log("Near Miss: " + points);
+                GainPoints(250);
             }
             if (isRetreating) {
                 pointMultiplier += 2;
-                int points = (int)(500 * PointMultiplier);
-                score += points;
-                UIMaster.instance.UpdatePoints(score);
-                UIMaster.instance.ShowPoints(points, player);
-                //Debug.Log("Dash Combo: " + points);
+                GainPoints(500);
             }
         }
 
         public void OnPlayerRingHit() {
+            Combo();
             StartCoroutine(InputPrompt("auto"));
-            int points = (int)(50 * PointMultiplier);
+            GainPoints(50);
+        }
+
+        public void GainPoints(float value) {
+            int points = (int)(value * PointMultiplier * comboMultiplier);
             score += points;
             UIMaster.instance.UpdatePoints(score);
             UIMaster.instance.ShowPoints(points, player);
+        }
+
+        public void Combo() {
+            if (comboing) {
+                comboMultiplier++;
+                if (comboMultiplier > 1) {
+                  // UIMaster.Instantiate
+                }
+            }
+            comboing = true;
+            StopCoroutine(comboCoroutine);
+            comboCoroutine = ComboTimer();
+            StartCoroutine(comboCoroutine);
+        }
+
+        private IEnumerator ComboTimer() {
+            float elpasedTime = 0;
+
+            while (elpasedTime<2) {
+                elpasedTime += Time.deltaTime;
+                yield return null;
+            }
+
+            Debug.Log("Reseting combo");
+            comboMultiplier = 1;
+            comboing = false;
         }
 
 

@@ -10,6 +10,7 @@ public class UIPoints : MonoBehaviour {
     private Transform source;
     private Vector3 offsetPos;
     private float time = 1;
+    private float spawnDir;
 
     [Header("Animation Curves")]
     [SerializeField] AnimationCurve scaleAnim;
@@ -28,13 +29,28 @@ public class UIPoints : MonoBehaviour {
         gradient = new Gradient();
     }
 
-    public void Initialise(float value, Transform source) {
-        SetColours(value);
+    public void Initialise(float points, string text, Transform source, float spawnDir) {
+        SetColours(points);
         SetParticleSystem();
         SetTextColour();
         this.source = source;
         offsetPos = new Vector3(0, 0, -3);
-        pointsText.text = value.ToString();
+        this.spawnDir = spawnDir;
+        pointsText.text = text + points.ToString();
+
+        StopCoroutine(ScaleDown());
+        StopCoroutine(TransformText());
+        StartCoroutine(TransformText());
+    }
+
+    public void Initialise(float points, float combo, string text, Transform source, float spawnDir) {
+        SetColours(points);
+        SetParticleSystem();
+        SetTextColour();
+        this.source = source;
+        offsetPos = new Vector3(0, 0, -3);
+        this.spawnDir = spawnDir;
+        pointsText.text = combo.ToString() + text;
 
         StopCoroutine(ScaleDown());
         StopCoroutine(TransformText());
@@ -43,7 +59,6 @@ public class UIPoints : MonoBehaviour {
 
     private void SetColours(float value) {
         if (value < 500) {
-            Debug.Log("Should be right");
             currentColours = pointColours[0];
         }
         else if (value >= 500 && value < 1000) {
@@ -86,7 +101,7 @@ public class UIPoints : MonoBehaviour {
         float elapsedTime = 0;
 
         while (elapsedTime < time) {
-            offsetPos = Vector3.Lerp(new Vector3(0,0,-3), new Vector3(0,1,-3), vectorAnim.Evaluate(elapsedTime/time));
+            offsetPos = Vector3.Lerp(new Vector3(0,0,-3), new Vector3(0,spawnDir,-3), vectorAnim.Evaluate(elapsedTime/time));
             transform.position = offsetPos + source.position;
             transform.localScale = Vector3.Lerp(Vector3.zero, new Vector3(0.4f,0.4f,0.4f), scaleAnim.Evaluate(elapsedTime / time));
             elapsedTime += Time.deltaTime;

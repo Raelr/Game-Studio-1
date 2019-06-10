@@ -190,8 +190,11 @@ public class UIMaster : Master
         textController.GainPoints(value);
     }
 
-    public void ShowPoints(float value, Transform source) {
-        textController.ShowPoints(value, source);
+    public void ShowPoints(float pointValue, Transform source) {
+        textController.ShowPoints(pointValue, source);
+    }
+    public void ShowCombo(float pointValue, float comboValue, Transform source) {
+        textController.ShowCombo(pointValue, comboValue, source);
     }
 
     public void ResetGame()

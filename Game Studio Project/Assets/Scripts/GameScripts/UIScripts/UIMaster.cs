@@ -197,11 +197,11 @@ public class UIMaster : Master
         textController.ShowCombo(comboValue, source);
     }
 
-    public void UpdatePoints(float value)
-    {
-        textController.GainPoints(value);
-        Debug.LogError("no source given");
-    }
+    //public void UpdatePoints(float value)
+    //{
+    //    textController.GainPoints(value);
+    //    Debug.LogError("no source given");
+    //}
 
     public void ResetGame()
     {

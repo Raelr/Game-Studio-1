@@ -420,7 +420,7 @@ public class MenuManager : InitialisedEntity
     {
         Time.timeScale = 1f;
         yield return StartCoroutine(Fade());
-        countDown.StartCounting();
+        //countDown.StartCounting();
         middleAction?.Invoke();
         if (fadeInto)
         {

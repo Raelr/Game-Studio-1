@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.012730109, g: 0.049613923, b: 0.00041271132, a: 1}
+  m_IndirectSpecularColor: {r: 0.0010266727, g: 0.058240086, b: 0.00933841, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4724,7 +4724,7 @@ MonoBehaviour:
   sharedProfile: {fileID: 11400000, guid: 675ece11852330b4e95a0e80f6b1db9c, type: 2}
   isGlobal: 1
   blendDistance: 0
-  weight: 1
+  weight: 0
   priority: 6
 --- !u!1 &604038679
 GameObject:
@@ -15730,6 +15730,7 @@ MonoBehaviour:
   livesText: {fileID: 0}
   pointSystem: {fileID: 0}
   score: {fileID: 435636148}
+  points: {fileID: 0}
 --- !u!114 &826490706
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15745,6 +15746,7 @@ MonoBehaviour:
   livesText: {fileID: 0}
   pointSystem: {fileID: 234190578}
   score: {fileID: 0}
+  points: {fileID: 0}
 --- !u!114 &826490707
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15779,6 +15781,7 @@ MonoBehaviour:
   livesText: {fileID: 0}
   pointSystem: {fileID: 0}
   score: {fileID: 2047021244}
+  points: {fileID: 0}
 --- !u!114 &826490709
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15836,6 +15839,7 @@ MonoBehaviour:
   livesText: {fileID: 0}
   pointSystem: {fileID: 0}
   score: {fileID: 1082840614}
+  points: {fileID: 0}
 --- !u!1001 &840751874
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19736,7 +19740,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -6.8999023}
+  m_AnchoredPosition: {x: 0, y: -6.899887}
   m_SizeDelta: {x: -423, y: -85.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1492214908
@@ -21630,7 +21634,7 @@ MonoBehaviour:
   sharedProfile: {fileID: 11400000, guid: c496ecdb6f11f6642995487eb319fde2, type: 2}
   isGlobal: 1
   blendDistance: 0
-  weight: 1
+  weight: 0
   priority: 5
 --- !u!1 &1739431249
 GameObject:

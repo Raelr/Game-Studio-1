@@ -67,7 +67,7 @@ namespace AlternativeArchitecture {
 
         private Transform player;
 
-        public float PointMultiplier { get { return pointMultiplier + ((float)currentLevel / 10f); } }
+        public float PointMultiplier { get { return pointMultiplier + ((float)currentLevel*0.5f); } }
         
         private bool invertY = false;
 
@@ -249,7 +249,7 @@ namespace AlternativeArchitecture {
         private IEnumerator ComboTimer() {
             float elpasedTime = 0;
 
-            while (elpasedTime<2) {
+            while (elpasedTime<1.5f) {
                 elpasedTime += Time.deltaTime;
                 yield return null;
             }

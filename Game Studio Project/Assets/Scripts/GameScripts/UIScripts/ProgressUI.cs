@@ -20,38 +20,19 @@ public class ProgressUI : MonoBehaviour
 
     private Color currentLevelCol;
 
+    private int currentLevel = 1;
 
+    public static ProgressUI instance;
 
-
-
-/*
-    void Update () {
-
-        SetLevelProgress(tempProg);
-
-        if (tempProg > 1) {
-            tempProg = 0;
-            tempLevel ++;
-            SetLevel(tempLevel);
-        }
-
-        if (Input.GetKey(KeyCode.C))
-            tempProg += 0.02f;
+    private void Start()
+    {
+        instance = this;
     }
-
-
-
- 
-    float tempProg = 0;
-    int tempLevel = 0;
-
-
-void Start () {
-    SetLevel(0);
-    SetLevelProgress(0);
-}*/
-
-
+    
+    public int GetCurrentLevel ()
+    {
+        return currentLevel + 1;
+    }
 
     public void SetLevelProgress (float progress) { //0 to 1  //call this from game progression
         progress = Mathf.Clamp(progress, 0, 1);
@@ -72,7 +53,9 @@ void Start () {
         obj.localScale = scale;
     }
 
-    public int SetLevel (int level) { //start at level 0   call this from game progression. Return the color of the new level
+    public int SetLevel (int level)
+    { //start at level 0   call this from game progression. Return the color of the new level
+        currentLevel = level;
         levelText.text = "// Level " + (level + 1);
         if (level != 0) winParticle.Emit(10);
 

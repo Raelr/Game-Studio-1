@@ -43,7 +43,7 @@ public class CountDownUI : MonoBehaviour
             else {
                 int num = (int)((duration - t) * 1.5f) + 1;
                 tm3.text = tm2.text = tm.text = "" + num;
-                t += Time.fixedDeltaTime;
+                t += Time.deltaTime;
             }
             yield return null;
         }

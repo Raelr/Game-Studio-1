@@ -24,6 +24,13 @@ public class CountDownUI : MonoBehaviour
     [SerializeField]
     private IntroRubberBand introRubber;
 
+    public static CountDownUI instance;
+
+    private void Awake()
+    {
+        instance = this;
+    }
+
 
     IEnumerator StartCountDown()
     {

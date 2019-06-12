@@ -89,7 +89,15 @@ namespace AlternativeArchitecture
 			return currentMode == ProgressionMode.SLOW;
 		}
 
+        bool noCountdownYet = true;
+
         public void SpawnObstaclesOnInterval() {
+            if (noCountdownYet)
+            {
+                CountDownUI.instance.StartCounting();
+                noCountdownYet = false;
+            }
+
             progressionTimer += Time.deltaTime;
 
             progressUI.SetLevelProgress(progressionTimer / levelInterval);

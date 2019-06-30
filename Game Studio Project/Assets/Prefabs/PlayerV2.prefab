@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &387727652030062704
 Transform:
   m_ObjectHideFlags: 0
@@ -4894,7 +4894,7 @@ MonoBehaviour:
   dashClips:
   - {fileID: 8300000, guid: 2ca19ff0d3c0beb45abbc87f11501c2a, type: 3}
   - {fileID: 8300000, guid: e8bdfe382d7bf8840877d4667c4ee18d, type: 3}
-  dashIcon: {fileID: 0}
+  dashIcon: {fileID: 408432720984583676, guid: 1c7ecbd8fd3d797449fbb564f5df6450, type: 3}
   dashPitchMin: 0.9
   dashPitchMax: 1.2
   dashBuildUpVolume: 0.702

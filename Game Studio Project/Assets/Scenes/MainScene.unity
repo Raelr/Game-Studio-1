@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.0053844396, g: 0.000966619, b: 0.32116076, a: 1}
+  m_IndirectSpecularColor: {r: 0.0012250813, g: 0.06247799, b: 0.008243397, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -176,7 +176,7 @@ Transform:
   - {fileID: 2124954034}
   - {fileID: 1698280376}
   m_Father: {fileID: 1916932582}
-  m_RootOrder: 16
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &54445320
 Animator:
@@ -548,7 +548,7 @@ MonoBehaviour:
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 0
+  m_isInputParsingRequired: 1
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -1037,6 +1037,12 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!4 &161084434 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 408432720984583679, guid: 1c7ecbd8fd3d797449fbb564f5df6450,
+    type: 3}
+  m_PrefabInstance: {fileID: 408432721127758317}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &166099901
 GameObject:
   m_ObjectHideFlags: 0
@@ -1957,11 +1963,11 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 0
+  m_havePropertiesChanged: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 0
+  m_isInputParsingRequired: 1
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_renderer: {fileID: 234190581}
@@ -10287,7 +10293,7 @@ Transform:
   - {fileID: 1384619301}
   - {fileID: 1486460861}
   m_Father: {fileID: 1916932582}
-  m_RootOrder: 17
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &701426002
 MonoBehaviour:
@@ -16571,7 +16577,7 @@ PrefabInstance:
     - target: {fileID: 5125572749452997260, guid: b7fdec07901e488479439ad4af7cf7ae,
         type: 3}
       propertyPath: m_RootOrder
-      value: 15
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 5125572749452997260, guid: b7fdec07901e488479439ad4af7cf7ae,
         type: 3}
@@ -19092,7 +19098,7 @@ MonoBehaviour:
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 0
+  m_isInputParsingRequired: 1
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -20798,7 +20804,7 @@ MonoBehaviour:
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 0
+  m_isInputParsingRequired: 1
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -20992,7 +20998,7 @@ MonoBehaviour:
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 0
+  m_isInputParsingRequired: 1
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -21618,7 +21624,7 @@ MonoBehaviour:
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 0
+  m_isInputParsingRequired: 1
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -26939,7 +26945,7 @@ MonoBehaviour:
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 0
+  m_isInputParsingRequired: 1
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -27175,7 +27181,7 @@ MonoBehaviour:
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 0
+  m_isInputParsingRequired: 1
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -30653,6 +30659,7 @@ Transform:
   - {fileID: 537475960}
   - {fileID: 234190577}
   - {fileID: 910681499159370814}
+  - {fileID: 161084434}
   - {fileID: 5125572749452997260}
   - {fileID: 1691006560}
   - {fileID: 54445319}
@@ -36970,7 +36977,7 @@ MonoBehaviour:
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 0
+  m_isInputParsingRequired: 1
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -42265,6 +42272,80 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2145362444}
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &408432721127758317
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1916932582}
+    m_Modifications:
+    - target: {fileID: 408432720984583676, guid: 1c7ecbd8fd3d797449fbb564f5df6450,
+        type: 3}
+      propertyPath: m_Name
+      value: DashUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 408432720984583676, guid: 1c7ecbd8fd3d797449fbb564f5df6450,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 408432720984583679, guid: 1c7ecbd8fd3d797449fbb564f5df6450,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 408432720984583679, guid: 1c7ecbd8fd3d797449fbb564f5df6450,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 408432720984583679, guid: 1c7ecbd8fd3d797449fbb564f5df6450,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 408432720984583679, guid: 1c7ecbd8fd3d797449fbb564f5df6450,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 408432720984583679, guid: 1c7ecbd8fd3d797449fbb564f5df6450,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 408432720984583679, guid: 1c7ecbd8fd3d797449fbb564f5df6450,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 408432720984583679, guid: 1c7ecbd8fd3d797449fbb564f5df6450,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 408432720984583679, guid: 1c7ecbd8fd3d797449fbb564f5df6450,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 408432720984583679, guid: 1c7ecbd8fd3d797449fbb564f5df6450,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 408432720984583679, guid: 1c7ecbd8fd3d797449fbb564f5df6450,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 408432720984583679, guid: 1c7ecbd8fd3d797449fbb564f5df6450,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 1c7ecbd8fd3d797449fbb564f5df6450, type: 3}
 --- !u!23 &603096907258100191
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -42901,7 +42982,7 @@ PrefabInstance:
     - target: {fileID: 5125572749452997260, guid: b7fdec07901e488479439ad4af7cf7ae,
         type: 3}
       propertyPath: m_RootOrder
-      value: 14
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 5125572749452997260, guid: b7fdec07901e488479439ad4af7cf7ae,
         type: 3}

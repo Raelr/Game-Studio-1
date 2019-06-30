@@ -25,10 +25,13 @@ public class PhysicsController : InitialisedEntity
     
 	public delegate void OnRingHitHandler();
 
+    public delegate void OnRelicHitHandler();
+
     public OnCollisionhandler onCollision;
     public OnPlayerCollectHanlder onPlayerCollect;
 	public OnNearMissHandler onNearMiss;
 	public OnRingHitHandler onRingHit;
+    public OnRelicHitHandler onRelicHit;
 
     public override void Initialise() {
 
@@ -45,6 +48,8 @@ public class PhysicsController : InitialisedEntity
 		collisionSensor.onNearMiss += OnPlayerNearMiss;
         
 		collisionSensor.onRingHit += OnPlayerRingHit;
+
+        collisionSensor.onRelicHit += OnPlayerRelicHit;
 
         collisionSensor.onPlayerCollect += OnPlayerCollect;
     }
@@ -71,5 +76,10 @@ public class PhysicsController : InitialisedEntity
 
 	public void OnPlayerRingHit() {
 		onRingHit?.Invoke();
-	}
+    }
+
+    public void OnPlayerRelicHit()
+    {
+        onRelicHit?.Invoke();
+    }
 }

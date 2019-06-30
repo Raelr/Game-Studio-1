@@ -19,6 +19,82 @@ MonoBehaviour:
   - {fileID: 114218637312295230}
   - {fileID: 114910435343634394}
   - {fileID: 114648464288159562}
+  - {fileID: 114040134009055010}
+  - {fileID: 114044997823909220}
+  - {fileID: 114975874428625030}
+  - {fileID: 114670267553130262}
+--- !u!114 &114040134009055010
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c209da0407915e4cb0f4fcd7b31a446, type: 3}
+  m_Name: AmbientOcclusion2D
+  m_EditorClassIdentifier: 
+  active: 0
+  enabled:
+    overrideState: 1
+    value: 1
+  aoOnly:
+    overrideState: 1
+    value: 0
+  intensity:
+    overrideState: 1
+    value: 0.674
+  luminanceThreshold:
+    overrideState: 1
+    value: 0.036
+  distance:
+    overrideState: 1
+    value: 0.824
+  blurAmount:
+    overrideState: 1
+    value: 0
+  iterations:
+    overrideState: 0
+    value: 2
+  downscaling:
+    overrideState: 0
+    value: 2
+--- !u!114 &114044997823909220
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3797b844bf119c94c83b110e6cf4997a, type: 3}
+  m_Name: Sketch
+  m_EditorClassIdentifier: 
+  active: 0
+  enabled:
+    overrideState: 1
+    value: 1
+  strokeTex:
+    overrideState: 1
+    value: {fileID: 2800000, guid: 123ff75e7dc34fe48a3da5437de7c675, type: 3}
+    defaultState: 1
+  projectionMode:
+    overrideState: 1
+    value: 0
+  blendMode:
+    overrideState: 1
+    value: 2
+  intensity:
+    overrideState: 0
+    value: 1
+  brightness:
+    overrideState: 0
+    value: {x: 0, y: 1}
+  tiling:
+    overrideState: 0
+    value: 8
 --- !u!114 &114168096817125540
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -189,7 +265,7 @@ MonoBehaviour:
     value: 1
   intensity:
     overrideState: 1
-    value: 100
+    value: -85.9
   intensityX:
     overrideState: 0
     value: 1
@@ -203,6 +279,68 @@ MonoBehaviour:
     overrideState: 0
     value: 0
   scale:
+    overrideState: 1
+    value: 1.1
+--- !u!114 &114670267553130262
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9746f408d6f1e994fa5e88f4f770670f, type: 3}
+  m_Name: Recolor
+  m_EditorClassIdentifier: 
+  active: 0
+  enabled:
+    overrideState: 1
+    value: 1
+  edgeColor:
+    overrideState: 0
+    value: {r: 0, g: 0, b: 0, a: 0}
+  edgeSource:
+    overrideState: 0
+    value: 1
+  edgeThreshold:
+    overrideState: 0
+    value: 0.5
+  edgeContrast:
+    overrideState: 0
+    value: 0.5
+  fillGradient:
+    overrideState: 1
+    value:
+      serializedVersion: 2
+      key0: {r: 1, g: 1, b: 1, a: 1}
+      key1: {r: 0.6603774, g: 0.6603774, b: 0.6603774, a: 1}
+      key2: {r: 1, g: 1, b: 1, a: 0}
+      key3: {r: 0, g: 1, b: 0.10835743, a: 0}
+      key4: {r: 0, g: 1, b: 0.10835743, a: 0}
+      key5: {r: 0, g: 0, b: 0, a: 0}
+      key6: {r: 0, g: 0, b: 0, a: 0}
+      key7: {r: 0, g: 0, b: 0, a: 0}
+      ctime0: 0
+      ctime1: 14071
+      ctime2: 48188
+      ctime3: 65535
+      ctime4: 65535
+      ctime5: 0
+      ctime6: 0
+      ctime7: 0
+      atime0: 0
+      atime1: 65535
+      atime2: 0
+      atime3: 0
+      atime4: 0
+      atime5: 0
+      atime6: 0
+      atime7: 0
+      m_Mode: 0
+      m_NumColorKeys: 4
+      m_NumAlphaKeys: 2
+  fillOpacity:
     overrideState: 1
     value: 1
 --- !u!114 &114758023191908978
@@ -259,3 +397,31 @@ MonoBehaviour:
   convertNormalMap:
     overrideState: 0
     value: 0
+--- !u!114 &114975874428625030
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68966c50a26529148a161de977c30b30, type: 3}
+  m_Name: Streak
+  m_EditorClassIdentifier: 
+  active: 0
+  enabled:
+    overrideState: 1
+    value: 1
+  threshold:
+    overrideState: 1
+    value: 4.31
+  stretch:
+    overrideState: 1
+    value: 0.556
+  intensity:
+    overrideState: 1
+    value: 0.547
+  tint:
+    overrideState: 1
+    value: {r: 1, g: 1, b: 1, a: 1}

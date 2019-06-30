@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using AlternativeArchitecture;
 
 public class PlayerSensor : InitialisedEntity
 {
@@ -10,12 +11,15 @@ public class PlayerSensor : InitialisedEntity
 	
     public delegate void OnRingHitHandler();
 
+    public delegate void OnRelicHitHandler();
+
     public delegate void OnPlayerCollectHandler();
 
     public OnCollisionHandler onCollision;
     public OnPlayerCollectHandler onPlayerCollect;
     public OnNearMissHandler onNearMiss;
     public OnRingHitHandler onRingHit;
+    public OnRelicHitHandler onRelicHit;
 
 
     private bool hasCollided;
@@ -40,8 +44,20 @@ public class PlayerSensor : InitialisedEntity
 
         if (tag == "Collectable") {
             onPlayerCollect?.Invoke();
+            onRelicHit?.Invoke();
+            StartCoroutine(NextLevelHit());
         }
         
+    }
+
+    IEnumerator NextLevelHit ()
+    {
+        for (int i = 0; i < 2; i++)
+        {
+            GameProgression.instance.NextLevel();
+            yield return new WaitForSeconds(0.2f);
+        }
+
     }
 
 

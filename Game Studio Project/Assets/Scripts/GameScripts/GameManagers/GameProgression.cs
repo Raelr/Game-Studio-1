@@ -34,7 +34,10 @@ namespace AlternativeArchitecture
 
         public ProgressUI progressUI;
 
+        private float seed;
+
         private float spawnCounter = 0;
+
 
         public AnimationCurve spawnInterval;
 
@@ -47,12 +50,13 @@ namespace AlternativeArchitecture
 
         public ParticleSystem speedParticles;
 
-        public GameProgression instance;
+        public static GameProgression instance;
 		
 		private ProgressionMode currentMode;
 
         public override void Initialise()
         {
+            seed = Random.Range(0, 99999);
             base.Initialise();
 
             instance = this;
@@ -61,7 +65,7 @@ namespace AlternativeArchitecture
             progressUI.SetLevelProgress(0);
             SetGameLevelStartEffect(progressUI.SetLevel(currentLevel - 1));
             gameSpeed = Mathf.Clamp(currentLevel, 0, 5);
-            
+
         }
 
         public void SetProgressionMode (bool isNormal)
@@ -69,6 +73,23 @@ namespace AlternativeArchitecture
 			currentMode = isNormal ? ProgressionMode.SLOW : ProgressionMode.FAST;
             switch (currentMode)
             {
+                                
+                case ProgressionMode.SLOW:
+                    levelInterval = 15;
+                    gameSpeedMultiplier = 1f;
+                    Time.timeScale = 1f;
+                    PlayerPrefs.SetInt("normalMode", 1);
+                    break;
+                case ProgressionMode.FAST:
+                    levelInterval = 3;
+                    gameSpeedMultiplier = 1.1f;
+                    Time.timeScale = 1.1f;
+                    PlayerPrefs.SetInt("normalMode", 0);
+                    break;
+
+
+
+                /*
                 case ProgressionMode.SLOW:
                     levelInterval = 25;
                     Time.timeScale = 1;
@@ -79,7 +100,7 @@ namespace AlternativeArchitecture
                     gameSpeedMultiplier = 1.1f;
                     Time.timeScale = 1.1f;
                     PlayerPrefs.SetInt("normalMode", 0);
-                    break;
+                    break;*/
             }
 
             UIMaster.instance.SetCurrentProgression(currentMode);
@@ -116,9 +137,20 @@ namespace AlternativeArchitecture
             }
         }
 
-        private void NextLevel () {
+        public AudioSource winLevelSound;
+
+        float map(float s, float a1, float a2, float b1, float b2)
+        {
+            return b1 + (s - a1) * (b2 - b1) / (a2 - a1);
+        }
+
+
+        public void NextLevel () {
 
             currentLevel ++;
+            winLevelSound.volume = Mathf.Clamp(map(currentLevel, 1, 30, 0.4f, 0), 0.2f, 1);
+            winLevelSound.pitch = Mathf.Clamp(map(currentLevel, 1, 40, 1, 3), 1, 2);
+            winLevelSound.Play();
 
             PlayerMaster.instance.UpdateLevelData(currentLevel);
 
@@ -160,7 +192,7 @@ namespace AlternativeArchitecture
 
             Obstacle obstacleScript = newObstacle.GetComponent<Obstacle>();
             obstacleScript.Setup(GamePooler.instance,
-                 objectToSpawn);
+                 objectToSpawn, seed);
             obstacleScript.levelForceMultiplier = gameSpeed * 0.4f;
 
             float depthSpeed = Mathf.Clamp(gameSpeed, 0, 10);

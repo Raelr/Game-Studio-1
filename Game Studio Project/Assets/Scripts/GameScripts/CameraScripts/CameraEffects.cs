@@ -22,6 +22,8 @@ public class CameraEffects : MonoBehaviour
 
     public Monster monster;
 
+    private bool godMode;
+
 
 
     private void Awake()
@@ -34,11 +36,24 @@ public class CameraEffects : MonoBehaviour
         DashOff();
     }
 
+    private void Update()
+    {
+        if (Input.GetKey(KeyCode.F1) && Input.GetKey(KeyCode.F2) && Input.GetKey(KeyCode.F3))
+        {
+            godMode = true;
+        }
+    }
+
 
 
 
     public void ApplyInsanity (float insanity)
     {
+        if (godMode)
+        {
+            insanity = 0;
+        }
+
         currentInsanity = insanity;
         if (!moshEnabled && insanity > 0.6f)
         {

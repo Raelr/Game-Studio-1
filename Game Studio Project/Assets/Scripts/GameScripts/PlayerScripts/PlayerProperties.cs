@@ -38,11 +38,21 @@ public class PlayerProperties : InitialisedEntity
 
     private WarningUI warn;
 
+    private bool godMode;
+
     public override void Initialise() {
 
         base.Initialise();
         warn = GameObject.Find("WarningUI").GetComponent<WarningUI>();
         currentSanity = 9f;
+    }
+
+    private void Update()
+    {
+        if (Input.GetKey(KeyCode.F1) && Input.GetKey(KeyCode.F2) && Input.GetKey(KeyCode.F3))
+        {
+            godMode = true;
+        }
     }
 
     public void OnPlayerHit()
@@ -69,7 +79,7 @@ public class PlayerProperties : InitialisedEntity
                     }
                 }
                 
-            } else {
+            } else if (!godMode) {
                 onPlayerLose?.Invoke();
             }
         }
@@ -98,7 +108,7 @@ public class PlayerProperties : InitialisedEntity
                     }
                 }
             }
-            else
+            else if (!godMode)
             {
                 onPlayerLose?.Invoke();
             }

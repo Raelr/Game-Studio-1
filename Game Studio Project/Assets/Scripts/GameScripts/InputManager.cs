@@ -26,6 +26,57 @@ public class InputManager : MonoBehaviour
     private void FixedUpdate() {
         GetMouseInput();
 		SetAxisMovment();
+
+
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            PlayerPrefs.SetFloat("SensitivityMultiplier", 0.4f);
+            SensitivityDisplay.instance.SetDisplay(1);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            PlayerPrefs.SetFloat("SensitivityMultiplier", 0.5f);
+            SensitivityDisplay.instance.SetDisplay(2);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            PlayerPrefs.SetFloat("SensitivityMultiplier", 0.6f);
+            SensitivityDisplay.instance.SetDisplay(3);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            PlayerPrefs.SetFloat("SensitivityMultiplier", 0.7f);
+            SensitivityDisplay.instance.SetDisplay(4);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            PlayerPrefs.SetFloat("SensitivityMultiplier", 0.8f);
+            SensitivityDisplay.instance.SetDisplay(5);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha6))
+        {
+            PlayerPrefs.SetFloat("SensitivityMultiplier", 0.9f);
+            SensitivityDisplay.instance.SetDisplay(6);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha7))
+        {
+            PlayerPrefs.SetFloat("SensitivityMultiplier", 1);
+            SensitivityDisplay.instance.SetDisplay(7);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha8))
+        {
+            PlayerPrefs.SetFloat("SensitivityMultiplier", 1.2f);
+            SensitivityDisplay.instance.SetDisplay(8);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha9))
+        {
+            PlayerPrefs.SetFloat("SensitivityMultiplier", 1.5f);
+            SensitivityDisplay.instance.SetDisplay(9);
+        }
+
+
+
+
     }
 
 
@@ -57,7 +108,10 @@ public class InputManager : MonoBehaviour
 
     // Sets movement from the horizontal and vertical Axis
     private void SetAxisMovment() {
-    
+
+        float sensitivityMultiplier = GetSensitivityMultiplier();
+
+
         float horizontalJoyTarget = Input.GetAxis("HorizontalJoy");
         float verticalJoyTarget = Input.GetAxis("VerticalJoy");
 
@@ -71,28 +125,27 @@ public class InputManager : MonoBehaviour
         verticalJoyChangeSpeed += verticalJoyStrength * (verticalJoyTarget - verticalJoy);
         verticalJoyChangeSpeed *= verticalJoyBouncy;
 
-        /*
-        if (Mathf.Abs(horizontalJoyInput) > 0.1f)
-            horizontalJoy = horizontalJoyInput;
-        else
-            horizontalJoy -= (horizontalJoy / horizontalJoyDrift);
-
-        if (Mathf.Abs(verticalJoyInput) > 0.1f)
-            verticalJoy = verticalJoyInput;
-        else
-            verticalJoy -= (verticalJoy / verticalJoyDrift);*/
-
-
-
-
-
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
 
-        Vector2 flightVector = new Vector2(horizontalInput + horizontalJoy, verticalInput + verticalJoy);
+        Vector2 flightVector = new Vector2(horizontalInput + horizontalJoy, verticalInput + verticalJoy) * sensitivityMultiplier;
         
         master?.RotateEntity(new Vector2(flightVector.x, flightVector.y));
 	}
+
+    float GetSensitivityMultiplier ()
+    {
+        float sense = 1;
+        if (PlayerPrefs.HasKey("SensitivityMultiplier"))
+        {
+            sense = PlayerPrefs.GetFloat("SensitivityMultiplier");
+        }
+        else
+        {
+            PlayerPrefs.SetFloat("SensitivityMultiplier", 1);
+        }
+        return sense;
+    }
 
 	// Gets the mouse position and returns its screen point.
 	Vector3 GetMousePosition() {

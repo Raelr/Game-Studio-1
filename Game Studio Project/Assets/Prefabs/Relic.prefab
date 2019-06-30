@@ -143,7 +143,7 @@ MonoBehaviour:
   pointData:
   - value: 3000
     chance: 1
-    colour: {r: 0, g: 1, b: 0.051671505, a: 1}
+    colour: {r: 0, g: 0.73562217, b: 1, a: 0.79607844}
 --- !u!135 &4458132279263171630
 SphereCollider:
   m_ObjectHideFlags: 0

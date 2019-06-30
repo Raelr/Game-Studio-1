@@ -24442,8 +24442,8 @@ MonoBehaviour:
   - {fileID: 1064506147255644267}
   - {fileID: 7496040455138383}
   - {fileID: 7359018046247672631}
-  particleFireCountMin: 25
-  particleFireCountMax: 30
+  particleFireCountMin: 5
+  particleFireCountMax: 10
   particleEmitRate: 0.1
   fireSound: {fileID: 7875416642845970865}
   firePitchMin: 2

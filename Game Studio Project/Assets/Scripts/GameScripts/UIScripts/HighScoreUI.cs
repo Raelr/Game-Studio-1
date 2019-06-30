@@ -97,7 +97,7 @@ public class HighScoreUI : MonoBehaviour
     }
 
     void UpdateHighScoreNum(int value) {
-        highScoreNum.text = "High Score: " + value;
+        highScoreNum.text = "" + value;
     }
 
     void HighScoreBeaten ()

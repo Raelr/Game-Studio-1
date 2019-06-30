@@ -18,6 +18,8 @@ public class HighScoreUI : MonoBehaviour
     public TextMesh percentNum, percentSymbol, highScoreText;
     public Renderer barRenderer;
 
+    public TextMesh highScoreNum;
+
     public Color winCol;
 
     public Animator highScoreAnim;
@@ -53,6 +55,7 @@ public class HighScoreUI : MonoBehaviour
     {
         highScore = hs;
         highScoreSet = true;
+        UpdateHighScoreNum(highScore);
         RefreshDisplay();
     }
 
@@ -82,6 +85,9 @@ public class HighScoreUI : MonoBehaviour
                 beatenHighScore = true;
                 HighScoreBeaten();
             }
+            else {
+                UpdateHighScoreNum(score);
+            }
             roundedPercent = 100;
         }
 
@@ -89,6 +95,9 @@ public class HighScoreUI : MonoBehaviour
         barScalar.transform.localScale = new Vector3(roundedPercent / 100, 1, 1);
     }
 
+    void UpdateHighScoreNum(int value) {
+        highScoreNum.text = "High Score: " + value;
+    }
 
     void HighScoreBeaten ()
     {

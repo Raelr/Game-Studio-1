@@ -178,6 +178,6 @@ Material:
     - _RotationAnchor: {r: 0.5, g: 0.5, b: 0, a: 0}
     - _RotationSpeed: {r: 0.5, g: 0.5, b: 0, a: 0}
     - _RotationsPeed: {r: 0.5, g: 0.5, b: 0, a: 0}
-    - _TintColor: {r: 4.831592, g: 4.836448, b: 0, a: 1}
+    - _TintColor: {r: 4.831592, g: 4.836448, b: 0, a: 0.1882353}
     - _Vector0: {r: 0, g: 0, b: -3.1, a: 0}
     - _VertexOffset: {r: 0, g: 0, b: 3.59, a: 0}

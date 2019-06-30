@@ -8,6 +8,8 @@ namespace AlternativeArchitecture
     {
         //placeholder script - will be replaced with obstacle master
 
+        public float seed;
+
         private bool isActive;
 
         [SerializeField]
@@ -56,6 +58,8 @@ namespace AlternativeArchitecture
         float maxSize;
 
         public float minDepth = 1500f, maxDepth = 2000;
+
+        public bool isHoop;
         
 
         private void Start() {
@@ -65,26 +69,51 @@ namespace AlternativeArchitecture
             maxHeight = Screen.height;
         }
 
-        public void Setup(GamePooler pooler, int type)
+        public void Setup(GamePooler pooler, int type, float in_seed)
         {
             if (ren == null)
             {
                 ren = GetComponentInChildren<Renderer>();
             }
             rigid.velocity = Vector3.zero;
-            
+            seed = in_seed;
+
 
             origin1 = GameObject.FindGameObjectWithTag("Player").transform;
             player = origin1.GetChild(0).transform;
             if (useRandomSize) maxSize = Random.Range(randomMinSize, randomMaxSize);
             if (randomRotate) transform.Rotate(new Vector3(Random.Range(0, 360), Random.Range(0, 360), Random.Range(0, 360)));
 
-            RandomSpawn();
+            if (isHoop)
+                RandomHoopSpawn();
+            else
+                RandomSpawn();
 
             gamePooler = pooler;
             objectType = type;
 
             isActive = true;
+        }
+
+        private void RandomHoopSpawn()
+        {
+            //parameters
+            float waviness = 0.17f;
+            float dispersion = 180f;
+
+
+            float randomWidth = (Mathf.PerlinNoise(seed, Time.time * waviness) * (2 * 700)) - 700;
+            float randomHeight = (Mathf.PerlinNoise(seed * 3, Time.time * waviness) * (2 * 700)) - 700;
+
+            randomWidth += Random.Range(-dispersion, dispersion);
+            randomHeight += Random.Range(-dispersion, dispersion);
+
+            
+            //float randomHeight = 0;//Random.Range(-500, 500);
+            float randomDepth = Random.Range(minDepth, maxDepth);
+            
+
+            transform.position = new Vector3(randomWidth, randomHeight, randomDepth);
         }
 
         private void RandomSpawn() {

@@ -13,6 +13,8 @@ namespace AlternativeArchitecture {
 		
         public delegate void OnRingHitHandler();
 
+        public delegate void OnRelicHitHandler();
+
         public delegate void OnTimeChangeHandler(float speed);
 
         public OnCollisionhandler onCollision;
@@ -20,6 +22,8 @@ namespace AlternativeArchitecture {
         public OnNearMissHandler onNearMiss;
 		
         public OnRingHitHandler onRingHit;
+
+        public OnRelicHitHandler onRelicHit;
 
         public OnTimeChangeHandler onTimeChange;
 
@@ -38,7 +42,7 @@ namespace AlternativeArchitecture {
 
         [Header("Dash Properties")]
         [SerializeField] AudioClip[] dashClips = null;
-        [SerializeField] GameObject dashIcon;
+        [SerializeField] GameObject dashIcon, dashIcon2;
         public float dashPitchMin, dashPitchMax;
         public float dashBuildUpVolume, dashBurstVolume;
 
@@ -71,6 +75,14 @@ namespace AlternativeArchitecture {
         
         private bool invertY = false;
 
+        public List<ParticleSystem> particleFireCharges;
+        public Vector2 particleFireChargeCountRange;
+        public Vector2 particleFireChargeIntervalRange;
+        private float particleFireChargeInterval;
+        private float particleFireChargeCounter;
+        private bool particleFireChargeFirst = true;
+
+
         // Initialises all variables and gets the physics component.
         public override void Initialise() {
 
@@ -82,11 +94,13 @@ namespace AlternativeArchitecture {
             //dashIcon = player.Find("DashIcon").GetComponent<Renderer>();
             dashIcon = Camera.main.transform.GetChild(14).gameObject;
             dashIcon.SetActive(false);
+            dashIcon2.SetActive(false);
             physics.Initialise();
 
             physics.onCollision += onPlayerCollision;
             physics.onNearMiss += OnPlayerNearMiss;
             physics.onRingHit += OnPlayerRingHit;
+            physics.onRelicHit += OnPlayerRelicHit;
             physics.onPlayerCollect += OnPlayerCollect;
 
             comboCoroutine = ComboTimer();
@@ -232,6 +246,14 @@ namespace AlternativeArchitecture {
             GainPoints(50);
         }
 
+        public void OnPlayerRelicHit()
+        {
+            Debug.Log("hit relic");
+            Combo();
+            StartCoroutine(InputPrompt("autorelic"));
+            GainPoints(50);
+        }
+
         public void GainPoints(float value) {
             int points = (int)(value * PointMultiplier * comboMultiplier);
             score += points;
@@ -293,10 +315,13 @@ namespace AlternativeArchitecture {
 
                 if (elapsedTime > 0.5f && !dashIcon.active) {
                     dashIcon.SetActive(true);
+                    dashIcon2.SetActive(true);
                 }
+                ChargeFire();
 
                 speedBoost += 1 * Time.deltaTime;
-                if (Input.GetButtonDown("Fire1") && elapsedTime > 0.5f || prompt == "auto") {
+                if (Input.GetButtonDown("Fire1") && elapsedTime > 0.5f || prompt == "auto" || prompt == "autorelic")
+                {
 
                     if (prompt == "ask")
                     {
@@ -310,6 +335,7 @@ namespace AlternativeArchitecture {
                     dashAudio.Play();
                     successfulDash = true;
                     dashIcon.SetActive(false);
+                    dashIcon2.SetActive(false);
                     StopCoroutine(Retreat());
                     StopCoroutine(Dash(0));
                     StartCoroutine(Dash(speedBoost));
@@ -324,13 +350,40 @@ namespace AlternativeArchitecture {
                 yield return null;
             }
             dashIcon.SetActive(false);
+            dashIcon2.SetActive(false);
             if (!successfulDash) {
                 dashAudio.Stop();
                 dashIcon.SetActive(false);
+                dashIcon2.SetActive(false);
                 GamePooler.instance.SetObstacleSpeed(currentSpeed);
                 onTimeChange(1f);
                 stepRotation = 10;
             }
+        }
+        
+
+        private void ChargeFire ()
+        {
+            if (particleFireChargeFirst)
+            {
+                particleFireChargeFirst = false;
+                RandomParticleFireChargeInterval();
+            }
+            particleFireChargeCounter += Time.deltaTime;
+            if (particleFireChargeCounter > particleFireChargeInterval)
+            {
+                particleFireChargeCounter = 0;
+                foreach (ParticleSystem particleFireCharge in particleFireCharges)
+                {
+                    particleFireCharge.Emit(Mathf.RoundToInt(UnityEngine.Random.Range(particleFireChargeCountRange.x, particleFireChargeCountRange.y)));
+                }
+                 RandomParticleFireChargeInterval();
+            }
+        }
+
+        private void RandomParticleFireChargeInterval ()
+        {
+            particleFireChargeInterval = UnityEngine.Random.Range(particleFireChargeIntervalRange.x, particleFireChargeIntervalRange.y);
         }
 
         private IEnumerator TestRotation() {

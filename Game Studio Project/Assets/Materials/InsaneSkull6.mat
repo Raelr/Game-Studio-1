@@ -62,4 +62,4 @@ Material:
     - _Color: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.3529412, g: 0.3529412, b: 0.3529412, a: 1}
     - _TransColor: {r: 1, g: 0, b: 0.009994984, a: 1}
-    - _V_SSS_Rim_Color: {r: 1, g: 0, b: 0.22172403, a: 1}
+    - _V_SSS_Rim_Color: {r: 0, g: 1, b: 0.6942835, a: 1}

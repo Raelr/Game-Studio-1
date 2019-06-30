@@ -56,7 +56,7 @@ Material:
     - _Rotation: 95
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Tint: {r: 0.31018835, g: 0.88139415, b: 0.11953997, a: 0.84852976}
+    - _Tint: {r: 0.33761615, g: 0.8271264, b: 0.17423499, a: 0.79896224}
 --- !u!1002 &2100001
 EditorExtensionImpl:
   serializedVersion: 6

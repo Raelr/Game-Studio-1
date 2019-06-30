@@ -66,6 +66,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3265ab4a7e978c4f961b53b78f3d210, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seed: 0
   target: {fileID: 0}
   origin1: {fileID: 0}
   player: {fileID: 0}
@@ -74,7 +75,6 @@ MonoBehaviour:
   spawns: []
   spacing: 3
   force: 400
-  dist: 1000
   dir: {x: 0, y: 0, z: 0}
   randomRotate: 0
   forceMultiplier: 1
@@ -86,6 +86,7 @@ MonoBehaviour:
   randomMaxSize: 20
   minDepth: 1500
   maxDepth: 2000
+  isHoop: 1
 --- !u!54 &7803741998240123602
 Rigidbody:
   m_ObjectHideFlags: 0

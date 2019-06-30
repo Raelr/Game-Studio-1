@@ -26,26 +26,22 @@ public class UIMeter : InitialisedEntity
 
         maxAmount = meter.localScale.x;
 
-        Vector3 newScale = new Vector3(0f, meter.localScale.y, meter.localScale.z);
-
-        meter.localScale = newScale;
-
         meterRenderer.material.color = startColor;
 
-        ChangeMeterStatus(false);
+       // ChangeMeterStatus(false);
     }
 
     public void IncrementMeter(float incrementSpeed, bool reverse = false) {
 
-        if (meter.localScale.x <= maxAmount) {
+        if (meter.localScale.x > 0) {
 
             Vector3 newAmount;
 
             if (reverse) {
-                newAmount = new Vector3(incrementSpeed, meter.localScale.y, meter.localScale.z);
+                newAmount = new Vector3(maxAmount - incrementSpeed, meter.localScale.y, meter.localScale.z);
                 ChangeMeterScale(newAmount);
             } else {
-                newAmount = new Vector3(incrementSpeed, meter.localScale.y, meter.localScale.z);
+                newAmount = new Vector3(maxAmount - incrementSpeed, meter.localScale.y, meter.localScale.z);
                 ChangeMeterScale(Vector3.Lerp(meter.localScale, newAmount, incrementSpeed * Time.deltaTime));
             }
 

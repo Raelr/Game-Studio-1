@@ -22,6 +22,7 @@ MonoBehaviour:
   - {fileID: 114634313309879500}
   - {fileID: 114260471739401032}
   - {fileID: 114398009917027148}
+  - {fileID: 114609091408406604}
 --- !u!114 &114168096817125540
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -40,7 +41,7 @@ MonoBehaviour:
     value: 1
   intensity:
     overrideState: 1
-    value: 10
+    value: 6
   threshold:
     overrideState: 0
     value: 1
@@ -63,12 +64,12 @@ MonoBehaviour:
     overrideState: 0
     value: 0
   dirtTexture:
-    overrideState: 0
-    value: {fileID: 0}
+    overrideState: 1
+    value: {fileID: 2800000, guid: b9fdcb953f0a50546ba64c9b6bf9d5f2, type: 3}
     defaultState: 1
   dirtIntensity:
-    overrideState: 0
-    value: 0
+    overrideState: 1
+    value: 0.5
 --- !u!114 &114218637312295230
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -237,7 +238,7 @@ MonoBehaviour:
     value: 0
   saturation:
     overrideState: 1
-    value: 33
+    value: 90
   brightness:
     overrideState: 0
     value: 0
@@ -1543,6 +1544,25 @@ MonoBehaviour:
     overrideState: 1
     value: 48
   kernelSize:
+    overrideState: 1
+    value: 1
+--- !u!114 &114609091408406604
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 981847c4ec924b14bb19cc25e81e2d69, type: 3}
+  m_Name: Sharpen
+  m_EditorClassIdentifier: 
+  active: 0
+  enabled:
+    overrideState: 1
+    value: 1
+  strength:
     overrideState: 1
     value: 1
 --- !u!114 &114634313309879500

@@ -4895,6 +4895,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 2ca19ff0d3c0beb45abbc87f11501c2a, type: 3}
   - {fileID: 8300000, guid: e8bdfe382d7bf8840877d4667c4ee18d, type: 3}
   dashIcon: {fileID: 408432720984583676, guid: 1c7ecbd8fd3d797449fbb564f5df6450, type: 3}
+  dashIcon2: {fileID: 151043700159021374}
   dashPitchMin: 0.9
   dashPitchMax: 1.2
   dashBuildUpVolume: 0.702
@@ -4948,6 +4949,12 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  particleFireCharges:
+  - {fileID: 1064506147255644267}
+  - {fileID: 7496040455138383}
+  - {fileID: 7359018046247672631}
+  particleFireChargeCountRange: {x: 10, y: 20}
+  particleFireChargeIntervalRange: {x: 0.1, y: 0.3}
 --- !u!114 &506424735756477649
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24442,8 +24449,8 @@ MonoBehaviour:
   - {fileID: 1064506147255644267}
   - {fileID: 7496040455138383}
   - {fileID: 7359018046247672631}
-  particleFireCountMin: 25
-  particleFireCountMax: 30
+  particleFireCountMin: 5
+  particleFireCountMax: 10
   particleEmitRate: 0.1
   fireSound: {fileID: 7875416642845970865}
   firePitchMin: 2
@@ -71398,7 +71405,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 8
+      scalar: 30
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -71715,8 +71722,8 @@ ParticleSystem:
         m_RotationOrder: 4
     randomizeRotationDirection: 0
     maxNumParticles: 1000
-    size3D: 1
-    rotation3D: 1
+    size3D: 0
+    rotation3D: 0
     gravityModifier:
       serializedVersion: 2
       minMaxState: 0
@@ -75807,7 +75814,7 @@ ParticleSystemRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_RenderMode: 4
+  m_RenderMode: 0
   m_SortMode: 0
   m_MinParticleSize: 0
   m_MaxParticleSize: 0.5

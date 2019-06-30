@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.0052182707, g: 0.06985036, b: 0.000023814564, a: 1}
+  m_IndirectSpecularColor: {r: 0.018091273, g: 0.022509256, b: 0.07523111, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -42828,6 +42828,7 @@ MonoBehaviour:
   percentSymbol: {fileID: 114160864}
   highScoreText: {fileID: 199527221}
   barRenderer: {fileID: 2145362446}
+  baseRenderer: {fileID: 1610072290}
   highScoreNum: {fileID: 2059221366}
   winCol: {r: 1, g: 0.9863347, b: 0, a: 1}
   highScoreAnim: {fileID: 54445320}

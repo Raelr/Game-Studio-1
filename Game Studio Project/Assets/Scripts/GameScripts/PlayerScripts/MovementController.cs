@@ -38,7 +38,7 @@ namespace AlternativeArchitecture {
 
         [Header("Dash Properties")]
         [SerializeField] AudioClip[] dashClips = null;
-        [SerializeField] Renderer dashIcon;
+        [SerializeField] GameObject dashIcon;
         public float dashPitchMin, dashPitchMax;
         public float dashBuildUpVolume, dashBurstVolume;
 
@@ -79,8 +79,9 @@ namespace AlternativeArchitecture {
             physics = GetComponent<PhysicsController>();
             dashAudio = GetComponent<AudioSource>();
             player = transform.Find("Visuals");
-            dashIcon = player.Find("DashIcon").GetComponent<Renderer>();
-            dashIcon.enabled = false;
+            //dashIcon = player.Find("DashIcon").GetComponent<Renderer>();
+            dashIcon = Camera.main.transform.GetChild(14).gameObject;
+            dashIcon.SetActive(false);
             physics.Initialise();
 
             physics.onCollision += onPlayerCollision;
@@ -290,8 +291,8 @@ namespace AlternativeArchitecture {
 
                 elapsedTime += Time.deltaTime;
 
-                if (elapsedTime > 0.5f && !dashIcon.enabled) {
-                    dashIcon.enabled = true;
+                if (elapsedTime > 0.5f && !dashIcon.active) {
+                    dashIcon.SetActive(true);
                 }
 
                 speedBoost += 1 * Time.deltaTime;
@@ -308,7 +309,7 @@ namespace AlternativeArchitecture {
                     dashAudio.volume = dashBurstVolume;
                     dashAudio.Play();
                     successfulDash = true;
-                    dashIcon.enabled = false;
+                    dashIcon.SetActive(false);
                     StopCoroutine(Retreat());
                     StopCoroutine(Dash(0));
                     StartCoroutine(Dash(speedBoost));
@@ -322,10 +323,10 @@ namespace AlternativeArchitecture {
                 }
                 yield return null;
             }
-            dashIcon.enabled = false;
+            dashIcon.SetActive(false);
             if (!successfulDash) {
                 dashAudio.Stop();
-                dashIcon.enabled = false;
+                dashIcon.SetActive(false);
                 GamePooler.instance.SetObstacleSpeed(currentSpeed);
                 onTimeChange(1f);
                 stepRotation = 10;

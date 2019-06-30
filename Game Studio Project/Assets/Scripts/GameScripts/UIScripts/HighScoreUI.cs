@@ -16,7 +16,9 @@ public class HighScoreUI : MonoBehaviour
 
     public Transform barScalar;
     public TextMesh percentNum, percentSymbol, highScoreText;
-    public Renderer barRenderer;
+    public Renderer barRenderer, baseRenderer;
+
+    public TextMesh highScoreNum;
 
     public Color winCol;
 
@@ -53,6 +55,8 @@ public class HighScoreUI : MonoBehaviour
     {
         highScore = hs;
         highScoreSet = true;
+        UpdateHighScoreNum(highScore);
+        ShowProgress();
         RefreshDisplay();
     }
 
@@ -82,6 +86,9 @@ public class HighScoreUI : MonoBehaviour
                 beatenHighScore = true;
                 HighScoreBeaten();
             }
+            else {
+                UpdateHighScoreNum(score);
+            }
             roundedPercent = 100;
         }
 
@@ -89,6 +96,9 @@ public class HighScoreUI : MonoBehaviour
         barScalar.transform.localScale = new Vector3(roundedPercent / 100, 1, 1);
     }
 
+    void UpdateHighScoreNum(int value) {
+        highScoreNum.text = "" + value;
+    }
 
     void HighScoreBeaten ()
     {
@@ -105,6 +115,7 @@ public class HighScoreUI : MonoBehaviour
 
         highScoreAnim.SetBool("PlayAnim", true);
         StartCoroutine(TurnOffAnim());
+        StartCoroutine(HideProgress());
     }
 
     IEnumerator TurnOffAnim ()
@@ -113,6 +124,21 @@ public class HighScoreUI : MonoBehaviour
         highScoreAnim.SetBool("PlayAnim", false);
     }
 
+    IEnumerator HideProgress() {
+        yield return new WaitForSeconds(3f);
+        percentNum.gameObject.SetActive(false);
+        percentSymbol.gameObject.SetActive(false);
+        highScoreText.gameObject.SetActive(false);
+        barRenderer.enabled = false;
+        baseRenderer.enabled = false;
+    }
 
+    void ShowProgress() {
+        percentNum.gameObject.SetActive(true);
+        percentSymbol.gameObject.SetActive(true);
+        highScoreText.gameObject.SetActive(true);
+        barRenderer.enabled = true;
+        baseRenderer.enabled = true;
+    }
 
 }

@@ -18,6 +18,8 @@ public class ProgressUI : MonoBehaviour
 
     public ParticleSystem winParticle;
 
+    public TextMesh signalText;
+
     private Color currentLevelCol;
 
     private int currentLevel = 1;
@@ -57,12 +59,21 @@ public class ProgressUI : MonoBehaviour
     { //start at level 0   call this from game progression. Return the color of the new level
         currentLevel = level;
         levelText.text = "// Level " + (level + 1);
-        if (level != 0) winParticle.Emit(10);
+        if (level != 0) {
+            winParticle.Emit(10);
+            StartCoroutine(ShowSignal());
+        }
 
         level = level % (levelCols.Count);
         currentLevelCol = levelCols[level];
         levelText.color = ballRenderer.material.color = barRenderer.material.color = currentLevelCol;
         UIMaster.instance.LevelColor = currentLevelCol;
         return level;
+    }
+
+    IEnumerator ShowSignal() {
+        signalText.gameObject.SetActive(true);
+        yield return new WaitForSeconds(2f);
+        signalText.gameObject.SetActive(false);
     }
 }

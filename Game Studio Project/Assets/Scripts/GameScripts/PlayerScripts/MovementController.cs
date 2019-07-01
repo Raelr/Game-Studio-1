@@ -83,6 +83,15 @@ namespace AlternativeArchitecture {
         private bool particleFireChargeFirst = true;
 
 
+        public ParticleSystem dashSuperParticles;
+        public float dashSuperParticlesTime;
+
+
+        public TextMesh comboText;
+        public GameObject comboSet;
+        public Transform comboScalar;
+        public TextMesh comboDoneText;
+
         // Initialises all variables and gets the physics component.
         public override void Initialise() {
 
@@ -269,22 +278,72 @@ namespace AlternativeArchitecture {
                 }
             }
             comboing = true;
-            StopCoroutine(comboCoroutine);
+            if (comboCoroutine != null)
+                StopCoroutine(comboCoroutine);
             comboCoroutine = ComboTimer();
             StartCoroutine(comboCoroutine);
+
+            int comboClamped = comboMultiplier;
+            if (comboClamped <= 0) comboClamped = 1;
+            comboText.text = "x" + comboClamped;
+
+            comboScalar.transform.localScale = Vector3.one;
+            comboSet.SetActive(true);
         }
 
-        private IEnumerator ComboTimer() {
-            float elpasedTime = 0;
+        IEnumerator comboDoneRoutine;
 
-            while (elpasedTime<3f) {
-                elpasedTime += Time.deltaTime;
+        private IEnumerator ComboTimer() {
+            float et = 0;
+            comboScalar.transform.localScale = Vector3.one;
+
+            while (et < 5f) {
+                et += Time.deltaTime;
                 yield return null;
+                comboScalar.transform.localScale = new Vector3((5 - et) / 5, 1, 1);
             }
+
+            float previousCombo = comboMultiplier;
 
             Debug.Log("Reseting combo");
             comboMultiplier = 1;
             comboing = false;
+            comboText.text = "";
+            comboSet.SetActive(false);
+
+            if (comboDoneRoutine != null)
+                StopCoroutine(comboDoneRoutine);
+            comboDoneRoutine = ComboDone(previousCombo);
+            StartCoroutine(comboDoneRoutine);
+        }
+
+        private IEnumerator ComboDone (float combo)
+        {
+            float et = 0;
+            comboDoneText.text = "x" + (combo == 0 ? 1 : combo);
+            comboDoneText.fontSize = Mathf.Clamp(100 + Mathf.RoundToInt(combo * 7), 100, 500);
+            comboDoneText.color = new Color(1, 1, 1, 1);
+            comboDoneText.gameObject.SetActive(true);
+            yield return new WaitForSeconds (1.5f);
+            float onOffCounter = 0;
+            while (et < 2)
+            {
+                Color currentCol = comboDoneText.color;
+                currentCol.a = (2 - et) / 2;
+                comboDoneText.color = currentCol;
+
+                onOffCounter += Time.deltaTime;
+                if (onOffCounter > 0.1f)
+                {
+                    onOffCounter = 0;
+                    comboDoneText.gameObject.SetActive(!comboDoneText.gameObject.activeSelf);
+                }
+
+
+                et += Time.deltaTime;
+                yield return null;
+            }
+            comboDoneText.color = new Color(1, 1, 1, 0);
         }
 
 
@@ -341,6 +400,8 @@ namespace AlternativeArchitecture {
                     StartCoroutine(Dash(speedBoost));
                     StartCoroutine(TestRotation());
                     onNearMiss?.Invoke();
+                    StartCoroutine(DashSuperParticles());
+
                     break;
                 }
                 else if (Input.GetButtonDown("Fire1")) {
@@ -360,7 +421,18 @@ namespace AlternativeArchitecture {
                 stepRotation = 10;
             }
         }
-        
+
+        private IEnumerator DashSuperParticles ()
+        {
+            var ep = dashSuperParticles.emission;
+            ep.enabled = true;
+            yield return new WaitForSeconds(dashSuperParticlesTime);
+
+            ep.enabled = false;
+
+        }
+
+
 
         private void ChargeFire ()
         {

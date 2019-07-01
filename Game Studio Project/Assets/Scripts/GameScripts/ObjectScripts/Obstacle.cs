@@ -30,9 +30,11 @@ namespace AlternativeArchitecture
         private Vector3 dir;
         [SerializeField]
         private bool randomRotate = true;
+        public float randomZRotate;
 
         public float forceMultiplier = 1;
         public float levelForceMultiplier = 1;
+
 
         [SerializeField]
         private Rigidbody rigid = null;
@@ -59,6 +61,10 @@ namespace AlternativeArchitecture
 
         public float minDepth = 1500f, maxDepth = 2000;
 
+        public float randomWidthMin = -500, randomWidthMax = 500;
+        public float randomHeightMin = -500, randomHeightMax = 500;
+        public bool spawnOnEdge;
+
         public bool isHoop;
         
 
@@ -83,6 +89,9 @@ namespace AlternativeArchitecture
             player = origin1.GetChild(0).transform;
             if (useRandomSize) maxSize = Random.Range(randomMinSize, randomMaxSize);
             if (randomRotate) transform.Rotate(new Vector3(Random.Range(0, 360), Random.Range(0, 360), Random.Range(0, 360)));
+
+            transform.Rotate(0,0, Random.Range(0, randomZRotate));
+
 
             if (isHoop)
                 RandomHoopSpawn();
@@ -117,11 +126,33 @@ namespace AlternativeArchitecture
         }
 
         private void RandomSpawn() {
-            float randomWidth = Random.Range(-500, 500);
-            float randomHeight = Random.Range(-500, 500);
+            float randomWidth = Random.Range(randomWidthMin, randomWidthMax);
+            float randomHeight = Random.Range(randomHeightMin, randomHeightMax);
             float randomDepth = Random.Range(minDepth, maxDepth);
 
             Vector3 dir = GetDir(transform.position);
+
+
+            if (spawnOnEdge)
+            {
+
+                int chance = Random.Range(1, 5);
+                switch (chance)
+                {
+                    case 1:
+                        randomWidth = randomWidthMin;
+                        break;
+                    case 2:
+                        randomWidth = randomWidthMax;
+                        break;
+                    case 3:
+                        randomHeight = randomHeightMin;
+                        break;
+                    case 4:
+                        randomHeight = randomHeightMax;
+                        break;
+                }
+            }
 
             transform.position = new Vector3(randomWidth, randomHeight , randomDepth);
         }

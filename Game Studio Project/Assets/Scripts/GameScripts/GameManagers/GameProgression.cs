@@ -75,7 +75,7 @@ namespace AlternativeArchitecture
             {
                                 
                 case ProgressionMode.SLOW:
-                    levelInterval = 15;
+                    levelInterval = 20;
                     gameSpeedMultiplier = 1f;
                     Time.timeScale = 1f;
                     PlayerPrefs.SetInt("normalMode", 1);
@@ -215,7 +215,7 @@ namespace AlternativeArchitecture
             level = level - 1;
 
             //use chance based on the level
-            float chance = Random.Range(0, 100);
+            float chance = Random.Range(0, 115);
             ObstacleChance chanceData;
 
             if (level > obstacleChances.Count - 1) //once you have completed all levels, select a random level
@@ -234,13 +234,23 @@ namespace AlternativeArchitecture
                     return choiceValue;
                 }
             }
-            
+
             if (chance < 99)
             {
                 return 19;
             }
 
-            
+            if (chance < 110 && level >= 4)
+            {
+                return 20;
+            }
+
+            if (chance < 115 && level > 1)
+            {
+                return 21;
+            }
+
+
             return 0;
 
         }

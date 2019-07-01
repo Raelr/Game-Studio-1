@@ -27,6 +27,8 @@ namespace AlternativeArchitecture {
      *  17 = giant skulls
      *  18 = man
      *  19 = relic
+     *  20 = galaxy
+     *  21 = planet
      */
 
 
@@ -370,7 +372,9 @@ namespace AlternativeArchitecture {
             obstacles.AddRange(GetObjects(16)); //boost bubble
             obstacles.AddRange(GetObjects(17)); //giant skulls
             obstacles.AddRange(GetObjects(18)); //man
-            obstacles.AddRange(GetObjects(19)); //man
+            obstacles.AddRange(GetObjects(19)); 
+            obstacles.AddRange(GetObjects(19)); //galaxy
+            obstacles.AddRange(GetObjects(19)); //planet
 
             foreach (GameObject obstacle in obstacles) {
                 currentForceMultiplier = newSpeed;

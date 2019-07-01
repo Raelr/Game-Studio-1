@@ -16,7 +16,7 @@ public class HighScoreUI : MonoBehaviour
 
     public Transform barScalar;
     public TextMesh percentNum, percentSymbol, highScoreText;
-    public Renderer barRenderer, baseRenderer;
+    public Renderer barRenderer, baseRenderer, arrowRenderer;
 
     public TextMesh highScoreNum;
 
@@ -131,6 +131,7 @@ public class HighScoreUI : MonoBehaviour
         highScoreText.gameObject.SetActive(false);
         barRenderer.enabled = false;
         baseRenderer.enabled = false;
+        arrowRenderer.enabled = false;
     }
 
     void ShowProgress() {

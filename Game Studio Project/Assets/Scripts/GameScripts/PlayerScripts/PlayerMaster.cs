@@ -225,11 +225,15 @@ namespace AlternativeArchitecture {
             movementController.UpdateScore(score);
         }
 
-        public void HitRelic ()
+        public void HitRelic (float time)
         {
             relicCollectParticle.Emit(relicCollectParticleCount);
+            playerProperties.FreezeInsantiyMeter(time);
+            UIMaster.instance.ShowTime((int)time, movementController.GetPlayer());
             relicHitSound.pitch = Random.Range(1.3f, 2f);
             relicHitSound.Play();
         }
+
+ 
     }
 }

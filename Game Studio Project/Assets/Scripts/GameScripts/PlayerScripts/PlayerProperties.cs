@@ -28,6 +28,8 @@ public class PlayerProperties : InitialisedEntity
 
     bool isDecaying = true;
 
+    bool isFrozen = false;
+
     public delegate void OnPlayerLostGame();
 
     public event OnPlayerLostGame onPlayerLose;
@@ -62,7 +64,7 @@ public class PlayerProperties : InitialisedEntity
 
     public void DecaySanityConstant() {
 
-        if (isDecaying) {
+        if (isDecaying && !isFrozen) {
             if (currentSanity > 0) {
                 currentSanity = Mathf.Lerp(currentSanity, currentSanity - InsanityDecaySpeed, InsanityDecaySpeed * Time.deltaTime);
 
@@ -146,5 +148,21 @@ public class PlayerProperties : InitialisedEntity
             }
         }
         isDecaying = true;
+    }
+
+    public void FreezeInsantiyMeter(float t) {
+        StartCoroutine(Freeze(t));
+    }
+
+    private IEnumerator Freeze(float t) {
+        float elapsedTime = 0;
+        isFrozen = true;
+
+        while (elapsedTime < t) {
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        isFrozen = false; 
     }
 }

@@ -10,6 +10,7 @@ namespace AlternativeArchitecture {
         private Obstacle obstacle;
         private int value;
         private Color colour;
+        private float time;
 
         private void Awake() {
             meshRenderer = GetComponent<MeshRenderer>();
@@ -27,6 +28,8 @@ namespace AlternativeArchitecture {
                 if (roll <= weightSum) {
                     value = data.value;
                     colour = data.colour;
+                    time = data.time;
+                    Debug.Log(time);
                     break;
                 }
             }
@@ -40,11 +43,10 @@ namespace AlternativeArchitecture {
 
         private void OnCollisionEnter(Collision col)
         {
-            Debug.Log(col.transform.name + " hit");
             if (col.transform.name != "Visuals") return;
             if (hit) return;
             hit = true;
-            PlayerMaster.instance.HitRelic();
+            PlayerMaster.instance.HitRelic(time);
             StartCoroutine(Hit());
         }
 
@@ -60,6 +62,7 @@ namespace AlternativeArchitecture {
             public int value;
             public float chance;
             public Color colour;
+            public float time;
         }
     }
 }

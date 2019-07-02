@@ -57,6 +57,21 @@ public class UIPoints : MonoBehaviour {
         StartCoroutine(TransformText());
     }
 
+    public void Initialise(string time, Transform source, float spawnDir) {
+        currentColours.startColour = Color.gray;
+        currentColours.endColour = Color.white;
+        SetParticleSystem();
+        SetTextColour();
+        this.source = source;
+        offsetPos = new Vector3(0, 0, +2);
+        this.spawnDir = spawnDir;
+        pointsText.text = time;
+
+        StopCoroutine(ScaleDown());
+        StopCoroutine(TransformText());
+        StartCoroutine(TransformText());
+    }
+
     private void SetColours(float value) {
         if (value < 500) {
             currentColours = pointColours[0];

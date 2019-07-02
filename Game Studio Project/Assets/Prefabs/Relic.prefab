@@ -93,6 +93,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3265ab4a7e978c4f961b53b78f3d210, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seed: 0
   target: {fileID: 0}
   origin1: {fileID: 0}
   player: {fileID: 0}
@@ -103,6 +104,7 @@ MonoBehaviour:
   force: 200
   dir: {x: 0, y: 0, z: 0}
   randomRotate: 1
+  randomZRotate: 0
   forceMultiplier: 1
   levelForceMultiplier: 1
   rigid: {fileID: 3972734140393683440}
@@ -112,6 +114,12 @@ MonoBehaviour:
   randomMaxSize: 10
   minDepth: 1500
   maxDepth: 2000
+  randomWidthMin: -500
+  randomWidthMax: 500
+  randomHeightMin: -500
+  randomHeightMax: 500
+  spawnOnEdge: 0
+  isHoop: 0
 --- !u!54 &3972734140393683440
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -144,6 +152,7 @@ MonoBehaviour:
   - value: 3000
     chance: 1
     colour: {r: 0, g: 0.73562217, b: 1, a: 0.79607844}
+    time: 10
 --- !u!135 &4458132279263171630
 SphereCollider:
   m_ObjectHideFlags: 0

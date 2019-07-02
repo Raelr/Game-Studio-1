@@ -34,9 +34,9 @@ public class SkullLight : MonoBehaviour
     IEnumerator EnableGlow ()
     {
         float et = 0;
-        while (et < 1)
+        while (et < 0.3f)
         {
-            SetGlow(et / 1);
+            SetGlow(et / 0.3f);
             et += Time.deltaTime;
             yield return null;
         }

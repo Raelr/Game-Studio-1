@@ -18,8 +18,5 @@ public class MeshRandomiser : MonoBehaviour
 
         if (meshCollider)
             meshCollider.sharedMesh = chosenMesh;
-
-
-
     }
 }

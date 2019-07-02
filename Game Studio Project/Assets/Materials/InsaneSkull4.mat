@@ -40,7 +40,7 @@ Material:
     - _BumpSize: 0.8
     - _LightAttenuationStrength: 2
     - _NormalizeLightVector: 1
-    - _Shininess: 0.162
+    - _Shininess: 0.952
     - _TransBackfaceIntensity: 0
     - _TransDirectianalLightStrength: 0.2
     - _TransDistortion: 0.254

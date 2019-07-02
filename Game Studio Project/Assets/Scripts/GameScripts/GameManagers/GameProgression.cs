@@ -240,12 +240,12 @@ namespace AlternativeArchitecture
                 return 19;
             }
 
-            if (chance < 110 && level >= 4)
+            if (chance < 113 && level >= 3)
             {
                 return 20;
             }
 
-            if (chance < 115 && level > 1)
+            if (chance < 115 && level > 4)
             {
                 return 21;
             }

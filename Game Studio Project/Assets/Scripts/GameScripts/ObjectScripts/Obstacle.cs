@@ -35,6 +35,8 @@ namespace AlternativeArchitecture
         public float forceMultiplier = 1;
         public float levelForceMultiplier = 1;
 
+        public float growMultiplier = 1;
+
 
         [SerializeField]
         private Rigidbody rigid = null;
@@ -216,7 +218,7 @@ namespace AlternativeArchitecture
             while (timeElapsed < length)
             {
                 SetObstacleSize((maxSize * (timeElapsed / length))+0.01f);
-                timeElapsed += Time.deltaTime;
+                timeElapsed += Time.deltaTime * growMultiplier;
                 yield return null;
             }
 

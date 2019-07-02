@@ -15,6 +15,8 @@ public class CameraEffects : MonoBehaviour
     private Coroutine dashRoutine;
     public float dashOnLength, dashOffLength;
 
+    public AnimationCurve insaneCurve;
+
 
     //DATA MOSH
     public bool moshEnabled = false;
@@ -131,7 +133,7 @@ public class CameraEffects : MonoBehaviour
     
     public void SetInsanityPost (float insanity) //0 to 1
     {
-        insanityPost.weight = GlobalMethods.Remap(insanity, 0.5f, 1f, 0, 1);
+        insanityPost.weight = insaneCurve.Evaluate(GlobalMethods.Remap(insanity, 0.5f, 1f, 0, 1));
         if (insanity < 0.5f)
             insanityPost.weight = 0;
     }

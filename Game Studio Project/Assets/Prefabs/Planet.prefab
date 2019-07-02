@@ -61,15 +61,16 @@ MonoBehaviour:
   randomZRotate: 0
   forceMultiplier: 1
   levelForceMultiplier: 1
+  growMultiplier: 0.04
   rigid: {fileID: 3799935005331675236}
   zDespawn: -200
   useRandomSize: 1
   randomMinSize: 100
-  randomMaxSize: 600
+  randomMaxSize: 500
   minDepth: 6000
-  maxDepth: 9000
-  randomWidthMin: -5000
-  randomWidthMax: 5000
+  maxDepth: 7000
+  randomWidthMin: -3000
+  randomWidthMax: 3000
   randomHeightMin: -800
   randomHeightMax: 800
   spawnOnEdge: 1

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8671163506187063517}
   - component: {fileID: 3089051083488218810}
   - component: {fileID: 8139817960189304159}
+  - component: {fileID: 7921879130920309880}
   m_Layer: 0
   m_Name: Quad
   m_TagString: Untagged
@@ -217,6 +218,22 @@ MonoBehaviour:
   - {fileID: 2800000, guid: e8d621e461ee3ea43b3b92719ce85288, type: 3}
   - {fileID: 2800000, guid: a2710a2b57d913c4d9d9b1b8543695ac, type: 3}
   render: {fileID: 3089051083488218810}
+--- !u!114 &7921879130920309880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2896860945583561480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 853c229e6fbcd094fbb89bc7a5bafbdc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startA: 0.04313726
+  endA: 0.3019608
+  startLevel: 1
+  endLevel: 35
 --- !u!1 &6353200350481746538
 GameObject:
   m_ObjectHideFlags: 0
@@ -285,6 +302,7 @@ MonoBehaviour:
   randomZRotate: 360
   forceMultiplier: 1
   levelForceMultiplier: 1
+  growMultiplier: 1
   rigid: {fileID: 8772105620967289033}
   zDespawn: -200
   useRandomSize: 1
@@ -296,7 +314,11 @@ MonoBehaviour:
   randomWidthMax: 2000
   randomHeightMin: -500
   randomHeightMax: 500
+  spawnOnEdge: 0
   isHoop: 0
+  texRandom: {fileID: 8139817960189304159}
+  meshRandom: {fileID: 0}
+  galaxyTint: {fileID: 7921879130920309880}
 --- !u!54 &8772105620967289033
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -9,7 +9,7 @@ public class MeshRandomiser : MonoBehaviour
     public MeshFilter filter;
     public MeshCollider meshCollider;
 
-    private void Start()
+    public void SetRandom()
     {
         Mesh chosenMesh = meshes[Random.Range(0, meshes.Count)];
 

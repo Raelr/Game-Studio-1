@@ -27,6 +27,8 @@ public class Monster : MonoBehaviour
 
     private bool closeToDeath = false, veryCloseToDeath = false;
 
+    public AudioSource warningAudio, approachAudio, approachAudio2;
+
     private void Start()
     {
         for (int rotation = 0; rotation < 360; rotation += tentacleInterval)
@@ -110,16 +112,50 @@ public class Monster : MonoBehaviour
         {
             HapticEngine.instance.Vibrate(HapticEffect.APPROACH_DEATH);
             closeToDeath = true;
+            warningAudio.Play();
         }
         else if (reveal < 0.7f && closeToDeath)
         {
             HapticEngine.instance.Vibrate(HapticEffect.ESCAPE_DEATH);
             closeToDeath = false;
+            warningAudio.Stop();
+        }
+
+        if (reveal >= 0.5f)
+        {
+            warningAudio.pitch = map(reveal, 0.7f, 1f, 1f, 2f);
         }
 
         if (reveal > 0.99f * timeMultiplier)
         {
             HapticEngine.instance.Vibrate(HapticEffect.ESCAPE_DEATH);
+        }
+
+        if (reveal > 0.7f)
+        {
+            approachAudio.volume = map(reveal, 0.7f, 1f, 0.3f, 1f);
+        }
+        else
+        {
+            approachAudio.volume = 0;
+        }
+
+        if (reveal > 0.4f)
+        {
+            approachAudio2.volume = map(reveal, 0.5f, 0.8f, 0f, 1f);
+        }
+        else
+        {
+            approachAudio2.volume = 0;
+        }
+
+
+
+        if (reveal >= 1f)
+        {
+            approachAudio.Stop();
+            approachAudio2.Stop();
+            warningAudio.Stop();
         }
 
         foreach (TentacleData data in tentacles)
@@ -153,6 +189,11 @@ public class Monster : MonoBehaviour
 
 
         }
+    }
+
+    float map(float s, float a1, float a2, float b1, float b2)
+    {
+        return b1 + (s - a1) * (b2 - b1) / (a2 - a1);
     }
 
     private void MonsterShow()

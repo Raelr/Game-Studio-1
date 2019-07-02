@@ -75,6 +75,9 @@ MonoBehaviour:
   randomHeightMax: 800
   spawnOnEdge: 1
   isHoop: 0
+  texRandom: {fileID: 5057481742313715052}
+  meshRandom: {fileID: 0}
+  galaxyTint: {fileID: 0}
 --- !u!54 &3799935005331675236
 Rigidbody:
   m_ObjectHideFlags: 0

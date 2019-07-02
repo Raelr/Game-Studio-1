@@ -83,8 +83,10 @@ public class PlayerProperties : InitialisedEntity
                 
             } else if (!godMode) {
                 onPlayerLose?.Invoke();
+                CameraEffects.instance.ApplyInsanity(1);
             }
         }
+        
     }
 
     public void DecaySanityByAmount()

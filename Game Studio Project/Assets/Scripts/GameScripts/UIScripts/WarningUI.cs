@@ -10,6 +10,7 @@ public class WarningUI : MonoBehaviour
     private bool startState = true;
     private bool endState = false;
     private float blinkTime = 0.5f;
+    
 
     IEnumerator Flash() {
         while (flashing) {

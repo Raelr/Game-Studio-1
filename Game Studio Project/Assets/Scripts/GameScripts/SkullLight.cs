@@ -8,6 +8,10 @@ public class SkullLight : MonoBehaviour
 
     public Transform meter;
     public float minLight;
+    public AudioSource skullSound;
+    public float pitch;
+    public AudioClip skullBadClip;
+    public AudioClip skullGoodClip;
 
     private bool glowing = false, startedGlowing = false, stoppingGlowing = false;
 
@@ -33,6 +37,9 @@ public class SkullLight : MonoBehaviour
 
     IEnumerator EnableGlow ()
     {
+        skullSound.clip = skullBadClip;
+        skullSound.pitch = pitch;
+        skullSound.Play();
         float et = 0;
         while (et < 0.3f)
         {
@@ -47,6 +54,9 @@ public class SkullLight : MonoBehaviour
 
     IEnumerator DisableGlow()
     {
+      ///  skullSound.clip = skullGoodClip;
+      ///  skullSound.pitch = 1;
+      ///  skullSound.Play();
         float et = 0;
         while (et < 0.5f)
         {

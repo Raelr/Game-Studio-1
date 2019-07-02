@@ -30,7 +30,7 @@ namespace AlternativeArchitecture
         public float levelInterval = 30;
         
         [SerializeField]
-        private int currentLevel = 1;
+        public int currentLevel = 1;
 
         public ProgressUI progressUI;
 

@@ -68,6 +68,10 @@ namespace AlternativeArchitecture
         public bool spawnOnEdge;
 
         public bool isHoop;
+
+        public TextureRandomiser texRandom;
+        public MeshRandomiser meshRandom;
+        public GalaxyTint galaxyTint;
         
 
         private void Start() {
@@ -93,6 +97,12 @@ namespace AlternativeArchitecture
             if (randomRotate) transform.Rotate(new Vector3(Random.Range(0, 360), Random.Range(0, 360), Random.Range(0, 360)));
 
             transform.Rotate(0,0, Random.Range(0, randomZRotate));
+
+
+            if (texRandom) texRandom.SetRandom();
+            if (meshRandom) meshRandom.SetRandom();
+            if (galaxyTint) galaxyTint.ReTint();
+
 
 
             if (isHoop)

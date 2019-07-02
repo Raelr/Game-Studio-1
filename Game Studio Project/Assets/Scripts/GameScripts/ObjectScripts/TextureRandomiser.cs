@@ -8,7 +8,7 @@ public class TextureRandomiser : MonoBehaviour
 
     public MeshRenderer render;
 
-    private void Start()
+    public void SetRandom()
     {
         Texture chosenTexture = textures[Random.Range(0, textures.Count)];
 

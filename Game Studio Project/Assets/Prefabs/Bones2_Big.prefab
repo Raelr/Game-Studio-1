@@ -94,6 +94,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3265ab4a7e978c4f961b53b78f3d210, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seed: 0
   target: {fileID: 0}
   origin1: {fileID: 0}
   player: {fileID: 0}
@@ -102,11 +103,12 @@ MonoBehaviour:
   spawns: []
   spacing: 2.5
   force: 200
-  dist: 800
   dir: {x: 0, y: 0, z: 0}
   randomRotate: 1
+  randomZRotate: 0
   forceMultiplier: 1
   levelForceMultiplier: 1
+  growMultiplier: 1
   rigid: {fileID: 3972734140393683440}
   zDespawn: -200
   useRandomSize: 1
@@ -114,6 +116,15 @@ MonoBehaviour:
   randomMaxSize: 150
   minDepth: 1500
   maxDepth: 2000
+  randomWidthMin: -500
+  randomWidthMax: 500
+  randomHeightMin: -500
+  randomHeightMax: 500
+  spawnOnEdge: 0
+  isHoop: 0
+  texRandom: {fileID: 0}
+  meshRandom: {fileID: 356164020381807057}
+  galaxyTint: {fileID: 0}
 --- !u!54 &3972734140393683440
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -201,7 +212,7 @@ MonoBehaviour:
   - {fileID: 4300072, guid: b724bc8e091b628409e41dd1c36a9ec2, type: 3}
   - {fileID: 4300274, guid: b724bc8e091b628409e41dd1c36a9ec2, type: 3}
   filter: {fileID: 1636532063854592854}
-  collider: {fileID: 8304886772843161032}
+  meshCollider: {fileID: 0}
 --- !u!1 &3558709992355630015
 GameObject:
   m_ObjectHideFlags: 0

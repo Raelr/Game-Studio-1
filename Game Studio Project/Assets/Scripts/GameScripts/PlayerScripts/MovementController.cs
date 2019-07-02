@@ -91,6 +91,7 @@ namespace AlternativeArchitecture {
         public GameObject comboSet;
         public Transform comboScalar;
         public TextMesh comboDoneText;
+        public AudioSource comboDoneSound;
 
         // Initialises all variables and gets the physics component.
         public override void Initialise() {
@@ -293,7 +294,8 @@ namespace AlternativeArchitecture {
 
         IEnumerator comboDoneRoutine;
 
-        private IEnumerator ComboTimer() {
+        private IEnumerator ComboTimer()
+        {
             float et = 0;
             comboScalar.transform.localScale = Vector3.one;
 
@@ -311,6 +313,10 @@ namespace AlternativeArchitecture {
             comboText.text = "";
             comboSet.SetActive(false);
 
+
+            comboDoneSound.pitch = Mathf.Clamp(map(previousCombo, 0, 40, 0.7f, 1.2f), 0.7f, 1.2f);
+            comboDoneSound.Play();
+
             if (comboDoneRoutine != null)
                 StopCoroutine(comboDoneRoutine);
             comboDoneRoutine = ComboDone(previousCombo);
@@ -326,6 +332,8 @@ namespace AlternativeArchitecture {
             comboDoneText.gameObject.SetActive(true);
             yield return new WaitForSeconds (1.5f);
             float onOffCounter = 0;
+
+
             while (et < 2)
             {
                 Color currentCol = comboDoneText.color;
@@ -344,6 +352,11 @@ namespace AlternativeArchitecture {
                 yield return null;
             }
             comboDoneText.color = new Color(1, 1, 1, 0);
+        }
+
+        float map(float s, float a1, float a2, float b1, float b2)
+        {
+            return b1 + (s - a1) * (b2 - b1) / (a2 - a1);
         }
 
 

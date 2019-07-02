@@ -198,6 +198,10 @@ public class UIMaster : Master
         textController.ShowCombo(comboValue, source);
     }
 
+    public void ShowTime(int timeValue, Transform source) {
+        textController.ShowTime(timeValue, source);
+    }
+
     public void ResetGame()
     {
         onReset?.Invoke();

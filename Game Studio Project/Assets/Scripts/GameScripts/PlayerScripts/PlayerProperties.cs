@@ -157,9 +157,8 @@ public class PlayerProperties : InitialisedEntity
     private IEnumerator Freeze(float t) {
         float elapsedTime = 0;
         isFrozen = true;
-        Debug.Log("Meter Frozen");
 
-        if (elapsedTime < t) {
+        while (elapsedTime < t) {
             elapsedTime += Time.deltaTime;
             yield return null;
         }

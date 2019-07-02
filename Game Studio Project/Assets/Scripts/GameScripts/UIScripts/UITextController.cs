@@ -17,6 +17,8 @@ public class UITextController : InitialisedEntity
     UIPoints points = null;
     [SerializeField]
     UIPoints combo = null;
+    [SerializeField]
+    UIPoints time = null;
 
 
     public override void Initialise() {
@@ -66,13 +68,16 @@ public class UITextController : InitialisedEntity
     }
 
     public void ShowCombo(int comboValue, Transform source) {
-        Debug.Log("Combo Showing");
         combo.gameObject.SetActive(true);
         combo.Initialise(comboValue, source, -2);
     }
 
-    public void ChangeTextColor(Color color) {
+    public void ShowTime(int timeValue, Transform source) {
+        time.gameObject.SetActive(true);
+        time.Initialise("+" + 3 + " Seconds!", source, -2);
+    }
 
+    public void ChangeTextColor(Color color) {
         pointSystem.color = color;
     }
 }

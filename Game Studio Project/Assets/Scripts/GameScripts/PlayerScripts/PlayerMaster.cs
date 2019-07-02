@@ -229,6 +229,7 @@ namespace AlternativeArchitecture {
         {
             relicCollectParticle.Emit(relicCollectParticleCount);
             playerProperties.FreezeInsantiyMeter(time);
+            UIMaster.instance.ShowTime((int)time, movementController.GetPlayer());
             relicHitSound.pitch = Random.Range(1.3f, 2f);
             relicHitSound.Play();
         }

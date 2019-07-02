@@ -554,5 +554,9 @@ namespace AlternativeArchitecture {
             UIMaster.instance.UpdatePoints(score);
             UIMaster.instance.ShowPoints(points, player);
         }
+
+        public Transform GetPlayer() {
+            return player;
+        }
     }
 }

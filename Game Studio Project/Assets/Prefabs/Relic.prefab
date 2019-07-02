@@ -31,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 1636532063854592851}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 3, y: 3, z: 3}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -149,10 +149,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pointData:
-  - value: 3000
-    chance: 1
+  - value: 1000
+    chance: 0.5
     colour: {r: 0, g: 0.73562217, b: 1, a: 0.79607844}
-    time: 10
+    time: 1
+  - value: 3000
+    chance: 0.3
+    colour: {r: 0, g: 1, b: 0.41424084, a: 0.79607844}
+    time: 3
+  - value: 5000
+    chance: 0.1
+    colour: {r: 1, g: 0.4861269, b: 0, a: 0.79607844}
+    time: 5
 --- !u!135 &4458132279263171630
 SphereCollider:
   m_ObjectHideFlags: 0
